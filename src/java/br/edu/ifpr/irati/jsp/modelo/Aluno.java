@@ -228,7 +228,9 @@ public class Aluno extends Pessoa implements Serializable {
         return exames;
     }
 
-    // a marina é muito legal ashuasghuadf
+    // a marina é muito legal ashuasghuadf 
+    // a marina e o joão fgtfhyghghyghhygyghsão muito legal
+    // o comunista é muito legal auhsau
     
     
     public void setExames(List<Exame> exames) {
