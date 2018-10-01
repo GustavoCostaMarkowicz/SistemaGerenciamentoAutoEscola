@@ -27,8 +27,14 @@ public class Servico implements Serializable {
         valorVista = 0.0;
         parcelas = new ArrayList<>();
     }
-
-    public Servico(String tipoServico, double valorVista, double valorParcelado, List<RegraParcelas> parcelas) {
+    
+    public Servico(String tipoServico, double valorVista) {
+        this.tipoServico = tipoServico;
+        this.valorVista = valorVista;
+        parcelas = new ArrayList<>();
+    }
+    
+    public Servico(String tipoServico, double valorVista, List<RegraParcelas> parcelas) {
         this.tipoServico = tipoServico;
         this.valorVista = valorVista;
         this.parcelas = parcelas;
