@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>    
+    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/sistemagerenciamentoautoescola</property>
+    <property name="hibernate.hbm2ddl.auto">update</property> <!-- para criar as tabelas sempre que executar pode ser usado o valor create - para apenas atualizar usa-se update -->
+    <property name="hibernate.show_sql">true</property>
+    <property name="hibernate.format_sql">true</property>
+    <property name="hibernate.connection.username">root</property>
+    <property name="hibernate.connection.password"></property>
+    <mapping class="br.edu.ifpr.irati.jsp.modelo.Pessoa"/>
+    <mapping class="br.edu.ifpr.irati.jsp.modelo.Aluno"/>
+    <mapping class="br.edu.ifpr.irati.jsp.modelo.Instrutor"/>
+    <mapping class="br.edu.ifpr.irati.jsp.modelo.Exame"/>
+    <mapping class="br.edu.ifpr.irati.jsp.modelo.ExamePratico"/>
+    <mapping class="br.edu.ifpr.irati.jsp.modelo.ExameTeorico"/>
+    <mapping class="br.edu.ifpr.irati.jsp.modelo.ExameMedico"/>
+    <mapping class="br.edu.ifpr.irati.jsp.modelo.ExamePsicotecnico"/>
+    <mapping class="br.edu.ifpr.irati.jsp.modelo.Conta"/>
+    <mapping class="br.edu.ifpr.irati.jsp.modelo.Registro"/>
+    <mapping class="br.edu.ifpr.irati.jsp.modelo.Usuario"/>
+    <mapping class="br.edu.ifpr.irati.jsp.modelo.Diretor"/>
+    <mapping class="br.edu.ifpr.irati.jsp.modelo.Atendente"/>
+    <mapping class="br.edu.ifpr.irati.jsp.modelo.Servico"/>
+    <mapping class="br.edu.ifpr.irati.jsp.modelo.Veiculo"/>
+    <mapping class="br.edu.ifpr.irati.jsp.modelo.ItemMenu"/>
+  </session-factory>
+</hibernate-configuration>
