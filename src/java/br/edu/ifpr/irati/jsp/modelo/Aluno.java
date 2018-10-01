@@ -228,6 +228,9 @@ public class Aluno extends Pessoa implements Serializable {
         return exames;
     }
 
+    // a marina é muito legal
+    
+    
     public void setExames(List<Exame> exames) {
         this.exames = exames;
     }
