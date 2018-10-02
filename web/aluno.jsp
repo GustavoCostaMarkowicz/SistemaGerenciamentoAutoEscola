@@ -50,8 +50,8 @@
                 <td id="ver"><a href="visualizarAluno.jsp?idatividade=<%=aluno.getIdPessoa()%>" class="waves-effect waves-light btn-floating" value="verMais"><i class="material-icons">control_point</i></a></td>
                 
                 
-              <td><a href="alteraraluno.jsp?idatividade=<%=aluno.getIdPessoa()%>" class="waves-effect waves-light btn" value="Alterar"> Alterar </a></td>
-            <td><a href="scripts/excluiraluno.jsp?idatividade=<%=aluno.getIdPessoa()%>" class="waves-effect waves-light btn" value="Excluir">Excluir</a></td>
+              <td><a href="alterarAluno.jsp?idpessoa=<%=aluno.getIdPessoa()%>" class="waves-effect waves-light btn" value="Alterar"> Alterar </a></td>
+            <td><a href="scripts/excluiraluno.jsp?idpessoa=<%=aluno.getIdPessoa()%>" class="waves-effect waves-light btn" value="Excluir">Excluir</a></td>
           
             </tr>
             
@@ -62,7 +62,12 @@
             <br>
             <a href="cadastrarAluno.jsp" class="waves-effect waves-light btn center" style="padding-left: 500px "> 
             Cadastrar
-          </a>  
+          </a> 
+            <br>
+            <br>
+            <a href="telainicial.jsp" class="waves-effect waves-light btn center" style="padding-left: 500px "> 
+            Voltar
+          </a> 
         </main>
 
         <footer>
