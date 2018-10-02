@@ -19,7 +19,7 @@ public class TesteExameMedico {
             Dao<Aluno> alunoDAO = new GenericDAO<>(Aluno.class);
             Dao<ExameMedico> examemedicoDAO = new GenericDAO<>(ExameMedico.class);
 
-            Aluno a = alunoDAO.buscarPorId(2);
+            Aluno a = alunoDAO.buscarPorId(3);
             List<Aluno> alunos = new ArrayList<>();
             alunos.add(a);
 

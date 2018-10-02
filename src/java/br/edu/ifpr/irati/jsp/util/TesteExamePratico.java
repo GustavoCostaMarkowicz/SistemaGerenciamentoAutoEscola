@@ -23,11 +23,11 @@ public class TesteExamePratico {
             Dao<Aluno> alunoDAO = new GenericDAO<>(Aluno.class);
             Dao<ExamePratico> examepraticoDAO = new GenericDAO<>(ExamePratico.class);
 
-            Instrutor i = instrutorDAO.buscarPorId(1);
+            Instrutor i = instrutorDAO.buscarPorId(5);
 
             Veiculo v = veiculoDAO.buscarPorId("ABC-1234");
 
-            Aluno a1 = alunoDAO.buscarPorId(2);
+            Aluno a1 = alunoDAO.buscarPorId(3);
             Aluno a2 = alunoDAO.buscarPorId(4);
             List<Aluno> alunos = new ArrayList<>();
             alunos.add(a1);

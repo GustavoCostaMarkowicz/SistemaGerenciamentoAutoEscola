@@ -16,7 +16,7 @@ public class TesteRegistro {
         Dao<Usuario> usuarioDAO = new GenericDAO<>(Usuario.class);
         Dao<Registro> registroDAO = new GenericDAO<>(Registro.class);
 
-        Conta c = contaDAO.buscarPorId(5);
+        Conta c = contaDAO.buscarPorId(4);
         
         Usuario u = usuarioDAO.buscarPorId(1);
         

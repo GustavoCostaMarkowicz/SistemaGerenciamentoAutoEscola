@@ -15,7 +15,7 @@ public class TesteResultadoExame {
         Dao<ResultadoExame> resultadoExameDAO = new GenericDAO<>(ResultadoExame.class);
         Dao<Exame> exameDAO = new GenericDAO<>(Exame.class);
 
-        Exame e = exameDAO.buscarPorId(2);
+        Exame e = exameDAO.buscarPorId(4);
 
         List<Aluno> alunosExame = e.getAlunos();
 
@@ -32,8 +32,11 @@ public class TesteResultadoExame {
             resultadoExameDAO.salvar(re);
         }
 
-        List<ResultadoExame> parcelas = resultadoExameDAO.buscarTodos(ResultadoExame.class);
-        for (ResultadoExame parcela : parcelas) {
+        List<ResultadoExame> resultadosExame = resultadoExameDAO.buscarTodos(ResultadoExame.class);
+        for (ResultadoExame resultadoExame : resultadosExame) {
+            System.out.println(resultadoExame.getAluno().getNomeCompleto());
+            System.out.println(resultadoExame.getExame().getDataExame());
+            System.out.println(resultadoExame.isResultado());
         }
 
         System.exit(0);

@@ -19,7 +19,7 @@ public class TesteExamePsicotecnico {
             Dao<Aluno> alunoDAO = new GenericDAO<>(Aluno.class);
             Dao<ExamePsicotecnico> examepsicotecnicoDAO = new GenericDAO<>(ExamePsicotecnico.class);
 
-            Aluno a = alunoDAO.buscarPorId(2);
+            Aluno a = alunoDAO.buscarPorId(4);
             List<Aluno> alunos = new ArrayList<>();
             alunos.add(a);
 
