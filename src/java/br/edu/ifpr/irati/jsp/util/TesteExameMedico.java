@@ -26,9 +26,8 @@ public class TesteExameMedico {
             List<Aluno> alunos = new ArrayList<>();
             alunos.add(a);
             
+            ExameMedico em = new ExameMedico("Medico 1", "Clinica 1", 0, new SimpleDateFormat("dd/MM/yyyy").parse("10/10/2018"), new SimpleDateFormat("HH:mm").parse("16:00"), 1, false, alunos);
             
-            ExameMedico em = new ExameMedico("Medico 1", "Clinica 1", 0, new SimpleDateFormat("dd/MM/yyyy").parse("10/10/2018"), new SimpleDateFormat("HH:mm").parse("16:00"), resultadosExame, 1, false, alunos);
-
             examemedicoDAO.salvar(em);
             
             List<ExameMedico> examesmedicos = examemedicoDAO.buscarTodos(ExameMedico.class);

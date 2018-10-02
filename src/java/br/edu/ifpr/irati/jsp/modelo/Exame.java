@@ -35,9 +35,6 @@ public class Exame implements Serializable {
     @Temporal(TemporalType.TIME)
     protected Date horarioExame;
 
-    @OneToMany(mappedBy = "exame")
-    protected List<ResultadoExame> resultadoExame;
-
     @Column(name = "maximoalunos", nullable = false)
     protected int maximoAlunos;
 
@@ -47,6 +44,9 @@ public class Exame implements Serializable {
 
     @ManyToMany(fetch = FetchType.EAGER)
     protected List<Aluno> alunos;
+    
+    @OneToMany(mappedBy = "exame")
+    protected List<ResultadoExame> resultadoExame;
 
     public Exame() {
         idExame = 0;
@@ -56,6 +56,16 @@ public class Exame implements Serializable {
         maximoAlunos = 0;
         reteste = false;
         alunos = new ArrayList<>();
+    }
+    
+    public Exame(int idExame, Date dataExame, Date horarioExame, int maximoAlunos, boolean reteste, List<Aluno> alunos) {
+        this.idExame = idExame;
+        this.dataExame = dataExame;
+        this.horarioExame = horarioExame;
+        resultadoExame = new ArrayList<>();
+        this.maximoAlunos = maximoAlunos;
+        this.reteste = reteste;
+        this.alunos = alunos;
     }
 
     public Exame(int idExame, Date dataExame, Date horarioExame, List<ResultadoExame> resultadoExame, int maximoAlunos, boolean reteste, List<Aluno> alunos) {
