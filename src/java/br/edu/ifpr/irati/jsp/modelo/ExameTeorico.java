@@ -29,6 +29,13 @@ public class ExameTeorico extends Exame implements Serializable {
         instrutor = new Instrutor();
     }
 
+    public ExameTeorico(String servico, String localAplicacao, Instrutor instrutor, int idExame, Date dataExame, Date horarioExame, int maximoAlunos, boolean reteste, List<Aluno> alunos) {
+        super(idExame, dataExame, horarioExame, maximoAlunos, reteste, alunos);
+        this.servico = servico;
+        this.localAplicacao = localAplicacao;
+        this.instrutor = instrutor;
+    }
+
     public ExameTeorico(String servico, String localAplicacao, Instrutor instrutor, int idExame, Date dataExame, Date horarioExame, List<ResultadoExame> resultadoExame, int maximoAlunos, boolean reteste, List<Aluno> alunos) {
         super(idExame, dataExame, horarioExame, resultadoExame, maximoAlunos, reteste, alunos);
         this.servico = servico;

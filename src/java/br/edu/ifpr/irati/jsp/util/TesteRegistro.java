@@ -17,13 +17,9 @@ public class TesteRegistro {
         Dao<Registro> registroDAO = new GenericDAO<>(Registro.class);
 
         Conta c = contaDAO.buscarPorId(5);
-        List<Usuario> usuarios = usuarioDAO.buscarTodos(Usuario.class);
-        Usuario u = new Usuario();
-        for (Usuario usuario : usuarios) {
-            if (usuario.getIdUsuario() == 1) {
-                u = usuario;
-            }
-        }
+        
+        Usuario u = usuarioDAO.buscarPorId(1);
+        
         Registro r = new Registro(0, new Date(), new Date(), " -- Pagamento parcela mês setembro - R$130,00", c, u);
 
         registroDAO.salvar(r);
@@ -31,6 +27,7 @@ public class TesteRegistro {
         List<Registro> registros = registroDAO.buscarTodos(Registro.class);
         for (Registro registro : registros) {
             System.out.println(registro.getConta().getAluno().getNomeCompleto());
+            System.out.println(registro.getTextoRegistro());
         }
 
         System.exit(0);

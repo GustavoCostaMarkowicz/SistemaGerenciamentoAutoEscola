@@ -19,22 +19,14 @@ public class TesteExamePsicotecnico {
             Dao<Aluno> alunoDAO = new GenericDAO<>(Aluno.class);
             Dao<ExamePsicotecnico> examepsicotecnicoDAO = new GenericDAO<>(ExamePsicotecnico.class);
 
-            List<Boolean> resultadosExame = new ArrayList<>();
-            resultadosExame.add(Boolean.FALSE);
-            List<Aluno> alunos = alunoDAO.buscarTodos(Aluno.class);
-            Aluno a = new Aluno();
-            for (Aluno aluno : alunos) {
-                if (aluno.getIdPessoa() == 5) {
-                    a = aluno;
-                }
-            }
-            alunos = new ArrayList<>();
+            Aluno a = alunoDAO.buscarPorId(2);
+            List<Aluno> alunos = new ArrayList<>();
             alunos.add(a);
 
-            ExamePsicotecnico ep = new ExamePsicotecnico("Psicologo 2", "Clinica 2", 0, new SimpleDateFormat("dd/MM/yyyy").parse("10/14/2018"), new SimpleDateFormat("HH:mm").parse("07:00"), resultadosExame, 1, false, alunos);
+            ExamePsicotecnico ep = new ExamePsicotecnico("Psicologo 2", "Clinica 2", 0, new SimpleDateFormat("dd/MM/yyyy").parse("10/14/2018"), new SimpleDateFormat("HH:mm").parse("07:00"), 1, false, alunos);
 
             examepsicotecnicoDAO.salvar(ep);
-            
+
             List<ExamePsicotecnico> examespsicotecnicos = examepsicotecnicoDAO.buscarTodos(ExamePsicotecnico.class);
             for (ExamePsicotecnico examepsicotecnico : examespsicotecnicos) {
                 System.out.println(examepsicotecnico.getClinica());
