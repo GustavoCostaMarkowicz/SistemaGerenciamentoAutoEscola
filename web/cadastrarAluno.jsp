@@ -19,8 +19,8 @@
         <form  action="scripts/aluno.jsp" method="post" >
 
             <p> Nome Completo: <input type="text" name="nome" value="" size="60"></p>
-            <p> Data Nascimento: <input type="date" name="datanascimento" value="" size="14"> </p>
-            <p> Sexo: <input type="date" name="datanascimento" value="" size="14"></p>
+            <p> Data Nascimento: <input type="text" name="datanascimento" value="" size="14"> </p>
+            <p> Sexo: <input type="text" name="sexo" value="" size="14"></p>
             <p> RG: <input type="text" name="rg" value="" size="15"> </p>
             <p> Órgão RG: <input type="text" name="orgaorg" value="" size="15"> </p>
             <p> CPF: <input type="text" name="cpf" value="" size="15"> </p>
@@ -34,7 +34,7 @@
             <p> Cep: <input type="text" name="cep" value="" size="15"> </p>
             <p> Bairro: <input type="text" name="bairro" value="" size="15"> </p>
             <p> Telefone: <input type="text" name="telefone" value="" size="15"> </p>
-            <p> Telefone Celular: <input type="telefonecelular" name="tipo" value="" size="15"> </p>
+            <p> Telefone Celular: <input type="text" name="telefonecelular" value="" size="15"> </p>
             <p> UF: <input type="text" name="uf" value="" size="15"> </p>
             <p> Estado Civil: <input type="text" name="estadocivil" value="" size="15"> </p>
             <p> Naturalidade: <input type="text" name="naturalidade" value="" size="15"> </p>

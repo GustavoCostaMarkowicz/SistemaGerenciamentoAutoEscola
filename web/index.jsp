@@ -51,6 +51,8 @@
                     <div class="input-field col s12">
                         <button href="telainicial.jsp" class="waves-effect waves-light btn" type="submit">Login
                         </button>
+                        <button href="telainicial.jsp" class="waves-effect waves-light btn" type="button">Entrar
+                        </button>
                     </div>
                 </div>
             </div>

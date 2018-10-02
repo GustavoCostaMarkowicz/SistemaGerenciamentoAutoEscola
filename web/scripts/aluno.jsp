@@ -18,7 +18,7 @@
     </head>
     <body>
         <%
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
             
             String nomeCompleto = request.getParameter("nome");
             String sData = request.getParameter("datanascimento");
@@ -59,7 +59,7 @@
             ControleAluno ca = new ControleAluno();
             
                 ca.inserirAluno(a);
-                response.sendRedirect("../index.jsp");
+                response.sendRedirect("../aluno.jsp");
             
             
 

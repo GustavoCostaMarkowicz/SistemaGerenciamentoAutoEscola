@@ -227,7 +227,7 @@ public class Aluno extends Pessoa implements Serializable {
     public List<Exame> getExames() {
         return exames;
     }
-    
+
     public void setExames(List<Exame> exames) {
         this.exames = exames;
     }

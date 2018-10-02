@@ -50,7 +50,7 @@
                 <td id="ver"><a href="visualizarAluno.jsp?idatividade=<%=aluno.getIdPessoa()%>" class="waves-effect waves-light btn-floating" value="verMais"><i class="material-icons">control_point</i></a></td>
                 
                 
-              <td><a href="alterarAluno.jsp?idatividade=<%=aluno.getIdPessoa()%>" class="waves-effect waves-light btn" value="Alterar"> Alterar </a></td>
+              <td><a href="alteraraluno.jsp?idatividade=<%=aluno.getIdPessoa()%>" class="waves-effect waves-light btn" value="Alterar"> Alterar </a></td>
             <td><a href="scripts/excluiraluno.jsp?idatividade=<%=aluno.getIdPessoa()%>" class="waves-effect waves-light btn" value="Excluir">Excluir</a></td>
           
             </tr>

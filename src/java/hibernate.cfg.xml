@@ -7,6 +7,7 @@
     <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/sistemagerenciamentoautoescola</property>
     <property name="hibernate.hbm2ddl.auto">update</property> <!-- para criar as tabelas sempre que executar pode ser usado o valor create - para apenas atualizar usa-se update -->
     <property name="hibernate.show_sql">true</property>
+    <property name="hibernate.enable_lazy_load_no_trans">true</property>
     <property name="hibernate.format_sql">true</property>
     <property name="hibernate.connection.username">root</property>
     <property name="hibernate.connection.password"></property>
@@ -26,5 +27,7 @@
     <mapping class="br.edu.ifpr.irati.jsp.modelo.Servico"/>
     <mapping class="br.edu.ifpr.irati.jsp.modelo.Veiculo"/>
     <mapping class="br.edu.ifpr.irati.jsp.modelo.ItemMenu"/>
+    <mapping class="br.edu.ifpr.irati.jsp.modelo.ResultadoExame"/>
+    <mapping class="br.edu.ifpr.irati.jsp.modelo.RegraParcelas"/>
   </session-factory>
 </hibernate-configuration>

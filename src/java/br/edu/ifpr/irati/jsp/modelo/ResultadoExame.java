@@ -1,20 +1,17 @@
 package br.edu.ifpr.irati.jsp.modelo;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import org.hibernate.annotations.Type;
 
 @Entity(name = "resultadoexame")
 public class ResultadoExame implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int idResultadoExame;
-
     @ManyToOne
     @JoinColumn(name = "aluno_idPessoa")
     private Aluno aluno;
@@ -22,12 +19,12 @@ public class ResultadoExame implements Serializable {
     @ManyToOne
     @JoinColumn(name = "exame_idExame")
     private Exame exame;
-    
-    
+
+    @Type(type = "true_false")
+    @Column(name = "resultado", nullable = true)
     private boolean resultado;
 
     public ResultadoExame() {
-        idResultadoExame = 0;
         aluno = new Aluno();
         exame = new Exame();
         resultado = false;
@@ -61,14 +58,6 @@ public class ResultadoExame implements Serializable {
 
     public void setResultado(boolean resultado) {
         this.resultado = resultado;
-    }
-
-    public int getIdResultadoExame() {
-        return idResultadoExame;
-    }
-
-    public void setIdResultadoExame(int idResultadoExame) {
-        this.idResultadoExame = idResultadoExame;
     }
 
 }
