@@ -21,6 +21,12 @@ public class ExameMedico extends Exame implements Serializable {
         medico = "";
         clinica = "";
     }
+    
+    public ExameMedico(String medico, String clinica, int idExame, Date dataExame, Date horarioExame, int maximoAlunos, boolean reteste, List<Aluno> alunos) {
+        super(idExame, dataExame, horarioExame, maximoAlunos, reteste, alunos);
+        this.medico = medico;
+        this.clinica = clinica;
+    }
 
     public ExameMedico(String medico, String clinica, int idExame, Date dataExame, Date horarioExame, List<ResultadoExame> resultadoExame, int maximoAlunos, boolean reteste, List<Aluno> alunos) {
         super(idExame, dataExame, horarioExame, resultadoExame, maximoAlunos, reteste, alunos);

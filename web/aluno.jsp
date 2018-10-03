@@ -47,7 +47,7 @@
                 <td><%=aluno.getCpf() %></td>
                 <td><%=aluno.getRg() %></td>
                 <td><%=sdf1.format(aluno.getDataNascimento())%></td>
-                <td id="ver"><a href="visualizarAluno.jsp?idatividade=<%=aluno.getIdPessoa()%>" class="waves-effect waves-light btn-floating" value="verMais"><i class="material-icons">control_point</i></a></td>
+                <td id="ver"><a href="mostrarAluno.jsp?idatividade=<%=aluno.getIdPessoa()%>" class="waves-effect waves-light btn-floating" value="verMais"><i class="material-icons">control_point</i></a></td>
                 
                 
               <td><a href="alterarAluno.jsp?idpessoa=<%=aluno.getIdPessoa()%>" class="waves-effect waves-light btn" value="Alterar"> Alterar </a></td>
