@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -22,7 +23,7 @@ public class Conta implements Serializable {
     @Column(name = "parcelas", nullable = false)
     private int parcelas;
 
-    @OneToMany(mappedBy = "conta")
+    @ManyToMany
     private List<Registro> registros;
 
     @OneToMany
