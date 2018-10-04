@@ -5,6 +5,7 @@
 --%>
 
 
+<%@page import="javax.swing.JOptionPane"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="br.edu.ifpr.irati.jsp.controle.ControleAluno"%>
@@ -18,7 +19,10 @@
     </head>
     <body>
         <%
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+            
+            request.setCharacterEncoding("UTF-8");
+            
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             
             String nomeCompleto = request.getParameter("nome");
             String sData = request.getParameter("datanascimento");
@@ -53,6 +57,11 @@
                 doadorOrgaos = true;
             }
             
+            int ano1 = dataNascimento.getYear();
+            int ano2 = dataCadastro.getYear();
+            System.err.println("Ano Teste " + ano1);
+            System.err.println("Ano Teste 2 " + ano2);
+            
             Aluno a = new Aluno(orgaoRg, uf, estadoCivil, nomePai, nomeMae, dataNascimento, naturalidade, nacionalidade, sexo, grauInstrucao, doadorOrgaos, tipoSanguineo, email, 0, nomeCompleto, dataCadastro, cidade, estado, endereco, numero, complemento, cep, bairro, telefone, telefoneCelular, rg, cpf);
             
             
@@ -61,7 +70,7 @@
                 ca.inserirAluno(a);
                 response.sendRedirect("../aluno.jsp");
             
-            
+           
 
             
         %>

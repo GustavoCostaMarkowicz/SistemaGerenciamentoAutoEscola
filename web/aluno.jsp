@@ -13,61 +13,64 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="  crossorigin="anonymous"></script>
     </head>
-    
-    
+
+
     <body>
         <header>
             <jsp:include page="cabecalho.jsp" flush="true" />
         </header>
 
         <main>
-             <table class="centered striped">
-                 <tr>
-                <th>Nome Completo</th>
-                <th>CPF</th>
-                <th>RG</th>
-                <th>Data de Nascimento</th>
-                <th></th>
-                
-                <th></th>
-                <th></th>
-                
-            </tr>
-            <%
-                SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy");
-                ControleAluno controleAluno = new ControleAluno();
-                List<Aluno> alunos = new ArrayList();
-                alunos = controleAluno.buscarTodosAlunos();
-                
-                
-                for(Aluno aluno: alunos){
-            %>
-            <tr>
-                <td><%=aluno.getNomeCompleto() %></td>
-                <td><%=aluno.getCpf() %></td>
-                <td><%=aluno.getRg() %></td>
-                <td><%=sdf1.format(aluno.getDataNascimento())%></td>
-                <td id="ver"><a href="mostrarAluno.jsp?idatividade=<%=aluno.getIdPessoa()%>" class="waves-effect waves-light btn-floating" value="verMais"><i class="material-icons">control_point</i></a></td>
-                
-                
-              <td><a href="alterarAluno.jsp?idpessoa=<%=aluno.getIdPessoa()%>" class="waves-effect waves-light btn" value="Alterar"> Alterar </a></td>
-            <td><a href="scripts/excluiraluno.jsp?idpessoa=<%=aluno.getIdPessoa()%>" class="waves-effect waves-light btn" value="Excluir">Excluir</a></td>
-          
-            </tr>
-            
-            <%
-                }
-            %>
+            <table class="centered striped">
+                <tr>
+                    <th>Nome Completo</th>
+                    <th>CPF</th>
+                    <th>RG</th>
+                    <th>Data de Nascimento</th>
+                    <th></th>
+
+                    <th></th>
+                    <th></th>
+
+                </tr>
+                <%
+                    SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy");
+                    ControleAluno controleAluno = new ControleAluno();
+                    List<Aluno> alunos = new ArrayList();
+                    alunos = controleAluno.buscarTodosAlunos();
+
+                    for (Aluno aluno : alunos) {
+                %>
+                <tr>
+                    <td><%=aluno.getNomeCompleto()%></td>
+                    <td><%=aluno.getCpf()%></td>
+                    <td><%=aluno.getRg()%></td>
+                    <td><%=sdf1.format(aluno.getDataNascimento())%></td>
+                    <td id="ver"><a href="mostrarAluno.jsp?idpessoa=<%=aluno.getIdPessoa()%>" class="waves-effect waves-light btn-floating" value="verMais"><i class="material-icons">control_point</i></a></td>
+
+
+                    <td><a href="alterarAluno.jsp?idpessoa=<%=aluno.getIdPessoa()%>" class="waves-effect waves-light btn" value="Alterar"> Alterar </a></td>
+                    <td><a href="scripts/excluiraluno.jsp?idpessoa=<%=aluno.getIdPessoa()%>" class="waves-effect waves-light btn" value="Excluir">Excluir</a></td>
+
+                </tr>
+
+                <%
+                    }
+                %>
             </table>
             <br>
-            <a href="cadastrarAluno.jsp" class="waves-effect waves-light btn center" style="padding-left: 500px "> 
-            Cadastrar
-          </a> 
+            <div align="center">
+            <a href="cadastrarAluno.jsp" class="waves-effect waves-light btn center"> 
+                Cadastrar
+            </a> 
+            </div>
             <br>
-            <br>
-            <a href="telainicial.jsp" class="waves-effect waves-light btn center" style="padding-left: 500px "> 
-            Voltar
-          </a> 
+            
+            <div align="center">
+                <a href="telainicial.jsp" class="waves-effect waves-light btn center"> 
+                    Voltar
+                </a> 
+            </div>
         </main>
 
         <footer>
