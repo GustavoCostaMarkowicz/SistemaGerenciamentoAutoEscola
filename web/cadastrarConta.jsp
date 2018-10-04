@@ -15,15 +15,25 @@
         <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="  crossorigin="anonymous"></script>
     </head>
     <body>
-         <form  action="scripts/conta.jsp" method="post" >
+        <header>
+            <jsp:include page="cabecalho.jsp" flush="true" />
+        </header>
+        <form  action="scripts/conta.jsp" method="post" >
 
             <p> Matrícula do aluno: <input type="text" name="id" value="" size="60"></p>
             <p> Valor de Entrada: <input type="text" name="valorentrada" value="" size="15"> </p>
-            <p> Serviço: <input type="text" name="servico" value="" size="14"> </p>
+            <label>Serviço: </label>
+            <select class="browser-default">
+                <option value="" disabled selected>Escolha o Serviço</option>
+                <option value="1">Option 1</option>
+            </select>
             <p> Valor Total: <input type="text" name="valortotal" value="" size="14"></p>
             <p> Parcelas: <input type="text" name="parcelas" value="" size="15"> </p>
 
             <input type="submit" value="Salvar" name="salvar"/>
         </form>
+        <footer>
+            <jsp:include page="rodape.jsp" flush="true" />
+        </footer>
     </body>
 </html>

@@ -22,6 +22,12 @@ public class ExamePsicotecnico extends Exame implements Serializable {
         psicologo = "";
         clinica = "";
     }
+    
+    public ExamePsicotecnico(String psicologo, String clinica, int idExame, Date dataExame, Date horarioExame, int maximoAlunos, boolean reteste, List<Aluno> alunos) {
+        super(idExame, dataExame, horarioExame, maximoAlunos, reteste, alunos);
+        this.psicologo = psicologo;
+        this.clinica = clinica;
+    }
 
     public ExamePsicotecnico(String psicologo, String clinica, int idExame, Date dataExame, Date horarioExame, List<ResultadoExame> resultadoExame, int maximoAlunos, boolean reteste, List<Aluno> alunos) {
         super(idExame, dataExame, horarioExame, resultadoExame, maximoAlunos, reteste, alunos);

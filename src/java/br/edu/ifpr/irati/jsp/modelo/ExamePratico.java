@@ -30,6 +30,13 @@ public class ExamePratico extends Exame implements Serializable {
         veiculo = new Veiculo();
     }
 
+    public ExamePratico(String categoria, Instrutor instrutor, Veiculo veiculo, int idExame, Date dataExame, Date horarioExame, int maximoAlunos, boolean reteste, List<Aluno> alunos) {
+        super(idExame, dataExame, horarioExame, maximoAlunos, reteste, alunos);
+        this.categoria = categoria;
+        this.instrutor = instrutor;
+        this.veiculo = veiculo;
+    }
+
     public ExamePratico(String categoria, Instrutor instrutor, Veiculo veiculo, int idExame, Date dataExame, Date horarioExame, List<ResultadoExame> resultadoExame, int maximoAlunos, boolean reteste, List<Aluno> alunos) {
         super(idExame, dataExame, horarioExame, resultadoExame, maximoAlunos, reteste, alunos);
         this.categoria = categoria;

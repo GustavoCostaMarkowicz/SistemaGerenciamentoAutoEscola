@@ -16,6 +16,9 @@
     </head>
 
     <body>
+        <header>
+            <jsp:include page="cabecalho.jsp" flush="true" />
+        </header>
         <form  action="scripts/aluno.jsp" method="post" >
 
             <p> Nome Completo: <input type="text" name="nome" value="" size="60"></p>
@@ -47,5 +50,8 @@
 
             <input type="submit" value="Salvar" name="salvar"/>
         </form>
+         <footer>
+            <jsp:include page="rodape.jsp" flush="true" />
+        </footer>
     </body>
 </html>

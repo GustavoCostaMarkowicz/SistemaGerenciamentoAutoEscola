@@ -57,14 +57,14 @@
             
             List<Registro> registros = new ArrayList<>();
            
-           // Conta c = new Conta(valorTotal, parcelas, a, registros, servicoA);
+            Conta c = new Conta(valorTotal, parcelas, a, registros, servicoA);
             
             Usuario usuario = new Usuario();
             
-            //Registro r = new Registro(0, new Date(), new Date(), "Criação da Conta com valor de entrada de: " + valorEntrada, c, usuario);
+            Registro r = new Registro(0, new Date(), new Date(), "Criação da Conta com valor de entrada de: " + valorEntrada, c, usuario);
 
             
-           // registros.add(r);
+            registros.add(r);
             
 
         
