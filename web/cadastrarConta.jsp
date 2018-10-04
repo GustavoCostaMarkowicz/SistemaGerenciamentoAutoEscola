@@ -17,11 +17,11 @@
     <body>
          <form  action="scripts/conta.jsp" method="post" >
 
-            <p> Aluno: <input type="text" name="nome" value="" size="60"></p>
-            <p> Valor de Entrada: <input type="text" name="orgaorg" value="" size="15"> </p>
-            <p> Serviço: <input type="text" name="datanascimento" value="" size="14"> </p>
-            <p> Valor Total: <input type="text" name="sexo" value="" size="14"></p>
-            <p> Parcelas: <input type="text" name="rg" value="" size="15"> </p>
+            <p> Matrícula do aluno: <input type="text" name="id" value="" size="60"></p>
+            <p> Valor de Entrada: <input type="text" name="valorentrada" value="" size="15"> </p>
+            <p> Serviço: <input type="text" name="servico" value="" size="14"> </p>
+            <p> Valor Total: <input type="text" name="valortotal" value="" size="14"></p>
+            <p> Parcelas: <input type="text" name="parcelas" value="" size="15"> </p>
 
             <input type="submit" value="Salvar" name="salvar"/>
         </form>

@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -25,31 +27,31 @@ public class Conta implements Serializable {
     @OneToMany(mappedBy = "conta")
     private List<Registro> registros;
 
-    @OneToMany
-    private List<Servico> servico;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<Servico> servicos;
 
     public Conta() {
         valorTotal = 0.0;
         parcelas = 0;
         aluno = new Aluno();
         registros = new ArrayList<>();
-        servico = new ArrayList<>();
+        servicos = new ArrayList<>();
     }
 
-    public Conta(double valorTotal, int parcelas, Aluno aluno, List<Servico> servico) {
+    public Conta(double valorTotal, int parcelas, Aluno aluno, List<Servico> servicos) {
         this.valorTotal = valorTotal;
         this.parcelas = parcelas;
         this.aluno = aluno;
         registros = new ArrayList<>();
-        this.servico = servico;
+        this.servicos = servicos;
     }
 
-    public Conta(double valorTotal, int parcelas, Aluno aluno, List<Registro> registros, List<Servico> servico) {
+    public Conta(double valorTotal, int parcelas, Aluno aluno, List<Registro> registros, List<Servico> servicos) {
         this.valorTotal = valorTotal;
         this.parcelas = parcelas;
         this.aluno = aluno;
         this.registros = registros;
-        this.servico = servico;
+        this.servicos = servicos;
     }
 
     public double getValorTotal() {
@@ -84,12 +86,12 @@ public class Conta implements Serializable {
         this.registros = registros;
     }
 
-    public List<Servico> getServico() {
-        return servico;
+    public List<Servico> getServicos() {
+        return servicos;
     }
 
-    public void setServico(List<Servico> servico) {
-        this.servico = servico;
+    public void setServicos(List<Servico> servicos) {
+        this.servicos = servicos;
     }
 
 }

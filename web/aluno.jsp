@@ -23,6 +23,7 @@
         <main>
             <table class="centered striped">
                 <tr>
+                    <th>Matrícula: </th>
                     <th>Nome Completo</th>
                     <th>CPF</th>
                     <th>RG</th>
@@ -42,6 +43,7 @@
                     for (Aluno aluno : alunos) {
                 %>
                 <tr>
+                    <td><%=aluno.getIdPessoa()%></td>
                     <td><%=aluno.getNomeCompleto()%></td>
                     <td><%=aluno.getCpf()%></td>
                     <td><%=aluno.getRg()%></td>

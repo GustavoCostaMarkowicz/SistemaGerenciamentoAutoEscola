@@ -7,7 +7,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import org.hibernate.annotations.Proxy;
 
 @Entity(name = "servico")
 public class Servico implements Serializable {
@@ -27,13 +26,13 @@ public class Servico implements Serializable {
         valorVista = 0.0;
         parcelas = new ArrayList<>();
     }
-    
+
     public Servico(String tipoServico, double valorVista) {
         this.tipoServico = tipoServico;
         this.valorVista = valorVista;
         parcelas = new ArrayList<>();
     }
-    
+
     public Servico(String tipoServico, double valorVista, List<RegraParcelas> parcelas) {
         this.tipoServico = tipoServico;
         this.valorVista = valorVista;
