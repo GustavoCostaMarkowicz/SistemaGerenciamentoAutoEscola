@@ -20,37 +20,121 @@
             <jsp:include page="cabecalho.jsp" flush="true" />
         </header>
         <form  action="scripts/aluno.jsp" method="post" >
-
-            <p> Nome Completo: <input type="text" name="nome" value="" size="60"></p>
-            <p> Data Nascimento: <input type="text" name="datanascimento" value="" size="14"> </p>
-            <p> Sexo: <input type="text" name="sexo" value="" size="14"></p>
+            
+            <h6 align="center"> Dados Pessoais do Aluno </h6> 
+           
+            <div class="row">
+                <div class="input-field col s4">
+                    <p> Nome Completo: <input type="text" name="nome" value="" size="60"></p>
+                </div>
+                <div class="input-field col s4">
+                    <p> Data Nascimento: <input type="text" name="datanascimento" value="" size="14"> </p>
+                </div>
+                <div class="input-field col s4">
+                    <p> Sexo: <input type="text" name="sexo" value="" size="14"></p>
+                </div>
+            </div>
+            
+            <div class="row">
+            <div class="input-field col s3">
             <p> RG: <input type="text" name="rg" value="" size="15"> </p>
+            </div>
+            <div class="input-field col s3">
             <p> Órgão RG: <input type="text" name="orgaorg" value="" size="15"> </p>
-            <p> CPF: <input type="text" name="cpf" value="" size="15"> </p>
-            <p> Nome do Pai: <input type="text" name="nomepai" value="" size="15"> </p>
-            <p> Nome da Mãe: <input type="text" name="nomemae" value="" size="15"> </p>
-            <p> Cidade: <input type="text" name="cidade" value="" size="15"> </p>
-            <p> Estado: <input type="text" name="estado" value="" size="15"> </p>
-            <p> Endereço: <input type="text" name="endereco" value="" size="15"> </p>
-            <p> Número: <input type="text" name="numero" value="" size="15"> </p>
-            <p> Complemento: <input type="text" name="complemento" value="" size="15"> </p>
-            <p> Cep: <input type="text" name="cep" value="" size="15"> </p>
-            <p> Bairro: <input type="text" name="bairro" value="" size="15"> </p>
-            <p> Telefone: <input type="text" name="telefone" value="" size="15"> </p>
-            <p> Telefone Celular: <input type="text" name="telefonecelular" value="" size="15"> </p>
+            </div>
+            <div class="input-field col s3">
             <p> UF: <input type="text" name="uf" value="" size="15"> </p>
+            </div>
+            <div class="input-field col s3">
+            <p> CPF: <input type="text" name="cpf" value="" size="15"> </p>
+            </div>
+            </div>
+            
+            <div class="row">
+            <div class="input-field col s6">
+            <p> Nome do Pai: <input type="text" name="nomepai" value="" size="50"> </p>
+            </div>
+            <div class="input-field col s6">
+            <p> Nome da Mãe: <input type="text" name="nomemae" value="" size="50"> </p>
+            </div>
+            </div>
+            
+            <h6 align="center"> Dados de Moradia </h6> 
+            
+            <div class="row">
+            <div class="input-field col s4">
+            <p> Cidade: <input type="text" name="cidade" value="" size="15"> </p>
+            </div>
+            <div class="input-field col s4">
+            <p> Estado: <input type="text" name="estado" value="" size="15"> </p>
+            </div>
+            <div class="input-field col s4">
+            <p> Cep: <input type="text" name="cep" value="" size="15"> </p>
+            </div>
+            </div>
+            
+            <div class="row">
+            <div class="input-field col s3">
+            <p> Endereço: <input type="text" name="endereco" value="" size="15"> </p>
+            </div>
+            <div class="input-field col s3">
+            <p> Número: <input type="text" name="numero" value="" size="15"> </p>
+            </div>
+            <div class="input-field col s3">
+            <p> Complemento: <input type="text" name="complemento" value="" size="15"> </p>
+            </div>
+            <div class="input-field col s3">
+            <p> Bairro: <input type="text" name="bairro" value="" size="15"> </p>
+            </div>
+            </div>
+            
+            <div class="row">
+            <div class="input-field col s6">
             <p> Estado Civil: <input type="text" name="estadocivil" value="" size="15"> </p>
-            <p> Naturalidade: <input type="text" name="naturalidade" value="" size="15"> </p>
-            <p> Nacionalidade: <input type="text" name="nacionalidade" value="" size="15"> </p>
+            </div>
+            <div class="input-field col s6">
             <p> Grau Instrução: <input type="text" name="grauinstrucao" value="" size="15"> </p>
+            </div>
+            </div>
+            <div class="row">
+            <div class="input-field col s6">
+            <p> Naturalidade: <input type="text" name="naturalidade" value="" size="15"> </p>
+            </div>
+            <div class="input-field col s6">
+            <p> Nacionalidade: <input type="text" name="nacionalidade" value="" size="15"> </p>
+            </div>
+            </div>
+            <div class="row">
+            <div class="input-field col s6">
             <p> Doador Órgãos: <input type="text" name="doadororgaos" value="" size="15"> </p>
+            </div>
+            <div class="input-field col s6">
             <p> Tipo Sanguíneo: <input type="text" name="tiposanguineo" value="" size="15"> </p>
+            </div>
+            </div>
+            
+            
+            <h6 align="center"> Contato </h6> 
+            
+            <div class="row">
+            <div class="input-field col s6">
+            <p> Telefone: <input type="text" name="telefone" value="" size="15"> </p>
+            </div>
+            <div class="input-field col s6">
+            <p> Telefone Celular: <input type="text" name="telefonecelular" value="" size="15"> </p>
+            </div>
+            </div>
+            <div class="row">
+            <div class="input-field col s12">
             <p> Email: <input type="text" name="email" value="" size="15"> </p>
+            </div>
+            </div>
+            
 
 
             <input type="submit" value="Salvar" name="salvar"/>
         </form>
-         <footer>
+        <footer>
             <jsp:include page="rodape.jsp" flush="true" />
         </footer>
     </body>
