@@ -4,6 +4,10 @@
     Author     : Usuario
 --%>
 
+<%@page import="br.edu.ifpr.irati.jsp.modelo.Servico"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
+<%@page import="br.edu.ifpr.irati.jsp.controle.ControleServico"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -20,15 +24,26 @@
         </header>
         <form  action="scripts/conta.jsp" method="post" >
 
-            <p> Matrícula do aluno: <input type="text" name="id" value="" size="60"></p>
+            <p> Matrícula do aluno: <input type="number" name="id" value="" size="60"></p>
             <p> Valor de Entrada: <input type="text" name="valorentrada" value="" size="15"> </p>
+          
             <label>Serviço: </label>
             <select class="browser-default">
                 <option value="" disabled selected>Escolha o Serviço</option>
-                <option value="1">Option 1</option>
+                  <%
+            ControleServico cs = new ControleServico();
+            
+            
+            for(Servico servicos: cs.buscarTodosServicos()){
+              %>
+                <option value="1"><%=servicos.getTipoServico() %></option>
+                <%
+                }
+            %>
             </select>
+            
             <p> Valor Total: <input type="text" name="valortotal" value="" size="14"></p>
-            <p> Parcelas: <input type="text" name="parcelas" value="" size="15"> </p>
+            <p> Parcelas: <input type="number" name="parcelas" value="" size="15"> </p>
 
             <input type="submit" value="Salvar" name="salvar"/>
         </form>

@@ -54,6 +54,16 @@ public class Conta implements Serializable {
         this.servicos = servicos;
     }
 
+       public void adicionarRegistro(Registro registro){
+        this.registros.add(registro);
+        registro.setConta(this);
+    }
+    
+    public void removerRegistro(Registro registro){
+        this.registros.remove(registro);
+        registro.setConta(new Conta());
+    }
+    
     public double getValorTotal() {
         return valorTotal;
     }
