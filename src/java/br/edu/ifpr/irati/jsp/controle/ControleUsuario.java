@@ -30,6 +30,15 @@ public class ControleUsuario {
 
     }
     
+    public Usuario buscarUsuarioPorId(int idUsuario){
+        
+        Dao<Usuario> usuarioDAO = new GenericDAO<>(Usuario.class);
+        Usuario u = usuarioDAO.buscarPorId(idUsuario);
+        return u;
+        
+        
+    }
+    
     
 
 }

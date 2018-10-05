@@ -4,6 +4,7 @@
     Author     : Usuario
 --%>
 
+<%@page import="br.edu.ifpr.irati.jsp.modelo.Usuario"%>
 <%@page import="br.edu.ifpr.irati.jsp.modelo.Servico"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
@@ -34,7 +35,13 @@
         }
 
     </style>
-
+            <%    session = request.getSession();
+            Usuario u = (Usuario) session.getAttribute("usuario");
+            boolean logado = false;
+            if(u != null){
+                logado = true;
+            }
+            %>
     <body>
 
         <header>
@@ -42,8 +49,18 @@
         </header>
 
         <main>
+           
+            
+            
             <form  action="scripts/conta.jsp" method="POST">
 
+                  <%
+                if(u != null){
+                    %> <input type="hidden" name="idusuario" value="<%=u.getIdUsuario()%>"/>
+               <%
+                }         
+            %>
+                
                 <div class="row">
                     <div class="input-field col s6">
                         <p> Matrícula do aluno: <input type="number" name="id" size="60"></p>

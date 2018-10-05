@@ -22,7 +22,8 @@
         <%
         
          request.setCharacterEncoding("UTF-8");
-
+         
+            String sidUsuario = request.getParameter("idusuario");
             String sid = request.getParameter("id");
             String svalorEntrada = request.getParameter("valorentrada");
             String servico = request.getParameter("tipo");
@@ -37,7 +38,8 @@
             double valorEntrada = Double.parseDouble(svalorEntrada);
             int parcelas = Integer.parseInt(sparcelas);
             int id = Integer.parseInt(sid);
-
+            int idUsuario = Integer.parseInt(sidUsuario);
+            
             ControleServico cs = new ControleServico();
             ControleAluno ca = new ControleAluno();
 
@@ -49,21 +51,20 @@
             
             ControleUsuario cu = new ControleUsuario();
             
-            Usuario u = new Usuario();
-            
-
+            Usuario u = cu.buscarUsuarioPorId(idUsuario);
+ 
             servicoA.add(s);
 
             Conta c = new Conta(valorTotal, parcelas, a, servicoA);
             
-            ControleConta cc = new ControleConta();
-            cc.inserirConta(c);
+           ControleConta cc = new ControleConta();
+           cc.inserirConta(c);
             
-            Registro r = new Registro(0, new Date(), new Date(), "Valor de Entrada de: R$ " + valorEntrada, c, u);
+           Registro r = new Registro(0, new Date(), new Date(), "Valor de Entrada de: R$ " + valorEntrada, c, u);
             
-            ControleRegistro cr = new ControleRegistro();
-            cr.inserirRegitro(r);
+           ControleRegistro cr = new ControleRegistro();
+           cr.inserirRegitro(r);
             
-            response.sendRedirect("../telainicial.jsp");
+           response.sendRedirect("../telainicial.jsp");
         
         %>
