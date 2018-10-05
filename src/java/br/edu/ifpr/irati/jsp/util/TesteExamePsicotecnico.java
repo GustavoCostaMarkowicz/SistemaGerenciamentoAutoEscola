@@ -1,3 +1,4 @@
+
 package br.edu.ifpr.irati.jsp.util;
 
 import br.edu.ifpr.irati.jsp.dao.Dao;
@@ -41,3 +42,4 @@ public class TesteExamePsicotecnico {
     }
 
 }
+

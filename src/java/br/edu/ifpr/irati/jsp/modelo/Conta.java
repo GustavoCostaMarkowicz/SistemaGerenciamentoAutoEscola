@@ -24,7 +24,7 @@ public class Conta implements Serializable {
     @Column(name = "parcelas", nullable = false)
     private int parcelas;
 
-    @OneToMany(mappedBy = "conta")
+    @ManyToMany
     private List<Registro> registros;
 
     @ManyToMany(fetch = FetchType.EAGER)
