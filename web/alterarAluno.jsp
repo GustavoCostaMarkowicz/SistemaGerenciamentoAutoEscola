@@ -153,10 +153,16 @@
 
             <div class="row">
                 <div class="input-field col s6">
-                    <p> Telefone: <input type="text" name="telefone" value="<%=a.getTelefone()%>" size="15"> </p>
+                    <p> Telefone: <input type="text" name="telefone" value="<%=a.getTelefone()%>" maxlength="14" onkeydown="javascript: fMasc(this, mTel);" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
+                                return true;
+                            else
+                                return false;"> </p>
                 </div>
                 <div class="input-field col s6">
-                    <p> Telefone Celular: <input type="text" name="telefonecelular" value="<%=a.getTelefone()%>" size="15"> </p>
+                    <p> Telefone Celular: <input type="text" name="telefonecelular" value="<%=a.getTelefone()%>" maxlength="14" onkeydown="javascript: fMasc(this, mTel);" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
+                                return true;
+                            else
+                                return false;"> </p>
                 </div>
             </div>
             <div class="row">
