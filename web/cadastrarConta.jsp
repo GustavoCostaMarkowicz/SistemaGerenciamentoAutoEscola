@@ -22,28 +22,28 @@
         <header>
             <jsp:include page="cabecalho.jsp" flush="true" />
         </header>
-        <form  action="scripts/conta.jsp" method="post" >
+        <form  action="scripts/conta.jsp" method="POST">
 
-            <p> Matrícula do aluno: <input type="number" name="id" value="" size="60"></p>
-            <p> Valor de Entrada: <input type="text" name="valorentrada" value="" size="15"> </p>
-          
+            <p> Matrícula do aluno: <input type="number" name="id" size="60"></p>
+            <p> Valor de Entrada: <input type="text" name="valorentrada" size="15"> </p>
+            
             <label>Serviço: </label>
-            <select class="browser-default">
-                <option value="" disabled selected>Escolha o Serviço</option>
+            <select name="tipo" class="browser-default">
+                <option disabled selected>Escolha o Serviço</option>
                   <%
             ControleServico cs = new ControleServico();
             
             
             for(Servico servicos: cs.buscarTodosServicos()){
               %>
-                <option value="1"><%=servicos.getTipoServico() %></option>
+                <option value="<%=servicos.getTipoServico()%>"><%=servicos.getTipoServico() %></option>
                 <%
                 }
             %>
             </select>
             
-            <p> Valor Total: <input type="text" name="valortotal" value="" size="14"></p>
-            <p> Parcelas: <input type="number" name="parcelas" value="" size="15"> </p>
+            <p> Valor Total: <input type="text" name="valortotal" size="14"></p>
+            <p> Parcelas: <input type="number" name="parcelas" size="15"> </p>
 
             <input type="submit" value="Salvar" name="salvar"/>
         </form>

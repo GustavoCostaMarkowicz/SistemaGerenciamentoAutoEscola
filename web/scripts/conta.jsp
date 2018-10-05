@@ -1,35 +1,30 @@
+<%-- 
+    Document   : conta
+    Created on : 05/10/2018, 08:47:49
+    Author     : Usuario
+--%>
 
-
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="br.edu.ifpr.irati.jsp.controle.ControleConta"%>
-<%@page import="br.edu.ifpr.irati.jsp.controle.ControleRegistro"%>
-<%@page import="java.util.Date"%>
-<%@page import="br.edu.ifpr.irati.jsp.modelo.Usuario"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="java.util.List"%>
-<%@page import="br.edu.ifpr.irati.jsp.modelo.Registro"%>
-<%@page import="br.edu.ifpr.irati.jsp.modelo.Aluno"%>
-<%@page import="br.edu.ifpr.irati.jsp.controle.ControleAluno"%>
 <%@page import="br.edu.ifpr.irati.jsp.modelo.Conta"%>
 <%@page import="br.edu.ifpr.irati.jsp.modelo.Servico"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
+<%@page import="br.edu.ifpr.irati.jsp.modelo.Aluno"%>
+<%@page import="br.edu.ifpr.irati.jsp.controle.ControleAluno"%>
 <%@page import="br.edu.ifpr.irati.jsp.controle.ControleServico"%>
-<%@page import="java.text.SimpleDateFormat"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
         <%
-
-             response.sendRedirect("../aluno.jsp");
-            
-            request.setCharacterEncoding("UTF-8");
-
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        
+         request.setCharacterEncoding("UTF-8");
 
             String sid = request.getParameter("id");
             String svalorEntrada = request.getParameter("valorentrada");
-            String servico = request.getParameter("servico");
+            String servico = request.getParameter("tipo");
             String svalorTotal = request.getParameter("valortotal");
             String sparcelas = request.getParameter("parcelas");
 
-            if (sparcelas.equals(null)) {
+            if (sparcelas.equals("")) {
                 sparcelas = "1";
             }
 
@@ -43,12 +38,10 @@
 
             Aluno a = ca.buscarAlunosPorId(id);
 
-            List<Servico> servicoA = new ArrayList<>();
+            List<Servico> servicoA = new ArrayList();
 
             Servico s = cs.buscarServicoPorNome(servico);
             
-            System.out.println(s.getTipoServico());
-            System.out.println(a.getNomeCompleto());
 
             servicoA.add(s);
 
@@ -57,8 +50,6 @@
             ControleConta cc = new ControleConta();
             cc.inserirConta(c);
             
-              
-            
-
+            response.sendRedirect("../telainicial.jsp");
+        
         %>
-

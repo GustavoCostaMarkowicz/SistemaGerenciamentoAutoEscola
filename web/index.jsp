@@ -67,25 +67,7 @@
                             </button>
                         </div>
                     </div>
-                    <div class="input-field col s12">
-                        <input id="password" type="password" class="validate" required>
-                        <label for="password">Senha</label>
-                    </div>
-                    <div class="switch">
-                        <label>
-                            <input type="checkbox">
-                            <span class="lever"></span> Mantenha-me conectado
-                        </label>
-                    </div>
-                    <div class="input-field col s12">
-                        <br>
-                    </div>
-                    <div class="input-field col s12">
-                        <button href="telainicial.jsp" class="waves-effect waves-light btn" type="submit">Login
-                        </button>
-                        <button href="telainicial.jsp" class="waves-effect waves-light btn" type="button">Entrar
-                        </button>
-                    </div>
+                    
                 </div>
                 </form>
             </div>
