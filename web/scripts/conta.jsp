@@ -4,6 +4,11 @@
     Author     : Usuario
 --%>
 
+<%@page import="br.edu.ifpr.irati.jsp.controle.ControleRegistro"%>
+<%@page import="br.edu.ifpr.irati.jsp.modelo.Usuario"%>
+<%@page import="java.util.Date"%>
+<%@page import="br.edu.ifpr.irati.jsp.controle.ControleUsuario"%>
+<%@page import="br.edu.ifpr.irati.jsp.modelo.Registro"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="br.edu.ifpr.irati.jsp.controle.ControleConta"%>
 <%@page import="br.edu.ifpr.irati.jsp.modelo.Conta"%>
@@ -42,6 +47,10 @@
 
             Servico s = cs.buscarServicoPorNome(servico);
             
+            ControleUsuario cu = new ControleUsuario();
+            
+            Usuario u = new Usuario();
+            
 
             servicoA.add(s);
 
@@ -49,6 +58,11 @@
             
             ControleConta cc = new ControleConta();
             cc.inserirConta(c);
+            
+            Registro r = new Registro(0, new Date(), new Date(), "Valor de Entrada de: R$ " + valorEntrada, c, u);
+            
+            ControleRegistro cr = new ControleRegistro();
+            cr.inserirRegitro(r);
             
             response.sendRedirect("../telainicial.jsp");
         
