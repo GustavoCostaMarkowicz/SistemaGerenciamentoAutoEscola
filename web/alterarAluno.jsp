@@ -50,7 +50,10 @@
                     <p> Nome Completo: <input type="text" name="nome" value="<%=a.getNomeCompleto()%>" size="60"></p>
                 </div>
                 <div class="input-field col s4">
-                    <p> Data Nascimento: <input type="text" name="datanascimento" value="<%=sdf.format(a.getDataNascimento())%>" size="14"> </p>
+                    <p> Data Nascimento: <input type="text" name="datanascimento" value="<%=sdf.format(a.getDataNascimento())%>" maxlength="10" onkeydown="javascript: fMasc(this, mData);" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
+                                return true;
+                            else
+                                return false;"> </p>
                 </div>
                 <div class="input-field col s4">
                     <p> Sexo: <input type="text" name="sexo" value="<%=a.getSexo()%>" size="14"></p>
@@ -195,6 +198,14 @@
             cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2");
             cpf = cpf.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
             return cpf;
+        }
+        
+        function mData(datanascimento) {
+            datanascimento = datanascimento.replace(/\D/g, "");
+            datanascimento = datanascimento.replace(/(\d{2})(\d)/, "$1/$2");
+            datanascimento = datanascimento.replace(/(\d{2})(\d)/, "$1/$2");
+            
+            return datanascimento;
         }
 
         function mTel(tel) {
