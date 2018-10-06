@@ -58,6 +58,7 @@
             <div class="card-content" align="center">
                 <span class="card-title activator grey-text text-darken-4"><p><%=a.getNomeCompleto() %></p><i class="material-icons right">more_vert</i></span>
                 <p>Data de Nascimento: <%=sdf.format(a.getDataNascimento())%></p>
+                <p>Data de Cadastro: <%=sdf.format(a.getDataCadastro())%></p>
                 <p>CPF: <%=a.getCpf() %></p>
                 <p>RG: <%=a.getRg() %></p>
                 <p>Órgão Emissor do RG: <%=a.getOrgaoRg()%></p>

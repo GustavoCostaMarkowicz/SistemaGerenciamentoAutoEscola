@@ -61,18 +61,19 @@
                 %>
             </table>
             <br>
-            <div align="center">
-            <a href="cadastrarAluno.jsp" class="waves-effect waves-light btn center"> 
-                Cadastrar
-            </a> 
-            </div>
-            <br>
             
-            <div align="center">
-                <a href="telainicial.jsp" class="waves-effect waves-light btn center"> 
-                    Voltar
-                </a> 
+            <div class="row">
+                <div class="center input-field col s4">
+                    <button class="waves-effect waves-light btn" type="submit"><a href="cadastrarAluno.jsp">CADASTRAR</a></button>
+                </div>
+                <div class="center input-field col s4">
+                    <button class="waves-effect waves-light btn" type="submit">VOLTAR</button>
+                </div>
+                <div class="center input-field col 4">
+                    <button class="waves-effect waves-light btn" type="button">CONSULTAR</button>
+                </div>
             </div>
+            
         </main>
 
         <footer>
