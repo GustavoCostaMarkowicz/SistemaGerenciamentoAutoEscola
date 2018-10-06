@@ -72,5 +72,16 @@ public class GenericDAO<T> implements Dao<T> {
         session.close();
         return results;
     }
+    
+//    @Override
+//    public T buscarUsuarioPorLoginESenha(String login, String senha){
+//        Session session = HibernateUtil.getSessionFactory().openSession();
+//        String hql = "from " + classePersistente.getCanonicalName()+" where login = "+login+" and senha = "+senha;
+//        Query query = session.createQuery(hql);
+//        T t = (T) query.uniqueResult();
+//        session.clear();
+//        session.close();
+//        return t;
+//    }
 
 }

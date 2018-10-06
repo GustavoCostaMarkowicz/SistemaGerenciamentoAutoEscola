@@ -1,6 +1,5 @@
 package br.edu.ifpr.irati.jsp.dao;
 
-import br.edu.ifpr.irati.jsp.modelo.Servico;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.criteria.Order;
@@ -20,6 +19,6 @@ public interface Dao<T> {
 
     public List<T> buscarTodos(Class<T> clazz);
     
-    
-    
+    //public T buscarUsuarioPorLoginESenha(String login, String senha);
+
 }
