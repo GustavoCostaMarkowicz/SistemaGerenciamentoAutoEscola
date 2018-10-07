@@ -14,7 +14,14 @@
         <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="  crossorigin="anonymous"></script>
     </head>
 
-
+    <style>
+        
+        a {
+            color: white;
+        }
+        
+    </style>
+    
     <body>
         <header>
             <jsp:include page="cabecalho.jsp" flush="true" />
@@ -64,12 +71,12 @@
             
             <div class="row">
                 <div class="center input-field col s4">
-                    <button class="waves-effect waves-light btn" type="submit"><a href="cadastrarAluno.jsp">CADASTRAR</a></button>
+                    <button class="waves-effect waves-light btn" type="button"><a href="cadastrarAluno.jsp">CADASTRAR</a></button>
                 </div>
                 <div class="center input-field col s4">
-                    <button class="waves-effect waves-light btn" type="submit">VOLTAR</button>
+                    <button class="waves-effect waves-light btn" type="button"><a href="telainicial.jsp">VOLTAR</a></button>
                 </div>
-                <div class="center input-field col 4">
+                <div class="center input-field col s4">
                     <button class="waves-effect waves-light btn" type="button">CONSULTAR</button>
                 </div>
             </div>
