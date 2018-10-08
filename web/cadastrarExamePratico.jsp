@@ -1,8 +1,3 @@
-<%-- 
-    Document   : cadastrarExameMedico
-    Created on : 06/10/2018, 16:34:41
-    Author     : Usuario
---%>
 
 <%@page import="br.edu.ifpr.irati.jsp.controle.ControleExameMedico"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -52,25 +47,31 @@
         </header>
 
         <main>
-            <form  action="scripts/examepsicotecnico.jsp" method="post" >
+            <form  action="scripts/cadastrarexamepratico.jsp" method="post" >
 
                 <div id="titulo">
-                    <h6 align="center"> Exame Psicotécnico </h6>
+                    <h6 align="center"> Exame Prático </h6>
                 </div>
 
                 <div class="row">
-                    <div class="input-field col s12">
-                        <p> Matrícula do Aluno: <input type="number" name="id" value="" size="60"></p>
+                    <div class="input-field col s4">
+                        <p> Matrícula do 1º Aluno: <input type="number" name="id1" value="" size="60"></p>
+                    </div>
+                    <div class="input-field col s4">
+                        <p> Matrícula do 2º Aluno: <input type="number" name="id2" value="" size="60"></p>
+                    </div>
+                    <div class="input-field col s4">
+                        <p> Matrícula do 3º Aluno: <input type="number" name="id3" value="" size="60"></p>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="input-field col s4">
+                    <div class="input-field col s6">
                         <p> Data Exame: <input type="text" name="dataexame" value="" maxlength="10" onkeydown="javascript: fMasc(this, mData);" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
                                     return true;
                                 else
                                     return false;"> </p>
                     </div>
-                    <div class="input-field col s4">
+                    <div class="input-field col s6">
                         <p> Horário do Exame: <input type="text" name="horarioexame"  maxlength="5" onkeydown="javascript: fMasc(this, mHorario);" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
                                     return true;
                                 else
@@ -78,11 +79,14 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="input-field col s6">
-                        <p> Psicólogo Responsável: <input type="text" name="medico" value="" size="14"> </p>
+                    <div class="input-field col s4">
+                        <p> Categoria: <input type="text" name="categoria" value="" size="14"> </p>
                     </div>
-                    <div class="input-field col s6">
-                        <p> Clínica: <input type="text" name="clinica" value="" size="14"></p>
+                    <div class="input-field col s4">
+                        <p> Código do Instrutor: <input type="text" name="instrutor" value="" size="14"> </p>
+                    </div>
+                    <div class="input-field col s4">
+                        <p> Placa do Veículo: <input type="text" name="veiculo" value="" size="14"></p>
                     </div>
                 </div>
                 

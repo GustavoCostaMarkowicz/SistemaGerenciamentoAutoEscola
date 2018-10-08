@@ -5,7 +5,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <nav style="background-color: gray;">
     <div class="nav-wrapper">
-        <a href="telainicial.jsp" class="brand-logo">Bell's</a>
+        <a href="telaInicial.jsp" class="brand-logo">Bell's</a>
         <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons left">menu</i></a>
         <ul class="right hide-on-med-and-down">
 
@@ -25,6 +25,7 @@
                     if (!item.isVisivel()) {
                         continue;
                     }
+                    if(logado == true){
                     if (item.isAberta()) {
             %>
             <li>
@@ -47,6 +48,7 @@
             </li>
             <%}
                 }
+}
             %>
         </ul>
     </div>

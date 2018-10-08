@@ -15,10 +15,10 @@ public class TesteAtendente {
 
         atendenteDAO.salvar(a);
         
-//        List<Atendente> atendentes = atendenteDAO.buscarTodos(Atendente.class);
-//        for (Atendente atendente : atendentes) {
-//            System.out.println(atendente.getNomeCompleto());
-//        }
+        List<Atendente> atendentes = atendenteDAO.buscarTodos(Atendente.class);
+        for (Atendente atendente : atendentes) {
+            System.out.println(atendente.getNomeCompleto());
+        }
 
         System.exit(0);
 

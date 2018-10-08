@@ -14,4 +14,11 @@ public class ControleRegistro {
         
     }
     
+    public void excluirRegistro(Registro r){
+        
+        Dao<Registro> registroDAO = new GenericDAO<>(Registro.class);
+        registroDAO.excluir(r);
+        
+    }
+    
 }

@@ -12,7 +12,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Login</title>
+        <title>Informações do Aluno</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="  crossorigin="anonymous"></script>
@@ -39,7 +39,7 @@
         </header>
                 <%
         
-            int idPessoa = Integer.parseInt(request.getParameter("idpessoa"));
+            int idPessoa = Integer.parseInt(request.getParameter("idPessoa"));
             ControleAluno ca = new ControleAluno();
             Aluno a = ca.buscarAlunosPorId(idPessoa);
             
@@ -56,7 +56,26 @@
         %>
         <div class="card">
             <div class="card-content" align="center">
-                <span class="card-title activator grey-text text-darken-4"><p><%=a.getNomeCompleto() %></p><i class="material-icons right">more_vert</i></span>
+                <span class="card-title activator grey-text text-darken-4"><p><%=a.getNomeCompleto() %></p></span>
+                <%
+                    if(ca.buscarContaAluno(a.getIdPessoa()) == null){
+                %>
+                <div class="row">
+                    <div class="center input-field col s12">
+                        <a href="cadastrarConta.jsp?idPessoa=<%=a.getIdPessoa()%>" class="waves-effect waves-light btn" type="submit">CADASTRAR CONTA</a>
+                    </div>
+                </div>
+                <%
+                    } else {
+                %>
+                <div class="row">
+                    <div class="center input-field col s12">
+                        <a href="mostrarConta.jsp?idPessoa=<%=a.getIdPessoa()%>" class="waves-effect waves-light btn" type="submit">MOSTRAR CONTA</a>
+                    </div>
+                </div>
+                <%
+                    }
+                %>
                 <p>Data de Nascimento: <%=sdf.format(a.getDataNascimento())%></p>
                 <p>Data de Cadastro: <%=sdf.format(a.getDataCadastro())%></p>
                 <p>CPF: <%=a.getCpf() %></p>

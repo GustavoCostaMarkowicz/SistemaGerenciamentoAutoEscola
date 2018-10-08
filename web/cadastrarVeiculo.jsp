@@ -18,6 +18,22 @@
             font-weight: bold;
 
         }
+        
+    
+        
+        body {
+
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+
+        }
+
+        main {
+            flex: 1 0 auto;
+        }
+
+
 
     </style>
 
@@ -25,6 +41,8 @@
         <header>
             <jsp:include page="cabecalho.jsp" flush="true" />
         </header>
+        
+        <main>
         <form  action="scripts/cadastrarveiculo.jsp" method="POST" >
 
             <div id="titulo">
@@ -33,7 +51,7 @@
 
             <div class="row">
                 <div class="input-field col s6">
-                    <p> Placa: <input type="text" name="placa" maxlength="8" onkeydown="javascript: fMasc(this, mPlaca);"></p>
+                    <p> Placa: <input type="text" name="placa" maxlength="8"></p>
                 </div>
                 <div class="input-field col s6">
                     <p> Ano de Fabricação: <input type="text" name="anofabricacao" maxlength="4" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
@@ -58,28 +76,10 @@
             </div>
 
         </form>
+        </main>
         <footer>
             <jsp:include page="rodape.jsp" flush="true" />
         </footer>
     </body>
-
-    <script>
-
-        function fMasc(objeto, mascara) {
-            obj = objeto;
-            masc = mascara;
-            setTimeout("fMascEx()", 1);
-        }
-        function fMascEx() {
-            obj.value = masc(obj.value);
-        }
-
-        function mPlaca(placa) {
-            placa = placa.replace(/\D/g, "");
-            placa = placa.replace(/(\d{3})(\d)/, "$1-$2");
-            return placa;
-        }
-
-    </script>
 
 </html>

@@ -15,13 +15,13 @@
     </head>
 
     <style>
-        
+
         a {
             color: white;
         }
-        
+
     </style>
-    
+
     <body>
         <header>
             <jsp:include page="cabecalho.jsp" flush="true" />
@@ -30,22 +30,20 @@
         <main>
             <table class="centered striped">
                 <tr>
-                    <th>Matrícula: </th>
+                    <th>Matrícula</th>
                     <th>Nome Completo</th>
                     <th>CPF</th>
                     <th>RG</th>
                     <th>Data de Nascimento</th>
                     <th></th>
-
                     <th></th>
                     <th></th>
-
                 </tr>
                 <%
-                    SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy");
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                    
                     ControleAluno controleAluno = new ControleAluno();
-                    List<Aluno> alunos = new ArrayList();
-                    alunos = controleAluno.buscarTodosAlunos();
+                    List<Aluno> alunos = controleAluno.buscarTodosAlunos();
 
                     for (Aluno aluno : alunos) {
                 %>
@@ -54,33 +52,26 @@
                     <td><%=aluno.getNomeCompleto()%></td>
                     <td><%=aluno.getCpf()%></td>
                     <td><%=aluno.getRg()%></td>
-                    <td><%=sdf1.format(aluno.getDataNascimento())%></td>
-                    <td id="ver"><a href="mostrarAluno.jsp?idpessoa=<%=aluno.getIdPessoa()%>" class="waves-effect waves-light btn-floating" value="verMais"><i class="material-icons">control_point</i></a></td>
-
-
-                    <td><a href="alterarAluno.jsp?idpessoa=<%=aluno.getIdPessoa()%>" class="waves-effect waves-light btn" value="Alterar"> Alterar </a></td>
-                    <td><a href="scripts/excluiraluno.jsp?idpessoa=<%=aluno.getIdPessoa()%>" class="waves-effect waves-light btn" value="Excluir">Excluir</a></td>
-
+                    <td><%=sdf.format(aluno.getDataNascimento())%></td>
+                    <td><a href="mostrarAluno.jsp?idPessoa=<%=aluno.getIdPessoa()%>" class="waves-effect waves-light btn-floating" value="VerMais"><i class="material-icons">control_point</i></a></td>
+                    <td><a href="alterarAluno.jsp?idPessoa=<%=aluno.getIdPessoa()%>" class="waves-effect waves-light btn" value="Alterar"> Alterar </a></td>
+                    <td><a href="scripts/excluiraluno.jsp?idPessoa=<%=aluno.getIdPessoa()%>" class="waves-effect waves-light btn" value="Excluir">Excluir</a></td>
                 </tr>
-
                 <%
                     }
                 %>
             </table>
-            <br>
             
+            <br>
             <div class="row">
-                <div class="center input-field col s4">
-                    <button class="waves-effect waves-light btn" type="button"><a href="cadastrarAluno.jsp">CADASTRAR</a></button>
+                <div class="center input-field col s6">
+                    <a href="cadastrarAluno.jsp" class="waves-effect waves-light btn" type="button">CADASTRAR</a>
                 </div>
-                <div class="center input-field col s4">
-                    <button class="waves-effect waves-light btn" type="button"><a href="telainicial.jsp">VOLTAR</a></button>
-                </div>
-                <div class="center input-field col s4">
-                    <button class="waves-effect waves-light btn" type="button">CONSULTAR</button>
+                <div class="center input-field col s6">
+                    <a href="telaInicial.jsp" class="waves-effect waves-light btn" type="button">VOLTAR</a>
                 </div>
             </div>
-            
+
         </main>
 
         <footer>

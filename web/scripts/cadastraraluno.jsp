@@ -1,13 +1,12 @@
+<%@page import="javax.swing.JOptionPane"%>
+<%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="br.edu.ifpr.irati.jsp.controle.ControleAluno"%>
 <%@page import="br.edu.ifpr.irati.jsp.modelo.Aluno"%>
-<%@page import="java.util.Date"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
 
     request.setCharacterEncoding("UTF-8");
-
-    int idPessoa = Integer.parseInt(request.getParameter("idPessoa"));
 
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -36,7 +35,7 @@
     String sdoadorOrgaos = request.getParameter("doadororgaos");
     String tipoSanguineo = request.getParameter("tiposanguineo");
     String email = request.getParameter("email");
-
+    
     Date dataCadastro = new Date();
     Date dataNascimento = sdf.parse(sData);
     boolean doadorOrgaos = false;
@@ -45,13 +44,11 @@
     }
     String uf = suf.toUpperCase();
 
-    Aluno a = new Aluno(orgaoRg, uf, estadoCivil, nomePai, nomeMae, dataNascimento, naturalidade, nacionalidade, sexo, grauInstrucao, doadorOrgaos, tipoSanguineo, email, idPessoa, nomeCompleto, dataCadastro, cidade, estado, endereco, numero, complemento, cep, bairro, telefone, telefoneCelular, rg, cpf);
+    Aluno a = new Aluno(orgaoRg, uf, estadoCivil, nomePai, nomeMae, dataNascimento, naturalidade, nacionalidade, sexo, grauInstrucao, doadorOrgaos, tipoSanguineo, email, 0, nomeCompleto, dataCadastro, cidade, estado, endereco, numero, complemento, cep, bairro, telefone, telefoneCelular, rg, cpf);
 
     ControleAluno ca = new ControleAluno();
-
-    ca.alterarAluno(a);
+    ca.inserirAluno(a);
+    
     response.sendRedirect("../aluno.jsp");
 
-
 %>
-

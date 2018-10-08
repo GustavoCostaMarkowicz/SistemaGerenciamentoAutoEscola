@@ -4,6 +4,8 @@ package br.edu.ifpr.irati.jsp.controle;
 import br.edu.ifpr.irati.jsp.dao.Dao;
 import br.edu.ifpr.irati.jsp.dao.GenericDAO;
 import br.edu.ifpr.irati.jsp.modelo.Aluno;
+import br.edu.ifpr.irati.jsp.modelo.Conta;
+import br.edu.ifpr.irati.jsp.modelo.Exame;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,5 +50,28 @@ public class ControleAluno {
         
     }
     
+    public Conta buscarContaAluno(int idAluno){
+        
+        Dao<Conta> contaDAO = new GenericDAO<>(Conta.class);
+        List<Conta> contas = contaDAO.buscarTodos(Conta.class);
+        
+        for(Conta conta: contas){
+            if(conta.getAluno().getIdPessoa() == idAluno){
+                return conta;
+            }
+        }
+        
+        return null;
+        
+    }
+    
+    public List<Exame> buscarExamesPorAluno(int idAluno){
+        
+        Dao<Exame> exameDAO = new GenericDAO<>(Exame.class);
+        
+        List<Exame> exames = exameDAO.buscarExamesPorAluno(idAluno);
+        
+        return exames;
+    }
     
 }

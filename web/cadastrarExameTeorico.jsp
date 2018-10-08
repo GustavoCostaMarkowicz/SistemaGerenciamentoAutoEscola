@@ -1,8 +1,3 @@
-<%-- 
-    Document   : cadastrarExameMedico
-    Created on : 06/10/2018, 16:34:41
-    Author     : Usuario
---%>
 
 <%@page import="br.edu.ifpr.irati.jsp.controle.ControleExameMedico"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -52,15 +47,27 @@
         </header>
 
         <main>
-            <form  action="scripts/examepsicotecnico.jsp" method="post" >
+            <form  action="scripts/cadastrarexameteorico.jsp" method="post" >
 
                 <div id="titulo">
-                    <h6 align="center"> Exame Psicotécnico </h6>
+                    <h6 align="center"> Exame Teórico </h6>
                 </div>
 
                 <div class="row">
-                    <div class="input-field col s12">
-                        <p> Matrícula do Aluno: <input type="number" name="id" value="" size="60"></p>
+                    <div class="input-field col s6">
+                        <p> Matrícula do 1º Aluno: <input type="number" name="id1" value="" size="60"></p>
+                    </div>
+                    <div class="input-field col s6">
+                        <p> Matrícula do 2º Aluno: <input type="number" name="id2" value="" size="60"></p>
+                    </div>
+                    <div class="input-field col s6">
+                        <p> Matrícula do 3º Aluno: <input type="number" name="id3" value="" size="60"></p>
+                    </div>
+                    <div class="input-field col s6">
+                        <p> Matrícula do 4º Aluno: <input type="number" name="id4" value="" size="60"></p>
+                    </div>
+                    <div class="input-field col s6">
+                        <p> Matrícula do 5º Aluno: <input type="number" name="id5" value="" size="60"></p>
                     </div>
                 </div>
                 <div class="row">
@@ -78,11 +85,14 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="input-field col s6">
-                        <p> Psicólogo Responsável: <input type="text" name="medico" value="" size="14"> </p>
+                    <div class="input-field col s4">
+                        <p> Serviço: <input type="text" name="servico" value="" size="14"> </p>
                     </div>
-                    <div class="input-field col s6">
-                        <p> Clínica: <input type="text" name="clinica" value="" size="14"></p>
+                    <div class="input-field col s4">
+                        <p> Código do Instrutor: <input type="text" name="instrutor" value="" size="14"> </p>
+                    </div>
+                    <div class="input-field col s4">
+                        <p> Local de Aplicação: <input type="text" name="localaplicacao" value="" size="14"></p>
                     </div>
                 </div>
                 

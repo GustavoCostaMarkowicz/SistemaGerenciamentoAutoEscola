@@ -3,6 +3,8 @@
     Created on : 06/10/2018, 22:29:03
     Author     : Usuario
 --%>
+<%@page import="br.edu.ifpr.irati.jsp.modelo.ResultadoExame"%>
+<%@page import="br.edu.ifpr.irati.jsp.controle.ControleResultadoExame"%>
 <%@page import="br.edu.ifpr.irati.jsp.controle.ControleExamePsicotecnico"%>
 <%@page import="br.edu.ifpr.irati.jsp.modelo.ExamePsicotecnico"%>
 <%@page import="java.util.ArrayList"%>
@@ -21,52 +23,46 @@
     </head>
     <body>
         <%
-        
-        
-        request.setCharacterEncoding("UTF-8");
-        
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        SimpleDateFormat sdf1 = new SimpleDateFormat("hh:mm");
 
-        String sid = request.getParameter("id");
-        String sdataExame = request.getParameter("dataexame");
-        String shorarioExame = request.getParameter("horarioexame");
-        String clinica = request.getParameter("clinica");
-        String psicologo = request.getParameter("medico");
-        String sreteste = request.getParameter("reteste");
-        
-        boolean reteste = false;
-        
-        if (sreteste.equals("Sim")){
-            reteste = true;
-        }
-        
-        int id = Integer.parseInt(sid);
-        Date dataExame = sdf.parse(sdataExame);
-        Date horarioExame = sdf1.parse(shorarioExame);
-        
-        ControleAluno ca = new ControleAluno();
-        Aluno a = ca.buscarAlunosPorId(id);
-        List<Aluno> alunos = new ArrayList();
-        alunos.add(a);
-        
-         ExamePsicotecnico ep = new ExamePsicotecnico(psicologo, clinica, 0, dataExame, horarioExame, 1, reteste, alunos);
-        
-        if (alunos.size() == 1) {
-            
+            request.setCharacterEncoding("UTF-8");
+
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat sdf1 = new SimpleDateFormat("hh:mm");
+
+            String sid = request.getParameter("id");
+            String sdataExame = request.getParameter("dataexame");
+            String shorarioExame = request.getParameter("horarioexame");
+            String clinica = request.getParameter("clinica");
+            String psicologo = request.getParameter("medico");
+            String sreteste = request.getParameter("reteste");
+
+            boolean reteste = false;
+
+            if (sreteste.equals("Sim")) {
+                reteste = true;
+            }
+
+            int id = Integer.parseInt(sid);
+            Date dataExame = sdf.parse(sdataExame);
+            Date horarioExame = sdf1.parse(shorarioExame);
+
+            ControleAluno ca = new ControleAluno();
+            Aluno a = ca.buscarAlunosPorId(id);
+            List<Aluno> alunos = new ArrayList();
+            alunos.add(a);
+
+            ExamePsicotecnico ep = new ExamePsicotecnico(psicologo, clinica, 0, dataExame, horarioExame, 1, reteste, alunos);
+
             ControleExamePsicotecnico cep = new ControleExamePsicotecnico();
             cep.inserirExamePsicotecnico(ep);
             
-        } else {
-            System.out.println("Não é possível Cadastrar");
-        }
-    
-    
-        response.sendRedirect("../relacaoExameMedico.jsp");
-        
-        
-        
-        
+            ResultadoExame re = new ResultadoExame(0, a, ep, "Indefinido");
+            ControleResultadoExame cre = new ControleResultadoExame();
+            cre.inserirResultadoExame(re);
+
+            response.sendRedirect("../relacaoExamePsicotecnico.jsp");
+
+
         %>
     </body>
 </html>

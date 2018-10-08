@@ -19,6 +19,8 @@ public interface Dao<T> {
 
     public List<T> buscarTodos(Class<T> clazz);
     
-    //public T buscarUsuarioPorLoginESenha(String login, String senha);
+    public T buscarResultadoExamesPorAlunoExame(int idPessoa, int idExame);
 
+    public List<T> buscarExamesPorAluno(int idPessoa);
+    
 }

@@ -4,6 +4,9 @@
     Author     : Usuario
 --%>
 
+<%@page import="br.edu.ifpr.irati.jsp.modelo.ResultadoExame"%>
+<%@page import="br.edu.ifpr.irati.jsp.controle.ControleResultadoExame"%>
+<%@page import="java.util.Date"%>
 <%@page import="br.edu.ifpr.irati.jsp.modelo.Aluno"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
@@ -36,27 +39,38 @@
         <main>
             <table class="centered striped">
                 <tr>
-                    <th>Nome do Aluno </th>
+                    <th>Aluno </th>
                     <th>Médico Responsável</th>
                     <th>Clínica</th>
                     <th>Data do Exame</th>
                     <th>Hora do Exame</th>
                     <th>Reteste</th>
+                    <th>Resultado do Exame</th>
 
                     <th></th>
 
                 </tr>
                 <%
                     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                    SimpleDateFormat sdf1 = new SimpleDateFormat("hh:mm");
+                    SimpleDateFormat sdf1 = new SimpleDateFormat("HH:mm");
                     ControleExameMedico cem = new ControleExameMedico();
                     List<ExameMedico> ems = new ArrayList();
                     ems = cem.buscarTodosExameMedicos();
 
-                   
+                    
 
                     for (ExameMedico em : ems) {
                      
+                    ControleResultadoExame cre = new ControleResultadoExame();
+                    ResultadoExame re = cre.buscarResultadoExamesPorAlunoExame(em.getAlunos().get(0).getIdPessoa(), em.getIdExame());
+                    String resultado;
+                    if(re == null){
+                        resultado = "";
+                    } else{
+                        resultado = re.getResultado();
+                    }
+
+                    
                     boolean teste = em.isReteste();
                     String steste;
                     
@@ -76,7 +90,13 @@
                     <td><%=sdf.format(em.getDataExame())%></td>
                     <td><%=sdf1.format(em.getHorarioExame())%></td>
                     <td><%=steste%></td>
-
+                    <%
+                        if(resultado.equals("Indefinido")){
+                            %><td><a href="cadastrarResultadoExame.jsp?idexame=<%=em.getIdExame()%>" class="waves-effect waves-light btn-floating" value="AdicionarResultado"><i class="material-icons">control_point</i></a></td><%
+                        } else{
+                        %><td><%=resultado%></td> <%
+}
+                    %>
 
                     <td><a href="scripts/excluirexamemedico.jsp?idexamemedico=<%=em.getIdExame()%>" class="waves-effect waves-light btn" value="Excluir">Excluir</a></td>
 
@@ -93,7 +113,7 @@
                     <button class="waves-effect waves-light btn" type="button"><a href="cadastrarExameMedico.jsp">CADASTRAR</a></button>
                 </div>
                 <div class="center input-field col s6">
-                    <button class="waves-effect waves-light btn" type="button"><a href="telainicial.jsp">VOLTAR</a></button>
+                    <button class="waves-effect waves-light btn" type="button"><a href="telaInicial.jsp">VOLTAR</a></button>
                 </div>
                 
             </div>

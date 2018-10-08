@@ -1,7 +1,6 @@
-<%@page import="br.edu.ifpr.irati.jsp.modelo.ResultadoExame"%>
-<%@page import="br.edu.ifpr.irati.jsp.controle.ControleResultadoExame"%>
-<%@page import="br.edu.ifpr.irati.jsp.modelo.ExamePsicotecnico"%>
-<%@page import="br.edu.ifpr.irati.jsp.controle.ControleExamePsicotecnico"%>
+
+<%@page import="br.edu.ifpr.irati.jsp.modelo.ExameTeorico"%>
+<%@page import="br.edu.ifpr.irati.jsp.controle.ControleExameTeorico"%>
 <%@page import="br.edu.ifpr.irati.jsp.modelo.Aluno"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
@@ -11,7 +10,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Exame Psicotécnico</title>
+        <title>Exame Teórico</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="  crossorigin="anonymous"></script>
@@ -32,38 +31,28 @@
         <main>
             <table class="centered striped">
                 <tr>
-                    <th>Aluno </th>
-                    <th>Psicólogo</th>
-                    <th>Clínica</th>
+                    <th>Servico </th>
+                    <th>Local de Aplicação</th>
+                    <th>Instrutor</th>
                     <th>Data do Exame</th>
                     <th>Hora do Exame</th>
                     <th>Reteste</th>
-                    <th>Resultado do Exame</th>
 
+                    <th></th>
                     <th></th>
 
                 </tr>
                 <%
                     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                    SimpleDateFormat sdf1 = new SimpleDateFormat("HH:mm");
-                    ControleExamePsicotecnico cep = new ControleExamePsicotecnico();
-                    List<ExamePsicotecnico> eps = new ArrayList();
-                    eps = cep.buscarTodosExamePsicotecnicos();
+                    SimpleDateFormat sdf1 = new SimpleDateFormat("hh:mm");
+                    ControleExameTeorico cep = new ControleExameTeorico();
+                    List<ExameTeorico> eps = new ArrayList();
+                    eps = cep.buscarTodosExameTeoricos();
 
                    
 
-                    for (ExamePsicotecnico ep : eps) {
+                    for (ExameTeorico ep : eps) {
                      
-                        ControleResultadoExame cre = new ControleResultadoExame();
-                    ResultadoExame re = cre.buscarResultadoExamesPorAlunoExame(ep.getAlunos().get(0).getIdPessoa(), ep.getIdExame());
-                    String resultado;
-                    if(re == null){
-                        resultado = "";
-                    } else{
-                        resultado = re.getResultado();
-                    }
-                        
-                    
                     boolean teste = ep.isReteste();
                     String steste;
                     
@@ -75,23 +64,15 @@
 
                 %>
                 <tr>
-                    <td width="200px"><%for (Aluno aluno : ep.getAlunos()) {
-                        %>    <p><%=aluno.getNomeCompleto() %></p>
-                        <%}%></td>
-                    <td><%=ep.getPsicologo() %></td>
-                    <td><%=ep.getClinica()%></td>
+                    <td><%=ep.getServico() %></td>
+                    <td><%=ep.getLocalAplicacao() %></td>
+                    <td><%=ep.getInstrutor().getNomeCompleto() %></td>
                     <td><%=sdf.format(ep.getDataExame())%></td>
                     <td><%=sdf1.format(ep.getHorarioExame())%></td>
                     <td><%=steste%></td>
-                    <%
-                        if(resultado.equals("Indefinido")){
-                            %><td><a href="cadastrarResultadoExame.jsp?idexame=<%=ep.getIdExame()%>" class="waves-effect waves-light btn-floating" value="AdicionarResultado"><i class="material-icons">control_point</i></a></td><%
-                        } else{
-                        %><td><%=resultado%></td> <%
-}
-                    %>
 
-                    <td><a href="scripts/excluirexamepsicotecnico.jsp?idexamepsico=<%=ep.getIdExame()%>" class="waves-effect waves-light btn" value="Excluir">Excluir</a></td>
+                    <td><a href="relacaoResultadoExame.jsp?idexame=<%=ep.getIdExame()%>" class="waves-effect waves-light btn" value="AlunosExame"> Alunos </a></td>
+                    <td><a href="scripts/excluirexameteorico.jsp?idexameteorico=<%=ep.getIdExame()%>" class="waves-effect waves-light btn" value="Excluir">Excluir</a></td>
 
                 </tr>
 
@@ -103,7 +84,7 @@
 
             <div class="row">
                 <div class="center input-field col s6">
-                   <a href="cadastrarExamePsicotecnico.jsp"><button class="waves-effect waves-light btn" type="button">CADASTRAR</button></a>
+                   <a href="cadastrarExameTeorico.jsp"><button class="waves-effect waves-light btn" type="button">CADASTRAR</button></a>
                 </div>
                 <div class="center input-field col s6">
                     <button class="waves-effect waves-light btn" type="button"><a href="telaInicial.jsp">VOLTAR</a></button>

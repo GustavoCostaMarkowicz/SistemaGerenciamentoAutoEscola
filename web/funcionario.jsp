@@ -9,7 +9,7 @@
 <html>
     <head>
          <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Exame</title>
+        <title>Funcionários</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="  crossorigin="anonymous"></script>
@@ -43,17 +43,8 @@
         
         <main>
             <div class="row">
-                <div class="center input-field col s3">
-                    <a href="relacaoExameMedico.jsp"><button class="waves-effect waves-light btn" type="button">EXAME MÉDICO</button></a>
-                </div>
-                <div class="center input-field col s3">
-                    <a href="relacaoExamePsicotecnico.jsp"><button class="waves-effect waves-light btn" type="button">EXAME PSICOTÉCNICO</button></a>
-                </div>
-                <div class="center input-field col s3">
-                    <button class="waves-effect waves-light btn" type="button"><a href="relacaoExameTeorico.jsp">EXAME TEÓRICO</a></button>
-                </div>
-                <div class="center input-field col s3">
-                    <button class="waves-effect waves-light btn" type="button"><a href="relacaoExamePratico.jsp">EXAME PRÁTICO</a></button>
+                <div class="center input-field col s12">
+                    <a href="instrutor.jsp"><button class="waves-effect waves-light btn" type="button">INSTRUTOR</button></a>
                 </div>
             </div>
         </main>

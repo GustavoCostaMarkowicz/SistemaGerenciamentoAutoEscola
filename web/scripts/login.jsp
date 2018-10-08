@@ -17,7 +17,7 @@
         try{
             Usuario usuario = controleUsuario.buscarUsuarioPorLoginESenha(login, senha);
             session.setAttribute("usuario", usuario);
-            response.sendRedirect("../telainicial.jsp");
+            response.sendRedirect("../telaInicial.jsp");
         } catch(Exception e){
             //alterar o valor na variável sessão
             session.setAttribute("usuario", null);

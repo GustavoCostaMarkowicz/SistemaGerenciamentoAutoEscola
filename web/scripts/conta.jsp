@@ -65,6 +65,6 @@
            ControleRegistro cr = new ControleRegistro();
            cr.inserirRegitro(r);
             
-           response.sendRedirect("../telainicial.jsp");
+           response.sendRedirect("../mostrarAluno.jsp?idPessoa="+sid);
         
         %>

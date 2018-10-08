@@ -26,6 +26,18 @@
             font-weight: bold;
 
         }
+        
+        body {
+
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+
+        }
+
+        main {
+            flex: 1 0 auto;
+        }
 
     </style>
 
@@ -33,29 +45,26 @@
         <header>
             <jsp:include page="cabecalho.jsp" flush="true" />
         </header>
+        <main>
         <form  action="scripts/alterarveiculo.jsp" method="POST" >
-
+            
+            <input type="hidden" name="placa" value="<%=veiculo.getPlaca()%>"/>
+            
             <div id="titulo">
                 <h6 align="center"> Veículo </h6>
             </div>
 
             <div class="row">
-                <div class="input-field col s6">
-                    <p> Placa: <input type="text" name="placa" value="<%=veiculo.getPlaca()%>" max-lenght="8" onkeydown="javascript: fMasc(this, mPlaca);"></p>
-                </div>
-                <div class="input-field col s6">
+                <div class="input-field col s4">
                     <p> Ano de Fabricação: <input type="text" name="anofabricacao" value="<%=veiculo.getAnoFabricacao()%>" max-lenght="4" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
                                 return true;
                             else
                                 return false;"></p>
                 </div>
-            </div>
-
-            <div class="row">
-                <div class="input-field col s6">
+                <div class="input-field col s4">
                     <p> Marca: <input type="text" name="marca" value="<%=veiculo.getMarca()%>"> </p>
                 </div>
-                <div class="input-field col s6">
+                <div class="input-field col s4">
                     <p> Modelo: <input type="text" name="modelo" value="<%=veiculo.getModelo()%>"></p>
                 </div>
             </div>
@@ -66,28 +75,10 @@
             </div>
 
         </form>
+        </main>
         <footer>
             <jsp:include page="rodape.jsp" flush="true" />
         </footer>
     </body>
-
-    <script>
-
-        function fMasc(objeto, mascara) {
-            obj = objeto;
-            masc = mascara;
-            setTimeout("fMascEx()", 1);
-        }
-        function fMascEx() {
-            obj.value = masc(obj.value);
-        }
-
-        function mPlaca(placa) {
-            placa = placa.replace(/\D/g, "");
-            placa = placa.replace(/(\d{3})(\d)/, "$1-$2");
-            return placa;
-        }
-
-    </script>
 
 </html>

@@ -22,13 +22,17 @@
     <style>
 
         body {
-            background-color: #FF4500;
+            background-color: orange;
         }
 
         .card {
             margin-top: 200px;
-            background-color: #F5F5DC;
+            background-color: white;
             border-radius: 15px;
+        }
+        
+        div#mensagem {
+            color: red;
         }
 
     </style>
@@ -59,6 +63,9 @@
                             </label>
                         </div>
                         -->
+                        <div id="mensagem">
+                            <span class="lever"></span><%=mensagem%>
+                        </div>
                         <div class="input-field col s12">
                             <br>
                         </div>
