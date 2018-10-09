@@ -17,7 +17,7 @@ public class TesteAluno {
         try {
             Dao<Aluno> alunoDAO = new GenericDAO<>(Aluno.class);
 
-            Aluno a = new Aluno("SESP-PR", "PR", "solteiro", "Pai Aluno", "Mãe Aluno", new SimpleDateFormat("dd/MM/yyyy").parse("05/11/1992"), "Irati-PR", "brasileiro", "masculino", "EM completo", false, "O+", "aluno@email.com", 0, "Nome Aluno", new Date(), "Irati", "Paraná", "Rua do Aluno", "99", "casa", "84500-000", "Bairro do Aluno", null, "(42)99930-4455", "11.111.111-1", "111.111.111-11");
+            Aluno a = new Aluno("122223", "SESP-PR", "PR", "solteiro", "Pai Aluno", "Mãe Aluno", new SimpleDateFormat("dd/MM/yyyy").parse("05/11/1992"), "Irati-PR", "brasileiro", "masculino", "EM completo", false, "O+", "aluno@email.com", 0, "Nome Aluno", new Date(), "Irati", "Paraná", "Rua do Aluno", "99", "casa", "84500-000", "Bairro do Aluno", null, "(42)99930-4455", "11.111.111-1", "111.111.111-11");
             
             alunoDAO.salvar(a);
 

@@ -28,7 +28,7 @@ public class TesteConta {
             List<Servico> servicos = new ArrayList<>();
             servicos.add(s);
 
-            Aluno a = new Aluno("SESP-PR", "PR", "casado", "Pai Aluno 2", "Mãe Aluno 2", new SimpleDateFormat("dd/MM/yyyy").parse("01/01/1996"), "Irati-PR", "brasileiro", "feminino", "EM completo", false, "AB+", "aluno2@email.com", 0, "Nome Aluno 2", new Date(), "Irati", "Paraná", "Rua do Aluno 2", "11", "casa", "84500-000", "Bairro do Aluno 2", null, "(42)98855-0055", "44.444.444-4", "444.444.444-44");
+            Aluno a = new Aluno("1111", "SESP-PR", "PR", "casado", "Pai Aluno 2", "Mãe Aluno 2", new SimpleDateFormat("dd/MM/yyyy").parse("01/01/1996"), "Irati-PR", "brasileiro", "feminino", "EM completo", false, "AB+", "aluno2@email.com", 0, "Nome Aluno 2", new Date(), "Irati", "Paraná", "Rua do Aluno 2", "11", "casa", "84500-000", "Bairro do Aluno 2", null, "(42)98855-0055", "44.444.444-4", "444.444.444-44");
 
             int opcaoParcela = 1;
             double valorTotal = 0.0;

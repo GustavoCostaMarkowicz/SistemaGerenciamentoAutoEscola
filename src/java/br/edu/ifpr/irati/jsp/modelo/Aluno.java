@@ -18,6 +18,9 @@ import org.hibernate.annotations.Type;
 @PrimaryKeyJoinColumn(name = "idPessoa")
 public class Aluno extends Pessoa implements Serializable {
 
+    @Column(name = "processo", nullable = false, length = 50)
+    private String processo;
+    
     @Column(name = "orgaorg", nullable = false, length = 50)
     private String orgaoRg;
 
@@ -65,10 +68,11 @@ public class Aluno extends Pessoa implements Serializable {
     private List<ResultadoExame> examesAprovado;
 
     public Aluno() {
+        processo = "";
         orgaoRg = "";
         uf = "";
         estadoCivil = "";
-        nomeMae = "";
+        nomePai = "";
         nomeMae = "";
         dataNascimento = new Date();
         naturalidade = "";
@@ -82,8 +86,9 @@ public class Aluno extends Pessoa implements Serializable {
         examesAprovado = new ArrayList<>();
     }
 
-    public Aluno(String orgaoRg, String uf, String estadoCivil, String nomePai, String nomeMae, Date dataNascimento, String naturalidade, String nacionalidade, String sexo, String grauInstrucao, boolean doadorOrgaos, String tipoSanguineo, String email, int idPessoa, String nomeCompleto, Date dataCadastro, String cidade, String estado, String endereco, String numero, String complemento, String cep, String bairro, String telefone, String telefoneCelular, String rg, String cpf) {
+    public Aluno(String processo, String orgaoRg, String uf, String estadoCivil, String nomePai, String nomeMae, Date dataNascimento, String naturalidade, String nacionalidade, String sexo, String grauInstrucao, boolean doadorOrgaos, String tipoSanguineo, String email, int idPessoa, String nomeCompleto, Date dataCadastro, String cidade, String estado, String endereco, String numero, String complemento, String cep, String bairro, String telefone, String telefoneCelular, String rg, String cpf) {
         super(idPessoa, nomeCompleto, dataCadastro, cidade, estado, endereco, numero, complemento, cep, bairro, telefone, telefoneCelular, rg, cpf);
+        this.processo = processo;
         this.orgaoRg = orgaoRg;
         this.uf = uf;
         this.estadoCivil = estadoCivil;
@@ -101,8 +106,9 @@ public class Aluno extends Pessoa implements Serializable {
         examesAprovado = new ArrayList<>();
     }
 
-    public Aluno(String orgaoRg, String uf, String estadoCivil, String nomePai, String nomeMae, Date dataNascimento, String naturalidade, String nacionalidade, String sexo, String grauInstrucao, boolean doadorOrgaos, String tipoSanguineo, String email, List<Exame> exames, List<ResultadoExame> examesAprovado, int idPessoa, String nomeCompleto, Date dataCadastro, String cidade, String estado, String endereco, String numero, String complemento, String cep, String bairro, String telefone, String telefoneCelular, String rg, String cpf) {
+    public Aluno(String processo, String orgaoRg, String uf, String estadoCivil, String nomePai, String nomeMae, Date dataNascimento, String naturalidade, String nacionalidade, String sexo, String grauInstrucao, boolean doadorOrgaos, String tipoSanguineo, String email, List<Exame> exames, List<ResultadoExame> examesAprovado, int idPessoa, String nomeCompleto, Date dataCadastro, String cidade, String estado, String endereco, String numero, String complemento, String cep, String bairro, String telefone, String telefoneCelular, String rg, String cpf) {
         super(idPessoa, nomeCompleto, dataCadastro, cidade, estado, endereco, numero, complemento, cep, bairro, telefone, telefoneCelular, rg, cpf);
+        this.processo = processo;
         this.orgaoRg = orgaoRg;
         this.uf = uf;
         this.estadoCivil = estadoCivil;
@@ -120,6 +126,14 @@ public class Aluno extends Pessoa implements Serializable {
         this.examesAprovado = examesAprovado;
     }
 
+    public String getProcesso() {
+        return processo;
+    }
+
+    public void setProcesso(String processo) {
+        this.processo = processo;
+    }
+    
     public String getOrgaoRg() {
         return orgaoRg;
     }
