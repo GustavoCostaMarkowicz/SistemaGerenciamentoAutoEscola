@@ -24,7 +24,7 @@ public class ControleUsuario {
         }
 
         if (usuarioInvalido) {
-            throw new Exception("Acesso negado!");
+            throw new Exception("Usuario e/ou senha incorretos!");
         } else {
             return u;
         }
