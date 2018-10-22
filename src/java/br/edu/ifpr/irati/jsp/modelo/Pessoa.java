@@ -11,6 +11,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.hibernate.annotations.Type;
 
 @Entity(name = "pessoa")
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -58,6 +59,10 @@ public abstract class Pessoa implements Serializable {
 
     @Column(name = "cpf", nullable = false, length = 14)
     protected String cpf;
+    
+    @Type(type = "true_false")
+    @Column(name = "visivel", nullable = true)
+    protected boolean visivel;
 
     public Pessoa() {
         idPessoa = 0;
@@ -74,6 +79,7 @@ public abstract class Pessoa implements Serializable {
         telefone = "";
         rg = "";
         cpf = "";
+        visivel = true;
     }
 
     public Pessoa(int idPessoa, String nomeCompleto, Date dataCadastro, String cidade, String estado, String endereco, String numero, String complemento, String cep, String bairro, String telefone, String telefoneCelular, String rg, String cpf) {
@@ -91,6 +97,7 @@ public abstract class Pessoa implements Serializable {
         this.telefoneCelular = telefoneCelular;
         this.rg = rg;
         this.cpf = cpf;
+        this.visivel = true;
     }
 
     public int getIdPessoa() {
@@ -203,6 +210,14 @@ public abstract class Pessoa implements Serializable {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
+    }
+
+    public boolean isVisivel() {
+        return visivel;
+    }
+
+    public void setVisivel(boolean visivel) {
+        this.visivel = visivel;
     }
 
 }

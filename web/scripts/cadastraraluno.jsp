@@ -9,7 +9,8 @@
     request.setCharacterEncoding("UTF-8");
 
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-
+    
+    String processo = request.getParameter("processo");
     String nomeCompleto = request.getParameter("nome");
     String sData = request.getParameter("datanascimento");
     String sexo = request.getParameter("sexo");
@@ -43,12 +44,47 @@
         doadorOrgaos = true;
     }
     String uf = suf.toUpperCase();
+    
+    int anoNascimento = dataNascimento.getYear();
+    anoNascimento += 1900;
+    int anoAtual = dataCadastro.getYear();
+    anoAtual += 1900;
+    int mesNascimento = dataNascimento.getMonth();
+    mesNascimento += 1;
+    int mesAtual = dataCadastro.getMonth();
+    mesAtual += 1;
+    int diaNascimento = dataNascimento.getDate();
+    int diaAtual = dataCadastro.getDate();
+    int flag = 0;
+    
+    if(anoAtual - anoNascimento > 18){
+        flag = 1;
+    } else if(anoAtual - anoNascimento == 18){
+        
+        if(mesAtual > mesNascimento){
+            flag = 1;
+        } else if(mesAtual == mesNascimento){
+            
+            if(diaAtual > diaNascimento){
+                flag = 1;
+            }
+            
+        }
+        
+    } 
 
-    Aluno a = new Aluno(orgaoRg, uf, estadoCivil, nomePai, nomeMae, dataNascimento, naturalidade, nacionalidade, sexo, grauInstrucao, doadorOrgaos, tipoSanguineo, email, 0, nomeCompleto, dataCadastro, cidade, estado, endereco, numero, complemento, cep, bairro, telefone, telefoneCelular, rg, cpf);
+    if(flag > 0){
+    
+    Aluno a = new Aluno(processo, orgaoRg, uf, estadoCivil, nomePai, nomeMae, dataNascimento, naturalidade, nacionalidade, sexo, grauInstrucao, doadorOrgaos, tipoSanguineo, email, 0, nomeCompleto, dataCadastro, cidade, estado, endereco, numero, complemento, cep, bairro, telefone, telefoneCelular, rg, cpf);
 
     ControleAluno ca = new ControleAluno();
     ca.inserirAluno(a);
     
     response.sendRedirect("../aluno.jsp");
+    
+    } else {
+        response.sendRedirect("../cadastraAluno.jsp");
+    }
+    
 
 %>

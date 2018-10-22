@@ -17,7 +17,7 @@ import org.hibernate.annotations.Type;
 @Entity(name = "aluno")
 @PrimaryKeyJoinColumn(name = "idPessoa")
 public class Aluno extends Pessoa implements Serializable {
-
+    
     @Column(name = "processo", nullable = false, length = 50)
     private String processo;
     

@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import org.hibernate.annotations.Type;
 
 @Entity(name = "usuario")
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -25,12 +26,17 @@ public class Usuario implements Serializable {
     
     @Column(name = "cidadeatuacao", nullable = false, length = 50)
     protected String cidadeAtuacao;
+    
+    @Type(type = "true_false")
+    @Column(name = "visivel", nullable = true)
+    protected boolean visivel;
 
     public Usuario() {
         idUsuario = 0;
         login = "";
         senha = "";
         cidadeAtuacao = "";
+        visivel = true;
     }
 
     public Usuario(int idUsuario, String login, String senha, String cidadeAtuacao) {
@@ -38,6 +44,7 @@ public class Usuario implements Serializable {
         this.login = login;
         this.senha = senha;
         this.cidadeAtuacao = cidadeAtuacao;
+        this.visivel = true;
     }
 
     public int getIdUsuario() {
@@ -70,6 +77,14 @@ public class Usuario implements Serializable {
 
     public void setCidadeAtuacao(String cidadeAtuacao) {
         this.cidadeAtuacao = cidadeAtuacao;
+    }
+
+    public boolean isVisivel() {
+        return visivel;
+    }
+
+    public void setVisivel(boolean visivel) {
+        this.visivel = visivel;
     }
 
 }

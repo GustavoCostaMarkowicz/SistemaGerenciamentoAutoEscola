@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import org.hibernate.annotations.Type;
 
 @Entity(name = "veiculo")
 public class Veiculo implements Serializable {
@@ -26,6 +27,10 @@ public class Veiculo implements Serializable {
 
     @OneToMany(mappedBy = "veiculo")
     private List<ExamePratico> examesPraticos;
+    
+    @Type(type = "true_false")
+    @Column(name = "visivel", nullable = true)
+    private boolean visivel;
 
     public Veiculo() {
         placa = "";
@@ -33,6 +38,7 @@ public class Veiculo implements Serializable {
         modelo = "";
         anoFabricacao = "";
         examesPraticos = new ArrayList<>();
+        visivel = true;
     }
 
     public Veiculo(String placa, String marca, String modelo, String anoFabricacao) {
@@ -40,6 +46,7 @@ public class Veiculo implements Serializable {
         this.marca = marca;
         this.modelo = modelo;
         this.anoFabricacao = anoFabricacao;
+        this.visivel = true;
         examesPraticos = new ArrayList<>();
     }
 
@@ -48,6 +55,7 @@ public class Veiculo implements Serializable {
         this.marca = marca;
         this.modelo = modelo;
         this.anoFabricacao = anoFabricacao;
+        this.visivel = true;
         this.examesPraticos = examesPraticos;
     }
 
@@ -89,6 +97,14 @@ public class Veiculo implements Serializable {
 
     public void setExamesPraticos(List<ExamePratico> examesPraticos) {
         this.examesPraticos = examesPraticos;
+    }
+
+    public boolean isVisivel() {
+        return visivel;
+    }
+
+    public void setVisivel(boolean visivel) {
+        this.visivel = visivel;
     }
 
 }

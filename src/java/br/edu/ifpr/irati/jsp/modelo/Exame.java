@@ -44,6 +44,10 @@ public class Exame implements Serializable {
     
     @OneToMany(mappedBy = "exame")
     protected List<ResultadoExame> resultadoExame;
+    
+    @Type(type = "true_false")
+    @Column(name = "visivel", nullable = true)
+    protected boolean visivel;
 
     public Exame() {
         idExame = 0;
@@ -52,6 +56,7 @@ public class Exame implements Serializable {
         resultadoExame = new ArrayList<>();
         maximoAlunos = 0;
         reteste = false;
+        visivel = true;
         alunos = new ArrayList<>();
     }
     
@@ -62,6 +67,7 @@ public class Exame implements Serializable {
         resultadoExame = new ArrayList<>();
         this.maximoAlunos = maximoAlunos;
         this.reteste = reteste;
+        this.visivel = true;
         this.alunos = alunos;
     }
 
@@ -72,6 +78,7 @@ public class Exame implements Serializable {
         this.resultadoExame = resultadoExame;
         this.maximoAlunos = maximoAlunos;
         this.reteste = reteste;
+        this.visivel = true;
         this.alunos = alunos;
     }
 
@@ -129,6 +136,18 @@ public class Exame implements Serializable {
 
     public void setAlunos(List<Aluno> alunos) {
         this.alunos = alunos;
+    }
+
+    public List<ResultadoExame> getResultadoExame() {
+        return resultadoExame;
+    }
+
+    public boolean isVisivel() {
+        return visivel;
+    }
+
+    public void setVisivel(boolean visivel) {
+        this.visivel = visivel;
     }
 
 }

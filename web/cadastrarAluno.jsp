@@ -29,6 +29,12 @@
                 <h6 align="center">Dados Pessoais</h6>
             </div>
 
+           <div class="row">
+            <div class="input-field col s4">
+                    <p> Nº do Processo: <input class="required" type="text" name="processo" maxlength="100"></p>
+            </div>
+           </div>
+                
             <div class="row">
                 <div class="input-field col s4">
                     <p> Nome Completo: <input class="required" type="text" name="nome" maxlength="100"></p>
@@ -225,14 +231,6 @@
             cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2");
             cpf = cpf.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
             return cpf;
-        }
-
-        function mRG(rg) {
-            rg = rg.replace(/\D/g, "");
-            rg = rg.replace(/(\d{2})(\d)/, "$1.$2");
-            rg = rg.replace(/(\d{3})(\d)/, "$1.$2");
-            rg = rg.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
-            return rg;
         }
 
         function mData(data) {

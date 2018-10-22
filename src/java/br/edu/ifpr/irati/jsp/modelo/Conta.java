@@ -8,8 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToOne;  
 
 @Entity(name = "conta")
 public class Conta implements Serializable {
@@ -23,6 +22,9 @@ public class Conta implements Serializable {
 
     @Column(name = "parcelas", nullable = false)
     private int parcelas;
+    
+    @Column(name = "anotacoes", nullable = false, length = 65000)
+    private String anotacoes;
 
     @ManyToMany
     private List<Registro> registros;
