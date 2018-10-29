@@ -43,8 +43,13 @@
         
         <main>
             <div class="row">
-                <div class="center input-field col s12">
+                <div class="center input-field col s6">
                     <a href="instrutor.jsp"><button class="waves-effect waves-light btn" type="button">INSTRUTOR</button></a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="center input-field col s6">
+                    <a href="usuario.jsp"><button class="waves-effect waves-light btn" type="button">USUÁRIO</button></a>
                 </div>
             </div>
         </main>

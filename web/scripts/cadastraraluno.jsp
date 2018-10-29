@@ -73,7 +73,7 @@
         
     } 
 
-    if(flag > 0){
+    if(flag != 0){
     
     Aluno a = new Aluno(processo, orgaoRg, uf, estadoCivil, nomePai, nomeMae, dataNascimento, naturalidade, nacionalidade, sexo, grauInstrucao, doadorOrgaos, tipoSanguineo, email, 0, nomeCompleto, dataCadastro, cidade, estado, endereco, numero, complemento, cep, bairro, telefone, telefoneCelular, rg, cpf);
 
@@ -83,7 +83,7 @@
     response.sendRedirect("../aluno.jsp");
     
     } else {
-        response.sendRedirect("../cadastraAluno.jsp");
+        response.sendRedirect("../cadastrarAluno.jsp");
     }
     
 
