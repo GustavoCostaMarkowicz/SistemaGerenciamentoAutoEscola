@@ -4,6 +4,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Login</title>
+        <link rel="shortcut icon" href="imagens/logo.png"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.css" rel="stylesheet"/>
@@ -14,7 +15,7 @@
             String mensagem = "";
             if (e != null) {
                 mensagem = e;
-                
+
             }
         %>
     </head>
@@ -28,16 +29,16 @@
         .card {
             margin-top: 70px;
             background-color: white;
-            border-radius: 15px;
+            border: 15px;
         }
-        
+
         div#mensagem {
             color: red;
         }
-        
+
         div#logo {
-            text-align: center;
             background-color: black;
+            text-align: center;
         }
 
     </style>
@@ -48,10 +49,10 @@
         </header>
 
         <main>
-            
+
             <div id="logo">
                 <img src="imagens/logo.png">
-            </div>
+            </div>         
 
             <div class="row">
                 <form action="scripts/login.jsp" method="POST">

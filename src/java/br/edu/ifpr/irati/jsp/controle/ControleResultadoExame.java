@@ -54,14 +54,6 @@ public class ControleResultadoExame {
         Dao<ResultadoExame> resultadoexameDAO = new GenericDAO<>(ResultadoExame.class);
         ResultadoExame re = resultadoexameDAO.buscarResultadoExamesPorAlunoExame(idAluno, idExame);
         return re;
-//        List<ResultadoExame> resultadoexames = new ArrayList<>();
-//        resultadoexames = resultadoexameDAO.buscarTodos(ResultadoExame.class);
-//        for(ResultadoExame re: resultadoexames){
-//            if(re.getAluno().getIdPessoa() == idAluno && re.getExame().getIdExame() == idExame){
-//                return re;
-//            }
-//        }
-//        return null;
         
     }
     

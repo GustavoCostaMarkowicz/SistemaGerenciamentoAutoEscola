@@ -36,6 +36,7 @@
 
             double valorTotal = Double.parseDouble(svalorTotal);
             double valorEntrada = Double.parseDouble(svalorEntrada);
+            valorTotal -= valorEntrada;
             int parcelas = Integer.parseInt(sparcelas);
             int id = Integer.parseInt(sid);
             int idUsuario = Integer.parseInt(sidUsuario);
@@ -59,12 +60,19 @@
             
            ControleConta cc = new ControleConta();
            cc.inserirConta(c);
-            
-           Registro r = new Registro(0, new Date(), new Date(), "Valor de Entrada de: R$ " + valorEntrada, c, u);
+           
+           Registro r1 = new Registro(0, new Date(), new Date(), "Conta aberta. Serviço - " + servico, c, u);
             
            ControleRegistro cr = new ControleRegistro();
-           cr.inserirRegitro(r);
+           cr.inserirRegitro(r1);
+           
+           if(valorEntrada > 0){
+               
+               Registro r2 = new Registro(0, new Date(), new Date(), "Valor de entrada de R$ " + valorEntrada, c, u);
             
-           response.sendRedirect("../mostrarAluno.jsp?idPessoa="+sid);
+               cr.inserirRegitro(r2);
+           }
+            
+           response.sendRedirect("../mostrarConta.jsp?idPessoa="+sid);
         
         %>
