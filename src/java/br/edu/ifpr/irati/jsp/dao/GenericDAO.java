@@ -1,8 +1,13 @@
 package br.edu.ifpr.irati.jsp.dao;
 
+import br.edu.ifpr.irati.jsp.exception.HashGenerationException;
+import br.edu.ifpr.irati.jsp.modelo.Usuario;
+import br.edu.ifpr.irati.jsp.util.Digest;
 import gerais.HibernateUtil;
 import java.io.Serializable;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -94,5 +99,5 @@ public class GenericDAO<T> implements Dao<T> {
         session.close();
         return results;
     }
- 
+    
 }

@@ -49,7 +49,7 @@
             </div>
             <div class="row">
                 <div class="center input-field col s6">
-                    <a href="usuario.jsp"><button class="waves-effect waves-light btn" type="button">USUÁRIO</button></a>
+                    <a href="cadastrarUsuario.jsp"><button class="waves-effect waves-light btn" type="button">USUÁRIO</button></a>
                 </div>
             </div>
         </main>

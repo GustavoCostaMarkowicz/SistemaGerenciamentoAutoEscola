@@ -2,9 +2,14 @@ package br.edu.ifpr.irati.jsp.controle;
 
 import br.edu.ifpr.irati.jsp.dao.Dao;
 import br.edu.ifpr.irati.jsp.dao.GenericDAO;
+import br.edu.ifpr.irati.jsp.exception.HashGenerationException;
+import br.edu.ifpr.irati.jsp.modelo.Atendente;
 import br.edu.ifpr.irati.jsp.modelo.Diretor;
 import br.edu.ifpr.irati.jsp.modelo.Usuario;
+import br.edu.ifpr.irati.jsp.util.Digest;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ControleUsuario {
 
@@ -14,10 +19,12 @@ public class ControleUsuario {
 
         List<Usuario> usuarios = usuarioDAO.buscarTodos(Usuario.class);
         Usuario u = new Usuario();
+        
+        String senhaResumo = Digest.hashString(senha, "SHA-512");
 
         boolean usuarioInvalido = true;
         for (Usuario usuario : usuarios) {
-            if (usuario.getLogin().equals(login) & usuario.getSenha().equals(senha)) {
+            if (usuario.getLogin().equals(login) & usuario.getSenha().equals(senhaResumo)) {
                 u = usuario;
                 usuarioInvalido = false;
             }
@@ -31,6 +38,22 @@ public class ControleUsuario {
 
     }
 
+    public void salvarUsuario(Atendente a){
+        
+        try {
+            a.setSenha(Digest.hashString(a.getSenha(), "SHA-512"));
+            
+            Dao<Atendente> aDAO = new GenericDAO<>(Atendente.class);
+            
+            aDAO.salvar(a);
+            
+            
+        } catch (HashGenerationException ex) {
+            Logger.getLogger(ControleUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
     public String verificarTipoUsuario(int idUsuario) {
 
         Dao<Diretor> diretorDAO = new GenericDAO<>(Diretor.class);
