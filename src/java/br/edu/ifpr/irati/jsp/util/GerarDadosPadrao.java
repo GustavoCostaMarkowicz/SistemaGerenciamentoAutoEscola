@@ -7,6 +7,7 @@ import br.edu.ifpr.irati.jsp.controle.ControleExamePratico;
 import br.edu.ifpr.irati.jsp.controle.ControleExamePsicotecnico;
 import br.edu.ifpr.irati.jsp.controle.ControleExameTeorico;
 import br.edu.ifpr.irati.jsp.controle.ControleInstrutor;
+import br.edu.ifpr.irati.jsp.controle.ControleItemMenu;
 import br.edu.ifpr.irati.jsp.controle.ControleRegraParcela;
 import br.edu.ifpr.irati.jsp.controle.ControleServico;
 import br.edu.ifpr.irati.jsp.controle.ControleVeiculo;
@@ -17,6 +18,7 @@ import br.edu.ifpr.irati.jsp.modelo.ExamePratico;
 import br.edu.ifpr.irati.jsp.modelo.ExamePsicotecnico;
 import br.edu.ifpr.irati.jsp.modelo.ExameTeorico;
 import br.edu.ifpr.irati.jsp.modelo.Instrutor;
+import br.edu.ifpr.irati.jsp.modelo.ItemMenu;
 import br.edu.ifpr.irati.jsp.modelo.RegraParcelas;
 import br.edu.ifpr.irati.jsp.modelo.Servico;
 import br.edu.ifpr.irati.jsp.modelo.Veiculo;
@@ -28,11 +30,25 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class GerarDadosPadrão {
+public class GerarDadosPadrao {
 
     public static void main(String[] args) {
 
         try {
+            ControleItemMenu controleItemMenu = new ControleItemMenu();
+            
+            ItemMenu itAluno = new ItemMenu(1, "Alunos", "aluno.jsp", "person", true, true);
+            ItemMenu itFuncionario = new ItemMenu(2, "Funcionários", "funcionario.jsp", "assingment_ind", true, false);
+            ItemMenu itExame = new ItemMenu(3, "Exames", "exame.jsp", "date_range", true, true);
+            ItemMenu itVeiculo = new ItemMenu(4, "Veículos", "veiculo.jsp", "directions_car", true, true);
+            ItemMenu itLogout = new ItemMenu(4, "Sair", "scripts/logout.jsp", "remove_from_queue", true, true);
+            
+            controleItemMenu.inserirItemMenu(itAluno);
+            controleItemMenu.inserirItemMenu(itFuncionario);
+            controleItemMenu.inserirItemMenu(itExame);
+            controleItemMenu.inserirItemMenu(itVeiculo);
+            controleItemMenu.inserirItemMenu(itLogout);
+            
             ControleAluno controleAluno = new ControleAluno();
             ControleInstrutor controleInstrutor = new ControleInstrutor();
             ControleAtendente controleAtendente = new ControleAtendente();
@@ -88,7 +104,7 @@ public class GerarDadosPadrão {
             controleRP.inserirRegraParcelas(rp);
                   
         } catch (ParseException ex) {
-            Logger.getLogger(GerarDadosPadrão.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GerarDadosPadrao.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
