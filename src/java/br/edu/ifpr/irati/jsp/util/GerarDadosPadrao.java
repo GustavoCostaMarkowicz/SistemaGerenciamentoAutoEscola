@@ -32,7 +32,7 @@ import java.util.logging.Logger;
 
 public class GerarDadosPadrao {
 
-    public static void main(String[] args) {
+    public void gerarDados() {
 
         try {
             ControleItemMenu controleItemMenu = new ControleItemMenu();
