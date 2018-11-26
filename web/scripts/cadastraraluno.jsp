@@ -1,3 +1,4 @@
+<%@page import="java.io.PrintWriter"%>
 <%@page import="javax.swing.JOptionPane"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -83,7 +84,13 @@
     response.sendRedirect("../aluno.jsp");
     
     } else {
-        response.sendRedirect("../cadastrarAluno.jsp");
+        
+         out.println("<script type=\"text/javascript\">");
+         out.println("alert('Data de Nascimento Incorreta');");
+         out.println("</script>");
+         
+         
+        
     }
     
 

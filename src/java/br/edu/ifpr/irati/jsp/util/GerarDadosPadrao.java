@@ -2,6 +2,7 @@ package br.edu.ifpr.irati.jsp.util;
 
 import br.edu.ifpr.irati.jsp.controle.ControleAluno;
 import br.edu.ifpr.irati.jsp.controle.ControleAtendente;
+import br.edu.ifpr.irati.jsp.controle.ControleDiretor;
 import br.edu.ifpr.irati.jsp.controle.ControleExameMedico;
 import br.edu.ifpr.irati.jsp.controle.ControleExamePratico;
 import br.edu.ifpr.irati.jsp.controle.ControleExamePsicotecnico;
@@ -11,8 +12,10 @@ import br.edu.ifpr.irati.jsp.controle.ControleItemMenu;
 import br.edu.ifpr.irati.jsp.controle.ControleRegraParcela;
 import br.edu.ifpr.irati.jsp.controle.ControleServico;
 import br.edu.ifpr.irati.jsp.controle.ControleVeiculo;
+import br.edu.ifpr.irati.jsp.exception.HashGenerationException;
 import br.edu.ifpr.irati.jsp.modelo.Aluno;
 import br.edu.ifpr.irati.jsp.modelo.Atendente;
+import br.edu.ifpr.irati.jsp.modelo.Diretor;
 import br.edu.ifpr.irati.jsp.modelo.ExameMedico;
 import br.edu.ifpr.irati.jsp.modelo.ExamePratico;
 import br.edu.ifpr.irati.jsp.modelo.ExamePsicotecnico;
@@ -52,6 +55,7 @@ public class GerarDadosPadrao {
             ControleAluno controleAluno = new ControleAluno();
             ControleInstrutor controleInstrutor = new ControleInstrutor();
             ControleAtendente controleAtendente = new ControleAtendente();
+            ControleDiretor controleDiretor = new ControleDiretor();
             ControleVeiculo controleVeiculo = new ControleVeiculo();
             ControleServico controleServico = new ControleServico();
 
@@ -59,13 +63,15 @@ public class GerarDadosPadrao {
             Aluno al2 = new Aluno("1111", "SESP-PR", "PR", "casado", "Pai Aluno 2", "Mãe Aluno 2", new SimpleDateFormat("dd/MM/yyyy").parse("01/01/1996"), "Irati-PR", "brasileiro", "feminino", "EM completo", false, "AB+", "aluno2@email.com", 0, "Nome Aluno 2", new Date(), "Irati", "Paraná", "Rua do Aluno 2", "11", "casa", "84500-000", "Bairro do Aluno 2", null, "(42)98855-0055", "44.444.444-4", "444.444.444-44");
             Instrutor in = new Instrutor(new Date(), "111222333", new SimpleDateFormat("dd/MM/yyyy").parse("30/08/2020"), "Prático/Teórico", "ativo", 0, "Nome Instrutor", new Date(), "Irati", "Paraná", null, null, null, "84500-000", null, "(42)3422-8080", null, "22.222.222-2", "222.222.222-22");
             Atendente at = new Atendente("Nome do Atendente", "(42)99900-8888", "null", 0, "atendente1", "atd1senha", "Irati");
+            Diretor d = new Diretor("123.456.789", 0, "diretor1", "dir1senha", "Irati");
             Veiculo ve = new Veiculo("ABC-1234", "Chevrolet", "Onix", "2015");
             Servico se = new Servico("Primeira Carteira A", 1300.00);
-
+            
             controleAluno.inserirAluno(al);
             controleAluno.inserirAluno(al2);
             controleInstrutor.inserirInstrutor(in);
             controleAtendente.inserirAtendente(at);
+            controleDiretor.salvarUsuario(d);
             controleVeiculo.inserirVeiculo(ve);
             controleServico.inserirServico(se);
 
@@ -87,7 +93,7 @@ public class GerarDadosPadrao {
             alunosPs.add(alE2);
             alunosTe.add(alE);
             alunosTe.add(alE2);
-            Instrutor inE = controleInstrutor.buscarInstrutorPorId(2);
+            Instrutor inE = controleInstrutor.buscarInstrutorPorId(3);
             Veiculo veE = controleVeiculo.buscarVeiculosPorId("ABC-1234");
             Servico seRp = controleServico.buscarServicoPorNome("Primeira Carteira A");
             

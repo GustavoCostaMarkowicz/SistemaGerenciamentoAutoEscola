@@ -21,6 +21,7 @@ public class ControleUsuario {
         Usuario u = new Usuario();
         
         String senhaResumo = Digest.hashString(senha, "SHA-512");
+        System.out.println(senhaResumo);
 
         boolean usuarioInvalido = true;
         for (Usuario usuario : usuarios) {
