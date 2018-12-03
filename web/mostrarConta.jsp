@@ -1,3 +1,4 @@
+<%@page import="br.edu.ifpr.irati.jsp.modelo.Usuario"%>
 <%@page import="java.util.Date"%>
 <%@page import="br.edu.ifpr.irati.jsp.controle.ControleConta"%>
 <%@page import="br.edu.ifpr.irati.jsp.modelo.Registro"%>
@@ -23,6 +24,12 @@
     </head>
     
     <%
+        session = request.getSession();
+            Usuario u = (Usuario) session.getAttribute("usuario");
+            boolean logado = false;
+            if(u != null){
+                logado = true;
+            }
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         SimpleDateFormat sdf1 = new SimpleDateFormat("hh:mm");
         int idPessoa = Integer.parseInt(request.getParameter("idPessoa"));
@@ -84,6 +91,10 @@
             color: green;
         }
         
+        td.pago {
+            color: black;
+        }
+        
         td.invalido {
             color: red;
         }
@@ -120,7 +131,7 @@
                     <th>Data</th>
                     <th>Hora</th>
                     <th class="ultimo">Registro</th>
-                    <th id="botao"><a class="waves-effect waves-light btn" value="Pagamento">Realizar Pagamento</a></th>
+                    <th id="botao"><a href="scripts/realizarpagamento.jsp?idPessoa=<%=idPessoa%>&idUsuario=<%=u.getIdUsuario()%>" class="waves-effect waves-light btn" value="Pagamento">Realizar Pagamento Parcela</a></th>
                 </tr>
                 
                 <%
@@ -130,9 +141,7 @@
                     
                     int diaParcela = registros.get(0).getDataRegistro().getDate();
                     int mesPrimeiraParcela = registros.get(0).getDataRegistro().getMonth() + 1;
-                    if(mesPrimeiraParcela > 11){
-                        mesPrimeiraParcela = 0;
-                    }
+                    
                     String[] meses = new String[12];
                     meses[0] = "Janeiro";
                     meses[1] = "Fevereiro";
@@ -151,36 +160,54 @@
                
                     int anoParcela = registros.get(0).getDataRegistro().getYear() + 1900;
                     
+                    if(mesPrimeiraParcela > 11){
+                        mesPrimeiraParcela = 0;
+                        anoParcela += 1;
+                    }
+                    
                     int controleParcela = mesPrimeiraParcela;
                     String[] validade = new String[c.getParcelas()];
                     Date dataAtual = new Date();
+                    double valorParcela = c.getValorInicial()/c.getParcelas();
+                    double controleValorPago = c.getValorPago();
                     for(int k = 0; k < c.getParcelas(); k++){
-                        if(anoParcela > (dataAtual.getYear() + 1900)){
-                            validade[k] = "valido";
-                        } else if(anoParcela == (dataAtual.getYear() + 1900)){
-                            if(controleParcela > dataAtual.getMonth()){
+                        if((controleValorPago - valorParcela) >= 0){
+                            validade[k] = "pago";
+                        } else{
+                            if(anoParcela > (dataAtual.getYear() + 1900)){
                                 validade[k] = "valido";
-                            } else if(controleParcela == dataAtual.getMonth()){
-                                if(diaParcela >= dataAtual.getDate()){
+                            } else if(anoParcela == (dataAtual.getYear() + 1900)){
+                                if(controleParcela > dataAtual.getMonth()){
                                     validade[k] = "valido";
+                                } else if(controleParcela == dataAtual.getMonth()){
+                                    if(diaParcela >= dataAtual.getDate()){
+                                        validade[k] = "valido";
+                                    } else{
+                                        validade[k] = "invalido";
+                                    }
                                 } else{
                                     validade[k] = "invalido";
                                 }
                             } else{
                                 validade[k] = "invalido";
                             }
-                        } else{
-                            validade[k] = "invalido";
                         }
+                        
                         controleParcela++;
                         if(controleParcela > 11){
                             controleParcela = 0;
                             anoParcela++;
                         }
+                        controleValorPago -= valorParcela;
                     }
                     
                     anoParcela = registros.get(0).getDataRegistro().getYear() + 1900;
+                    if(mesPrimeiraParcela == 0){
+                        anoParcela += 1;
+                    }
+                    
                     controleParcela = mesPrimeiraParcela;
+                    controleValorPago = c.getValorPago();
                     
                     if(c.getParcelas() > registros.size()){
                         
@@ -197,7 +224,17 @@
                                 <td><%=sdf.format(registros.get(i).getDataRegistro())%></td>
                                 <td><%=sdf1.format(registros.get(i).getHorarioRegistro())%></td>
                                 <td class="ultimo"><%=registros.get(i).getTextoRegistro()%></td>
-                                <td class="<%=validade[j]%>"><%="Data de vencimento da parcela - " + diaParcela + " de " + meses[controleParcela] +  " de " + anoParcela + "<br>Valor - R$" + c.getValorTotal()/c.getParcelas()%></td>
+                                <%
+                                    if((controleValorPago - valorParcela) >= 0){
+                                %>
+                                <td class="<%=validade[j]%>"><%=(j+1)+"ª Parcela<br>PAGO"%></td>
+                                <%
+                                    } else{
+                                %>
+                                <td class="<%=validade[j]%>"><%=(j+1)+"ª Parcela<br>Data de vencimento da parcela - " + diaParcela + " de " + meses[controleParcela] +  " de " + anoParcela + "<br>Valor - R$" + c.getValorTotal()/(c.getValorTotal()/(c.getValorInicial()/c.getParcelas()))%></td>
+                                <%
+                                    }
+                                %>
                                 </tr>
                                 <%  } else { %>
                                 <tr>
@@ -205,7 +242,17 @@
                                 <td></td>
                                 <td></td>
                                 <td class="ultimo"></td>
-                                <td class="<%=validade[j]%>"><%="Data de vencimento da parcela - " + diaParcela + " de " + meses[controleParcela] +  " de " + anoParcela + "<br>Valor - R$" + c.getValorTotal()/c.getParcelas()%></td>
+                                <%
+                                    if((controleValorPago - valorParcela) >= 0){
+                                %>
+                                <td class="<%=validade[j]%>"><%=(j+1)+"ª Parcela<br>PAGO"%></td>
+                                <%
+                                    } else{
+                                %>
+                                <td class="<%=validade[j]%>"><%=(j+1)+"ª Parcela<br>Data de vencimento da parcela - " + diaParcela + " de " + meses[controleParcela] +  " de " + anoParcela + "<br>Valor - R$" + c.getValorTotal()/(c.getValorTotal()/(c.getValorInicial()/c.getParcelas()))%></td>
+                                <%
+                                    }
+                                %>
                                 </tr>
                                 <%}
                                     controleParcela++;
@@ -213,6 +260,7 @@
                                         controleParcela = 0;
                                         anoParcela++;
                                     }
+                                    controleValorPago -= valorParcela;
                                     i--;
                                     }
                                 %>

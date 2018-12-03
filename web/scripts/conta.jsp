@@ -29,12 +29,18 @@
             String servico = request.getParameter("tipo");
             String svalorTotal = request.getParameter("valortotal");
             String sparcelas = request.getParameter("parcelas");
+            String anotacoes = request.getParameter("anotacoes");
 
             if (sparcelas.equals("")) {
                 sparcelas = "1";
             }
+            if (svalorEntrada.equals("")){
+                svalorEntrada = "0";
+            }
 
             double valorTotal = Double.parseDouble(svalorTotal);
+            double valorInicial = valorTotal;
+            double valorPago = 0.0;
             double valorEntrada = Double.parseDouble(svalorEntrada);
             valorTotal -= valorEntrada;
             int parcelas = Integer.parseInt(sparcelas);
@@ -56,7 +62,7 @@
  
             servicoA.add(s);
 
-            Conta c = new Conta(valorTotal, parcelas, a, servicoA);
+            Conta c = new Conta(valorTotal, valorInicial, valorPago, parcelas, a, servicoA, anotacoes);
             
            ControleConta cc = new ControleConta();
            cc.inserirConta(c);

@@ -28,6 +28,7 @@ public class ControleUsuario {
             if (usuario.getLogin().equals(login) & usuario.getSenha().equals(senhaResumo)) {
                 u = usuario;
                 usuarioInvalido = false;
+                break;
             }
         }
 

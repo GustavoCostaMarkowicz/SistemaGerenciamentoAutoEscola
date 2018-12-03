@@ -44,8 +44,8 @@ public class ControleConta {
     public Conta buscarContasPorId(int idConta){
         
         Dao<Conta> contaDAO = new GenericDAO<>(Conta.class);
-        Conta a = contaDAO.buscarPorId(idConta);
-        return a;
+        Conta c = contaDAO.buscarPorId(idConta);
+        return c;
         
     }
     

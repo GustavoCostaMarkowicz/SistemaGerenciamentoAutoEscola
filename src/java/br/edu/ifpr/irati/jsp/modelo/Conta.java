@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;  
+import javax.persistence.OneToOne;
 
 @Entity(name = "conta")
 public class Conta implements Serializable {
@@ -19,11 +19,17 @@ public class Conta implements Serializable {
 
     @Column(name = "valortotal", nullable = false)
     private double valorTotal;
+    
+    @Column(name = "valorinicial", nullable = true)
+    private double valorInicial;
+
+    @Column(name = "valorpago", nullable = true)
+    private double valorPago;
 
     @Column(name = "parcelas", nullable = false)
     private int parcelas;
-    
-    @Column(name = "anotacoes", nullable = false, length = 65000)
+
+    @Column(name = "anotacoes", nullable = true, length = 65000)
     private String anotacoes;
 
     @ManyToMany
@@ -34,38 +40,47 @@ public class Conta implements Serializable {
 
     public Conta() {
         valorTotal = 0.0;
+        valorInicial = 0.0;
+        valorPago = 0.0;
         parcelas = 0;
         aluno = new Aluno();
         registros = new ArrayList<>();
         servicos = new ArrayList<>();
+        anotacoes = "";
     }
 
-    public Conta(double valorTotal, int parcelas, Aluno aluno, List<Servico> servicos) {
+    public Conta(double valorTotal, double valorInicial, double valorPago, int parcelas, Aluno aluno, List<Servico> servicos, String anotacoes) {
         this.valorTotal = valorTotal;
+        this.valorInicial = valorInicial;
+        this.valorPago = valorPago;
         this.parcelas = parcelas;
         this.aluno = aluno;
         registros = new ArrayList<>();
         this.servicos = servicos;
+        this.anotacoes = anotacoes;
     }
 
-    public Conta(double valorTotal, int parcelas, Aluno aluno, List<Registro> registros, List<Servico> servicos) {
+    public Conta(double valorTotal, double valorInicial, double valorPago, int parcelas, Aluno aluno, List<Registro> registros, List<Servico> servicos, String anotacoes) {
         this.valorTotal = valorTotal;
+        this.valorInicial = valorInicial;
+        this.valorPago = valorPago;
         this.parcelas = parcelas;
         this.aluno = aluno;
         this.registros = registros;
         this.servicos = servicos;
+        this.anotacoes = anotacoes;
     }
 
-       public void adicionarRegistro(Registro registro){
+    public void adicionarRegistro(Registro registro) {
         this.registros.add(registro);
         registro.setConta(this);
     }
-    
-    public void removerRegistro(Registro registro){
+
+    public void removerRegistro(Registro registro) {
         this.registros.remove(registro);
         registro.setConta(new Conta());
     }
-    
+
     public double getValorTotal() {
         return valorTotal;
     }
@@ -104,6 +119,30 @@ public class Conta implements Serializable {
 
     public void setServicos(List<Servico> servicos) {
         this.servicos = servicos;
+    }
+
+    public double getValorPago() {
+        return valorPago;
+    }
+
+    public void setValorPago(double valorPago) {
+        this.valorPago = valorPago;
+    }
+
+    public String getAnotacoes() {
+        return anotacoes;
+    }
+
+    public void setAnotacoes(String anotacoes) {
+        this.anotacoes = anotacoes;
+    }
+
+    public double getValorInicial() {
+        return valorInicial;
+    }
+
+    public void setValorInicial(double valorinicial) {
+        this.valorInicial = valorinicial;
     }
 
 }

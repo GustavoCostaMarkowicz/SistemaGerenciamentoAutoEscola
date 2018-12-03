@@ -68,7 +68,7 @@
                         <p> Matrícula do aluno: <input type="number" name="id" value="<%=idAluno%>" size="60"></p>
                     </div>
                     <div class="input-field col s6">
-                        <p> Valor de Entrada: <input type="text" name="valorentrada" size="15"> </p>
+                        <p> Valor de Entrada (opcional): <input type="text" name="valorentrada" size="15"> </p>
                     </div>
                 </div>
 
@@ -94,6 +94,13 @@
                     </div>
                     <div class="input-field col s6">
                         <p> Parcelas: <input type="number" name="parcelas" size="15"> </p>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="input-field col s12">
+                        <textarea name="anotacoes" class="materialize-textarea"></textarea>
+                        <label for="anotacoes">Anotações</label>
                     </div>
                 </div>
 
