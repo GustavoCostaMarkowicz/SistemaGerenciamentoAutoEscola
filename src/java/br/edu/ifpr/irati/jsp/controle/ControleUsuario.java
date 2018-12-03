@@ -80,5 +80,14 @@ public class ControleUsuario {
         return u;
 
     }
+    
+    
+    public List<Atendente> buscarTodosAtendentes(){
+        
+        Dao<Atendente> atendenteDAO = new GenericDAO<>(Atendente.class);
+        List<Atendente> atendentes = atendenteDAO.buscarTodos(Atendente.class);
+        return atendentes;
+        
+    }
 
 }

@@ -4,6 +4,11 @@
     Author     : Usuario
 --%>
 
+<%@page import="br.edu.ifpr.irati.jsp.modelo.Atendente"%>
+<%@page import="br.edu.ifpr.irati.jsp.modelo.Usuario"%>
+<%@page import="java.util.List"%>
+<%@page import="br.edu.ifpr.irati.jsp.controle.ControleUsuario"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -23,6 +28,40 @@
         </header>
 
         <main>
+            
+            <table class="centered striped">
+                <tr>
+                    <th>Nº do Processo</th>
+                    <th>Nome Completo</th>
+                    <th>CPF</th>
+                    <th>RG</th>
+                    <th>Data de Nascimento</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <%
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                    
+                    ControleUsuario controleUsuario = new ControleUsuario();
+                    List<Atendente> atendentes = controleUsuario.buscarTodosAtendentes();
+                    
+
+                    for (Atendente atendente : atendentes) {
+                %>
+                <tr>
+                    <td><%=atendente.getNomeCompleto() %></td>
+                    <td><%=atendente.getLogin() %></td>
+                    <td><%=atendente.getCidadeAtuacao()%></td>
+                    <td><%=atendente.getTelefone() %></td>
+                    <td><%=atendente.getTelefoneCelular()%></td>
+                    <td><a href="alterarAtendente.jsp?idUsuario=<%=atendente.getIdUsuario() %>" class="waves-effect waves-light btn-floating" value="Alterar">Alterar</a></td>
+                    <td><a href="excluirAtendente.jsp?idUsuario=<%=atendente.getIdUsuario()%>" class="waves-effect waves-light btn" value="Excluir"> Excluir </a></td>
+                </tr>
+                <%
+                    }
+                %>
+            </table>
+            
             <form action="scripts/cadastrarusuario.jsp" method="POST">
                 <div class="row">
                     <div class="input-field col s4">
