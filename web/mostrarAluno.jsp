@@ -76,6 +76,7 @@
                 <%
                     }
                 %>
+                <p>Número do Processo: <%=a.getProcesso() %></p>
                 <p>Data de Nascimento: <%=sdf.format(a.getDataNascimento())%></p>
                 <p>Data de Cadastro: <%=sdf.format(a.getDataCadastro())%></p>
                 <p>CPF: <%=a.getCpf() %></p>

@@ -10,7 +10,8 @@
     int idPessoa = Integer.parseInt(request.getParameter("idPessoa"));
 
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-
+    
+    String processo = request.getParameter("processo");
     String nomeCompleto = request.getParameter("nome");
     String sData = request.getParameter("datanascimento");
     String sexo = request.getParameter("sexo");
@@ -45,7 +46,7 @@
     }
     String uf = suf.toUpperCase();
 
-    Aluno a = new Aluno(orgaoRg, uf, estadoCivil, nomePai, nomeMae, dataNascimento, naturalidade, nacionalidade, sexo, grauInstrucao, doadorOrgaos, tipoSanguineo, email, idPessoa, nomeCompleto, dataCadastro, cidade, estado, endereco, numero, complemento, cep, bairro, telefone, telefoneCelular, rg, cpf);
+    Aluno a = new Aluno(processo, orgaoRg, uf, estadoCivil, nomePai, nomeMae, dataNascimento, naturalidade, nacionalidade, sexo, grauInstrucao, doadorOrgaos, tipoSanguineo, email, idPessoa, nomeCompleto, dataCadastro, cidade, estado, endereco, numero, complemento, cep, bairro, telefone, telefoneCelular, rg, cpf);
 
     ControleAluno ca = new ControleAluno();
 

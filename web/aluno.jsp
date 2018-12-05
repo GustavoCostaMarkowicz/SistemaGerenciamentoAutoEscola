@@ -30,12 +30,11 @@
         <main>
             <table class="centered striped">
                 <tr>
-                    <th>Matrícula</th>
+                    <th>Nº do Processo</th>
                     <th>Nome Completo</th>
                     <th>CPF</th>
                     <th>RG</th>
                     <th>Data de Nascimento</th>
-                    <th></th>
                     <th></th>
                     <th></th>
                 </tr>
@@ -48,14 +47,13 @@
                     for (Aluno aluno : alunos) {
                 %>
                 <tr>
-                    <td><%=aluno.getIdPessoa()%></td>
+                    <td><%=aluno.getProcesso()%></td>
                     <td><%=aluno.getNomeCompleto()%></td>
                     <td><%=aluno.getCpf()%></td>
                     <td><%=aluno.getRg()%></td>
                     <td><%=sdf.format(aluno.getDataNascimento())%></td>
                     <td><a href="mostrarAluno.jsp?idPessoa=<%=aluno.getIdPessoa()%>" class="waves-effect waves-light btn-floating" value="VerMais"><i class="material-icons">control_point</i></a></td>
                     <td><a href="alterarAluno.jsp?idPessoa=<%=aluno.getIdPessoa()%>" class="waves-effect waves-light btn" value="Alterar"> Alterar </a></td>
-                    <td><a href="scripts/excluiraluno.jsp?idPessoa=<%=aluno.getIdPessoa()%>" class="waves-effect waves-light btn" value="Excluir">Excluir</a></td>
                 </tr>
                 <%
                     }
