@@ -19,14 +19,11 @@
     
     ControleResultadoExame cre = new ControleResultadoExame();
     
-    
     for(int i = 0; i < exame.getMaximoAlunos(); i++){
         String si = String.valueOf(i);
         String resultado = request.getParameter(si);
-        int idPessoa = exame.getAlunos().get(i).getIdPessoa();
-        int idRE = cre.buscarResultadoExamesPorAlunoExame(idPessoa, idExame).getIdResultadoExame();
-        ResultadoExame re = new ResultadoExame(idRE, exame.getAlunos().get(i), exame, resultado);
-        cre.alterarResultadoExame(re);
+        ResultadoExame re = new ResultadoExame(0, exame.getAlunos().get(i), exame, resultado);
+        cre.inserirResultadoExame(re);
     }
     
     response.sendRedirect("../exame.jsp");

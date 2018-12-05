@@ -65,7 +65,7 @@
                     ResultadoExame re = cre.buscarResultadoExamesPorAlunoExame(em.getAlunos().get(0).getIdPessoa(), em.getIdExame());
                     String resultado;
                     if(re == null){
-                        resultado = "";
+                        resultado = "Indefinido";
                     } else{
                         resultado = re.getResultado();
                     }

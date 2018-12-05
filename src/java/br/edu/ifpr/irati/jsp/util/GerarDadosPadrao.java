@@ -82,7 +82,7 @@ public class GerarDadosPadrao {
             ControleRegraParcela controleRP = new ControleRegraParcela();
 
             Aluno alE = controleAluno.buscarAlunosPorId(1);
-            Aluno alE2 = controleAluno.buscarAlunosPorId(3);
+            Aluno alE2 = controleAluno.buscarAlunosPorId(2);
             List<Aluno> alunosMe = new ArrayList<>();
             List<Aluno> alunosPr = new ArrayList<>();
             List<Aluno> alunosPs = new ArrayList<>();
@@ -98,9 +98,9 @@ public class GerarDadosPadrao {
             Servico seRp = controleServico.buscarServicoPorNome("Primeira Carteira A");
             
             ExameMedico em = new ExameMedico("Medico 1", "Clinica 1", 0, new SimpleDateFormat("dd/MM/yyyy").parse("10/10/2018"), new SimpleDateFormat("HH:mm").parse("16:00"), 1, false, alunosMe);
-            ExamePratico epr = new ExamePratico("AB", inE, veE, 0, new SimpleDateFormat("dd/MM/yyyy").parse("30/09/2018"), new SimpleDateFormat("HH:mm").parse("14:00"), 3, false, alunosPr);
+            ExamePratico epr = new ExamePratico("AB", inE, veE, 0, new SimpleDateFormat("dd/MM/yyyy").parse("30/09/2018"), new SimpleDateFormat("HH:mm").parse("14:00"), 2, false, alunosPr);
             ExamePsicotecnico eps = new ExamePsicotecnico("Psicologo 2", "Clinica 2", 0, new SimpleDateFormat("dd/MM/yyyy").parse("10/14/2018"), new SimpleDateFormat("HH:mm").parse("07:00"), 1, false, alunosPs);
-            ExameTeorico et = new ExameTeorico("A", "Local de aplicação 1", inE, 0, new SimpleDateFormat("dd/MM/yyyy").parse("08/10/2018"), new SimpleDateFormat("HH:mm").parse("13:00"), 20, true, alunosTe);
+            ExameTeorico et = new ExameTeorico("A", "Local de aplicação 1", inE, 0, new SimpleDateFormat("dd/MM/yyyy").parse("08/10/2018"), new SimpleDateFormat("HH:mm").parse("13:00"), 2, true, alunosTe);
             RegraParcelas rp = new RegraParcelas(2, 1350.00, seRp);
             
             controleEM.inserirExameMedico(em);
