@@ -43,6 +43,12 @@
             <div id="titulo">
                 <h6 align="center">Dados Pessoais</h6>
             </div>
+            
+            <div class="row">
+            <div class="input-field col s4">
+                    <p> Nº do Processo: <input class="required" type="text" name="processo" value="<%=aluno.getProcesso() %>" maxlength="100"></p>
+            </div>
+           </div>
 
             <div class="row">
                 <div class="input-field col s4">

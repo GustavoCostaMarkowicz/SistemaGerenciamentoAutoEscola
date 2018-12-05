@@ -82,7 +82,7 @@ public class GerarDadosPadrao {
             ControleRegraParcela controleRP = new ControleRegraParcela();
 
             Aluno alE = controleAluno.buscarAlunosPorId(1);
-            Aluno alE2 = controleAluno.buscarAlunosPorId(3);
+            Aluno alE2 = controleAluno.buscarAlunosPorId(2);
             List<Aluno> alunosMe = new ArrayList<>();
             List<Aluno> alunosPr = new ArrayList<>();
             List<Aluno> alunosPs = new ArrayList<>();
