@@ -17,8 +17,8 @@ public class Diretor extends Usuario implements Serializable {
         cnpj = "";
     }
 
-    public Diretor(String cnpj, int idUsuario, String login, String senha, String cidadeAtuacao) {
-        super(idUsuario, login, senha, cidadeAtuacao);
+    public Diretor(String cnpj, int idUsuario, String login, String senha, String cidadeAtuacao, boolean visivel) {
+        super(idUsuario, login, senha, cidadeAtuacao, visivel);
         this.cnpj = cnpj;
     }
 

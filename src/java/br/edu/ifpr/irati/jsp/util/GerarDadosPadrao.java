@@ -45,6 +45,7 @@ public class GerarDadosPadrao {
             ItemMenu itExame = new ItemMenu(3, "Exames", "exame.jsp", "date_range", true, true);
             ItemMenu itVeiculo = new ItemMenu(4, "Veículos", "veiculo.jsp", "directions_car", true, true);
             ItemMenu itLogout = new ItemMenu(4, "Sair", "scripts/logout.jsp", "remove_from_queue", true, true);
+            ItemMenu itServico = new ItemMenu(6, "Serviços", "servico.jsp", "attach_file", true, true);
             
             controleItemMenu.inserirItemMenu(itAluno);
             controleItemMenu.inserirItemMenu(itFuncionario);
@@ -62,8 +63,8 @@ public class GerarDadosPadrao {
             Aluno al = new Aluno("122223", "SESP-PR", "PR", "solteiro", "Pai Aluno", "Mãe Aluno", new SimpleDateFormat("dd/MM/yyyy").parse("05/11/1992"), "Irati-PR", "brasileiro", "masculino", "EM completo", false, "O+", "aluno@email.com", 0, "Nome Aluno", new Date(), "Irati", "Paraná", "Rua do Aluno", "99", "casa", "84500-000", "Bairro do Aluno", null, "(42)99930-4455", "11.111.111-1", "111.111.111-11");
             Aluno al2 = new Aluno("1111", "SESP-PR", "PR", "casado", "Pai Aluno 2", "Mãe Aluno 2", new SimpleDateFormat("dd/MM/yyyy").parse("01/01/1996"), "Irati-PR", "brasileiro", "feminino", "EM completo", false, "AB+", "aluno2@email.com", 0, "Nome Aluno 2", new Date(), "Irati", "Paraná", "Rua do Aluno 2", "11", "casa", "84500-000", "Bairro do Aluno 2", null, "(42)98855-0055", "44.444.444-4", "444.444.444-44");
             Instrutor in = new Instrutor(new Date(), "111222333", new SimpleDateFormat("dd/MM/yyyy").parse("30/08/2020"), "Prático/Teórico", "ativo", 0, "Nome Instrutor", new Date(), "Irati", "Paraná", null, null, null, "84500-000", null, "(42)3422-8080", null, "22.222.222-2", "222.222.222-22");
-            Atendente at = new Atendente("Nome do Atendente", "(42)99900-8888", "null", 0, "atendente1", "atd1senha", "Irati");
-            Diretor d = new Diretor("123.456.789", 0, "diretor1", "dir1senha", "Irati");
+            Atendente at = new Atendente("Atendente 1", "(42)99999-9999", "null", 0, "atendente1", "atd1senha", "Irati",true);
+            Diretor d = new Diretor("1111", 0, "diretor1", "dir1senha", "Irati", true);
             Veiculo ve = new Veiculo("ABC-1234", "Chevrolet", "Onix", "2015");
             Servico se = new Servico("Primeira Carteira A", 1300.00);
             

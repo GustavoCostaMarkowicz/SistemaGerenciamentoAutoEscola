@@ -4,6 +4,7 @@
     Author     : Usuario
 --%>
 
+<%@page import="br.edu.ifpr.irati.jsp.controle.ControleAtendente"%>
 <%@page import="br.edu.ifpr.irati.jsp.modelo.Atendente"%>
 <%@page import="br.edu.ifpr.irati.jsp.modelo.Usuario"%>
 <%@page import="java.util.List"%>
@@ -42,11 +43,13 @@
                 <%
                     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                     
-                    ControleUsuario controleUsuario = new ControleUsuario();
-                    List<Atendente> atendentes = controleUsuario.buscarTodosAtendentes();
+                    ControleAtendente ca = new ControleAtendente();
+                    List<Atendente> atendentes = ca.buscarTodosAtendentes();
+                    
                     
 
                     for (Atendente atendente : atendentes) {
+                    if(atendente.isVisivel()){
                 %>
                 <tr>
                     <td><%=atendente.getNomeCompleto() %></td>
@@ -54,11 +57,12 @@
                     <td><%=atendente.getCidadeAtuacao()%></td>
                     <td><%=atendente.getTelefone() %></td>
                     <td><%=atendente.getTelefoneCelular()%></td>
-                    <td><a href="alterarAtendente.jsp?idUsuario=<%=atendente.getIdUsuario() %>" class="waves-effect waves-light btn-floating" value="Alterar">Alterar</a></td>
-                    <td><a href="excluirAtendente.jsp?idUsuario=<%=atendente.getIdUsuario()%>" class="waves-effect waves-light btn" value="Excluir"> Excluir </a></td>
+                    <td><a href="alterarAtendente.jsp?idusuario=<%=atendente.getIdUsuario() %>" class="waves-effect waves-light btn" value="Alterar">Alterar</a></td>
+                    <td><a href="scripts/excluiratendente.jsp?idusuario=<%=atendente.getIdUsuario()%>" class="waves-effect waves-light btn" value="Excluir"> Excluir </a></td>
                 </tr>
                 <%
                     }
+                }
                 %>
             </table>
             

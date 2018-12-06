@@ -21,11 +21,10 @@ public class ControleUsuario {
         Usuario u = new Usuario();
         
         String senhaResumo = Digest.hashString(senha, "SHA-512");
-        System.out.println(senhaResumo);
 
         boolean usuarioInvalido = true;
         for (Usuario usuario : usuarios) {
-            if (usuario.getLogin().equals(login) & usuario.getSenha().equals(senhaResumo)) {
+            if (usuario.getLogin().equals(login) & usuario.getSenha().equals(senhaResumo) & usuario.isVisivel()) {
                 u = usuario;
                 usuarioInvalido = false;
                 break;
@@ -40,21 +39,6 @@ public class ControleUsuario {
 
     }
 
-    public void salvarUsuario(Atendente a){
-        
-        try {
-            a.setSenha(Digest.hashString(a.getSenha(), "SHA-512"));
-            
-            Dao<Atendente> aDAO = new GenericDAO<>(Atendente.class);
-            
-            aDAO.salvar(a);
-            
-            
-        } catch (HashGenerationException ex) {
-            Logger.getLogger(ControleUsuario.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-    }
     
     public String verificarTipoUsuario(int idUsuario) {
 
@@ -83,12 +67,6 @@ public class ControleUsuario {
     }
     
     
-    public List<Atendente> buscarTodosAtendentes(){
-        
-        Dao<Atendente> atendenteDAO = new GenericDAO<>(Atendente.class);
-        List<Atendente> atendentes = atendenteDAO.buscarTodos(Atendente.class);
-        return atendentes;
-        
-    }
+    
 
 }

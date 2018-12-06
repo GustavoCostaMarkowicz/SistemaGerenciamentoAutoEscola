@@ -39,12 +39,12 @@ public class Usuario implements Serializable {
         visivel = true;
     }
 
-    public Usuario(int idUsuario, String login, String senha, String cidadeAtuacao) {
+    public Usuario(int idUsuario, String login, String senha, String cidadeAtuacao, boolean visivel) {
         this.idUsuario = idUsuario;
         this.login = login;
         this.senha = senha;
         this.cidadeAtuacao = cidadeAtuacao;
-        this.visivel = true;
+        this.visivel = visivel;
     }
 
     public int getIdUsuario() {

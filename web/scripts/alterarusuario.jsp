@@ -1,12 +1,11 @@
 <%@page import="br.edu.ifpr.irati.jsp.controle.ControleAtendente"%>
-<%@page import="br.edu.ifpr.irati.jsp.controle.ControleUsuario"%>
 <%@page import="br.edu.ifpr.irati.jsp.modelo.Atendente"%>
-<%@page import="br.edu.ifpr.irati.jsp.modelo.Usuario"%>
 <%
 
 
-    request.setCharacterEncoding("UTF-8");
+     request.setCharacterEncoding("UTF-8");
     
+    int id = Integer.parseInt(request.getParameter("idUsuario"));
     String nome = request.getParameter("nome");
     String login = request.getParameter("nome");
     String cidade = request.getParameter("cidade");
@@ -14,10 +13,10 @@
     String telefoneCelular = request.getParameter("telefonecelular");
     String senha = request.getParameter("senha");
     
-    Atendente a = new Atendente(nome, telefone, telefoneCelular, 0, login, senha, cidade, true);
+    Atendente a = new Atendente(nome, telefone, telefoneCelular, id, login, senha, cidade, true);
     
     ControleAtendente ca = new ControleAtendente();
-    ca.inserirAtendente(a);
+    ca.alterarAtendente(a);
     
     response.sendRedirect("../telaInicial.jsp");
 

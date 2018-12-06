@@ -11,7 +11,7 @@ public class TesteDiretor {
 
         Dao<Diretor> diretorDAO = new GenericDAO<>(Diretor.class);
 
-        Diretor d = new Diretor("33.333.333/3333-33", 0, "diretor1", "dir1senha", "Irati");
+        Diretor d = new Diretor("1111", 0, "diretor1", "dir1senha", "Irati", true);
 
         diretorDAO.salvar(d);
         

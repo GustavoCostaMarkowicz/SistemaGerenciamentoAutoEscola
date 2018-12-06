@@ -27,7 +27,7 @@ public class Aluno extends Pessoa implements Serializable {
     @Column(name = "uf", nullable = false, length = 2)
     private String uf;
 
-    @Column(name = "estadocivil", nullable = false, length = 20)
+    @Column(name = "estadocivil", nullable = false, length = 40)
     private String estadoCivil;
 
     @Column(name = "nomepai", nullable = false, length = 100)

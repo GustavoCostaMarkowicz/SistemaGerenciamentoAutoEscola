@@ -4,6 +4,7 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
+import org.hibernate.annotations.Type;
 
 @Entity(name = "atendente")
 @PrimaryKeyJoinColumn(name = "idUsuario")
@@ -17,6 +18,8 @@ public class Atendente extends Usuario implements Serializable {
 
     @Column(name = "telefonecelular", nullable = true, length = 15)
     private String telefoneCelular;
+    
+   
 
     public Atendente() {
         super();
@@ -25,8 +28,8 @@ public class Atendente extends Usuario implements Serializable {
         telefoneCelular = "";
     }
 
-    public Atendente(String nomeCompleto, String telefone, String telefoneCelular, int idUsuario, String login, String senha, String cidadeAtuacao) {
-        super(idUsuario, login, senha, cidadeAtuacao);
+    public Atendente(String nomeCompleto, String telefone, String telefoneCelular, int idUsuario, String login, String senha, String cidadeAtuacao, boolean visivel) {
+        super(idUsuario, login, senha, cidadeAtuacao, visivel);
         this.nomeCompleto = nomeCompleto;
         this.telefone = telefone;
         this.telefoneCelular = telefoneCelular;
@@ -55,5 +58,6 @@ public class Atendente extends Usuario implements Serializable {
     public void setTelefoneCelular(String telefoneCelular) {
         this.telefoneCelular = telefoneCelular;
     }
+
 
 }
