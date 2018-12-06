@@ -90,7 +90,7 @@
 
                 <div class="row">
                     <div class="input-field col s6">
-                        <p> Valor Total: <input type="text" name="valortotal" size="14"></p>
+                        <p> Valor Total: <input type="text" name="valorinicial" size="14"></p>
                     </div>
                     <div class="input-field col s6">
                         <p> Parcelas: <input type="number" name="parcelas" size="15"> </p>

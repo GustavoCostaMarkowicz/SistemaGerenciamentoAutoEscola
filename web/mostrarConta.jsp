@@ -1,3 +1,4 @@
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="br.edu.ifpr.irati.jsp.modelo.Usuario"%>
 <%@page import="java.util.Date"%>
 <%@page import="br.edu.ifpr.irati.jsp.controle.ControleConta"%>
@@ -31,12 +32,13 @@
                 logado = true;
             }
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        SimpleDateFormat sdf1 = new SimpleDateFormat("hh:mm");
+        SimpleDateFormat sdf1 = new SimpleDateFormat("HH:mm");
         int idPessoa = Integer.parseInt(request.getParameter("idPessoa"));
         ControleAluno ca = new ControleAluno();
         ControleConta cc = new ControleConta();
         Aluno a = ca.buscarAlunosPorId(idPessoa);
         Conta c = ca.buscarContaAluno(idPessoa);
+        DecimalFormat formato = new DecimalFormat("#.##"); 
     %>
 
     <style>
@@ -117,7 +119,7 @@
                     <h6><%=a.getNomeCompleto()%></h6>
                 </div>
                <div class="center input-field col s4">
-                    <h6>Valor restante para pagamento: R$<%=c.getValorTotal()%></h6>
+                    <h6>Valor restante para pagamento: R$<%=formato.format(c.getValorInicial()-c.getValorPago())%></h6>
                 </div>
                 <div class="center input-field col s4">
                     <h6>Parcelas: <%=c.getParcelas()%></h6>
@@ -208,7 +210,7 @@
                     
                     controleParcela = mesPrimeiraParcela;
                     controleValorPago = c.getValorPago();
-                    
+                     
                     if(c.getParcelas() > registros.size()){
                         
                         for(int j = 0; j < c.getParcelas(); j++){
@@ -231,7 +233,7 @@
                                 <%
                                     } else{
                                 %>
-                                <td class="<%=validade[j]%>"><%=(j+1)+"ª Parcela<br>Data de vencimento da parcela - " + diaParcela + " de " + meses[controleParcela] +  " de " + anoParcela + "<br>Valor - R$" + c.getValorTotal()/(c.getValorTotal()/(c.getValorInicial()/c.getParcelas()))%></td>
+                                <td class="<%=validade[j]%>"><%=(j+1)+"ª Parcela<br>Data de vencimento da parcela - " + diaParcela + " de " + meses[controleParcela] +  " de " + anoParcela + "<br>Valor - R$" + formato.format(c.getValorInicial()/c.getParcelas())%></td>
                                 <%
                                     }
                                 %>
@@ -249,7 +251,7 @@
                                 <%
                                     } else{
                                 %>
-                                <td class="<%=validade[j]%>"><%=(j+1)+"ª Parcela<br>Data de vencimento da parcela - " + diaParcela + " de " + meses[controleParcela] +  " de " + anoParcela + "<br>Valor - R$" + c.getValorTotal()/(c.getValorTotal()/(c.getValorInicial()/c.getParcelas()))%></td>
+                                <td class="<%=validade[j]%>"><%=(j+1)+"ª Parcela<br>Data de vencimento da parcela - " + diaParcela + " de " + meses[controleParcela] +  " de " + anoParcela + "<br>Valor - R$" + formato.format(c.getValorInicial()/c.getParcelas())%></td>
                                 <%
                                     }
                                 %>
@@ -272,6 +274,7 @@
                         
                     } else{
                     
+                    int j = 0;
                     for(i = ordem; i >= 0; i--){
                 
                     %>
@@ -281,13 +284,31 @@
                             <td><%=sdf.format(registros.get(i).getDataRegistro())%></td>
                             <td><%=sdf1.format(registros.get(i).getHorarioRegistro())%></td>
                             <td class="ultimo"><%=registros.get(i).getTextoRegistro()%></td>
-                            <% for(int j = 0; j < c.getParcelas(); j++){ %>
-                                <td>  </td>
+                            <% if(j < c.getParcelas()){ %>
+                                <%
+                                    if((controleValorPago - valorParcela) >= 0){
+                                %>
+                                <td class="<%=validade[j]%>"><%=(j+1)+"ª Parcela<br>PAGO"%></td>
+                                <%
+                                    } else{
+                                %>
+                                <td class="<%=validade[j]%>"><%=(j+1)+"ª Parcela<br>Data de vencimento da parcela - " + diaParcela + " de " + meses[controleParcela] +  " de " + anoParcela + "<br>Valor - R$" + formato.format(c.getValorInicial()/c.getParcelas())%></td>
+                                <%
+                                    }
+                                %>
+                            <% } else{%>
+                                <td></td>
                             <% } %>
                         </tr>
 
                     <%
-                        
+                        controleParcela++;
+                        if(controleParcela > 11){
+                            controleParcela = 0;
+                            anoParcela++;
+                        }
+                        controleValorPago -= valorParcela;
+                        j++;
                     }
                     }
 

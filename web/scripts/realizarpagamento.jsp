@@ -30,14 +30,8 @@
     
     double valorPago = c.getValorInicial()/c.getParcelas();
     
-    if(c.getValorPago() == c.getValorInicial()){
-        c.setValorPago(0.0);
-        c.setValorTotal(c.getValorInicial());
-    }else{
-        c.setValorPago(c.getValorPago()+valorPago);
-        c.setValorTotal(c.getValorTotal()-valorPago);
-        cc.alterarConta(c);
-    }
+    c.setValorPago(c.getValorPago()+valorPago);
+    cc.alterarConta(c);
     
     int numeroParcela = (int) (c.getValorPago()/(c.getValorInicial()/c.getParcelas()));
     

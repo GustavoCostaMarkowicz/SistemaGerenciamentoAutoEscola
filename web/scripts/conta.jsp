@@ -27,7 +27,7 @@
             String sid = request.getParameter("id");
             String svalorEntrada = request.getParameter("valorentrada");
             String servico = request.getParameter("tipo");
-            String svalorTotal = request.getParameter("valortotal");
+            String svalorInicial = request.getParameter("valorinicial");
             String sparcelas = request.getParameter("parcelas");
             String anotacoes = request.getParameter("anotacoes");
 
@@ -38,11 +38,10 @@
                 svalorEntrada = "0";
             }
 
-            double valorTotal = Double.parseDouble(svalorTotal);
-            double valorInicial = valorTotal;
+            double valorInicial = Double.parseDouble(svalorInicial);
             double valorPago = 0.0;
             double valorEntrada = Double.parseDouble(svalorEntrada);
-            valorTotal -= valorEntrada;
+            valorInicial -= valorEntrada;
             int parcelas = Integer.parseInt(sparcelas);
             int id = Integer.parseInt(sid);
             int idUsuario = Integer.parseInt(sidUsuario);
@@ -62,7 +61,7 @@
  
             servicoA.add(s);
 
-            Conta c = new Conta(valorTotal, valorInicial, valorPago, parcelas, a, servicoA, anotacoes);
+            Conta c = new Conta(valorInicial, valorPago, parcelas, a, servicoA, anotacoes);
             
            ControleConta cc = new ControleConta();
            cc.inserirConta(c);

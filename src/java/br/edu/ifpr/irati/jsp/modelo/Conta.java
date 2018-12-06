@@ -16,11 +16,8 @@ public class Conta implements Serializable {
     @Id
     @OneToOne
     private Aluno aluno;
-
-    @Column(name = "valortotal", nullable = false)
-    private double valorTotal;
     
-    @Column(name = "valorinicial", nullable = true)
+    @Column(name = "valorinicial", nullable = false)
     private double valorInicial;
 
     @Column(name = "valorpago", nullable = true)
@@ -39,7 +36,6 @@ public class Conta implements Serializable {
     private List<Servico> servicos;
 
     public Conta() {
-        valorTotal = 0.0;
         valorInicial = 0.0;
         valorPago = 0.0;
         parcelas = 0;
@@ -49,8 +45,7 @@ public class Conta implements Serializable {
         anotacoes = "";
     }
 
-    public Conta(double valorTotal, double valorInicial, double valorPago, int parcelas, Aluno aluno, List<Servico> servicos, String anotacoes) {
-        this.valorTotal = valorTotal;
+    public Conta(double valorInicial, double valorPago, int parcelas, Aluno aluno, List<Servico> servicos, String anotacoes) {
         this.valorInicial = valorInicial;
         this.valorPago = valorPago;
         this.parcelas = parcelas;
@@ -60,8 +55,7 @@ public class Conta implements Serializable {
         this.anotacoes = anotacoes;
     }
 
-    public Conta(double valorTotal, double valorInicial, double valorPago, int parcelas, Aluno aluno, List<Registro> registros, List<Servico> servicos, String anotacoes) {
-        this.valorTotal = valorTotal;
+    public Conta(double valorInicial, double valorPago, int parcelas, Aluno aluno, List<Registro> registros, List<Servico> servicos, String anotacoes) {
         this.valorInicial = valorInicial;
         this.valorPago = valorPago;
         this.parcelas = parcelas;
@@ -79,14 +73,6 @@ public class Conta implements Serializable {
     public void removerRegistro(Registro registro) {
         this.registros.remove(registro);
         registro.setConta(new Conta());
-    }
-
-    public double getValorTotal() {
-        return valorTotal;
-    }
-
-    public void setValorTotal(double valorTotal) {
-        this.valorTotal = valorTotal;
     }
 
     public int getParcelas() {
