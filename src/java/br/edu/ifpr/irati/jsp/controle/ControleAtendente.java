@@ -26,9 +26,14 @@ public class ControleAtendente {
     
 
     public void alterarAtendente(Atendente a) {
-
-        Dao<Atendente> atendenteDAO = new GenericDAO<>(Atendente.class);
-        atendenteDAO.alterar(a);
+        
+        try {
+            a.setSenha(Digest.hashString(a.getSenha(), "SHA-512"));
+            Dao<Atendente> atendenteDAO = new GenericDAO<>(Atendente.class);
+            atendenteDAO.alterar(a);
+        } catch (HashGenerationException ex) {
+            Logger.getLogger(ControleAtendente.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 

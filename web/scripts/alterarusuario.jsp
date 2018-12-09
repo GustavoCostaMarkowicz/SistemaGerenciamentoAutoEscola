@@ -6,14 +6,13 @@
      request.setCharacterEncoding("UTF-8");
     
     int id = Integer.parseInt(request.getParameter("idUsuario"));
-    String nome = request.getParameter("nome");
     String login = request.getParameter("nome");
     String cidade = request.getParameter("cidade");
     String telefone = request.getParameter("telefone");
     String telefoneCelular = request.getParameter("telefonecelular");
     String senha = request.getParameter("senha");
     
-    Atendente a = new Atendente(nome, telefone, telefoneCelular, id, login, senha, cidade, true);
+    Atendente a = new Atendente(login, telefone, telefoneCelular, id, login, senha, cidade, true);
     
     ControleAtendente ca = new ControleAtendente();
     ca.alterarAtendente(a);
