@@ -48,10 +48,10 @@
                             <span class="card-title"><%=servico.getTipoServico()%></span>
                             <div class="row">
                 <div class="center input-field col s6">
-                    <a href="cadastrarServico.jsp"><button class="waves-effect waves-light btn" type="button">ALTERAR</button></a>
+                    <a href="alterarServico.jsp?idServico=<%=servico.getTipoServico() %>"><button class="waves-effect waves-light btn" type="button">ALTERAR</button></a>
                 </div>
                 <div class="center input-field col s6">
-                    <a href="cadastrarServico.jsp"><button class="waves-effect waves-light btn" type="button">EXCLUIR</button></a>
+                    <a href="excluirServico.jsp?idServico=<%=servico.getTipoServico() %>"><button class="waves-effect waves-light btn" type="button">EXCLUIR</button></a>
                 </div>
             </div>
                             <p> Valor a vista: <%=servico.getValorVista()%></p>
