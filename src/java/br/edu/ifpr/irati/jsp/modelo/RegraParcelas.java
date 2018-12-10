@@ -13,6 +13,9 @@ import javax.persistence.ManyToOne;
 public class RegraParcelas implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int idRegraParcela;
+    
     @ManyToOne
     @JoinColumn(name = "servico_tipoServico")
     private Servico servico;
@@ -24,12 +27,14 @@ public class RegraParcelas implements Serializable {
     private double valorParcelado;
 
     public RegraParcelas() {
+        idRegraParcela = 0;
         parcela = 0;
         valorParcelado = 0.0;
         servico = new Servico();
     }
 
-    public RegraParcelas(int parcela, double valorParcelado, Servico servico) {
+    public RegraParcelas(int idRegraParcela, int parcela, double valorParcelado, Servico servico) {
+        this.idRegraParcela = idRegraParcela;
         this.parcela = parcela;
         this.valorParcelado = valorParcelado;
         this.servico = servico;
@@ -57,6 +62,14 @@ public class RegraParcelas implements Serializable {
 
     public void setServico(Servico servico) {
         this.servico = servico;
+    }
+
+    public int getIdRegraParcela() {
+        return idRegraParcela;
+    }
+
+    public void setIdRegraParcela(int idRegraParcela) {
+        this.idRegraParcela = idRegraParcela;
     }
 
 }

@@ -32,11 +32,11 @@
             
             <table class="centered striped">
                 <tr>
-                    <th>Nº do Processo</th>
-                    <th>Nome Completo</th>
-                    <th>CPF</th>
-                    <th>RG</th>
-                    <th>Data de Nascimento</th>
+                    <th>Login</th>
+           
+                    <th>Cidade</th>
+                    <th>Telefone</th>
+                    <th>Telefone Celular</th>
                     <th></th>
                     <th></th>
                 </tr>
@@ -53,11 +53,11 @@
                 %>
                 <tr>
                     <td><%=atendente.getNomeCompleto() %></td>
-                    <td><%=atendente.getLogin() %></td>
+                 
                     <td><%=atendente.getCidadeAtuacao()%></td>
                     <td><%=atendente.getTelefone() %></td>
                     <td><%=atendente.getTelefoneCelular()%></td>
-                    <td><a href="alterarAtendente.jsp?idusuario=<%=atendente.getIdUsuario() %>" class="waves-effect waves-light btn" value="Alterar">Alterar</a></td>
+                    <td><a href="alterarUsuario.jsp?idusuario=<%=atendente.getIdUsuario() %>" class="waves-effect waves-light btn" value="Alterar">Alterar</a></td>
                     <td><a href="scripts/excluiratendente.jsp?idusuario=<%=atendente.getIdUsuario()%>" class="waves-effect waves-light btn" value="Excluir"> Excluir </a></td>
                 </tr>
                 <%

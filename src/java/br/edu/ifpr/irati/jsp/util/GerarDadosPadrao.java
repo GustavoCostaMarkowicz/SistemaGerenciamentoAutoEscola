@@ -51,7 +51,9 @@ public class GerarDadosPadrao {
             controleItemMenu.inserirItemMenu(itFuncionario);
             controleItemMenu.inserirItemMenu(itExame);
             controleItemMenu.inserirItemMenu(itVeiculo);
+            controleItemMenu.inserirItemMenu(itServico);
             controleItemMenu.inserirItemMenu(itLogout);
+            
             
             ControleAluno controleAluno = new ControleAluno();
             ControleInstrutor controleInstrutor = new ControleInstrutor();
@@ -102,7 +104,7 @@ public class GerarDadosPadrao {
             ExamePratico epr = new ExamePratico("AB", inE, veE, 0, new SimpleDateFormat("dd/MM/yyyy").parse("30/09/2018"), new SimpleDateFormat("HH:mm").parse("14:00"), 2, false, alunosPr);
             ExamePsicotecnico eps = new ExamePsicotecnico("Psicologo 2", "Clinica 2", 0, new SimpleDateFormat("dd/MM/yyyy").parse("10/14/2018"), new SimpleDateFormat("HH:mm").parse("07:00"), 1, false, alunosPs);
             ExameTeorico et = new ExameTeorico("A", "Local de aplicação 1", inE, 0, new SimpleDateFormat("dd/MM/yyyy").parse("08/10/2018"), new SimpleDateFormat("HH:mm").parse("13:00"), 2, true, alunosTe);
-            RegraParcelas rp = new RegraParcelas(2, 1350.00, seRp);
+            RegraParcelas rp = new RegraParcelas(0, 2, 1350.00, seRp);
             
             controleEM.inserirExameMedico(em);
             controleEPr.inserirExamePratico(epr);
