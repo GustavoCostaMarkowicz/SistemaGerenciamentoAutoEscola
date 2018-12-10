@@ -24,12 +24,11 @@
          request.setCharacterEncoding("UTF-8");
          
             String sidUsuario = request.getParameter("idusuario");
-            String sid = request.getParameter("id");
+            String sidPessoa = request.getParameter("idpessoa");
             String svalorEntrada = request.getParameter("valorentrada");
             String servico = request.getParameter("tipo");
             String svalorInicial = request.getParameter("valorinicial");
             String sparcelas = request.getParameter("parcelas");
-            String anotacoes = request.getParameter("anotacoes");
 
             if (sparcelas.equals("")) {
                 sparcelas = "1";
@@ -39,34 +38,29 @@
             }
 
             double valorInicial = Double.parseDouble(svalorInicial);
-            double valorPago = 0.0;
             double valorEntrada = Double.parseDouble(svalorEntrada);
             valorInicial -= valorEntrada;
             int parcelas = Integer.parseInt(sparcelas);
-            int id = Integer.parseInt(sid);
+            int idPessoa = Integer.parseInt(sidPessoa);
             int idUsuario = Integer.parseInt(sidUsuario);
             
             ControleServico cs = new ControleServico();
             ControleAluno ca = new ControleAluno();
-
-            Aluno a = ca.buscarAlunosPorId(id);
-
-            List<Servico> servicoA = new ArrayList();
-
-            Servico s = cs.buscarServicoPorNome(servico);
-            
+            ControleConta cc = new ControleConta();
             ControleUsuario cu = new ControleUsuario();
-            
-            Usuario u = cu.buscarUsuarioPorId(idUsuario);
- 
-            servicoA.add(s);
 
-            Conta c = new Conta(valorInicial, valorPago, parcelas, a, servicoA, anotacoes);
+            Conta c = ca.buscarContaAluno(idPessoa);
+            Servico s = cs.buscarServicoPorNome(servico);
+            Usuario u = cu.buscarUsuarioPorId(idUsuario);
+
+            c.setValorInicial(valorInicial);
+            c.setValorPago(0.0);
+            c.setParcelas(parcelas);
+            c.getServicos().add(s);
             
-           ControleConta cc = new ControleConta();
-           cc.inserirConta(c);
+            cc.alterarConta(c);
            
-           Registro r1 = new Registro(0, new Date(), new Date(), "Conta aberta. Serviço - " + servico, true, false, c, u);
+           Registro r1 = new Registro(0, new Date(), new Date(), "Novo serviço vinculado à conta. Serviço - " + servico, true, false, c, u);
             
            ControleRegistro cr = new ControleRegistro();
            cr.inserirRegitro(r1);
@@ -78,6 +72,6 @@
                cr.inserirRegitro(r2);
            }
             
-           response.sendRedirect("../mostrarConta.jsp?idPessoa="+sid);
+           response.sendRedirect("../mostrarConta.jsp?idPessoa="+sidPessoa);
         
         %>
