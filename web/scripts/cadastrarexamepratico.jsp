@@ -18,7 +18,7 @@
     request.setCharacterEncoding("UTF-8");
 
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-    SimpleDateFormat sdf1 = new SimpleDateFormat("hh:mm");
+    SimpleDateFormat sdf1 = new SimpleDateFormat("HH:mm");
 
     String sid1 = request.getParameter("id1");
     String sid2 = request.getParameter("id2");
@@ -68,12 +68,6 @@
 
     ControleExamePratico cep = new ControleExamePratico();
     cep.inserirExamePratico(ep);
-    
-    for(Aluno a: alunos){
-        ResultadoExame re = new ResultadoExame(0, a, ep, "Indefinido");
-        ControleResultadoExame cre = new ControleResultadoExame();
-        cre.inserirResultadoExame(re);
-    }
 
     response.sendRedirect("../relacaoExamePratico.jsp");
 

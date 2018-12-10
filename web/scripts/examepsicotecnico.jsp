@@ -27,7 +27,7 @@
             request.setCharacterEncoding("UTF-8");
 
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            SimpleDateFormat sdf1 = new SimpleDateFormat("hh:mm");
+            SimpleDateFormat sdf1 = new SimpleDateFormat("HH:mm");
 
             String sid = request.getParameter("id");
             String sdataExame = request.getParameter("dataexame");
@@ -56,9 +56,6 @@
             ControleExamePsicotecnico cep = new ControleExamePsicotecnico();
             cep.inserirExamePsicotecnico(ep);
             
-            ResultadoExame re = new ResultadoExame(0, a, ep, "Indefinido");
-            ControleResultadoExame cre = new ControleResultadoExame();
-            cre.inserirResultadoExame(re);
 
             response.sendRedirect("../relacaoExamePsicotecnico.jsp");
 

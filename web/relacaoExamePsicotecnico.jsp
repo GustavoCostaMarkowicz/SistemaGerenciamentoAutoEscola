@@ -54,7 +54,7 @@
 
                     for (ExamePsicotecnico ep : eps) {
                      
-                        ControleResultadoExame cre = new ControleResultadoExame();
+                    ControleResultadoExame cre = new ControleResultadoExame();
                     ResultadoExame re = cre.buscarResultadoExamesPorAlunoExame(ep.getAlunos().get(0).getIdPessoa(), ep.getIdExame());
                     String resultado;
                     if(re == null){

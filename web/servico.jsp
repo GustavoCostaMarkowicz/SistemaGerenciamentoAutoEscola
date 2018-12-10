@@ -46,18 +46,18 @@
                     <div class="card blue-grey darken-1">
                         <div class="card-content white-text">
                             <span class="card-title"><%=servico.getTipoServico()%></span>
-                            <div class="row">
+            <!--                <div class="row">
                 <div class="center input-field col s6">
                     <a href="alterarServico.jsp?idServico=<%=servico.getTipoServico() %>"><button class="waves-effect waves-light btn" type="button">ALTERAR</button></a>
                 </div>
                 <div class="center input-field col s6">
                     <a href="excluirServico.jsp?idServico=<%=servico.getTipoServico() %>"><button class="waves-effect waves-light btn" type="button">EXCLUIR</button></a>
                 </div>
-            </div>
+            </div> -->
                             <p> Valor a vista: <%=servico.getValorVista()%></p>
                             <p></p>
                             <%for (RegraParcelas regraParcela : servico.getParcelas()) {
-                            %>    <p><%=regraParcela.getParcela()%>X de <%=regraParcela.getValorParcelado()%></p>
+                            %>    <p><%=regraParcela.getParcela()%> X de <%=regraParcela.getValorParcelado()%></p>
                             <%}%>
                         </div>
                     </div>
@@ -68,8 +68,11 @@
             %>
             
            <div class="row">
-                <div class="center input-field col s12">
+                <div class="center input-field col s6">
                     <a href="cadastrarServico.jsp"><button class="waves-effect waves-light btn" type="button">CADASTRAR</button></a>
+                </div>
+               <div class="center input-field col s6">
+                    <a href="telaInicial.jsp"><button class="waves-effect waves-light btn" type="button">VOLTAR</button></a>
                 </div>
             </div>
             
