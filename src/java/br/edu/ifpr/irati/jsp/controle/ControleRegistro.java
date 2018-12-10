@@ -14,11 +14,26 @@ public class ControleRegistro {
         
     }
     
+    public void alterarRegistro(Registro r) {
+
+        Dao<Registro> registroDAO = new GenericDAO<>(Registro.class);
+        registroDAO.alterar(r);
+
+    }
+    
     public void excluirRegistro(Registro r){
         
         Dao<Registro> registroDAO = new GenericDAO<>(Registro.class);
         registroDAO.excluir(r);
         
+    }
+    
+    public Registro buscarRegistroPorId(int idRegistro) {
+
+        Dao<Registro> registroDAO = new GenericDAO<>(Registro.class);
+        Registro r = registroDAO.buscarPorId(idRegistro);
+        return r;
+
     }
     
 }

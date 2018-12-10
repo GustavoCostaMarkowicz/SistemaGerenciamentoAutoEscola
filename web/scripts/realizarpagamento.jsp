@@ -16,9 +16,11 @@
 <%
     String sIdPessoa = request.getParameter("idPessoa");
     String sIdUsuario = request.getParameter("idUsuario");
+    String sValorPago = request.getParameter("valorPago");
     
     int idPessoa = Integer.parseInt(sIdPessoa);
     int idUsuario = Integer.parseInt(sIdUsuario);
+    int valorPago = Integer.parseInt(sValorPago);
     
     ControleUsuario cu = new ControleUsuario();
     Usuario u = cu.buscarUsuarioPorId(idUsuario);
@@ -28,17 +30,33 @@
     
     Conta c = ca.buscarContaAluno(idPessoa);
     
-    double valorPago = c.getValorInicial()/c.getParcelas();
+    double moduloConta = c.getValorPago()%(c.getValorInicial()/c.getParcelas());
+    double moduloValorPago = valorPago%(c.getValorInicial()/c.getParcelas());
+    int numeroParcela = (int) ((c.getValorPago()-moduloConta)/(c.getValorInicial()/c.getParcelas()))+1;
     
     c.setValorPago(c.getValorPago()+valorPago);
     cc.alterarConta(c);
+  
+    int qtdParcela = (int) ((valorPago-moduloValorPago)/(c.getValorInicial()/c.getParcelas()));
     
-    int numeroParcela = (int) (c.getValorPago()/(c.getValorInicial()/c.getParcelas()));
-    
-    Registro r1 = new Registro(0, new Date(), new Date(), "Pagamento da " + numeroParcela + "ª parcela", c, u);
-            
     ControleRegistro cr = new ControleRegistro();
-    cr.inserirRegitro(r1);
+    
+    for(; qtdParcela > 0; qtdParcela--){
+        Registro r1 = new Registro(0, new Date(), new Date(), "Pagamento da " + numeroParcela + "ª parcela. Serviço - " + c.getServicos().get((c.getServicos().size()-1)).getTipoServico(), true, true, c, u);
+        cr.inserirRegitro(r1);
+        numeroParcela++;
+    }
+    
+    if(moduloValorPago > 0){
+        Registro r2 = new Registro(0, new Date(), new Date(), "Pagamento de R$" + moduloValorPago + ". Serviço - " + c.getServicos().get((c.getServicos().size()-1)).getTipoServico(), true, true, c, u);
+        cr.inserirRegitro(r2);
+        if(moduloConta > 0){
+            if((moduloConta + moduloValorPago) >= (c.getValorInicial()/c.getParcelas())){
+                Registro r3 = new Registro(0, new Date(), new Date(), "Pagamento da " + numeroParcela + "ª parcela. Serviço - " + c.getServicos().get((c.getServicos().size()-1)).getTipoServico(), true, true, c, u);
+                cr.inserirRegitro(r3);
+            }
+        }
+    }
     
     response.sendRedirect("../mostrarConta.jsp?idPessoa="+sIdPessoa);
 %>

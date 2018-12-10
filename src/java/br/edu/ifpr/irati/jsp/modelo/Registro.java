@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.hibernate.annotations.Type;
 
 @Entity(name = "registro")
 public class Registro implements Serializable {
@@ -27,6 +28,14 @@ public class Registro implements Serializable {
 
     @Column(name = "textoregistro", nullable = false, length = 150)
     private String textoRegistro;
+    
+    @Type(type = "true_false")
+    @Column(name = "valido", nullable = true)
+    private boolean valido;
+    
+    @Type(type = "true_false")
+    @Column(name = "invalidavel", nullable = true)
+    private boolean invalidavel;
 
     @ManyToOne
     @JoinColumn(name = "conta_Aluno")
@@ -40,15 +49,19 @@ public class Registro implements Serializable {
         dataRegistro = new Date();
         horarioRegistro = new Date();
         textoRegistro = "";
+        valido = true;
+        invalidavel = true;
         conta = new Conta();
         usuario = new Usuario();
     }
 
-    public Registro(int idRegistro, Date dataRegistro, Date horarioRegistro, String textoRegistro, Conta conta, Usuario usuario) {
+    public Registro(int idRegistro, Date dataRegistro, Date horarioRegistro, String textoRegistro, boolean valido, boolean invalidavel, Conta conta, Usuario usuario) {
         this.idRegistro = idRegistro;
         this.dataRegistro = dataRegistro;
         this.horarioRegistro = horarioRegistro;
         this.textoRegistro = textoRegistro;
+        this.valido = valido;
+        this.invalidavel = invalidavel;
         this.conta = conta;
         this.usuario = usuario;
     }
@@ -99,6 +112,22 @@ public class Registro implements Serializable {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public boolean isValido() {
+        return valido;
+    }
+
+    public void setValido(boolean valido) {
+        this.valido = valido;
+    }
+
+    public boolean isInvalidavel() {
+        return invalidavel;
+    }
+
+    public void setInvalidavel(boolean invalidavel) {
+        this.invalidavel = invalidavel;
     }
 
 }
