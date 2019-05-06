@@ -44,7 +44,7 @@ public class GerarDadosPadrao {
             ItemMenu itFuncionario = new ItemMenu(2, "Funcionários", "funcionario.jsp", "assignment_ind", true, false);
             ItemMenu itExame = new ItemMenu(3, "Exames", "exame.jsp", "date_range", true, true);
             ItemMenu itVeiculo = new ItemMenu(4, "Veículos", "veiculo.jsp", "directions_car", true, true);
-            ItemMenu itLogout = new ItemMenu(4, "Sair", "scripts/logout.jsp", "remove_from_queue", true, true);
+            ItemMenu itLogout = new ItemMenu(5, "Sair", "scripts/logout.jsp", "remove_from_queue", true, true);
             ItemMenu itServico = new ItemMenu(6, "Serviços", "servico.jsp", "attach_file", true, true);
             
             controleItemMenu.inserirItemMenu(itAluno);

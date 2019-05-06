@@ -55,7 +55,6 @@
         
         %>
         <div class="card">
-            <h1>HELLO</h1>
             <div class="card-content" align="center">
                 <span class="card-title activator grey-text text-darken-4"><p><%=a.getNomeCompleto() %></p></span>
                 <%
