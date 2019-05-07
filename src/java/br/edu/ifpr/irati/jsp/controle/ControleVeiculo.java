@@ -24,7 +24,8 @@ public class ControleVeiculo {
     public void excluirVeiculo(Veiculo v) {
 
         Dao<Veiculo> veiculoDAO = new GenericDAO<>(Veiculo.class);
-        veiculoDAO.excluir(v);
+        v.setVisivel(false);
+        veiculoDAO.alterar(v);
 
     }
 

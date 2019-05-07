@@ -1,3 +1,5 @@
+<%@page import="br.edu.ifpr.irati.jsp.controle.ControleUsuario"%>
+<%@page import="br.edu.ifpr.irati.jsp.modelo.Usuario"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="br.edu.ifpr.irati.jsp.modelo.Veiculo"%>
 <%@page import="java.util.List"%>
@@ -24,6 +26,16 @@
         </header>
 
         <main>
+            <%
+            
+                session = request.getSession();
+                Usuario u = (Usuario) session.getAttribute("usuario");
+
+                ControleUsuario cu = new ControleUsuario();
+                String tipoUsuario = cu.verificarTipoUsuario(u.getIdUsuario());
+            
+            %>
+            
             <table class="centered striped">
                 <tr>
                     <th>Placa </th>
@@ -41,6 +53,7 @@
                     veiculos = controleVeiculo.buscarTodosVeiculos();
 
                     for (Veiculo veiculo : veiculos) {
+                        if(veiculo.isVisivel()){
                 %>
                 <tr>
                     <td><%=veiculo.getPlaca()%></td>
@@ -48,10 +61,15 @@
                     <td><%=veiculo.getModelo()%></td>
                     <td><%=veiculo.getAnoFabricacao()%></td>
                     <td><a href="alterarVeiculo.jsp?placa=<%=veiculo.getPlaca()%>" class="waves-effect waves-light btn" value="Alterar"> Alterar </a></td>
+                    <%if(tipoUsuario.equals("diretor")) { %>
                     <td><a href="scripts/excluirveiculo.jsp?placa=<%=veiculo.getPlaca()%>" class="waves-effect waves-light btn" value="Excluir">Excluir</a></td>
+                    <%
+                    }
+                    %>
                 </tr>
 
                 <%
+                        }
                     }
                 %>
             </table>
