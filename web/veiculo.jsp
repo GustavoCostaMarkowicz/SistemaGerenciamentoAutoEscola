@@ -18,6 +18,10 @@
 
     <style>
         
+        label#noResultMessage {
+            font-size: 30px;
+        }
+        
     </style>
     
     <body>
@@ -36,43 +40,57 @@
             
             %>
             
-            <table class="centered striped">
-                <tr>
-                    <th>Placa </th>
-                    <th>Marca</th>
-                    <th>Modelo</th>
-                    <th>Ano de Fabricação</th>
+            <div class="row">
+                <div class="center input-field col s12">
+                    <input id="consulta" name="consulta" type="text"/>
+                    <label for="consulta"><i class="material-icons">search</i>Pesquisar veículo </label>
+                </div>
+            </div>
+            
+            <table id="tabelaVeiculos" name="tabelaVeiculos" class="centered striped">
+                <thead>
+                    <tr>
+                        <th>Placa </th>
+                        <th>Marca</th>
+                        <th>Modelo</th>
+                        <th>Ano de Fabricação</th>
 
-                    <th></th>
-                    <th></th>
+                        <th></th>
+                        <th></th>
 
-                </tr>
-                <%
-                    ControleVeiculo controleVeiculo = new ControleVeiculo();
-                    List<Veiculo> veiculos = new ArrayList();
-                    veiculos = controleVeiculo.buscarTodosVeiculos();
-
-                    for (Veiculo veiculo : veiculos) {
-                        if(veiculo.isVisivel()){
-                %>
-                <tr>
-                    <td><%=veiculo.getPlaca()%></td>
-                    <td><%=veiculo.getMarca()%></td>
-                    <td><%=veiculo.getModelo()%></td>
-                    <td><%=veiculo.getAnoFabricacao()%></td>
-                    <td><a href="alterarVeiculo.jsp?placa=<%=veiculo.getPlaca()%>" class="waves-effect waves-light btn" value="Alterar"> Alterar </a></td>
-                    <%if(tipoUsuario.equals("diretor")) { %>
-                    <td><a href="scripts/excluirveiculo.jsp?placa=<%=veiculo.getPlaca()%>" class="waves-effect waves-light btn" value="Excluir">Excluir</a></td>
+                    </tr>
+                </thead>
+                <tbody>
                     <%
-                    }
-                    %>
-                </tr>
+                        ControleVeiculo controleVeiculo = new ControleVeiculo();
+                        List<Veiculo> veiculos = new ArrayList();
+                        veiculos = controleVeiculo.buscarTodosVeiculos();
 
-                <%
+                        for (Veiculo veiculo : veiculos) {
+                            if(veiculo.isVisivel()){
+                    %>
+                    <tr>
+                        <td><%=veiculo.getPlaca()%></td>
+                        <td><%=veiculo.getMarca()%></td>
+                        <td><%=veiculo.getModelo()%></td>
+                        <td><%=veiculo.getAnoFabricacao()%></td>
+                        <td><a href="alterarVeiculo.jsp?placa=<%=veiculo.getPlaca()%>" class="waves-effect waves-light btn" value="Alterar"> Alterar </a></td>
+                        <%if(tipoUsuario.equals("diretor")) { %>
+                        <td><a href="scripts/excluirveiculo.jsp?placa=<%=veiculo.getPlaca()%>" class="waves-effect waves-light btn" value="Excluir">Excluir</a></td>
+                        <%
                         }
-                    }
-                %>
+                        %>
+                    </tr>
+
+                    <%
+                            }
+                        }
+                    %>
+                </tbody>
             </table>
+            <div align="center">
+                <label id="noResultMessage" name="noResultMessage">Nenhum veículo encontrado</label>
+            </div>
             <br>
 
             <div class="row">
@@ -90,6 +108,13 @@
             <jsp:include page="rodape.jsp" flush="true" />
         </footer>                
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.quicksearch/2.3.1/jquery.quicksearch.js"></script>
 
     </body>
+    
+    <script>   
+        $('input#consulta').quicksearch('table#tabelaVeiculos tbody tr', {noResults: "#noResultMessage"});
+    </script>
+    
 </html>

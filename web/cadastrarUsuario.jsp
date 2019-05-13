@@ -21,6 +21,15 @@
         <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="  crossorigin="anonymous"></script>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.min.js">
     </head>
+    
+    <style>
+        
+        label#noResultMessage {
+            font-size: 30px;
+        }
+        
+    </style>
+    
     <body>
 
 
@@ -30,41 +39,53 @@
 
         <main>
             
-            <table class="centered striped">
-                <tr>
-                    <th>Login</th>
-           
-                    <th>Cidade</th>
-                    <th>Telefone</th>
-                    <th>Telefone Celular</th>
-                    <th></th>
-                    <th></th>
-                </tr>
-                <%
-                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                    
-                    ControleAtendente ca = new ControleAtendente();
-                    List<Atendente> atendentes = ca.buscarTodosAtendentes();
-                    
-                    
+            <div class="row">
+                <div class="center input-field col s12">
+                    <input id="consulta" name="consulta" type="text"/>
+                    <label for="consulta"><i class="material-icons">search</i>Pesquisar usuário </label>
+                </div>
+            </div>
+            
+            <table id="tabelaUsuarios" name="tabelaUsuarios" class="centered striped">
+                <thead>
+                    <tr>
+                        <th>Login</th>
 
-                    for (Atendente atendente : atendentes) {
-                    if(atendente.isVisivel()){
-                %>
-                <tr>
-                    <td><%=atendente.getNomeCompleto() %></td>
-                 
-                    <td><%=atendente.getCidadeAtuacao()%></td>
-                    <td><%=atendente.getTelefone() %></td>
-                    <td><%=atendente.getTelefoneCelular()%></td>
-                    <td><a href="alterarUsuario.jsp?idusuario=<%=atendente.getIdUsuario() %>" class="waves-effect waves-light btn" value="Alterar">Alterar</a></td>
-                    <td><a href="scripts/excluiratendente.jsp?idusuario=<%=atendente.getIdUsuario()%>" class="waves-effect waves-light btn" value="Excluir"> Excluir </a></td>
-                </tr>
-                <%
+                        <th>Cidade</th>
+                        <th>Telefone</th>
+                        <th>Telefone Celular</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <%
+                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+                        ControleAtendente ca = new ControleAtendente();
+                        List<Atendente> atendentes = ca.buscarTodosAtendentes();
+
+                        for (Atendente atendente : atendentes) {
+                        if(atendente.isVisivel()){
+                    %>
+                    <tr>
+                        <td><%=atendente.getNomeCompleto() %></td>
+
+                        <td><%=atendente.getCidadeAtuacao()%></td>
+                        <td><%=atendente.getTelefone() %></td>
+                        <td><%=atendente.getTelefoneCelular()%></td>
+                        <td><a href="alterarUsuario.jsp?idusuario=<%=atendente.getIdUsuario() %>" class="waves-effect waves-light btn" value="Alterar">Alterar</a></td>
+                        <td><a href="scripts/excluiratendente.jsp?idusuario=<%=atendente.getIdUsuario()%>" class="waves-effect waves-light btn" value="Excluir"> Excluir </a></td>
+                    </tr>
+                    <%
+                        }
                     }
-                }
-                %>
+                    %>
+                </tbody>
             </table>
+            <div align="center">
+                <label id="noResultMessage" name="noResultMessage">Nenhum instrutor encontrado</label>
+            </div>
             
             <form action="scripts/cadastrarusuario.jsp" method="POST">
                 <div class="row">
@@ -103,9 +124,16 @@
 
         <footer>
             <jsp:include page="rodape.jsp" flush="true" />
-        </footer>                
+        </footer>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.quicksearch/2.3.1/jquery.quicksearch.js"></script>
+        
         <script>
-
+                
+            $('input#consulta').quicksearch('table#tabelaUsuarios tbody tr', {noResults: "#noResultMessage"});
+            
             function fMasc(objeto, mascara) {
                 obj = objeto;
                 masc = mascara;

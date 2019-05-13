@@ -37,14 +37,17 @@
             <div class="row">
                 <div class="center input-field col s6">
                     <input id="consultaN" name="consultaN" type="text"/>
+                    <label for="consultaN"><i class="material-icons">search</i>Pesquisar aluno</label>
                     <input id="consultaNp" name="consultaNp" type="hidden" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
                                 return true;
                         else
                                 return false;"/>
+                    <label for="consultaNp"><i class="material-icons">search</i>Pesquisar aluno</label>
                     <input id="consultaC" name="consultaC" type="hidden" maxlength="14" onkeydown="javascript: fMasc(this, mCPF);" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
                                 return true;
                         else
                                 return false;"/>
+                    <label for="consultaC"><i class="material-icons">search</i>Pesquisar aluno</label>
                 </div>
                 <div class="left input-field col s3">
                     <p>
