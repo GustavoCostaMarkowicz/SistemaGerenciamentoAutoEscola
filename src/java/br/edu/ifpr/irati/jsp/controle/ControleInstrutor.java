@@ -25,7 +25,8 @@ public class ControleInstrutor {
     public void excluirInstrutor(Instrutor i) {
 
         Dao<Instrutor> instrutorDAO = new GenericDAO<>(Instrutor.class);
-        instrutorDAO.excluir(i);
+        i.setVisivel(false);
+        instrutorDAO.alterar(i);
 
     }
 

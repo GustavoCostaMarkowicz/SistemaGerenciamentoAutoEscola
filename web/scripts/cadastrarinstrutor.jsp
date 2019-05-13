@@ -22,10 +22,13 @@
     String telefoneCelular = request.getParameter("telefonecelular");
     String rg = request.getParameter("rg");
     String cpf = request.getParameter("cpf");
+             
 
     Date dataValidadeLicenca = sdf.parse(sDataValidadeLicenca);
     Date dataAdmissao = new Date();
     Date dataCadastro = new Date();
+    
+    
 
     Instrutor i = new Instrutor(dataAdmissao, numeroLicencaInstrutor, dataValidadeLicenca, tipoInstrucao, situacao, 0, nomeCompleto, dataCadastro, cidade, estado, endereco, numero, null, null, bairro, null, telefoneCelular, rg, cpf);
 
@@ -33,5 +36,6 @@
     ci.inserirInstrutor(i);
 
     response.sendRedirect("../instrutor.jsp");
+    
 
 %>

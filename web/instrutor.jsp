@@ -38,6 +38,7 @@
                     instrutores = controleInstrutor.buscarTodosInstrutores();
 
                     for (Instrutor instrutor : instrutores) {
+                        if(instrutor.isVisivel()){
                 %>
                 <tr>
                     <td><%=instrutor.getIdPessoa()%></td>
@@ -49,6 +50,8 @@
                 </tr>
 
                 <%
+                    }
+                    
                     }
                 %>
             </table>
