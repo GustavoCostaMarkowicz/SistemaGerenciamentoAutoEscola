@@ -12,6 +12,16 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="  crossorigin="anonymous"></script>
+   
+    <%
+    
+    int p = 1;
+    if(request.getParameter("p") != null){
+        p = Integer.parseInt(request.getParameter("p"));
+    }
+
+    %>
+    
     </head>
 
     <style>
@@ -33,21 +43,24 @@
 
         <main>
             
+            
+            <div class="row">
+            <a href="aluno.jsp?p=1" class="waves-effect waves-light btn col s6" value="AlunosOn">Alunos com Processo em Andamento</a>
+            <a href="aluno.jsp?p=2" class="waves-effect waves-light btn col s6" value="AlunosOff">Alunos com Processos Finalizados</a>
+            </div>       
+            
             <br>
             <div class="row">
                 <div class="center input-field col s6">
                     <input id="consultaN" name="consultaN" type="text"/>
-                    <label for="consultaN"><i class="material-icons">search</i>Pesquisar aluno</label>
                     <input id="consultaNp" name="consultaNp" type="hidden" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
                                 return true;
                         else
                                 return false;"/>
-                    <label for="consultaNp"><i class="material-icons">search</i>Pesquisar aluno</label>
                     <input id="consultaC" name="consultaC" type="hidden" maxlength="14" onkeydown="javascript: fMasc(this, mCPF);" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
                                 return true;
                         else
                                 return false;"/>
-                    <label for="consultaC"><i class="material-icons">search</i>Pesquisar aluno</label>
                 </div>
                 <div class="left input-field col s3">
                     <p>
@@ -70,7 +83,9 @@
                     </p>
                 </div>
                 <div class="center input-field col s3">
+                    <% if(p == 1){  %>
                     <a id="teste" href="cadastrarAluno.jsp" class="waves-effect waves-light btn" type="button">CADASTRAR</a>
+                    <% } %>
                     <a href="telaInicial.jsp" class="waves-effect waves-light btn" type="button">VOLTAR</a>
                 </div>
             </div>
@@ -95,6 +110,7 @@
                     List<Aluno> alunos = controleAluno.buscarTodosAlunos();
                     
                     for (Aluno aluno : alunos) {
+                        if (aluno.isVisivel() & p == 1){
                 %>
                 <tbody>
                     <tr>
@@ -108,6 +124,22 @@
                     </tr>
                 </tbody>
                 <%
+                    } else if(!aluno.isVisivel() & p == 2){
+                        %>
+                        <tbody>
+                    <tr>
+                        <td id="numeroProcesso" name="numeroProcesso"><%=aluno.getProcesso()%></td>
+                        <td id="nome" name="nome"><%=aluno.getNomeCompleto()%></td>
+                        <td id="cpf" name="cpf"><%=aluno.getCpf()%></td>
+                        <td><%=aluno.getRg()%></td>
+                        <td><%=sdf.format(aluno.getDataNascimento())%></td>
+                        <td><a href="mostrarAluno.jsp?idPessoa=<%=aluno.getIdPessoa()%>" class="waves-effect waves-light btn-floating" value="VerMais"><i class="material-icons">control_point</i></a></td>
+                        <td><a href="alterarAluno.jsp?idPessoa=<%=aluno.getIdPessoa()%>" class="waves-effect waves-light btn" value="Alterar"> Alterar </a></td>
+                    </tr>
+                </tbody>
+                
+                <%
+                            }   
                     }
                 %>
             </table>

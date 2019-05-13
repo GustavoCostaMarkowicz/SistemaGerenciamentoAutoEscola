@@ -73,9 +73,38 @@
                         <a href="mostrarConta.jsp?idPessoa=<%=a.getIdPessoa()%>" class="waves-effect waves-light btn" type="submit">MOSTRAR CONTA</a>
                     </div>
                 </div>
+                
+                
                 <%
                     }
                 %>
+                
+                <%
+                
+                if(a.isVisivel()){
+                %>
+                
+                 <div class="row">
+                    <div class="center input-field col s12">
+                        <a href="scripts/finalizarprocesso.jsp?idPessoa=<%=a.getIdPessoa()%>&id=1" class="waves-effect waves-light btn" type="submit">FINALIZAR PROCESSO</a>
+                    </div>
+                </div>
+                    
+                    <%
+                    } else {
+                    %>
+                    
+                    <div class="row">
+                    <div class="center input-field col s12">
+                        <a href="scripts/finalizarprocesso.jsp?idPessoa=<%=a.getIdPessoa()%>&id=2" class="waves-effect waves-light btn" type="submit">ABRIR UM NOVO PROCESSO</a>
+                    </div>
+                </div>
+                    
+                    <%
+                    }
+                    %>
+                    <br>
+                
                 <p>Número do Processo: <%=a.getProcesso() %></p>
                 <p>Data de Nascimento: <%=sdf.format(a.getDataNascimento())%></p>
                 <p>Data de Cadastro: <%=sdf.format(a.getDataCadastro())%></p>
