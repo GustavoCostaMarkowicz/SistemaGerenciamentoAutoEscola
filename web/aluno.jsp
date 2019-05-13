@@ -19,6 +19,10 @@
         a {
             color: white;
         }
+        
+        label#noResultMessage {
+            font-size: 30px;
+        }
 
     </style>
 
@@ -32,19 +36,35 @@
             <br>
             <div class="row">
                 <div class="center input-field col s6">
-                    <input id="consulta" name="consulta"/>
-                    <div>
-                        <label class="left">
-                            <input type="checkbox" class="filled-in" checked="checked" />
-                            <span>Processo</span>
-                            <br>
-                            <input type="checkbox" class="filled-in" />
+                    <input id="consultaN" name="consultaN" type="text"/>
+                    <input id="consultaNp" name="consultaNp" type="hidden" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
+                                return true;
+                        else
+                                return false;"/>
+                    <input id="consultaC" name="consultaC" type="hidden" maxlength="14" onkeydown="javascript: fMasc(this, mCPF);" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
+                                return true;
+                        else
+                                return false;"/>
+                </div>
+                <div class="left input-field col s3">
+                    <p>
+                        <label>
+                            <input onclick="controleCB('cbNome');" id="cbNome" name="cbNome" type="checkbox" class="filled-in" checked="checked" />
                             <span>Nome</span>
-                            <br>
-                            <input type="checkbox" class="filled-in" />
+                        </label>
+                    </p>
+                    <p>
+                        <label>
+                            <input onclick="controleCB('cbNumeroProcesso');" id="cbNumeroProcesso" name="cbNumeroProcesso" type="checkbox" class="filled-in" />
+                            <span>Número de Processo</span>
+                        </label>
+                    </p>
+                    <p>
+                        <label>
+                            <input onclick="controleCB('cbCpf');" id="cbCpf" name="cbCpf" type="checkbox" class="filled-in" />
                             <span>CPF</span>
                         </label>
-                    </div>
+                    </p>
                 </div>
                 <div class="center input-field col s3">
                     <a id="teste" href="cadastrarAluno.jsp" class="waves-effect waves-light btn" type="button">CADASTRAR</a>
@@ -75,9 +95,9 @@
                 %>
                 <tbody>
                     <tr>
-                        <td><%=aluno.getProcesso()%></td>
-                        <td><%=aluno.getNomeCompleto()%></td>
-                        <td><%=aluno.getCpf()%></td>
+                        <td id="numeroProcesso" name="numeroProcesso"><%=aluno.getProcesso()%></td>
+                        <td id="nome" name="nome"><%=aluno.getNomeCompleto()%></td>
+                        <td id="cpf" name="cpf"><%=aluno.getCpf()%></td>
                         <td><%=aluno.getRg()%></td>
                         <td><%=sdf.format(aluno.getDataNascimento())%></td>
                         <td><a href="mostrarAluno.jsp?idPessoa=<%=aluno.getIdPessoa()%>" class="waves-effect waves-light btn-floating" value="VerMais"><i class="material-icons">control_point</i></a></td>
@@ -88,7 +108,10 @@
                     }
                 %>
             </table>
-
+            <div align="center">
+                <label id="noResultMessage" name="noResultMessage">Nenhum aluno encontrado</label>
+            </div>
+            
         </main>
 
         <footer>
@@ -100,8 +123,66 @@
         
     </body>
     
-    <script>
-        $('input#consulta').quicksearch('table#tabelaAlunos tbody tr');
+    <script>   
+        $('input#consultaNp').quicksearch('table#tabelaAlunos tbody tr', {'selector': 'td#numeroProcesso', noResults: "#noResultMessage"});
+        $('input#consultaN').quicksearch('table#tabelaAlunos tbody tr', {'selector': 'td#nome', noResults: "#noResultMessage"});
+        $('input#consultaC').quicksearch('table#tabelaAlunos tbody tr', {'selector': 'td#cpf', noResults: "#noResultMessage"});
+        
+        function controleCB(checkbox){
+            if(checkbox === "cbNumeroProcesso"){
+                if(document.getElementById("cbNumeroProcesso").checked === false){
+                    document.getElementById("cbNumeroProcesso").checked = true;
+                }
+                document.getElementById("cbNome").checked = false;
+                document.getElementById("cbCpf").checked = false;
+                document.getElementById("consultaNp").setAttribute("type", "text");
+                document.getElementById("consultaN").setAttribute("type", "hidden");
+                document.getElementById("consultaN").value = "";
+                document.getElementById("consultaC").setAttribute("type", "hidden");
+                document.getElementById("consultaC").value = "";
+            }
+            if(checkbox === "cbNome"){
+                if(document.getElementById("cbNome").checked === false){
+                    document.getElementById("cbNome").checked = true;
+                }
+                document.getElementById("cbNumeroProcesso").checked = false;
+                document.getElementById("cbCpf").checked = false;
+                document.getElementById("consultaNp").setAttribute("type", "hidden");
+                document.getElementById("consultaNp").value = "";
+                document.getElementById("consultaN").setAttribute("type", "text");
+                document.getElementById("consultaC").setAttribute("type", "hidden");
+                document.getElementById("consultaC").value = "";
+            }
+            if(checkbox === "cbCpf"){
+                if(document.getElementById("cbCpf").checked === false){
+                    document.getElementById("cbCpf").checked = true;
+                }
+                document.getElementById("cbNome").checked = false;
+                document.getElementById("cbNumeroProcesso").checked = false;
+                document.getElementById("consultaNp").setAttribute("type", "hidden");
+                document.getElementById("consultaNp").value = "";
+                document.getElementById("consultaN").setAttribute("type", "hidden");
+                document.getElementById("consultaN").value = "";
+                document.getElementById("consultaC").setAttribute("type", "text");
+            }
+        }
+        
+        function fMasc(objeto, mascara) {
+            obj = objeto;
+            masc = mascara;
+            setTimeout("fMascEx()", 1);
+        }
+        function fMascEx() {
+            obj.value = masc(obj.value);
+        }
+        
+        function mCPF(cpf) {
+            cpf = cpf.replace(/\D/g, "");
+            cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2");
+            cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2");
+            cpf = cpf.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+            return cpf;
+        }
     </script>
     
 </html>
