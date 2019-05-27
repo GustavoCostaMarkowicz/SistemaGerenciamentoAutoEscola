@@ -8,19 +8,20 @@
 <!DOCTYPE html>
 <html>
     <head>
-         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Exame</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Exames</title>
+        <link rel="shortcut icon" href="imagens/logo.png"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="  crossorigin="anonymous"></script>
     </head>
 
     <style>
-        
+
         a {
             color: white;
         }
-        
+
         body {
 
             display: flex;
@@ -32,36 +33,28 @@
         main {
             flex: 1 0 auto;
         }
-        
+
     </style>
-    
+
     <body>
-        
+
         <header>
             <jsp:include page="cabecalho.jsp" flush="true" />
         </header>
-        
+
         <main>
             <div class="row">
-                <div class="center input-field col s3">
-                    <a href="relacaoExameMedico.jsp"><button class="waves-effect waves-light btn" type="button">EXAME MÉDICO</button></a>
-                </div>
-                <div class="center input-field col s3">
-                    <a href="relacaoExamePsicotecnico.jsp"><button class="waves-effect waves-light btn" type="button">EXAME PSICOTÉCNICO</button></a>
-                </div>
-                <div class="center input-field col s3">
-                    <button class="waves-effect waves-light btn" type="button"><a href="relacaoExameTeorico.jsp">EXAME TEÓRICO</a></button>
-                </div>
-                <div class="center input-field col s3">
-                    <button class="waves-effect waves-light btn" type="button"><a href="relacaoExamePratico.jsp">EXAME PRÁTICO</a></button>
-                </div>
+                <a href="relacaoExameMedico.jsp" class="amber waves-effect waves-light btn col s3" value="ExMed" style="color: black;">Exame Médico</a>
+                <a href="relacaoExamePsicotecnico.jsp" class="amber waves-effect waves-light btn col s3" value="ExPsi" style="color: black;">Exame Psicotécnico</a>
+                <a href="relacaoExameTeorico.jsp" class="amber waves-effect waves-light btn col s3" value="ExTeo" style="color: black;">Exame Teórico</a>
+                <a href="relacaoExamePratico.jsp" class="amber waves-effect waves-light btn col s3" value="ExPra" style="color: black;">Exame Prático</a>
             </div>
         </main>
-        
+
         <footer>
             <jsp:include page="rodape.jsp" flush="true" />
         </footer>                
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
-        
+
     </body>
 </html>

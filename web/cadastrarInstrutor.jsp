@@ -18,6 +18,16 @@
             font-weight: bold;
 
         }
+        
+        label.obrigatorio {
+            color: red;
+            font-size: 20px;
+        }
+        
+        label#descricaoObgt {
+            color: red;
+            font-size: 15px;
+        }
 
     </style>
 
@@ -31,22 +41,24 @@
             <div id="titulo">
                 <h6 align="center"> Dados Pessoais </h6>
             </div>
+            
+            <label class="obrigatorio">*</label><label id="descricaoObgt"> Campo Obrigatório</label>
 
             <div class="row">
                 <div class="input-field col s12">
-                    <p> Nome Completo: <input type="text" name="nome" value="" size="60"></p>
+                    <p> Nome Completo: <label class="obrigatorio">*</label><input class="required" type="text" name="nome" value="" size="60"></p>
                 </div>
             </div>
 
             <div class="row">
                 <div class="input-field col s6">
-                    <p> RG: <input type="text" name="rg" maxlength="12" onkeydown="javascript: fMasc(this, mRG);" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
+                    <p> RG: <input class="required" type="text" name="rg" maxlength="12" onkeydown="javascript: fMasc(this, mRG);" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
                                 return true;
                             else
                                 return false;"> </p>
                 </div>
                 <div class="input-field col s6">
-                    <p> CPF: <input type="text" id="cpf" name="cpf" maxlength="14" onkeydown="javascript: fMasc(this, mCPF);" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
+                    <p> CPF: <input class="required" type="text" id="cpf" name="cpf" maxlength="14" onkeydown="javascript: fMasc(this, mCPF);" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
                                 return true;
                             else
                                 return false;"> </p>
@@ -59,19 +71,19 @@
             
             <div class="row">
                 <div class="input-field col s6">
-                    <p> Tipo Instrução: <input type="text" name="tipoinstrucao" value="" size="60"></p>
+                    <p> Tipo Instrução: <label class="obrigatorio">*</label><input class="required" type="text" name="tipoinstrucao" value="" size="60"></p>
                 </div>
                 <div class="input-field col s6">
-                    <p> Situação: <input type="text" name="situacao" value="" size="60"></p>
+                    <p> Situação: <label class="obrigatorio"></label><input class="required" type="text" name="situacao" value="" size="60"></p>
                 </div>
             </div>
 
             <div class="row">
                 <div class="input-field col s6">
-                    <p> Número Licenca: <input type="text" name="numerolicenca" value="" size="60"></p>
+                    <p> Número Licenca: <input class="required" type="text" name="numerolicenca" value="" size="60"></p>
                 </div>
                 <div class="input-field col s6">
-                    <p> Data Validade da Licenca: <input type="text" name="datavalidadelicenca" maxlength="10" onkeydown="javascript: fMasc(this, mData);" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
+                    <p> Data Validade da Licenca: <input class="required" type="text" name="datavalidadelicenca" maxlength="10" onkeydown="javascript: fMasc(this, mData);" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
                                 return true;
                             else
                                 return false;"> </p>
@@ -84,22 +96,22 @@
 
             <div class="row">
                 <div class="input-field col s6">
-                    <p> Cidade: <input type="text" name="cidade" value="" size="15"> </p>
+                    <p> Cidade: <input class="required" type="text" name="cidade" value="" size="15"> </p>
                 </div>
                 <div class="input-field col s6">
-                    <p> Estado: <input type="text" name="estado" value="" size="15"> </p>
+                    <p> Estado: <input class="required" type="text" name="estado" value="" size="15"> </p>
                 </div>
             </div>
 
             <div class="row">
                 <div class="input-field col s4">
-                    <p> Endereço: <input type="text" name="endereco" value="" size="15"> </p>
+                    <p> Endereço: <input class="required" type="text" name="endereco" value="" size="15"> </p>
                 </div>
                 <div class="input-field col s4">
-                    <p> Número: <input type="text" name="numero" value="" size="15"> </p>
+                    <p> Número: <input class="required" type="text" name="numero" value="" size="15"> </p>
                 </div>
                 <div class="input-field col s4">
-                    <p> Bairro: <input type="text" name="bairro" value="" size="15"> </p>
+                    <p> Bairro: <input class="required" type="text" name="bairro" value="" size="15"> </p>
                 </div>
             </div>
 

@@ -37,79 +37,73 @@
         <header>
             <jsp:include page="cabecalho.jsp" flush="true" />
         </header>
-                <%
-        
+        <%
+
             int idPessoa = Integer.parseInt(request.getParameter("idPessoa"));
             ControleAluno ca = new ControleAluno();
             Aluno a = ca.buscarAlunosPorId(idPessoa);
-            
+
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             boolean teste = a.isDoadorOrgaos();
             String sDoadorOrgaos;
-            
-            if (teste == true){
+
+            if (teste == true) {
                 sDoadorOrgaos = "Sim";
             } else {
                 sDoadorOrgaos = "Não";
             }
-        
+
         %>
         <div class="card">
             <div class="card-content" align="center">
-                <span class="card-title activator grey-text text-darken-4"><p><%=a.getNomeCompleto() %></p></span>
+                <span class="card-title activator grey-text text-darken-4"><p><%=a.getNomeCompleto()%></p></span>
+                        <%
+                            if (ca.buscarContaAluno(a.getIdPessoa()) == null) {
+                        %>
+                <div class="row">
+                    <div class="center input-field col s12">
+                        <a href="cadastrarConta.jsp?idPessoa=<%=a.getIdPessoa()%>" class="green waves-effect waves-light btn" type="submit">CADASTRAR CONTA</a>
+                    </div>
                 <%
-                    if(ca.buscarContaAluno(a.getIdPessoa()) == null){
+                } else {
                 %>
                 <div class="row">
                     <div class="center input-field col s12">
-                        <a href="cadastrarConta.jsp?idPessoa=<%=a.getIdPessoa()%>" class="waves-effect waves-light btn" type="submit">CADASTRAR CONTA</a>
+                        <a href="mostrarConta.jsp?idPessoa=<%=a.getIdPessoa()%>" class="amber waves-effect waves-light btn" type="submit" style="color: black;">MOSTRAR CONTA</a>
                     </div>
-                </div>
-                <%
-                    } else {
-                %>
-                <div class="row">
-                    <div class="center input-field col s12">
-                        <a href="mostrarConta.jsp?idPessoa=<%=a.getIdPessoa()%>" class="waves-effect waves-light btn" type="submit">MOSTRAR CONTA</a>
-                    </div>
-                </div>
-                
-                
+
+
                 <%
                     }
                 %>
-                
+
                 <%
-                
-                if(a.isVisivel()){
+                    if (a.isVisivel()) {
                 %>
-                
-                 <div class="row">
+
                     <div class="center input-field col s12">
-                        <a href="scripts/finalizarprocesso.jsp?idPessoa=<%=a.getIdPessoa()%>&id=1" class="waves-effect waves-light btn" type="submit">FINALIZAR PROCESSO</a>
+                        <a href="scripts/finalizarprocesso.jsp?idPessoa=<%=a.getIdPessoa()%>&id=1" class="red waves-effect waves-light btn" type="submit">FINALIZAR PROCESSO</a>
                     </div>
                 </div>
-                    
-                    <%
-                    } else {
-                    %>
-                    
-                    <div class="row">
+
+                <%
+                } else {
+                %>
+
                     <div class="center input-field col s12">
-                        <a href="scripts/finalizarprocesso.jsp?idPessoa=<%=a.getIdPessoa()%>&id=2" class="waves-effect waves-light btn" type="submit">ABRIR UM NOVO PROCESSO</a>
+                        <a href="scripts/finalizarprocesso.jsp?idPessoa=<%=a.getIdPessoa()%>&id=2" class="green waves-effect waves-light btn" type="submit">ABRIR UM NOVO PROCESSO</a>
                     </div>
                 </div>
-                    
-                    <%
+
+                <%
                     }
-                    %>
-                    <br>
-                
-                <p>Número do Processo: <%=a.getProcesso() %></p>
+                %>
+
+                <p>Número do Processo: <%=a.getProcesso()%></p>
                 <p>Data de Nascimento: <%=sdf.format(a.getDataNascimento())%></p>
                 <p>Data de Cadastro: <%=sdf.format(a.getDataCadastro())%></p>
-                <p>CPF: <%=a.getCpf() %></p>
-                <p>RG: <%=a.getRg() %></p>
+                <p>CPF: <%=a.getCpf()%></p>
+                <p>RG: <%=a.getRg()%></p>
                 <p>Órgão Emissor do RG: <%=a.getOrgaoRg()%></p>
                 <p>Sexo: <%=a.getSexo()%></p>
                 <p>Nome do Pai: <%=a.getNomePai()%></p>
@@ -128,13 +122,13 @@
                 <p>Naturalidade: <%=a.getNaturalidade()%></p>
                 <p>Nacionalidade: <%=a.getNacionalidade()%></p>
                 <p>Grau de Instrução: <%=a.getGrauInstrucao()%></p>
-                <p>Doador de Órgãos: <%=sDoadorOrgaos %></p>
+                <p>Doador de Órgãos: <%=sDoadorOrgaos%></p>
                 <p>Tipo Sanguíneo: <%=a.getTipoSanguineo()%></p>
                 <p>Email: <%=a.getEmail()%></p>
             </div>
-            
+
         </div>
-             <footer>
+        <footer>
             <jsp:include page="rodape.jsp" flush="true" />
         </footer>
     </body>

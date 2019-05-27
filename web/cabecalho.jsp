@@ -3,8 +3,8 @@
 <%@page import="br.edu.ifpr.irati.jsp.modelo.ItemMenu"%>
 <%@page import="br.edu.ifpr.irati.jsp.controle.ControlePaginas"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<nav style="background-color: gray;">
-    <div class="nav-wrapper">
+<nav>
+    <div class="red darken-4 nav-wrapper">
         <a href="telaInicial.jsp" class="brand-logo">Bell's</a>
         <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons left">menu</i></a>
         <ul class="right hide-on-med-and-down">

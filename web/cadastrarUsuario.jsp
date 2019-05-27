@@ -28,6 +28,16 @@
             font-size: 30px;
         }
         
+        label.obrigatorio {
+            color: red;
+            font-size: 20px;
+        }
+        
+        label#descricaoObgt {
+            color: red;
+            font-size: 15px;
+        }
+        
     </style>
     
     <body>
@@ -70,7 +80,6 @@
                     %>
                     <tr>
                         <td><%=atendente.getNomeCompleto() %></td>
-
                         <td><%=atendente.getCidadeAtuacao()%></td>
                         <td><%=atendente.getTelefone() %></td>
                         <td><%=atendente.getTelefoneCelular()%></td>
@@ -87,16 +96,18 @@
                 <label id="noResultMessage" name="noResultMessage">Nenhum instrutor encontrado</label>
             </div>
             
+            <label class="obrigatorio">*</label><label id="descricaoObgt"> Campo Obrigatório</label>
+                
             <form action="scripts/cadastrarusuario.jsp" method="POST">
                 <div class="row">
                     <div class="input-field col s4">
-                        <p> Nome do Usuário: <input class="required" type="text" name="nome" maxlength="100"></p>
+                        <p> Nome do Usuário: <label class="obrigatorio">*</label><input class="required" type="text" name="nome" maxlength="100"></p>
                     </div>
                     <div class="input-field col s4">
-                        <p> Cidade de Atuação: <input class="required" type="text" name="cidade" maxlength="100"></p>
+                        <p> Cidade de Atuação: <label class="obrigatorio"></label><input class="required" type="text" name="cidade" maxlength="100"></p>
                     </div>
                     <div class="input-field col s4">
-                        <p> Senha: <input class="required" type="password" name="senha" maxlength="100"></p>
+                        <p> Senha: <label class="obrigatorio">*</label><input class="required" type="password" name="senha" maxlength="100"></p>
                     </div>
                 </div>
                 <div class="row">

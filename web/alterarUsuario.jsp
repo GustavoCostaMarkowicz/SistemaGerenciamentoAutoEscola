@@ -17,6 +17,21 @@
         <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="  crossorigin="anonymous"></script>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.min.js">
     </head>
+    
+    <style>
+        
+        label.obrigatorio {
+            color: red;
+            font-size: 20px;
+        }
+        
+        label#descricaoObgt {
+            color: red;
+            font-size: 15px;
+        }
+
+    </style>
+    
     <body>
 
         <header>
@@ -36,15 +51,16 @@
 
             <form action="scripts/alterarusuario.jsp" method="POST">
                 <input type="hidden" name="idUsuario" value="<%=atendente.getIdUsuario()%>"/>
+                <label class="obrigatorio">*</label><label id="descricaoObgt"> Campo Obrigatório</label>
                 <div class="row">
                     <div class="input-field col s4">
-                        <p> Nome do Usuário: <input class="required" type="text" name="nome" maxlength="100" value="<%=atendente.getNomeCompleto()%>"></p>
+                        <p> Nome do Usuário: <label class="obrigatorio">*</label><input class="required" type="text" name="nome" maxlength="100" value="<%=atendente.getNomeCompleto()%>"></p>
                     </div>
                     <div class="input-field col s4">
-                        <p> Cidade de Atuação: <input class="required" type="text" name="cidade" maxlength="100" value="<%=atendente.getCidadeAtuacao()%>"></p>
+                        <p> Cidade de Atuação: <label class="obrigatorio"></label><input class="required" type="text" name="cidade" maxlength="100" value="<%=atendente.getCidadeAtuacao()%>"></p>
                     </div>
                     <div class="input-field col s4">
-                        <p> Senha: <input class="required" type="password" name="senha" maxlength="100"></p>
+                        <p> Senha: <label class="obrigatorio">*</label><input class="required" type="password" name="senha" maxlength="100"></p>
                     </div>
                 </div>
                 <div class="row">

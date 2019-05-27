@@ -13,11 +13,10 @@
 
 </style>
 
-<footer class="page-footer" style="background-color: gray">
+<footer class="red darken-4 page-footer">
     <div class="footer-copyright">
         <div class="container">
-            © 2018 Bell's Corp.
-            <a class="grey-text text-lighten-4 right" href="#!"></a>
+            © 2019 Bell's Corp.
         </div>
     </div>
 </footer>

@@ -19,8 +19,6 @@
 
         }
         
-    
-        
         body {
 
             display: flex;
@@ -33,7 +31,15 @@
             flex: 1 0 auto;
         }
 
-
+        label.obrigatorio {
+            color: red;
+            font-size: 20px;
+        }
+        
+        label#descricaoObgt {
+            color: red;
+            font-size: 15px;
+        }
 
     </style>
 
@@ -48,13 +54,15 @@
             <div id="titulo">
                 <h6 align="center"> Veículo </h6>
             </div>
+            
+            <label class="obrigatorio">*</label><label id="descricaoObgt"> Campo Obrigatório</label>
 
             <div class="row">
                 <div class="input-field col s6">
-                    <p> Placa: <input type="text" name="placa" maxlength="8"></p>
+                    <p> Placa: <label class="obrigatorio">*</label><input class="required" type="text" name="placa" maxlength="8"></p>
                 </div>
                 <div class="input-field col s6">
-                    <p> Ano de Fabricação: <input type="text" name="anofabricacao" maxlength="4" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
+                    <p> Ano de Fabricação: <label class="obrigatorio">*</label><input class="required" type="text" name="anofabricacao" maxlength="4" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
                                 return true;
                             else
                                 return false;"></p>
@@ -63,10 +71,10 @@
 
             <div class="row">
                 <div class="input-field col s6">
-                    <p> Marca: <input type="text" name="marca"> </p>
+                    <p> Marca: <label class="obrigatorio">*</label><input class="required" type="text" name="marca"> </p>
                 </div>
                 <div class="input-field col s6">
-                    <p> Modelo: <input type="text" name="modelo"></p>
+                    <p> Modelo: <label class="obrigatorio">*</label><input class="required" type="text" name="modelo"></p>
                 </div>
             </div>
 

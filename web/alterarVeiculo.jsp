@@ -38,6 +38,16 @@
         main {
             flex: 1 0 auto;
         }
+        
+        label.obrigatorio {
+            color: red;
+            font-size: 20px;
+        }
+        
+        label#descricaoObgt {
+            color: red;
+            font-size: 15px;
+        }
 
     </style>
 
@@ -53,19 +63,21 @@
             <div id="titulo">
                 <h6 align="center"> Veículo </h6>
             </div>
-
+            
+            <label class="obrigatorio">*</label><label id="descricaoObgt"> Campo Obrigatório</label>
+            
             <div class="row">
                 <div class="input-field col s4">
-                    <p> Ano de Fabricação: <input type="text" name="anofabricacao" value="<%=veiculo.getAnoFabricacao()%>" max-lenght="4" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
+                    <p> Ano de Fabricação: <label class="obrigatorio">*</label><input type="text" name="anofabricacao" value="<%=veiculo.getAnoFabricacao()%>" max-lenght="4" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
                                 return true;
                             else
                                 return false;"></p>
                 </div>
                 <div class="input-field col s4">
-                    <p> Marca: <input type="text" name="marca" value="<%=veiculo.getMarca()%>"> </p>
+                    <p> Marca: <label class="obrigatorio">*</label><input type="text" name="marca" value="<%=veiculo.getMarca()%>"> </p>
                 </div>
                 <div class="input-field col s4">
-                    <p> Modelo: <input type="text" name="modelo" value="<%=veiculo.getModelo()%>"></p>
+                    <p> Modelo: <label class="obrigatorio">*</label><input type="text" name="modelo" value="<%=veiculo.getModelo()%>"></p>
                 </div>
             </div>
 

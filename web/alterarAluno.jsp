@@ -20,6 +20,16 @@
             padding: 15px;
             font-weight: bold;
         }
+        
+        label.obrigatorio {
+            color: red;
+            font-size: 20px;
+        }
+        
+        label#descricaoObgt {
+            color: red;
+            font-size: 15px;
+        }
 
     </style>
     
@@ -44,18 +54,20 @@
                 <h6 align="center">Dados Pessoais</h6>
             </div>
             
+            <label class="obrigatorio">*</label><label id="descricaoObgt"> Campo Obrigatório</label>
+            
             <div class="row">
             <div class="input-field col s4">
-                    <p> Nº do Processo: <input class="required" type="text" name="processo" value="<%=aluno.getProcesso() %>" maxlength="100"></p>
+                    <p> Nº do Processo: <label class="obrigatorio">*</label><input class="required" type="text" name="processo" value="<%=aluno.getProcesso() %>" maxlength="100"></p>
             </div>
            </div>
 
             <div class="row">
                 <div class="input-field col s4">
-                    <p> Nome Completo: <input class="required" type="text" name="nome" value="<%=aluno.getNomeCompleto()%>" maxlength="100"></p>
+                    <p> Nome Completo: <label class="obrigatorio">*</label><input class="required" type="text" name="nome" value="<%=aluno.getNomeCompleto()%>" maxlength="100"></p>
                 </div>
                 <div class="input-field col s4">
-                    <p> Data de Nascimento: <input class="required" type="text" name="datanascimento" value="<%=sdf.format(aluno.getDataNascimento())%>" maxlength="10" onkeydown="javascript: fMasc(this, mData);" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
+                    <p> Data de Nascimento: <label class="obrigatorio">*</label><input class="required" type="text" name="datanascimento" value="<%=sdf.format(aluno.getDataNascimento())%>" maxlength="10" onkeydown="javascript: fMasc(this, mData);" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
                                 return true;
                             else
                                 return false;"> </p>
@@ -72,19 +84,19 @@
 
             <div class="row">
                 <div class="input-field col s3">
-                    <p> RG: <input class="required" type="text" name="rg" value="<%=aluno.getRg()%>" maxlength="12" onkeydown="javascript: fMasc(this, mRG);" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
+                    <p> RG: <label class="obrigatorio">*</label><input class="required" type="text" name="rg" value="<%=aluno.getRg()%>" maxlength="12" onkeydown="javascript: fMasc(this, mRG);" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
                                 return true;
                             else
                                 return false;"> </p>
                 </div>
                 <div class="input-field col s3">
-                    <p> Órgão Emissor do RG: <input class="required" type="text" name="orgaorg" value="<%=aluno.getOrgaoRg()%>" maxlength="50"> </p>
+                    <p> Órgão Emissor do RG: <label class="obrigatorio">*</label><input class="required" type="text" name="orgaorg" value="<%=aluno.getOrgaoRg()%>" maxlength="50"> </p>
                 </div>
                 <div class="input-field col s3">
-                    <p> UF: <input class="required" type="text" name="uf" value="<%=aluno.getUf()%>" maxlength="2"> </p>
+                    <p> UF: <label class="obrigatorio">*</label><input class="required" type="text" name="uf" value="<%=aluno.getUf()%>" maxlength="2"> </p>
                 </div>
                 <div class="input-field col s3">
-                    <p> CPF: <input class="required" type="text" name="cpf" value="<%=aluno.getCpf()%>" maxlength="14" onkeydown="javascript: fMasc(this, mCPF);" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
+                    <p> CPF: <label class="obrigatorio">*</label><input class="required" type="text" name="cpf" value="<%=aluno.getCpf()%>" maxlength="14" onkeydown="javascript: fMasc(this, mCPF);" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
                                 return true;
                             else
                                 return false;"> </p>
@@ -93,10 +105,10 @@
 
             <div class="row">
                 <div class="input-field col s6">
-                    <p> Nome do Pai: <input class="required" type="text" name="nomepai" value="<%=aluno.getNomePai()%>" maxlength="100"> </p>
+                    <p> Nome do Pai: <label class="obrigatorio">*</label><input class="required" type="text" name="nomepai" value="<%=aluno.getNomePai()%>" maxlength="100"> </p>
                 </div>
                 <div class="input-field col s6">
-                    <p> Nome da Mãe: <input class="required" type="text" name="nomemae" value="<%=aluno.getNomeMae()%>" maxlength="100"> </p>
+                    <p> Nome da Mãe: <label class="obrigatorio">*</label><input class="required" type="text" name="nomemae" value="<%=aluno.getNomeMae()%>" maxlength="100"> </p>
                 </div>
             </div>
 
@@ -106,13 +118,13 @@
 
             <div class="row">
                 <div class="input-field col s4">
-                    <p> Cidade: <input class="required" type="text" name="cidade" value="<%=aluno.getCidade()%>" maxlength="50"> </p>
+                    <p> Cidade: <label class="obrigatorio">*</label><input class="required" type="text" name="cidade" value="<%=aluno.getCidade()%>" maxlength="50"> </p>
                 </div>
                 <div class="input-field col s4">
-                    <p> Estado: <input class="required" type="text" name="estado" value="<%=aluno.getEstado()%>" maxlength="30"> </p>
+                    <p> Estado: <label class="obrigatorio">*</label><input class="required" type="text" name="estado" value="<%=aluno.getEstado()%>" maxlength="30"> </p>
                 </div>
                 <div class="input-field col s4">
-                    <p> Cep: <input class="required" type="text" name="cep" value="<%=aluno.getCep()%>" maxlength="9" onkeydown="javascript: fMasc(this, mCEP);" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
+                    <p> Cep: <label class="obrigatorio">*</label><input class="required" type="text" name="cep" value="<%=aluno.getCep()%>" maxlength="9" onkeydown="javascript: fMasc(this, mCEP);" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
                                 return true;
                             else
                                 return false;"> </p>
@@ -121,19 +133,19 @@
 
             <div class="row">
                 <div class="input-field col s3">
-                    <p> Endereço: <input class="required" type="text" name="endereco" value="<%=aluno.getEndereco()%>" maxlength="120"> </p>
+                    <p> Endereço: <label class="obrigatorio">*</label><input class="required" type="text" name="endereco" value="<%=aluno.getEndereco()%>" maxlength="120"> </p>
                 </div>
                 <div class="input-field col s3">
-                    <p> Número: <input class="required" type="text" name="numero" value="<%=aluno.getNumero()%>" maxlength="6" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
+                    <p> Número: <label class="obrigatorio">*</label><input class="required" type="text" name="numero" value="<%=aluno.getNumero()%>" maxlength="6" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
                                 return true;
                             else
                                 return false;"> </p>
                 </div>
                 <div class="input-field col s3">
-                    <p> Complemento: <input class="required" type="text" name="complemento" value="<%=aluno.getComplemento()%>" maxlength="20"> </p>
+                    <p> Complemento: <label class="obrigatorio"></label><input class="required" type="text" name="complemento" value="<%=aluno.getComplemento()%>" maxlength="20"> </p>
                 </div>
                 <div class="input-field col s3">
-                    <p> Bairro: <input class="required" type="text" name="bairro" value="<%=aluno.getBairro()%>" maxlength="50"> </p>
+                    <p> Bairro: <label class="obrigatorio">*</label><input class="required" type="text" name="bairro" value="<%=aluno.getBairro()%>" maxlength="50"> </p>
                 </div>
             </div>
 
@@ -158,10 +170,10 @@
             </div>
             <div class="row">
                 <div class="input-field col s6">
-                    <p> Naturalidade: <input class="required" type="text" name="naturalidade" value="<%=aluno.getNaturalidade()%>" maxlength="50"> </p>
+                    <p> Naturalidade: <label class="obrigatorio">*</label><input class="required" type="text" name="naturalidade" value="<%=aluno.getNaturalidade()%>" maxlength="50"> </p>
                 </div>
                 <div class="input-field col s6">
-                    <p> Nacionalidade: <input class="required" type="text" name="nacionalidade" value="<%=aluno.getNacionalidade()%>" maxlength="50"> </p>
+                    <p> Nacionalidade: <label class="obrigatorio">*</label><input class="required" type="text" name="nacionalidade" value="<%=aluno.getNacionalidade()%>" maxlength="50"> </p>
                 </div>
             </div>
             <div class="row">

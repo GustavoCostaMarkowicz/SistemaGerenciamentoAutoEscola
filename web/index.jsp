@@ -65,14 +65,14 @@
                             <input id="senha" name="senha" type="password" class="validate" required>
                             <label for="senha">Senha</label>
                         </div>
-                        <!--
-                        <div class="switch">
-                            <label>
-                                <input type="checkbox">
-                                <span class="lever"></span> Mantenha-me conectado
-                            </label>
+                        <div>
+                            <p>
+                                <label>
+                                    <input type="checkbox" class="filled-in" onclick="exibirSenha()" />
+                                    <span>Exibir senha</span>
+                                </label>
+                            </p>
                         </div>
-                        -->
                         <div id="mensagem">
                             <span class="lever"></span><%=mensagem.replace("Usuario", "Usuário")%>
                         </div>
@@ -99,4 +99,18 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
 
 </body>
+
+<script>
+
+                                        function exibirSenha() {
+                                            var x = document.getElementById("senha");
+                                            if (x.type === "password") {
+                                                x.type = "text";
+                                            } else {
+                                                x.type = "password";
+                                            }
+                                        }
+
+</script>
+
 </html>

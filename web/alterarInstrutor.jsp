@@ -29,6 +29,16 @@
             font-weight: bold;
 
         }
+        
+        label.obrigatorio {
+            color: red;
+            font-size: 20px;
+        }
+        
+        label#descricaoObgt {
+            color: red;
+            font-size: 15px;
+        }
 
     </style>
 
@@ -44,10 +54,12 @@
             <div id="titulo">
                 <h6 align="center"> Dados Pessoais </h6>
             </div>
+            
+            <label class="obrigatorio">*</label><label id="descricaoObgt"> Campo Obrigatório</label>
 
             <div class="row">
                 <div class="input-field col s12">
-                    <p> Nome Completo: <input type="text" name="nome" value="<%=instrutor.getNomeCompleto()%>" size="60"></p>
+                    <p> Nome Completo: <label class="obrigatorio">*</label><input type="text" name="nome" value="<%=instrutor.getNomeCompleto()%>" size="60"></p>
                 </div>
             </div>
 
@@ -72,10 +84,10 @@
             
             <div class="row">
                 <div class="input-field col s6">
-                    <p> Tipo Instrução: <input type="text" name="tipoinstrucao" value="<%=instrutor.getTipoInstrucao()%>" size="60"></p>
+                    <p> Tipo Instrução: <label class="obrigatorio">*</label><input type="text" name="tipoinstrucao" value="<%=instrutor.getTipoInstrucao()%>" size="60"></p>
                 </div>
                 <div class="input-field col s6">
-                    <p> Situação: <input type="text" name="situacao" value="<%=instrutor.getSituacao()%>" size="60"></p>
+                    <p> Situação: <label class="obrigatorio"></label><input type="text" name="situacao" value="<%=instrutor.getSituacao()%>" size="60"></p>
                 </div>
             </div>
 
