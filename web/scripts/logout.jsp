@@ -4,6 +4,7 @@
     Author     : João Vitor Gonçalves
 --%>
 
+<%@page import="gerais.HibernateUtil"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
 
@@ -15,6 +16,8 @@
     }
     
     response.sendRedirect("../index.jsp");
+    
+    HibernateUtil.sessionClose();
     
 
 

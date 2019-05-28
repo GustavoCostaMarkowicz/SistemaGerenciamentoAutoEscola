@@ -1,13 +1,9 @@
 package br.edu.ifpr.irati.jsp.dao;
 
-import br.edu.ifpr.irati.jsp.exception.HashGenerationException;
-import br.edu.ifpr.irati.jsp.modelo.Usuario;
-import br.edu.ifpr.irati.jsp.util.Digest;
+
 import gerais.HibernateUtil;
 import java.io.Serializable;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -28,7 +24,9 @@ public class GenericDAO<T> implements Dao<T> {
         T t = (T) session.load(classePersistente, id);
         session.clear();
         session.close();
+       
         return t;
+       
     }
 
     @Override
@@ -41,6 +39,7 @@ public class GenericDAO<T> implements Dao<T> {
         session.getTransaction().commit();
         session.clear();
         session.close();
+   
     }
 
     @Override
@@ -53,6 +52,7 @@ public class GenericDAO<T> implements Dao<T> {
         session.getTransaction().commit();
         session.clear();
         session.close();
+      
     }
 
     @Override
@@ -65,38 +65,48 @@ public class GenericDAO<T> implements Dao<T> {
         session.getTransaction().commit();
         session.clear();
         session.close();
+
     }
 
     @Override
     public List<T> buscarTodos(Class<T> clazz) {
         Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
         String hql = "from " + clazz.getCanonicalName();
         Query query = session.createQuery(hql);
         List results = query.list();
+        session.getTransaction().commit();
         session.clear();
         session.close();
+
         return results;
     }
     
     @Override
     public T buscarResultadoExamesPorAlunoExame(int idPessoa, int idExame){
         Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
         String hql = "from " + classePersistente.getCanonicalName()+" where aluno_idPessoa = "+idPessoa+" and exame_idExame = "+idExame;
         Query query = session.createQuery(hql);
         T t = (T) query.uniqueResult();
+        session.getTransaction().commit();
         session.clear();
         session.close();
+ 
         return t;
     }
     
     @Override
     public List<T> buscarExamesPorAluno(int idPessoa){
         Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
         String hql = "from exame_aluno where alunos_idPessoa = "+idPessoa;
         Query query = session.createQuery(hql);
         List results = query.list();
+        session.getTransaction().commit();
         session.clear();
         session.close();
+   
         return results;
     }
     
