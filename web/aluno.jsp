@@ -58,7 +58,6 @@
                 <a href="aluno.jsp?p=2" class="amber waves-effect waves-light btn col s6" value="AlunosOff" style="color: black;">Alunos com Processos Finalizados</a>
             </div>
             <% }%>
-            <br>
             <div class="row">
                 <div class="col s14 m12">
                     <div class="card">
@@ -82,19 +81,19 @@
                             <div class="left input-field col s3">
                                 <p>
                                     <label>
-                                        <input onclick="controleCB('cbNome');" id="cbNome" name="cbNome" type="checkbox" class="checkbox-red" checked="checked" />
+                                        <input onclick="controleCB('cbNome');" id="cbNome" name="cbNome" type="checkbox" class="filled-in" checked="checked" />
                                         <span>Nome</span>
                                     </label>
                                 </p>
                                 <p>
                                     <label>
-                                        <input onclick="controleCB('cbNumeroProcesso');" id="cbNumeroProcesso" name="cbNumeroProcesso" type="checkbox" />
+                                        <input onclick="controleCB('cbNumeroProcesso');" id="cbNumeroProcesso" name="cbNumeroProcesso" type="checkbox" class="filled-in" />
                                         <span>Número de Processo</span>
                                     </label>
                                 </p>
                                 <p>
                                     <label>
-                                        <input onclick="controleCB('cbCpf');" id="cbCpf" name="cbCpf" type="checkbox" />
+                                        <input onclick="controleCB('cbCpf');" id="cbCpf" name="cbCpf" type="checkbox" class="filled-in" />
                                         <span>CPF</span>
                                     </label>
                                 </p>
