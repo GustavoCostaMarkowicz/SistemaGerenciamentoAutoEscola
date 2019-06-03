@@ -17,7 +17,7 @@
     
     response.sendRedirect("../index.jsp");
     
-    HibernateUtil.sessionClose();
+   
     
 
 
