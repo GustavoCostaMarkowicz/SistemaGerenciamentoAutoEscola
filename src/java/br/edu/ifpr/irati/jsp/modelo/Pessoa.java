@@ -54,10 +54,10 @@ public abstract class Pessoa implements Serializable {
     @Column(name = "telefonecelular", nullable = true, length = 15)
     protected String telefoneCelular;
 
-    @Column(name = "rg", nullable = false, length = 14)
+    @Column(name = "rg", nullable = true, length = 14)
     protected String rg;
 
-    @Column(name = "cpf", nullable = false, length = 14)
+    @Column(name = "cpf", nullable = true, length = 14)
     protected String cpf;
     
     @Type(type = "true_false")

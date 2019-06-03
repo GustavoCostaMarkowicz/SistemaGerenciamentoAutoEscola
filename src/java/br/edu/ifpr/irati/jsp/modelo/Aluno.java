@@ -27,7 +27,7 @@ public class Aluno extends Pessoa implements Serializable {
     @Column(name = "uf", nullable = false, length = 2)
     private String uf;
 
-    @Column(name = "estadocivil", nullable = false, length = 40)
+    @Column(name = "estadocivil", nullable = true, length = 40)
     private String estadoCivil;
 
     @Column(name = "nomepai", nullable = false, length = 100)
@@ -48,7 +48,7 @@ public class Aluno extends Pessoa implements Serializable {
     @Column(name = "sexo", nullable = false, length = 10)
     private String sexo;
 
-    @Column(name = "grauinstrucao", nullable = false, length = 30)
+    @Column(name = "grauinstrucao", nullable = true, length = 30)
     private String grauInstrucao;
 
     @Type(type = "true_false")
@@ -64,7 +64,7 @@ public class Aluno extends Pessoa implements Serializable {
     @ManyToMany(mappedBy = "alunos", fetch = FetchType.EAGER)
     private List<Exame> exames;
 
-    @OneToMany(mappedBy = "aluno")
+    @OneToMany(mappedBy = "aluno", fetch = FetchType.EAGER)
     private List<ResultadoExame> examesAprovado;
 
     public Aluno() {

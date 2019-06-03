@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.FetchType;
 
 @Entity(name = "servico")
 public class Servico implements Serializable {
@@ -18,7 +19,7 @@ public class Servico implements Serializable {
     @Column(name = "valorvista", nullable = false)
     private double valorVista;
 
-    @OneToMany(mappedBy = "servico")
+    @OneToMany(mappedBy = "servico", fetch = FetchType.EAGER)
     private List<RegraParcelas> parcelas;
 
     public Servico() {

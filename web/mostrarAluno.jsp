@@ -20,15 +20,27 @@
 
     <style>
 
-        body {
-            background-color: lightgrey;
+        div#titulo {
+            background-color: lightgray;
+            padding: 3px;
         }
 
-        .card {
-            margin-top: 20px;
-            background-color: gray;
-            border-radius: 15px;
-            align-items: center;
+        div#titulo h5 {
+            font-weight: bold;
+        }
+
+        div#titulo h6 {
+            font-weight: bold;
+        }
+
+        td {
+            border-right: solid 1px lightgrey; 
+            border-left: solid 1px lightgrey;
+        }
+
+        label.nomeDado {
+            font-weight: bold;
+            color: black;
         }
 
     </style>
@@ -38,57 +50,188 @@
             <jsp:include page="cabecalho.jsp" flush="true" />
         </header>
         <%
-
             int idPessoa = Integer.parseInt(request.getParameter("idPessoa"));
             ControleAluno ca = new ControleAluno();
             Aluno a = ca.buscarAlunosPorId(idPessoa);
 
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            boolean teste = a.isDoadorOrgaos();
-            String sDoadorOrgaos;
-
-            if (teste == true) {
-                sDoadorOrgaos = "Sim";
+            String complemento;
+            if (a.getComplemento() == null) {
+                complemento = "";
             } else {
-                sDoadorOrgaos = "Não";
+                complemento = a.getComplemento();
             }
-
+            String estadoCivil;
+            if (a.getEstadoCivil() == null) {
+                estadoCivil = "";
+            } else {
+                estadoCivil = a.getEstadoCivil();
+            }
+            String grauInstrucao;
+            if (a.getGrauInstrucao() == null) {
+                grauInstrucao = "";
+            } else {
+                grauInstrucao = a.getGrauInstrucao();
+            }
+            String naturalidade;
+            if (a.getNaturalidade() == null) {
+                naturalidade = "";
+            } else {
+                naturalidade = a.getNaturalidade();
+            }
+            String nacionalidade;
+            if (a.getNacionalidade() == null) {
+                nacionalidade = "";
+            } else {
+                nacionalidade = a.getNacionalidade();
+            }
+            String tipoSanguineo;
+            if (a.getTipoSanguineo() == null) {
+                tipoSanguineo = "";
+            } else {
+                tipoSanguineo = a.getTipoSanguineo();
+            }
+            String doadorOrgaos;
+            if (a.isDoadorOrgaos() == true) {
+                doadorOrgaos = "Sim";
+            } else if (a.isDoadorOrgaos() == false) {
+                doadorOrgaos = "Não";
+            } else {
+                doadorOrgaos = "";
+            }
+            String telefone;
+            if (a.getTelefone() == null) {
+                telefone = "";
+            } else {
+                telefone = a.getTelefone();
+            }
+            String telefoneCelular;
+            if (a.getTelefoneCelular() == null) {
+                telefoneCelular = "";
+            } else {
+                telefoneCelular = a.getTelefoneCelular();
+            }
+            String email;
+            if (a.getEmail() == null) {
+                email = "";
+            } else {
+                email = a.getEmail();
+            }
         %>
-        <div class="card">
-            <div class="card-content" align="center">
-                <span class="card-title activator grey-text text-darken-4"><p><%=a.getNomeCompleto()%></p></span>
-                        <%
-                            if (ca.buscarContaAluno(a.getIdPessoa()) == null) {
-                        %>
+        <div class="col s14 m12">
+            <div class="card" align="center">
+                <div class="card-content">
+                    <div id="titulo" class="amber">
+                        <h5 align="center"><%=a.getNomeCompleto()%></h5>
+                    </div>
+                    <div id="titulo">
+                        <h6 align="center">Dados Pessoais</h6>
+                    </div>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td><label class="nomeDado">NÚMERO DO PROCESSO: </label><%=a.getProcesso()%></td>
+                                <td><label class="nomeDado">DATA DE NASCIMENTO: </label><%=sdf.format(a.getDataNascimento())%></td>
+                                <td><label class="nomeDado">DATA DE CADASTRO: </label><%=sdf.format(a.getDataCadastro())%></td>
+                                <td><label class="nomeDado">CPF: </label><%=a.getCpf()%></td>
+                                <td><label class="nomeDado">RG: </label><%=a.getRg()%></td>
+                            </tr>                           
+                        </tbody>
+                    </table>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td><label class="nomeDado">ÓRGÃO EMISSOR DO RG: </label><%=a.getOrgaoRg()%></td>
+                                <td><label class="nomeDado">UF: </label><%=a.getUf()%></td>
+                                <td><label class="nomeDado">SEXO: </label><%=a.getSexo()%></td>
+                                <td><label class="nomeDado">NOME DO PAI: </label><%=a.getNomePai()%></td>
+                                <td><label class="nomeDado">NOME DA MÃE: </label><%=a.getNomeMae()%></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div id="titulo">
+                        <h6 align="center">Dados de Moradia</h6>
+                    </div>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td><label class="nomeDado">CIDADE: </label><%=a.getCidade()%></td>
+                                <td><label class="nomeDado">ESTADO: </label><%=a.getEstado()%></td>
+                                <td><label class="nomeDado">ENDEREÇO: </label><%=a.getEndereco()%></td>
+                            </tr>                           
+                        </tbody>
+                    </table>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td><label class="nomeDado">NÚMERO: </label><%=a.getNumero()%></td>
+                                <td><label class="nomeDado">COMPLEMENTO: </label><%=complemento%></td>
+                                <td><label class="nomeDado">CEP: </label><%=a.getCep()%></td>
+                                <td><label class="nomeDado">BAIRRO: </label><%=a.getBairro()%></td>
+                            </tr>                           
+                        </tbody>
+                    </table>        
+                    <div id="titulo">
+                        <h6 align="center">Dados Adicionais</h6>
+                    </div>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td><label class="nomeDado">ESTADO CIVIL: </label><%=estadoCivil%></td>
+                                <td><label class="nomeDado">GRAU DE INSTRUÇÃO: </label><%=grauInstrucao%></td>
+                                <td><label class="nomeDado">NATURALIDADE: </label><%=naturalidade%></td>
+                                <td><label class="nomeDado">NACIONALIDADE: </label><%=nacionalidade%></td>
+                                <td><label class="nomeDado">DOADOR DE ÓRGÃOS: </label><%=doadorOrgaos%></td>
+                                <td><label class="nomeDado">TIPO SANGUÍNEO: </label><%=tipoSanguineo%></td>
+                            </tr>                           
+                        </tbody>
+                    </table>
+                    <div id="titulo">
+                        <h6 align="center">Contato</h6>
+                    </div>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td><label class="nomeDado">TELEFONE: </label><%=telefone%></td>
+                                <td><label class="nomeDado">TELEFONE CELULAR: </label><%=telefoneCelular%></td>
+                                <td><label class="nomeDado">EMAIL: </label><%=email%></td>
+                            </tr>                           
+                        </tbody>
+                    </table>
+                </div>
+
+                <%
+                    if (ca.buscarContaAluno(a.getIdPessoa()) == null) {
+                %>
                 <div class="row">
                     <div class="center input-field col s12">
                         <a href="cadastrarConta.jsp?idPessoa=<%=a.getIdPessoa()%>" class="green waves-effect waves-light btn" type="submit">CADASTRAR CONTA</a>
                     </div>
-                <%
-                } else {
-                %>
-                <div class="row">
-                    <div class="center input-field col s12">
-                        <a href="mostrarConta.jsp?idPessoa=<%=a.getIdPessoa()%>" class="amber waves-effect waves-light btn" type="submit" style="color: black;">MOSTRAR CONTA</a>
+                    <%
+                    } else {
+                    %>
+                    <div class="row">
+                        <div class="center input-field col s12">
+                            <a href="mostrarConta.jsp?idPessoa=<%=a.getIdPessoa()%>" class="amber waves-effect waves-light btn" type="submit" style="color: black;">MOSTRAR CONTA</a>
+                        </div>
+
+
+                        <%
+                            }
+                        %>
+
+                        <%
+                            if (a.isVisivel()) {
+                        %>
+
+                        <div class="center input-field col s12">
+                            <a href="scripts/finalizarprocesso.jsp?idPessoa=<%=a.getIdPessoa()%>&id=1" class="red waves-effect waves-light btn" type="submit">FINALIZAR PROCESSO</a>
+                        </div>
                     </div>
 
-
-                <%
-                    }
-                %>
-
-                <%
-                    if (a.isVisivel()) {
-                %>
-
-                    <div class="center input-field col s12">
-                        <a href="scripts/finalizarprocesso.jsp?idPessoa=<%=a.getIdPessoa()%>&id=1" class="red waves-effect waves-light btn" type="submit">FINALIZAR PROCESSO</a>
-                    </div>
-                </div>
-
-                <%
-                } else {
-                %>
+                    <%
+                    } else {
+                    %>
 
                     <div class="center input-field col s12">
                         <a href="scripts/finalizarprocesso.jsp?idPessoa=<%=a.getIdPessoa()%>&id=2" class="green waves-effect waves-light btn" type="submit">ABRIR UM NOVO PROCESSO</a>
@@ -99,34 +242,7 @@
                     }
                 %>
 
-                <p>Número do Processo: <%=a.getProcesso()%></p>
-                <p>Data de Nascimento: <%=sdf.format(a.getDataNascimento())%></p>
-                <p>Data de Cadastro: <%=sdf.format(a.getDataCadastro())%></p>
-                <p>CPF: <%=a.getCpf()%></p>
-                <p>RG: <%=a.getRg()%></p>
-                <p>Órgão Emissor do RG: <%=a.getOrgaoRg()%></p>
-                <p>Sexo: <%=a.getSexo()%></p>
-                <p>Nome do Pai: <%=a.getNomePai()%></p>
-                <p>Nome da Mãe: <%=a.getNomeMae()%></p>
-                <p>Cidade: <%=a.getCidade()%></p>
-                <p>Estado: <%=a.getEstado()%></p>
-                <p>Endereço: <%=a.getEndereco()%></p>
-                <p>Número: <%=a.getNumero()%></p>
-                <p>Complemento: <%=a.getComplemento()%></p>
-                <p>Cep: <%=a.getCep()%></p>
-                <p>Bairro: <%=a.getBairro()%></p>
-                <p>Telefone: <%=a.getTelefone()%></p>
-                <p>Telefone-Celular: <%=a.getTelefoneCelular()%></p>
-                <p>Unidade Federativa: <%=a.getUf()%></p>
-                <p>Estado Civil: <%=a.getEstadoCivil()%></p>
-                <p>Naturalidade: <%=a.getNaturalidade()%></p>
-                <p>Nacionalidade: <%=a.getNacionalidade()%></p>
-                <p>Grau de Instrução: <%=a.getGrauInstrucao()%></p>
-                <p>Doador de Órgãos: <%=sDoadorOrgaos%></p>
-                <p>Tipo Sanguíneo: <%=a.getTipoSanguineo()%></p>
-                <p>Email: <%=a.getEmail()%></p>
             </div>
-
         </div>
         <footer>
             <jsp:include page="rodape.jsp" flush="true" />

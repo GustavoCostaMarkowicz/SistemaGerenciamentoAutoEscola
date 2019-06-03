@@ -18,28 +18,21 @@
     <style>
 
         div#titulo {
-
             background-color: lightgray;
-            padding: 15px;
+            padding: 3px;
+        }
+
+        div#titulo h5 {
             font-weight: bold;
-
-        }
-        
-    
-        
-        body {
-
-            display: flex;
-            min-height: 100vh;
-            flex-direction: column;
-
         }
 
-        main {
-            flex: 1 0 auto;
+        div#titulo h6 {
+            font-weight: bold;
         }
 
-
+        .input-field .prefix.active {
+            color: green;
+        }
 
     </style>
     
@@ -50,42 +43,59 @@
         
         <main>
         <form  action="scripts/cadastrarservico.jsp" method="POST" >
-            
-            <input type="hidden" id="valores" name="quantidade" value=""/>
+            <div class="col s14 m12">
+                <div class="card">
+                    <div class="card-content">
 
-            <div id="titulo">
-                <h6 align="center"> Serviço </h6>
-            </div>
+                        <input type="hidden" id="valores" name="quantidade" value=""/>
+                        
+                        <div id="titulo" class="amber">
+                            <h5 align="center">Cadastrar Serviço</h5>
+                        </div>
 
-            <div class="row">
-                <div class="input-field col s4">
-                    <p> Número de Opções de Parcelamento: <input type="text" id="parcelamento"></p>
-                </div>
-                <button style="margin-top: 50px;" class="waves-effect waves-light btn" type="button" onclick="enviar();">MOSTRAR
-                </button>
-            </div>
+                        <div id="titulo">
+                            <h6 align="center">Dados do Serviço</h6>
+                        </div>
 
-            <div class="row">
-                
-                <div class="input-field col s6">
-                    <p> Nome do Serviço: <input type="text" name="nome"></p>
-                </div>
-                
-                <div class="input-field col s6">
-                    <p> Valor à Vista: <input type="text" name="valorVista"></p>
-                </div>
-                
-            </div>
-            
-        
-                
-                <div id="subs">
-                </div>
-           
+                        <div class="center row">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">receipt</i>
+                                <input placeholder="" id="nome" name="nome" type="text" class="validate" maxlength="60" required>
+                                <label for="nome">Nome do serviço</label>
+                                <span class="helper-text" data-error="Campo obrigatório!" data-success="Ok!"></span>
+                            </div>
+                        </div>
+                        
+                        <div id="titulo">
+                            <h6 align="center">Dados do Pagamento</h6>
+                        </div>
 
-            <div class="center input-field col s12">
-                <button class="waves-effect waves-light btn" type="submit">SALVAR
-                </button>
+                        <div class="center row">
+                            <div class="input-field col s6">
+                                <i class="material-icons prefix">attach_money</i>
+                                <input placeholder="" id="valorVista" name="valorVista" type="text" class="validate" maxlength="100" required>
+                                <label for="marca">Valor à vista</label>
+                                <span class="helper-text" data-error="Campo obrigatório!" data-success="Ok!"></span>
+                            </div>
+                            <div class="input-field col s5">
+                                <i class="material-icons prefix">local_parking</i>
+                                <input placeholder="" id="parcelamento" name="parcelamento" type="number" maxlength="100">
+                                <label for="parcelamento">Número de opções de parcelamento</label>
+                            </div>
+                            <div class="input-field col s1">
+                            <a onclick="enviar();" value="" class="amber tooltipped btn-floating waves-effect waves-light" data-position="left" data-tooltip="preencher valores de pagamento"><i class="material-icons">send</i></a>
+                            </div>
+                        </div>
+                        
+                        <div id="subs">
+                </div>
+
+                        <div class="center input-field col s12">
+                            <button class="green waves-effect waves-light btn col s6" type="submit">Salvar
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </form>
@@ -93,6 +103,8 @@
         <footer>
             <jsp:include page="rodape.jsp" flush="true" />
         </footer>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
         
         <script>
             
@@ -102,9 +114,13 @@
                 var i = document.getElementById("parcelamento").value;
                 var texto = "";
                 
-                for(var j = 0; j < i; j++){
+                for(var j = 1; j <= i; j++){
                     
-                    texto += "<div class='row'><div class='input-field col s3'><p> Parcela "+j+": <input type='number' name='parcela"+j+"'></p></div><div class='input-field col s6'><p> Valor "+j+": <input type='text' name='valor"+j+"'></p></div></div>";
+                    if(j <= 9){
+                        texto += "<div class='center row'><div class='input-field col s6'><i class='material-icons prefix'>filter_"+j+"</i><input placeholder='' id='parcela"+j+"' name='parcela"+j+"' type='number' maxlength='100'><label for='parcela"+j+"'>Parcelas</label></div><div class='input-field col s6'><i class='material-icons prefix'>attach_money</i><input placeholder='' id='valor"+j+"' name='valor"+j+"' type='text' maxlength='100'><label for='valor"+j+"'>Valor da parcela</label></div></div>";
+                    } else{
+                        texto += "<div class='center row'><div class='input-field col s6'><i class='material-icons prefix'>filter_9_plus</i><input placeholder='' id='parcela"+j+"' name='parcela"+j+"' type='number' maxlength='100'><label for='parcela"+j+"'>Parcelas</label></div><div class='input-field col s6'><i class='material-icons prefix'>attach_money</i><input placeholder='' id='valor"+j+"' name='valor"+j+"' type='text' maxlength='100'><label for='valor"+j+"'>Valor da parcela</label></div></div>";
+                    }
                     
                 }
                 
@@ -113,6 +129,10 @@
                 
             }
             
+            
+            $(document).ready(function () {
+            $('.tooltipped').tooltip();
+        });
             
         </script>
         

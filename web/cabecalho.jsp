@@ -5,7 +5,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <nav>
     <div class="red darken-4 nav-wrapper">
-        <a href="telaInicial.jsp" class="brand-logo">Bell's</a>
+        <a href="telaInicial.jsp" class="brand-logo">JoGus - Bell's</a>
         <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons left">menu</i></a>
         <ul class="right hide-on-med-and-down">
 

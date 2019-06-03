@@ -6,19 +6,20 @@
 
 
     request.setCharacterEncoding("UTF-8");
-
-    String login = request.getParameter("nome");
-    String cidade = request.getParameter("cidade");
+    
+    String nomeCompleto = request.getParameter("nome");
+    String login = request.getParameter("usuario");
+    String cidade = request.getParameter("cidadeAtuacao");
     String telefone = request.getParameter("telefone");
     String telefoneCelular = request.getParameter("telefonecelular");
     String senha = request.getParameter("senha");
     
-    Atendente a = new Atendente(login, telefone, telefoneCelular, 0, login, senha, cidade, true);
+    Atendente a = new Atendente(nomeCompleto, telefone, telefoneCelular, 0, login, senha, cidade, true);
     
     ControleAtendente ca = new ControleAtendente();
     ca.inserirAtendente(a);
     
-    response.sendRedirect("../telaInicial.jsp");
+    response.sendRedirect("../funcionario.jsp?p=2");
 
 
 %>

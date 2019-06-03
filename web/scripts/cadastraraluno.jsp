@@ -11,7 +11,7 @@
 
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     
-    String processo = request.getParameter("processo");
+    String processo = request.getParameter("numeroProcesso");
     String nomeCompleto = request.getParameter("nome");
     String sData = request.getParameter("datanascimento");
     String sexo = request.getParameter("sexo");
@@ -41,7 +41,7 @@
     Date dataCadastro = new Date();
     Date dataNascimento = sdf.parse(sData);
     boolean doadorOrgaos = false;
-    if (sdoadorOrgaos.equals("Sim")) {
+    if (sdoadorOrgaos == "Sim") {
         doadorOrgaos = true;
     }
     String uf = suf.toUpperCase();
@@ -75,9 +75,9 @@
     } 
 
     if(flag != 0){
-    
+        
     Aluno a = new Aluno(processo, orgaoRg, uf, estadoCivil, nomePai, nomeMae, dataNascimento, naturalidade, nacionalidade, sexo, grauInstrucao, doadorOrgaos, tipoSanguineo, email, 0, nomeCompleto, dataCadastro, cidade, estado, endereco, numero, complemento, cep, bairro, telefone, telefoneCelular, rg, cpf);
-
+    
     ControleAluno ca = new ControleAluno();
     ca.inserirAluno(a);
     
@@ -89,7 +89,7 @@
          out.println("alert('Data de Nascimento Incorreta');");
          out.println("</script>");
          
-         
+         response.sendRedirect("../cadastrarAluno.jsp");
         
     }
     

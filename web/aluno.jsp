@@ -67,7 +67,7 @@
                             <div class="center input-field col s8">
                                 <input id="consultaN" name="consultaN" type="text"/>
                                 <label for="consultaN"><i class="material-icons">search</i>Pesquisar aluno </label>
-                                <input id="consultaNp" name="consultaNp" type="hidden" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
+                                <input id="consultaM" name="consultaM" type="hidden" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
                                             return true;
                                         else
                                             return false;"/>
@@ -87,8 +87,8 @@
                                 </p>
                                 <p>
                                     <label>
-                                        <input onclick="controleCB('cbNumeroProcesso');" id="cbNumeroProcesso" name="cbNumeroProcesso" type="checkbox" class="filled-in" />
-                                        <span>Número de Processo</span>
+                                        <input onclick="controleCB('cbMatricula');" id="cbMatricula" name="cbMatricula" type="checkbox" class="filled-in" />
+                                        <span>Matrícula</span>
                                     </label>
                                 </p>
                                 <p>
@@ -112,6 +112,7 @@
                         <table id="tabelaAlunos" name="tabelaAlunos" class="centered striped">
                             <thead>
                                 <tr>
+                                    <th>Matrícula</th>
                                     <th>Nº do Processo</th>
                                     <th>Nome Completo</th>
                                     <th>CPF</th>
@@ -132,7 +133,8 @@
                             %>
                             <tbody>
                                 <tr>
-                                    <td id="numeroProcesso" name="numeroProcesso"><%=aluno.getProcesso()%></td>
+                                    <td id="matricula" name="matricula"><%=aluno.getIdPessoa()%></td>
+                                    <td><%=aluno.getProcesso()%></td>
                                     <td id="nome" name="nome"><%=aluno.getNomeCompleto()%></td>
                                     <td id="cpf" name="cpf"><%=aluno.getCpf()%></td>
                                     <td><%=aluno.getRg()%></td>
@@ -146,7 +148,8 @@
                             %>
                             <tbody>
                                 <tr>
-                                    <td id="numeroProcesso" name="numeroProcesso"><%=aluno.getProcesso()%></td>
+                                    <td id="matricula" name="matricula"><%=aluno.getIdPessoa()%></td>
+                                    <td><%=aluno.getProcesso()%></td>
                                     <td id="nome" name="nome"><%=aluno.getNomeCompleto()%></td>
                                     <td id="cpf" name="cpf"><%=aluno.getCpf()%></td>
                                     <td><%=aluno.getRg()%></td>
@@ -190,18 +193,18 @@
                                                 $('.tooltipped').tooltip();
                                             });
 
-                                            $('input#consultaNp').quicksearch('table#tabelaAlunos tbody tr', {'selector': 'td#numeroProcesso', noResults: "#noResultMessage"});
+                                            $('input#consultaM').quicksearch('table#tabelaAlunos tbody tr', {'selector': 'td#matricula', noResults: "#noResultMessage"});
                                             $('input#consultaN').quicksearch('table#tabelaAlunos tbody tr', {'selector': 'td#nome', noResults: "#noResultMessage"});
                                             $('input#consultaC').quicksearch('table#tabelaAlunos tbody tr', {'selector': 'td#cpf', noResults: "#noResultMessage"});
 
                                             function controleCB(checkbox) {
-                                                if (checkbox === "cbNumeroProcesso") {
-                                                    if (document.getElementById("cbNumeroProcesso").checked === false) {
-                                                        document.getElementById("cbNumeroProcesso").checked = true;
+                                                if (checkbox === "cbMatricula") {
+                                                    if (document.getElementById("cbMatricula").checked === false) {
+                                                        document.getElementById("cbMatricula").checked = true;
                                                     }
                                                     document.getElementById("cbNome").checked = false;
                                                     document.getElementById("cbCpf").checked = false;
-                                                    document.getElementById("consultaNp").setAttribute("type", "text");
+                                                    document.getElementById("consultaM").setAttribute("type", "text");
                                                     document.getElementById("consultaN").setAttribute("type", "hidden");
                                                     document.getElementById("consultaN").value = "";
                                                     document.getElementById("consultaC").setAttribute("type", "hidden");
@@ -211,10 +214,10 @@
                                                     if (document.getElementById("cbNome").checked === false) {
                                                         document.getElementById("cbNome").checked = true;
                                                     }
-                                                    document.getElementById("cbNumeroProcesso").checked = false;
+                                                    document.getElementById("cbMatricula").checked = false;
                                                     document.getElementById("cbCpf").checked = false;
-                                                    document.getElementById("consultaNp").setAttribute("type", "hidden");
-                                                    document.getElementById("consultaNp").value = "";
+                                                    document.getElementById("consultaM").setAttribute("type", "hidden");
+                                                    document.getElementById("consultaM").value = "";
                                                     document.getElementById("consultaN").setAttribute("type", "text");
                                                     document.getElementById("consultaC").setAttribute("type", "hidden");
                                                     document.getElementById("consultaC").value = "";
@@ -224,9 +227,9 @@
                                                         document.getElementById("cbCpf").checked = true;
                                                     }
                                                     document.getElementById("cbNome").checked = false;
-                                                    document.getElementById("cbNumeroProcesso").checked = false;
-                                                    document.getElementById("consultaNp").setAttribute("type", "hidden");
-                                                    document.getElementById("consultaNp").value = "";
+                                                    document.getElementById("cbMatricula").checked = false;
+                                                    document.getElementById("consultaM").setAttribute("type", "hidden");
+                                                    document.getElementById("consultaM").value = "";
                                                     document.getElementById("consultaN").setAttribute("type", "hidden");
                                                     document.getElementById("consultaN").value = "";
                                                     document.getElementById("consultaC").setAttribute("type", "text");

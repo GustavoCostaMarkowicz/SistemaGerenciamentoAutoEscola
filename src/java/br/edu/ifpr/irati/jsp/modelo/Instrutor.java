@@ -18,7 +18,7 @@ public class Instrutor extends Pessoa implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date dataAdmissao;
 
-    @Column(name = "numerolicencainstrutor", nullable = false, length = 50)
+    @Column(name = "numerolicencainstrutor", nullable = true, length = 50)
     private String numeroLicencaInstrutor;
 
     @Temporal(TemporalType.DATE)
@@ -27,7 +27,7 @@ public class Instrutor extends Pessoa implements Serializable {
     @Column(name = "tipoinstrucao", nullable = false, length = 50)
     private String tipoInstrucao;
 
-    @Column(name = "situacao", nullable = true, length = 20)
+    @Column(name = "situacao", nullable = false, length = 20)
     private String situacao;
 
     @OneToMany(mappedBy = "instrutor")

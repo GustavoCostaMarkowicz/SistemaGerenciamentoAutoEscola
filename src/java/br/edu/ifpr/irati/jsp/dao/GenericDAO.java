@@ -22,9 +22,10 @@ public class GenericDAO<T> implements Dao<T> {
     public T buscarPorId(Serializable id) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         T t = (T) session.load(classePersistente, id);
+        t.toString();
         session.clear();
         session.close();
-       
+        
         return t;
        
     }

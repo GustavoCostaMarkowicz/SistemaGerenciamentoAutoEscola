@@ -9,9 +9,9 @@
 
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
-    String numeroLicencaInstrutor = request.getParameter("numerolicenca");
-    String sDataValidadeLicenca = request.getParameter("datavalidadelicenca");
-    String tipoInstrucao = request.getParameter("tipoinstrucao");
+    String numeroLicencaInstrutor = request.getParameter("numeroLicenca");
+    String sDataValidadeLicenca = request.getParameter("dataValidadeLicenca");
+    String tipoInstrucao = request.getParameter("tipoInstrucao");
     String situacao = request.getParameter("situacao");
     String nomeCompleto = request.getParameter("nome");
     String cidade = request.getParameter("cidade");
@@ -19,23 +19,23 @@
     String endereco = request.getParameter("endereco");
     String numero = request.getParameter("numero");
     String bairro = request.getParameter("bairro");
-    String telefoneCelular = request.getParameter("telefonecelular");
+    String telefoneCelular = request.getParameter("telefoneCelular");
     String rg = request.getParameter("rg");
     String cpf = request.getParameter("cpf");
-             
-
-    Date dataValidadeLicenca = sdf.parse(sDataValidadeLicenca);
+    
+    Date dataValidadeLicenca = null;
+    if(sDataValidadeLicenca != null){
+        dataValidadeLicenca = sdf.parse(sDataValidadeLicenca);
+    }
     Date dataAdmissao = new Date();
     Date dataCadastro = new Date();
-    
-    
 
     Instrutor i = new Instrutor(dataAdmissao, numeroLicencaInstrutor, dataValidadeLicenca, tipoInstrucao, situacao, 0, nomeCompleto, dataCadastro, cidade, estado, endereco, numero, null, null, bairro, null, telefoneCelular, rg, cpf);
 
     ControleInstrutor ci = new ControleInstrutor();
     ci.inserirInstrutor(i);
 
-    response.sendRedirect("../instrutor.jsp");
+    response.sendRedirect("../funcionario.jsp?p=1");
     
 
 %>

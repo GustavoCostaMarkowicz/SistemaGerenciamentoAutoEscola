@@ -46,6 +46,7 @@ public class ControleAluno {
         
         Dao<Aluno> alunoDAO = new GenericDAO<>(Aluno.class);
         Aluno a = alunoDAO.buscarPorId(idAluno);
+        
         return a;
         
     }

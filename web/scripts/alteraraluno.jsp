@@ -11,7 +11,7 @@
 
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     
-    String processo = request.getParameter("processo");
+    String processo = request.getParameter("numeroProcesso");
     String nomeCompleto = request.getParameter("nome");
     String sData = request.getParameter("datanascimento");
     String sexo = request.getParameter("sexo");
@@ -37,11 +37,12 @@
     String sdoadorOrgaos = request.getParameter("doadororgaos");
     String tipoSanguineo = request.getParameter("tiposanguineo");
     String email = request.getParameter("email");
+    String sdataCadastro = request.getParameter("dataCadastro");
 
-    Date dataCadastro = new Date();
+    Date dataCadastro = sdf.parse(sdataCadastro);
     Date dataNascimento = sdf.parse(sData);
     boolean doadorOrgaos = false;
-    if (sdoadorOrgaos.equals("Sim")) {
+    if (sdoadorOrgaos == "Sim") {
         doadorOrgaos = true;
     }
     String uf = suf.toUpperCase();

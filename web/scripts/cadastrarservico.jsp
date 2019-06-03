@@ -20,7 +20,7 @@
     
     Servico s = new Servico(tipoServico, valorVista, rps);
     
-    for(int i = 0; i < qnt; i++){
+    for(int i = 1; i <= qnt; i++){
         
         int parcela = Integer.parseInt(request.getParameter("parcela"+String.valueOf(i)));
         double valor = Double.parseDouble(request.getParameter("valor"+String.valueOf(i)));
