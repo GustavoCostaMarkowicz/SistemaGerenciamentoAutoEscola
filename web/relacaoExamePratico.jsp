@@ -43,11 +43,17 @@
 
                 </tr>
                 <%
+                    
+                    String sdata = request.getParameter("data");
                     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                     SimpleDateFormat sdf1 = new SimpleDateFormat("hh:mm");
                     ControleExamePratico cep = new ControleExamePratico();
                     List<ExamePratico> eps = new ArrayList();
-                    eps = cep.buscarTodosExamePraticos();
+                    eps = cep.buscarExamesPraticosPorData(sdata);
+                    
+                    if(eps == null){
+                    
+                    } else {
 
                    
 
@@ -77,6 +83,7 @@
                 </tr>
 
                 <%
+                    }
                     }
                 %>
             </table>

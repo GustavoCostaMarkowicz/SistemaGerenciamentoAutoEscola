@@ -1,4 +1,4 @@
-<%@page import="br.edu.ifpr.irati.jsp.modelo.ResultadoExame"%>
+0<%@page import="br.edu.ifpr.irati.jsp.modelo.ResultadoExame"%>
 <%@page import="br.edu.ifpr.irati.jsp.controle.ControleResultadoExame"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="br.edu.ifpr.irati.jsp.modelo.Exame"%>

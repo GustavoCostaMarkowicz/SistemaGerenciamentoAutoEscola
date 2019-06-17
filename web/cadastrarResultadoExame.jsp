@@ -98,12 +98,20 @@
                     <td><%=steste%></td>
                     <td><%=a.getNomeCompleto()%></td>
 
-                    <td><select name="<%=i%>" class="required browser-default">
-                        <option disabled selected>Resultado:</option>
-                        <option value="Aprovado">Aprovado</option>
-                        <option value="Reprovado">Reprovado</option>
-                    </select></td>
-
+                    <td>
+                        <div>
+                     <div class="input-field col s6">
+                         
+                                    <select id="aprovacao" name="<%=i%>" class="validate" required>
+                                        <option value="" disabled selected>Resultado:</option>
+                                        <option value="Aprovado">Aprovado</option>
+                                        <option value="Reprovado">Reprovado</option>
+                                    </select>
+                                    <label>Selecione o resultado do aluno</label>
+                                    <span class="helper-text" data-error="Campo obrigatório!" data-success="Ok!"></span>
+                                </div>
+                        </div>
+                    </td>
                 </tr>
 
                 <%
@@ -126,5 +134,18 @@
             <jsp:include page="rodape.jsp" flush="true" />
         </footer>
     </body>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    
+    <script>
+        
+        
+        
+                $(document).ready(function () {
+                  $('select').formSelect();
+                });
+        
+        
+    </script>
 
 </html>

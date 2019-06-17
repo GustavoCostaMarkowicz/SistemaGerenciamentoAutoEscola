@@ -27,6 +27,10 @@
                     %><p>Nenhum usuário logado</p><%
                 }           
             %>
+            
+    <a href="relacaoExamePratico.jsp?data=16/06/2001" class="green waves-effect waves-light btn" type="submit">CADASTRAR CONTA</a>
+
+            
         </main>
 
         <footer>
