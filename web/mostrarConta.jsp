@@ -139,7 +139,7 @@
             <table class="centered">
 
                 <tr>
-                    <th>UsuÃ¡rio</th>
+                    <th>Usuário</th>
                     <th>Data</th>
                     <th>Hora</th>
                     <th class="ultimo">Registro</th>
