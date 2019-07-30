@@ -32,7 +32,8 @@
             List<ExameMedico> exames = cem.buscarTodosExameMedicos();
             int qtdE;
             String div = "";
-
+            
+            String dataExame = "";
             Date dataAtual = new Date();
             int mes = dataAtual.getMonth();
             int diaF = 0;
@@ -265,8 +266,9 @@
                                                     <%
                                                         dia++;
                                                     } else {
+                                                                    dataExame = String.valueOf(dia)+"/"+String.valueOf(mes+1)+"/"+String.valueOf(new Date().getYear()+1900);
                                                     %>
-                                        <td class="menu" ><a href="cadastrarExameMedico.jsp"><div class="dia" style="height:100%;width:100%;"><%=dia%></div></a></td> 
+                                        <td class="menu" ><a href="cadastrarExameMedico.jsp?dataExame=<%=dataExame%>"><div class="dia" style="height:100%;width:100%;"><%=dia%></div></a></td> 
                                             <%
                                                         dia++;
                                                     }
@@ -288,8 +290,9 @@
                                                         if (qtdE > 0) {
                                             %><td class="menu" ><a href="examesCalendario.jsp?dia=<%=dia%>&p=1"><div class="dia" style="height:100%;width:100%;"><%=dia + "<br>"%><i style="font-size: 15px; color: green;" class="material-icons">event</i><label class="dataEx"><%=div%></label></div></a></td> <%
                                             } else {
+                                            dataExame = String.valueOf(dia)+"/"+String.valueOf(mes+1)+"/"+String.valueOf(new Date().getYear()+1900);
                                                     %>
-                                        <td class="menu" ><a href="cadastrarExameMedico.jsp"><div class="dia" style="height:100%;width:100%;"><%=dia%></div></a></td> 
+                                        <td class="menu" ><a href="cadastrarExameMedico.jsp?dataExame=<%=dataExame%>"><div class="dia" style="height:100%;width:100%;"><%=dia%></div></a></td> 
                                             <%
                                                 }
                                                 if (k < 6) {
@@ -317,8 +320,9 @@
                                                     <%
                                                         dia++;
                                                     } else {
+                                                    dataExame = String.valueOf(dia)+"/"+String.valueOf(mes+1)+"/"+String.valueOf(new Date().getYear()+1900);
                                                     %>
-                                        <td class="menu" ><a href="cadastrarExameMedico.jsp"><div class="dia" style="height:100%;width:100%;"><%=dia%></div></a></td> 
+                                        <td class="menu" ><a href="cadastrarExameMedico.jsp?dataExame=<%=dataExame%>"><div class="dia" style="height:100%;width:100%;"><%=dia%></div></a></td> 
                                             <%
                                                                 dia++;
 

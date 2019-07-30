@@ -33,7 +33,8 @@
             List<ExamePsicotecnico> exames = cem.buscarTodosExamePsicotecnicos();
             int qtdE;
             String div = "";
-
+            
+            String dataExame = "";
             Date dataAtual = new Date();
             int mes = dataAtual.getMonth();
             int diaF = 0;
@@ -268,8 +269,11 @@
                                                     <%
                                                         dia++;
                                                     } else {
+
+                                        dataExame = String.valueOf(dia)+"/"+String.valueOf(mes+1)+"/"+String.valueOf(new Date().getYear()+1900);
+
                                                     %>
-                                        <td class="menu" ><a href="cadastrarExamePsicotecnico.jsp"><div class="dia" style="height:100%;width:100%;"><%=dia%></div></a></td> 
+                                        <td class="menu" ><a href="cadastrarExamePsicotecnico.jsp?dataExame=<%=dataExame%>"><div class="dia" style="height:100%;width:100%;"><%=dia%></div></a></td> 
                                             <%
                                                         dia++;
                                                     }
@@ -291,8 +295,11 @@
                                                         if (qtdE > 0) {
                                             %><td class="menu" ><a href="examesCalendario.jsp?dia=<%=dia%>&p=3"><div class="dia" style="height:100%;width:100%;"><%=dia + "<br>"%><i style="font-size: 15px; color: green;" class="material-icons">event</i><label class="dataEx"><%=div%></label></div></a></td> <%
                                             } else {
+
+                                        dataExame = String.valueOf(dia)+"/"+String.valueOf(mes+1)+"/"+String.valueOf(new Date().getYear()+1900);
+
                                                     %>
-                                        <td class="menu" ><a href="cadastrarExamePsicotecnico.jsp"><div class="dia" style="height:100%;width:100%;"><%=dia%></div></a></td> 
+                                        <td class="menu" ><a href="cadastrarExamePsicotecnico.jsp?dataExame=<%=dataExame%>"><div class="dia" style="height:100%;width:100%;"><%=dia%></div></a></td> 
                                             <%
                                                 }
                                                 if (k < 6) {
@@ -310,9 +317,9 @@
                                                     }
                                                 }
                                                 if (qtdE == 1) {
-                                                    div = String.valueOf(qtdE) + " exame psicotécnico";
+                                                    div = String.valueOf(qtdE) + " exame <br> psicotécnico";
                                                 } else {
-                                                    div = String.valueOf(qtdE) + " exames psicotécnicos";
+                                                    div = String.valueOf(qtdE) + " exames <br> psicotécnicos";
                                                 }
                                                 if (qtdE > 0) {
                                         %>
@@ -320,8 +327,11 @@
                                                     <%
                                                         dia++;
                                                     } else {
+
+                                        dataExame = String.valueOf(dia)+"/"+String.valueOf(mes+1)+"/"+String.valueOf(new Date().getYear()+1900);
+
                                                     %>
-                                        <td class="menu" ><a href="cadastrarExamePsicotecnico.jsp"><div class="dia" style="height:100%;width:100%;"><%=dia%></div></a></td> 
+                                        <td class="menu" ><a href="cadastrarExamePsicotecnico.jsp?dataExame=<%=dataExame%>"><div class="dia" style="height:100%;width:100%;"><%=dia%></div></a></td> 
                                             <%
                                                                 dia++;
 

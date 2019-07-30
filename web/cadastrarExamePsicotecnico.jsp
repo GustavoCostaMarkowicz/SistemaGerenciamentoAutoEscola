@@ -4,20 +4,28 @@
     Author     : Usuario
 --%>
 
-<%@page import="br.edu.ifpr.irati.jsp.controle.ControleExameMedico"%>
+<%@page import="java.util.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="br.edu.ifpr.irati.jsp.controle.ControleExamePsicotecnico"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Cadastrar Exame</title>
+        <title>Cadastrar Aluno</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="  crossorigin="anonymous"></script>
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.min.js">
     </head>
+    <%      
+                String data1 = request.getParameter("dataExame");
+               
+                
+            
+    
+    %>
     <style>
-
+   
         body {
 
             display: flex;
@@ -52,61 +60,92 @@
         </header>
 
         <main>
-            <form  action="scripts/examepsicotecnico.jsp" method="post" >
+            <form  action="scripts/examemedico.jsp" method="post" >
+                <input type="hidden" name="dataexame" value="<%=data1%>"/>
+               <div class="col s14 m12">
+                <div class="card">
+                    <div class="card-content">
 
-                <div id="titulo">
-                    <h6 align="center"> Exame Psicotécnico </h6>
-                </div>
+                        <div id="titulo" class="amber">
+                            <h5 align="center">Cadastrar Exame Psicotécnico</h5>
+                        </div>
 
-                <div class="row">
-                    <div class="input-field col s12">
-                        <p> Matrícula do Aluno: <input type="number" name="id" value="" size="60"></p>
+                        <div id="titulo">
+                            <h6 align="center">Dados do Exame</h6>
+                        </div>
+
+                        <div class="center row">
+                            <div class="input-field col s6">
+                                <i class="material-icons prefix">aspect_ratio</i>
+                                <input placeholder="" id="id" name="id" type="number" class="validate" maxlength="8" required>
+                                <label for="id">Matrícula</label>
+                                <span class="helper-text" data-error="Campo obrigatório!" data-success="Ok!"></span>
+                            </div>
+                            <div class="input-field col s3">
+                                <i class="material-icons prefix">looks_3</i>
+                                <input placeholder="" id="horarioexame" class="validate" required type="text" name="horarioexame" maxlength="5" onkeydown="javascript: fMasc(this, mHorario);" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
+                                            return true;
+                                        else
+                                            return false;">
+                                <label for="horarioexame">Horário do Exame</label>
+                                <span class="helper-text" data-error="Campo obrigatório!" data-success="Ok!"></span>
+                            </div>
+                        </div>
+
+                        <div class="center row">
+                            <div class="input-field col s6">
+                                <i class="material-icons prefix">aspect_ratio</i>
+                                <input placeholder="" id="medico" name="medico" type="text" class="validate" required>
+                                <label for="medico">Médico Responsável</label>
+                                <span class="helper-text" data-error="Campo obrigatório!" data-success="Ok!"></span>
+                            </div>
+                            <div class="input-field col s6">
+                                <i class="material-icons prefix">directions_car</i>
+                                <input placeholder="" id="clinica" name="clinica" type="text" class="validate" maxlength="100" required>
+                                <label for="clinica">Clínica</label>
+                                <span class="helper-text" data-error="Campo obrigatório!" data-success="Ok!"></span>
+                            </div>
+                        </div>
+                        
+                        <div>
+                                <div class="input-field col s4">
+                                    <i class="material-icons prefix">invert_colors</i>
+                                    <select id="reteste" name="reteste">
+                                        
+                                        <option value="Nao">Não</option>
+                                        <option value="Sim">Sim</option>
+                                       
+                                    </select>
+                                    <label>O Exame é um Reteste</label>
+                                    <span class="helper-text" data-error="Campo obrigatório!" data-success="Ok!"></span>
+
+                                </div>
+                            </div>
+                        
+
+                        <div class="center input-field col s12">
+                            <button class="green waves-effect waves-light btn col s6" type="submit">Salvar
+                            </button>
+                        </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="input-field col s4">
-                        <p> Data Exame: <input type="text" name="dataexame" value="" maxlength="10" onkeydown="javascript: fMasc(this, mData);" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
-                                    return true;
-                                else
-                                    return false;"> </p>
-                    </div>
-                    <div class="input-field col s4">
-                        <p> Horário do Exame: <input type="text" name="horarioexame"  maxlength="5" onkeydown="javascript: fMasc(this, mHorario);" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
-                                    return true;
-                                else
-                                    return false;"></p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s6">
-                        <p> Psicólogo Responsável: <input type="text" name="medico" value="" size="14"> </p>
-                    </div>
-                    <div class="input-field col s6">
-                        <p> Clínica: <input type="text" name="clinica" value="" size="14"></p>
-                    </div>
-                </div>
-                
-                <select name="reteste" class="browser-default">
-                    <option disabled selected>O Exame é um Reteste?</option>
-                    <option value="Sim">Sim</option>
-                    <option value="Nao">Não</option> 
-                </select>
-                
-                <div class="center input-field col s12">
-                    <button class="waves-effect waves-light btn" type="submit">SALVAR
-                    </button>
-                </div>
+            </div>
             </form>
         </main>
 
         <footer>
             <jsp:include page="rodape.jsp" flush="true" />
         </footer>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
 
 
     </body>
     <script>
+
+         $(document).ready(function () {
+         $('select').formSelect();
+         });
 
         function fMasc(objeto, mascara) {
             obj = objeto;
@@ -117,13 +156,7 @@
             obj.value = masc(obj.value);
         }
 
-        function mData(dataexame) {
-            dataexame = dataexame.replace(/\D/g, "");
-            dataexame = dataexame.replace(/(\d{2})(\d)/, "$1/$2");
-            dataexame = dataexame.replace(/(\d{2})(\d)/, "$1/$2");
-
-            return dataexame;
-        }
+        
 
         function mHorario(horarioexame) {
             horarioexame = horarioexame.replace(/\D/g, "");

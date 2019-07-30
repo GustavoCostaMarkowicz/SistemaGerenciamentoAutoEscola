@@ -193,6 +193,7 @@
                         <div class="card-content">
                             <%if (p == 1) {%>
                             <div id="titulo" class="amber">
+                                <h6 align="center">Consulta de Exames</h6>
                                 <h5 align="center"><%=mesC%> <%=new Date().getYear() + 1900%></h5>
                             </div>
                             <table id="calendario" name="calendario" class="highlight centered">
