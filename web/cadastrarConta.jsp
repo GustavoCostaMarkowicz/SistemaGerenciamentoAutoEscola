@@ -4,6 +4,7 @@
     Author     : Usuario
 --%>
 
+<%@page import="br.edu.ifpr.irati.jsp.modelo.RegraParcelas"%>
 <%@page import="br.edu.ifpr.irati.jsp.modelo.Usuario"%>
 <%@page import="br.edu.ifpr.irati.jsp.modelo.Servico"%>
 <%@page import="java.util.ArrayList"%>
@@ -22,28 +23,33 @@
 
     <style>
 
-        body {
-
-            display: flex;
-            min-height: 100vh;
-            flex-direction: column;
-
+        div#titulo {
+            background-color: lightgray;
+            padding: 3px;
         }
 
-        main {
-            flex: 1 0 auto;
+        div#titulo h5 {
+            font-weight: bold;
+        }
+
+        div#titulo h6 {
+            font-weight: bold;
+        }
+
+        .input-field .prefix.active {
+            color: green;
         }
 
     </style>
-            <%    session = request.getSession();
-            Usuario u = (Usuario) session.getAttribute("usuario");
-            boolean logado = false;
-            if(u != null){
-                logado = true;
-            }
-            
-            int idAluno = Integer.parseInt(request.getParameter("idPessoa"));
-            %>
+    <%    session = request.getSession();
+        Usuario u = (Usuario) session.getAttribute("usuario");
+        boolean logado = false;
+        if (u != null) {
+            logado = true;
+        }
+
+        int idAluno = Integer.parseInt(request.getParameter("idPessoa"));
+    %>
     <body>
 
         <header>
@@ -51,64 +57,122 @@
         </header>
 
         <main>
-           
-            
-            
+
+
+
             <form  action="scripts/conta.jsp" method="POST">
 
-                  <%
-                if(u != null){
-                    %> <input type="hidden" name="idusuario" value="<%=u.getIdUsuario()%>"/>
-               <%
-                }         
-            %>
-                
-                <div class="row">
-                    <div class="input-field col s6">
-                        <p> Matrícula do aluno: <input type="number" name="id" value="<%=idAluno%>" size="60"></p>
-                    </div>
-                    <div class="input-field col s6">
-                        <p> Valor de Entrada (opcional): <input type="text" name="valorentrada" size="15"> </p>
-                    </div>
-                </div>
+                <%
+                    if (u != null) {
+                %> <input type="hidden" name="idusuario" value="<%=u.getIdUsuario()%>"/>
+                <%
+                    }
+                %>
+                <div class="col s14 m12">
+                    <div class="card">
+                        <div class="card-content">
 
-                <label>Serviço: </label>
-                <select name="tipo" class="browser-default">
-                    <option disabled selected>Escolha o Serviço</option>
-                    <%
-                        ControleServico cs = new ControleServico();
+                            <div id="titulo" class="amber">
+                                <h5 align="center">Cadastrar Conta</h5>
+                            </div>
 
-                        for (Servico servicos : cs.buscarTodosServicos()) {
-                    %>
-                    <option value="<%=servicos.getTipoServico()%>"><%=servicos.getTipoServico()%></option>
-                    <%
-                        }
-                    %>
-                </select>
+                            <div id="titulo">
+                                <h6 align="center">Dados do Aluno</h6>
+                            </div>
 
-                <br>
+                            <div class="center row">
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix">person</i>
+                                    <input placeholder="" value="<%=idAluno%>" id="id" name="id" type="text" class="validate" maxlength="8" required>
+                                    <label for="id">Matrícula</label>
+                                    <span class="helper-text" data-error="Campo obrigatório!" data-success="Ok!"></span>
+                                </div>              
+                            </div>
 
-                <div class="row">
-                    <div class="input-field col s6">
-                        <p> Valor Total: <input type="text" name="valorinicial" size="14"></p>
+                            <div id="titulo">
+                                <h6 align="center">Dados do Serviço</h6>
+                            </div>
+
+                            <div class="row">
+                                <div>
+                                    <div class="input-field col s12">
+                                        <i class="material-icons prefix">attach_file</i>
+                                        <select id="servico" name="servico" class="validate" required onchange="mostrarOpcoesParcelas(this.value)">
+                                            <option value="" disabled selected>Serviços</option>
+                                            <%
+                                                ControleServico cs = new ControleServico();
+
+                                                for (Servico servicos : cs.buscarTodosServicos()) {
+                                                    if (servicos.isVisivel()) {
+                                            %>
+                                            <option value="<%=servicos.getTipoServico()%>"><%=servicos.getTipoServico()%></option>
+                                            <%
+                                                    }
+                                                }
+                                            %>
+                                        </select>
+                                        <label>Selecione o serviço a ser prestado pelo aluno</label>
+                                        <span class="helper-text" data-error="Campo obrigatório!" data-success="Ok!"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="titulo">
+                                <h6 align="center">Dados do Pagamento</h6>
+                            </div>
+
+                            <div class="center row">
+                                <div id="subs">
+                                    <div class="input-field col s4">
+                                        <i class="material-icons prefix">attach_money</i>
+                                        <input class="validate" required placeholder="" id="valorinicial" name="valorinicial" type="text" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
+                                                    return true;
+                                                else
+                                                    return false;">
+                                        <label for="valorinicial">Valor Total</label>
+                                        <span class="helper-text" data-error="Campo obrigatório!" data-success="Ok!"></span>
+                                    </div>
+                                </div>
+                                <div class="input-field col s4">
+                                    <i class="material-icons prefix">attach_money</i>
+                                    <input placeholder="" id="valorentrada" name="valorentrada" type="text" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
+                                                return true;
+                                            else
+                                                return false;">
+                                    <label for="valorentrada">Valor de Entrada</label>
+                                </div>
+<!--                                <div class="input-field col s4">
+                                    <i class="material-icons prefix">local_parking</i>
+                                    <input placeholder="" id="parcelas" name="parcelas" type="text" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
+                                                return true;
+                                            else
+                                                return false;">
+                                    <label for="parcelas">Parcelas</label>
+                                </div>-->
+                                <div id="infopg"></div>
+                            </div>
+
+                            <div id="titulo">
+                                <h6 align="center">Dados Adicionais</h6>
+                            </div>
+
+                            <div class="center row">
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix">description</i>
+                                    <textarea placeholder="" name="anotacoes" class="materialize-textarea"></textarea>
+                                    <label for="anotacoes">Anotações</label>
+                                </div>              
+                            </div>
+
+                            <div class="center input-field col s12">
+                                <button class="green waves-effect waves-light btn col s6" type="submit">Salvar
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="input-field col s6">
-                        <p> Parcelas: <input type="number" name="parcelas" size="15"> </p>
-                    </div>
-                </div>
-                
-                <div class="row">
-                    <div class="input-field col s12">
-                        <textarea name="anotacoes" class="materialize-textarea"></textarea>
-                        <label for="anotacoes">Anotações</label>
-                    </div>
-                </div>
-
-                <div class="center input-field col s12">
-                    <button class="waves-effect waves-light btn" type="submit">SALVAR
-                    </button>
                 </div>
             </form>
+
         </main>
 
         <footer>
@@ -116,4 +180,31 @@
         </footer>
 
     </body>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <script>
+                                        function inicializarSelects() {
+                                            $('select').formSelect();
+                                        }
+            
+                                        $(document).ready(inicializarSelects());
+
+                                        $(document).ready(function () {
+                                            $('.tooltipped').tooltip();
+                                        });
+
+                                        function mostrarOpcoesParcelas(id) {
+                                            var xhttp;
+                                            xhttp = new XMLHttpRequest();
+                                            xhttp.onreadystatechange = function () {
+                                                if (this.readyState === 4 && this.status === 200) {
+                                                    document.getElementById("infopg").innerHTML = this.responseText;
+                                                    inicializarSelects();
+                                                }
+                                            };
+                                            xhttp.open("GET", "ajax/consultardadosservico.jsp?id=" + id, true);
+                                            xhttp.send();
+                                        }
+    </script>
 </html>

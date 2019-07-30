@@ -4,6 +4,7 @@ import br.edu.ifpr.irati.jsp.dao.Dao;
 import br.edu.ifpr.irati.jsp.dao.GenericDAO;
 import br.edu.ifpr.irati.jsp.modelo.RegraParcelas;
 import br.edu.ifpr.irati.jsp.modelo.Servico;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ControleRegraParcela {
@@ -29,20 +30,26 @@ public class ControleRegraParcela {
 
     }
 
-    public List<RegraParcelas> buscarTodosRegraParcelass() {
+    public List<RegraParcelas> buscarTodosRegraParcelas() {
 
         Dao<RegraParcelas> regraparcelasDAO = new GenericDAO<>(RegraParcelas.class);
-        List<RegraParcelas> regraparcelass = regraparcelasDAO.buscarTodos(RegraParcelas.class);
-        return regraparcelass;
+        List<RegraParcelas> regraparcelas = regraparcelasDAO.buscarTodos(RegraParcelas.class);
+        return regraparcelas;
 
     }
 
-//    public RegraParcelas buscarRegraParcelasPorServico(Servico servico) {
-//
-//        Dao<RegraParcelas> regraparcelasDAO = new GenericDAO<>(RegraParcelas.class);
-//        RegraParcelas s = regraparcelasDAO.buscarPorId(nome);
-//        return s;
-//
-//    }
+    public List<RegraParcelas> buscarRegraParcelasPorServico(Servico servico) {
+
+        Dao<RegraParcelas> regraparcelasDAO = new GenericDAO<>(RegraParcelas.class);
+        List<RegraParcelas> regraparcelas = regraparcelasDAO.buscarTodos(RegraParcelas.class);
+        List<RegraParcelas> regraparcelass = new ArrayList();
+        for(RegraParcelas rp: regraparcelas){
+            if(rp.getServico().getTipoServico().equals(servico.getTipoServico())){
+                regraparcelass.add(rp);
+            }
+        }
+        return regraparcelass;
+
+    }
 
 }

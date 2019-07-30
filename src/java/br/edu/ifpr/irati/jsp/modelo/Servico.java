@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.FetchType;
+import org.hibernate.annotations.Type;
 
 @Entity(name = "servico")
 public class Servico implements Serializable {
@@ -21,23 +22,30 @@ public class Servico implements Serializable {
 
     @OneToMany(mappedBy = "servico", fetch = FetchType.EAGER)
     private List<RegraParcelas> parcelas;
+    
+    @Type(type = "true_false")
+    @Column(name = "visivel", nullable = true)
+    private boolean visivel;
 
     public Servico() {
         tipoServico = "";
         valorVista = 0.0;
         parcelas = new ArrayList<>();
+        visivel = true;
     }
 
     public Servico(String tipoServico, double valorVista) {
         this.tipoServico = tipoServico;
         this.valorVista = valorVista;
         parcelas = new ArrayList<>();
+        visivel = true;
     }
 
     public Servico(String tipoServico, double valorVista, List<RegraParcelas> parcelas) {
         this.tipoServico = tipoServico;
         this.valorVista = valorVista;
         this.parcelas = parcelas;
+        this.visivel = true;
     }
 
     public String getTipoServico() {
@@ -62,6 +70,14 @@ public class Servico implements Serializable {
 
     public void setParcelas(List<RegraParcelas> parcelas) {
         this.parcelas = parcelas;
+    }
+
+    public boolean isVisivel() {
+        return visivel;
+    }
+
+    public void setVisivel(boolean visivel) {
+        this.visivel = visivel;
     }
 
 }

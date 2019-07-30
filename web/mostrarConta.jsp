@@ -43,25 +43,28 @@
         Conta c = ca.buscarContaAluno(idPessoa);
         DecimalFormat formato = new DecimalFormat("#.##");
         int parcelas = (int) ((c.getValorInicial() - c.getValorPago()) / (c.getValorInicial() / c.getParcelas()));
+        if(((c.getValorInicial() - c.getValorPago()) < (c.getValorInicial() / c.getParcelas())) & (c.getValorInicial() > c.getValorPago())){
+            parcelas = 1;
+        }
     %>
 
     <style>
 
-        div#titulo {
-
+        div.titulo {
             background-color: lightgray;
-            padding: 15px;
-            font-weight: bold;
-
-
+            padding: 3px;
+        }
+        
+        div#t1{
+            margin-bottom: -1px;
         }
 
-        div#subtitulo {
-
-            background-color: gray;
+        div.titulo h5 {
             font-weight: bold;
-            color: white;
+        }
 
+        div.titulo h6 {
+            font-weight: bold;
         }
 
         body {
@@ -119,12 +122,16 @@
         </header>
 
         <main>
+            
+            <div class="col s14 m12">
+                    <div class="card">
+                        <div class="card-content">
 
-            <div id="titulo">
-                <h6 align="center"> CONTA </h6>
+            <div id="t1" class="titulo amber row">
+                <h5 align="center">Conta</h5>
             </div>
 
-            <div id="subtitulo" class="row">
+            <div id="t2" class="titulo row">
                 <div class="center input-field col s4">
                     <h6><%=a.getNomeCompleto()%></h6>
                 </div>
@@ -156,11 +163,11 @@
                     <%
                     } else if (cu.verificarTipoUsuario(u.getIdUsuario()) == "diretor") {
                     %>
-                    <th><a id="botaopagamento" href="vincularServicoConta.jsp?idPessoa=<%=idPessoa%>" class="waves-effect waves-light btn">Vincular um novo serviÃ§o Ã  conta</a></th>
+                    <th><a id="botaopagamento" href="vincularServicoConta.jsp?idPessoa=<%=idPessoa%>" class="waves-effect waves-light btn">Vincular um novo serviço à conta</a></th>
                         <%
                         } else {
                         %>
-                    <th><a id="botaopagamento" class="waves-effect waves-light btn">Essa conta nÃ£o tem pagamentos pendentes</a></th>
+                    <th><a id="botaopagamento" class="waves-effect waves-light btn">Essa conta não tem pagamentos pendentes</a></th>
                         <%
                             }
                         %>
@@ -184,7 +191,7 @@
                     String[] meses = new String[12];
                     meses[0] = "Janeiro";
                     meses[1] = "Fevereiro";
-                    meses[2] = "MarÃ§o";
+                    meses[2] = "Março";
                     meses[3] = "Abril";
                     meses[4] = "Maio";
                     meses[5] = "Junho";
@@ -266,7 +273,7 @@
                     %>
                     <td class="<%=registros.get(i).isValido()%>"><a href="scripts/invalidarregistro.jsp?idRegistro=<%=registros.get(i).getIdRegistro()%>&idPessoa=<%=idPessoa%>" value="Invalidar"><i class="tooltipped material-icons left red-text" data-position="right" data-tooltip="invalidar registro">remove_circle</i></a><%=registros.get(i).getUsuario().getLogin()%></td>
                     <%
-                        if (registros.get(i).getTextoRegistro().contains("Âª parcela")) {
+                        if (registros.get(i).getTextoRegistro().contains("ª parcela")) {
                             controleInvalidacao++;
                         }
                     } else {
@@ -284,24 +291,24 @@
                     <%
                     } else {
                     %>
-                    <td class="<%=registros.get(i).isValido()%> ultimo"><%=registros.get(i).getTextoRegistro()%><br>REGISTRO INVÃLIDO</td>
+                    <td class="<%=registros.get(i).isValido()%> ultimo"><%=registros.get(i).getTextoRegistro()%><br>REGISTRO INVÁLIDO</td>
                         <%
                             }
                         %>
                         <%
                             if ((controleValorPago - valorParcela) >= 0) {
                         %>
-                    <td class="<%=validade[j]%>"><%=(j + 1) + "Âª Parcela<br>PAGO"%></td>
+                    <td class="<%=validade[j]%>"><%=(j + 1) + "ª Parcela<br>PAGO"%></td>
                     <%
                     } else {
                         if (contadorModulo == 0) {
                             contadorModulo++;
                     %>
-                    <td class="<%=validade[j]%>"><%=(j + 1) + "Âª Parcela<br>Data de vencimento da parcela - " + diaParcela + " de " + meses[controleParcela] + " de " + anoParcela + "<br>Valor - R$" + formato.format((c.getValorInicial() / c.getParcelas()) - moduloConta)%></td>
+                    <td class="<%=validade[j]%>"><%=(j + 1) + "ª Parcela<br>Data de vencimento da parcela - " + diaParcela + " de " + meses[controleParcela] + " de " + anoParcela + "<br>Valor - R$" + formato.format((c.getValorInicial() / c.getParcelas()) - moduloConta)%></td>
                     <%
                     } else {
                     %>
-                    <td class="<%=validade[j]%>"><%=(j + 1) + "Âª Parcela<br>Data de vencimento da parcela - " + diaParcela + " de " + meses[controleParcela] + " de " + anoParcela + "<br>Valor - R$" + formato.format(c.getValorInicial() / c.getParcelas())%></td>
+                    <td class="<%=validade[j]%>"><%=(j + 1) + "ª Parcela<br>Data de vencimento da parcela - " + diaParcela + " de " + meses[controleParcela] + " de " + anoParcela + "<br>Valor - R$" + formato.format(c.getValorInicial() / c.getParcelas())%></td>
                     <%
                             }
                         }
@@ -316,17 +323,17 @@
                     <%
                         if ((controleValorPago - valorParcela) >= 0) {
                     %>
-                    <td class="<%=validade[j]%>"><%=(j + 1) + "Âª Parcela<br>PAGO"%></td>
+                    <td class="<%=validade[j]%>"><%=(j + 1) + "ª Parcela<br>PAGO"%></td>
                     <%
                     } else {
                         if (contadorModulo == 0) {
                             contadorModulo++;
                     %>
-                    <td class="<%=validade[j]%>"><%=(j + 1) + "Âª Parcela<br>Data de vencimento da parcela - " + diaParcela + " de " + meses[controleParcela] + " de " + anoParcela + "<br>Valor - R$" + formato.format((c.getValorInicial() / c.getParcelas()) - moduloConta)%></td>
+                    <td class="<%=validade[j]%>"><%=(j + 1) + "ª Parcela<br>Data de vencimento da parcela - " + diaParcela + " de " + meses[controleParcela] + " de " + anoParcela + "<br>Valor - R$" + formato.format((c.getValorInicial() / c.getParcelas()) - moduloConta)%></td>
                     <%
                     } else {
                     %>
-                    <td class="<%=validade[j]%>"><%=(j + 1) + "Âª Parcela<br>Data de vencimento da parcela - " + diaParcela + " de " + meses[controleParcela] + " de " + anoParcela + "<br>Valor - R$" + formato.format(c.getValorInicial() / c.getParcelas())%></td>
+                    <td class="<%=validade[j]%>"><%=(j + 1) + "ª Parcela<br>Data de vencimento da parcela - " + diaParcela + " de " + meses[controleParcela] + " de " + anoParcela + "<br>Valor - R$" + formato.format(c.getValorInicial() / c.getParcelas())%></td>
                     <%
                             }
                         }
@@ -357,7 +364,7 @@
                     %>
                     <td class="<%=registros.get(i).isValido()%>"><a href="scripts/invalidarregistro.jsp?idRegistro=<%=registros.get(i).getIdRegistro()%>&idPessoa=<%=idPessoa%>" value="Invalidar"><i class="tooltipped material-icons left red-text" data-position="right" data-tooltip="invalidar registro">remove_circle</i></a><%=registros.get(i).getUsuario().getLogin()%></td>
                     <%
-                        if (registros.get(i).getTextoRegistro().contains("Âª parcela")) {
+                        if (registros.get(i).getTextoRegistro().contains("ª parcela")) {
                             controleInvalidacao++;
                         }
                     } else {
@@ -375,7 +382,7 @@
                     <%
                     } else {
                     %>
-                    <td class="<%=registros.get(i).isValido()%> ultimo"><%=registros.get(i).getTextoRegistro()%><br>REGISTRO INVÃLIDO</td>
+                    <td class="<%=registros.get(i).isValido()%> ultimo"><%=registros.get(i).getTextoRegistro()%><br>REGISTRO INVÁLIDO</td>
                         <%
                             }
                         %>
@@ -383,17 +390,17 @@
                         <%
                             if ((controleValorPago - valorParcela) >= 0) {
                         %>
-                    <td class="<%=validade[j]%>"><%=(j + 1) + "Âª Parcela<br>PAGO"%></td>
+                    <td class="<%=validade[j]%>"><%=(j + 1) + "ª Parcela<br>PAGO"%></td>
                     <%
                     } else {
                         if (contadorModulo == 0) {
                             contadorModulo++;
                     %>
-                    <td class="<%=validade[j]%>"><%=(j + 1) + "Âª Parcela<br>Data de vencimento da parcela - " + diaParcela + " de " + meses[controleParcela] + " de " + anoParcela + "<br>Valor - R$" + formato.format((c.getValorInicial() / c.getParcelas()) - moduloConta)%></td>
+                    <td class="<%=validade[j]%>"><%=(j + 1) + "ª Parcela<br>Data de vencimento da parcela - " + diaParcela + " de " + meses[controleParcela] + " de " + anoParcela + "<br>Valor - R$" + formato.format((c.getValorInicial() / c.getParcelas()) - moduloConta)%></td>
                     <%
                     } else {
                     %>
-                    <td class="<%=validade[j]%>"><%=(j + 1) + "Âª Parcela<br>Data de vencimento da parcela - " + diaParcela + " de " + meses[controleParcela] + " de " + anoParcela + "<br>Valor - R$" + formato.format(c.getValorInicial() / c.getParcelas())%></td>
+                    <td class="<%=validade[j]%>"><%=(j + 1) + "ª Parcela<br>Data de vencimento da parcela - " + diaParcela + " de " + meses[controleParcela] + " de " + anoParcela + "<br>Valor - R$" + formato.format(c.getValorInicial() / c.getParcelas())%></td>
                     <%
                             }
                         }
@@ -416,7 +423,10 @@
 
                 %>
             </table>
-
+                        </div>
+                    </div>
+            </div>
+            
         </main>
 
         <footer>
