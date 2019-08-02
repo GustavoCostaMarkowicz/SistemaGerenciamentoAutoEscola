@@ -168,17 +168,6 @@
                 <a href="relacaoExameTeorico.jsp" class="grey lighten-5 waves-effect waves-light btn col s3" value="ExTeo" style="color: gray;">Exame Teórico</a>
                 <a href="relacaoExamePratico.jsp" class="grey lighten-5 waves-effect waves-light btn col s3" value="ExPra" style="color: gray;">Exame Prático</a>
             </div>
-            <%if(p == 1){%>
-            <div class="row">
-                <a href="relacaoExamePsicotecnico.jsp?p=2" class="grey lighten-5 waves-effect waves-light btn col s6" value="" style="color: gray;">Exibir Lista de Exames</a>
-                <a href="relacaoExamePsicotecnico.jsp?p=1" class="red lighten-1 waves-effect waves-light btn col s6" value="">Exibir Calendário</a>
-            </div>
-            <%}else{%>
-            <div class="row">
-                <a href="relacaoExamePsicotecnico.jsp?p=2" class="red lighten-1 waves-effect waves-light btn col s6" value="">Exibir Lista de Exames</a>
-                <a href="relacaoExamePsicotecnico.jsp?p=1" class="grey lighten-5 waves-effect waves-light btn col s6" value="" style="color: gray;">Exibir Calendário</a>
-            </div>
-            <%}%>
             
             
             <div class="row">
@@ -263,12 +252,12 @@
                                                 } else {
                                                     div = String.valueOf(qtdE) + " exames<br>psicotécnicos";
                                                 }
-                                                if (qtdE > 0) {
+                                               
                                         %>
-                                        <td class="menu" ><a href="examesCalendario.jsp?dia=<%=dia%>&p=3"><div class="dia" style="height:100%;width:100%;"><%=dia + "<br>"%><i style="font-size: 15px; color: green;" class="material-icons">event</i><label class="dataEx"><%=div%></label></div></a></td> 
+                                        
                                                     <%
-                                                        dia++;
-                                                    } else {
+                                                     
+                                                    
 
                                         dataExame = String.valueOf(dia)+"/"+String.valueOf(mes+1)+"/"+String.valueOf(new Date().getYear()+1900);
 
@@ -276,7 +265,7 @@
                                         <td class="menu" ><a href="cadastrarExamePsicotecnico.jsp?dataExame=<%=dataExame%>"><div class="dia" style="height:100%;width:100%;"><%=dia%></div></a></td> 
                                             <%
                                                         dia++;
-                                                    }
+                                                    
                                                 }
                                             } else {
                                                 for (int k = diaSControle; k <= 6; k++) {
@@ -292,16 +281,16 @@
                                                         } else {
                                                             div = String.valueOf(qtdE) + " exames<br>psicotécnicos";
                                                         }
-                                                        if (qtdE > 0) {
-                                            %><td class="menu" ><a href="examesCalendario.jsp?dia=<%=dia%>&p=3"><div class="dia" style="height:100%;width:100%;"><%=dia + "<br>"%><i style="font-size: 15px; color: green;" class="material-icons">event</i><label class="dataEx"><%=div%></label></div></a></td> <%
-                                            } else {
+                                                        
+                                            %><%
+                                           
 
                                         dataExame = String.valueOf(dia)+"/"+String.valueOf(mes+1)+"/"+String.valueOf(new Date().getYear()+1900);
 
                                                     %>
                                         <td class="menu" ><a href="cadastrarExamePsicotecnico.jsp?dataExame=<%=dataExame%>"><div class="dia" style="height:100%;width:100%;"><%=dia%></div></a></td> 
                                             <%
-                                                }
+                                                
                                                 if (k < 6) {
                                                     while (k < 6) {
                                             %><td></td><%
@@ -321,12 +310,11 @@
                                                 } else {
                                                     div = String.valueOf(qtdE) + " exames <br> psicotécnicos";
                                                 }
-                                                if (qtdE > 0) {
+                                                
                                         %>
-                                        <td class="menu" ><a href="examesCalendario.jsp?dia=<%=dia%>&p=3"><div class="dia" style="height:100%;width:100%;"><%=dia + "<br>"%><i style="font-size: 15px; color: green;" class="material-icons">event</i><label class="dataEx"><%=div%></label></div></a></td> 
                                                     <%
-                                                        dia++;
-                                                    } else {
+                                                        
+                                                   
 
                                         dataExame = String.valueOf(dia)+"/"+String.valueOf(mes+1)+"/"+String.valueOf(new Date().getYear()+1900);
 
@@ -335,7 +323,7 @@
                                             <%
                                                                 dia++;
 
-                                                            }
+                                                            
                                                         }
                                                     }
                                                 }
@@ -350,68 +338,7 @@
                                     %>
                                 </tbody>
                             </table>
-                            <%}else {%>
-                            <div class="card">
-                                <div class="row">
-                                    <div class="center col s1">
-                                    </div>
-                                    <div class="center input-field col s10">
-                                        <input id="consulta" name="consulta" type="text"/>
-                                        <label for="consulta"><i class="material-icons">search</i>Pesquisar exame psicotécnico</label>
-                                    </div>
-                                    <div class="center col s1">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <table id="tabelaExames" name="tabelaExames" class="centered striped">
-                                    <thead>
-                                        <tr>
-                                            <th>Data</th>
-                                            <th>Horário</th>
-                                            <th>Quantidade de Alunos</th>
-                                            <th>Resteste</th>
-                                            <th>Clínica</th>
-                                            <th>Psicólogo</th>
-                                            <th></th>
-                                            <th></th>
-
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <%                        
-                                            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                                            ControleExamePsicotecnico controleExame = new ControleExamePsicotecnico();
-                                        
-                                            for (ExamePsicotecnico e : exames) {
-                                                if (e.isVisivel()) {
-                                        %>
-                                        <tr>
-                                            <td><%=sdf.format(e.getDataExame()) %></td>
-                                            <td><%=e.getHorarioExame() %></td>
-                                            <td><%=e.getMaximoAlunos()%></td>
-                                            <td><%=e.isReteste()%></td>
-                                            <td><%=e.getClinica()%></td>
-                                            <td><%=e.getPsicologo()%></td>
-                                            <td><a href="" value="Alterar" class="tooltipped activator btn-floating waves-effect waves-light blue" data-position="left" data-tooltip="alterar dados do exame"><i class="material-icons">find_replace</i></button></td>
-                                <td><a href="" value="Excluir" class="tooltipped btn-floating waves-effect waves-light black" data-position="left" data-tooltip="excluir exame"><i class="material-icons">delete_sweep</i></button></td>
-                                            
-                                            <%
-                                                }
-                                            %>
-                                        </tr>
-
-                                        <%
-                                            }
-                                        %>
-                                    </tbody>
-                                </table>
-                                <div align="center">
-                                    <label id="noResultMessage" name="noResultMessage">Nenhum exame psicotécnico encontrado</label>
-                                </div>
-
-                            </div>
-                            <%}%>
+                            <%} %>
                         </div>
                     </div>
                 </div>

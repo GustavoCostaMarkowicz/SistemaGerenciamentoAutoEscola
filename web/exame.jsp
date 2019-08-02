@@ -178,12 +178,12 @@
             </div>
             <%if(p == 1){%>
             <div class="row">
-                <a href="exame.jsp?p=2" class="grey lighten-5 waves-effect waves-light btn col s6" value="" style="color: gray;">Exibir Lista de Exames</a>
+                <a href="exame.jsp?p=2" class="grey lighten-5 waves-effect waves-light btn col s6" value="" style="color: gray;">Gerar Relatórios</a>
                 <a href="exame.jsp?p=1" class="red lighten-1 waves-effect waves-light btn col s6" value="">Exibir Calendário</a>
             </div>
             <%}else{%>
             <div class="row">
-                <a href="exame.jsp?p=2" class="red lighten-1 waves-effect waves-light btn col s6" value="">Exibir Lista de Exames</a>
+                <a href="exame.jsp?p=2" class="red lighten-1 waves-effect waves-light btn col s6" value="">Gerar Relatórios</a>
                 <a href="exame.jsp?p=1" class="grey lighten-5 waves-effect waves-light btn col s6" value="" style="color: gray;">Exibir Calendário</a>
             </div>
             <%}%>
@@ -344,58 +344,48 @@
                                 </tbody>
                             </table>
                             <%} else {%>
-                            <div class="card">
-                                <div class="row">
-                                    <div class="center col s1">
-                                    </div>
-                                    <div class="center input-field col s10">
-                                        <input id="consulta" name="consulta" type="text"/>
-                                        <label for="consulta"><i class="material-icons">search</i>Pesquisar exame</label>
-                                    </div>
-                                    <div class="center col s1">
-                                    </div>
-                                </div>
+                            <div class="row">
+                <div class="col s14 m12">
+                    <div class="card">
+                        <div class="row valign-wrapper">
+                            <div class="center col s1">
                             </div>
-                            <div class="card">
-                                <table id="tabelaExames" name="tabelaExames" class="centered striped">
-                                    <thead>
-                                        <tr>
-                                            <th>Data</th>
-                                            <th>Horário</th>
-                                            <th>Quantidade de Alunos</th>
-                                            <th>Resteste</th>
-
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <%                        
-                                            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                                            ControleExame controleExame = new ControleExame();
-                                        
-                                            for (Exame e : exames) {
-                                                if (e.isVisivel()) {
-                                        %>
-                                        <tr>
-                                            <td><%=sdf.format(e.getDataExame()) %></td>
-                                            <td><%=e.getHorarioExame() %></td>
-                                            <td><%=e.getMaximoAlunos()%></td>
-                                            <td><%=e.isReteste()%></td>
-                                            
-                                            <%
-                                                }
-                                            %>
-                                        </tr>
-
-                                        <%
-                                            }
-                                        %>
-                                    </tbody>
-                                </table>
-                                <div align="center">
-                                    <label id="noResultMessage" name="noResultMessage">Nenhum exame encontrado</label>
-                                </div>
-
+                            <div class="center input-field col s8">
+                                <input id="consultaN" name="consultaN" type="text"/>
+                                <label for="consultaN"><i class="material-icons">search</i> Mostrar Exames </label>
+                                <input id="consultaM" name="consultaM" type="hidden" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
+                                            return true;
+                                        else
+                                            return false;"/>
+                                <label for="consultaNp"><i class="material-icons">search</i>Pesquisar aluno </label>
+                                <input id="consultaC" name="consultaC" type="hidden" maxlength="14" onkeydown="javascript: fMasc(this, mCPF);" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
+                                            return true;
+                                        else
+                                            return false;"/>
+                                <label for="consultaC"><i class="material-icons">search</i>Pesquisar aluno </label>
                             </div>
+                            <div class="left input-field col s3">
+                                <p>
+                                    <label>
+                                        <input onclick="controleCB('cbNome');" id="cbNome" name="cbNome" type="checkbox" class="filled-in" checked="checked" />
+                                        <span>Nome</span>
+                                    </label>
+                                </p>
+                                <p>
+                                    <label>
+                                        <input onclick="controleCB('cbMatricula');" id="cbMatricula" name="cbMatricula" type="checkbox" class="filled-in" />
+                                        <span>Matrícula</span>
+                                    </label>
+                                </p>
+                                <p>
+                                    <label>
+                                        <input onclick="controleCB('cbCpf');" id="cbCpf" name="cbCpf" type="checkbox" class="filled-in" />
+                                        <span>CPF</span>
+                                    </label>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                             <%}%>
                         </div>
                     </div>

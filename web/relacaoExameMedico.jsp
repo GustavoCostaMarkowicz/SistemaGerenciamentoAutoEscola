@@ -167,17 +167,7 @@
                 <a href="relacaoExameTeorico.jsp" class="grey lighten-5 waves-effect waves-light btn col s3" value="ExTeo" style="color: gray;">Exame Teórico</a>
                 <a href="relacaoExamePratico.jsp" class="grey lighten-5 waves-effect waves-light btn col s3" value="ExPra" style="color: gray;">Exame Prático</a>
             </div>
-            <%if(p == 1){%>
-            <div class="row">
-                <a href="relacaoExameMedico.jsp?p=2" class="grey lighten-5 waves-effect waves-light btn col s6" value="" style="color: gray;">Exibir Lista de Exames</a>
-                <a href="relacaoExameMedico.jsp?p=1" class="red lighten-1 waves-effect waves-light btn col s6" value="">Exibir Calendário</a>
-            </div>
-            <%}else{%>
-            <div class="row">
-                <a href="relacaoExameMedico.jsp?p=2" class="red lighten-1 waves-effect waves-light btn col s6" value="">Exibir Lista de Exames</a>
-                <a href="relacaoExameMedico.jsp?p=1" class="grey lighten-5 waves-effect waves-light btn col s6" value="" style="color: gray;">Exibir Calendário</a>
-            </div>
-            <%}%>
+            
             <div class="row">
                 <div class="col s14 m12">
                     <div class="card">
@@ -260,18 +250,17 @@
                                                 } else {
                                                     div = String.valueOf(qtdE) + " exames médicos";
                                                 }
-                                                if (qtdE > 0) {
+                                                
                                         %>
-                                        <td class="menu" ><a href="examesCalendario.jsp?dia=<%=dia%>&p=1"><div class="dia" style="height:100%;width:100%;"><%=dia + "<br>"%><i style="font-size: 15px; color: green;" class="material-icons">event</i><label class="dataEx"><%=div%></label></div></a></td> 
                                                     <%
-                                                        dia++;
-                                                    } else {
-                                                                    dataExame = String.valueOf(dia)+"/"+String.valueOf(mes+1)+"/"+String.valueOf(new Date().getYear()+1900);
+                                                        
+                                                    
+                                                   dataExame = String.valueOf(dia)+"/"+String.valueOf(mes+1)+"/"+String.valueOf(new Date().getYear()+1900);
                                                     %>
                                         <td class="menu" ><a href="cadastrarExameMedico.jsp?dataExame=<%=dataExame%>"><div class="dia" style="height:100%;width:100%;"><%=dia%></div></a></td> 
                                             <%
                                                         dia++;
-                                                    }
+                                                    
                                                 }
                                             } else {
                                                 for (int k = diaSControle; k <= 6; k++) {
@@ -287,14 +276,14 @@
                                                         } else {
                                                             div = String.valueOf(qtdE) + " exames médicos";
                                                         }
-                                                        if (qtdE > 0) {
-                                            %><td class="menu" ><a href="examesCalendario.jsp?dia=<%=dia%>&p=1"><div class="dia" style="height:100%;width:100%;"><%=dia + "<br>"%><i style="font-size: 15px; color: green;" class="material-icons">event</i><label class="dataEx"><%=div%></label></div></a></td> <%
-                                            } else {
+                                                        
+                                            %> <%
+                                            
                                             dataExame = String.valueOf(dia)+"/"+String.valueOf(mes+1)+"/"+String.valueOf(new Date().getYear()+1900);
                                                     %>
                                         <td class="menu" ><a href="cadastrarExameMedico.jsp?dataExame=<%=dataExame%>"><div class="dia" style="height:100%;width:100%;"><%=dia%></div></a></td> 
                                             <%
-                                                }
+                                                
                                                 if (k < 6) {
                                                     while (k < 6) {
                                             %><td></td><%
@@ -314,19 +303,18 @@
                                                 } else {
                                                     div = String.valueOf(qtdE) + " exames médicos";
                                                 }
-                                                if (qtdE > 0) {
+                                                
                                         %>
-                                        <td class="menu" ><a href="examesCalendario.jsp?dia=<%=dia%>&p=1"><div class="dia" style="height:100%;width:100%;"><%=dia + "<br>"%><i style="font-size: 15px; color: green;" class="material-icons">event</i><label class="dataEx"><%=div%></label></div></a></td> 
                                                     <%
-                                                        dia++;
-                                                    } else {
+                                                        
+                                                    
                                                     dataExame = String.valueOf(dia)+"/"+String.valueOf(mes+1)+"/"+String.valueOf(new Date().getYear()+1900);
                                                     %>
                                         <td class="menu" ><a href="cadastrarExameMedico.jsp?dataExame=<%=dataExame%>"><div class="dia" style="height:100%;width:100%;"><%=dia%></div></a></td> 
                                             <%
                                                                 dia++;
 
-                                                            }
+                                                            
                                                         }
                                                     }
                                                 }
