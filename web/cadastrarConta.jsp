@@ -4,6 +4,7 @@
     Author     : Usuario
 --%>
 
+<%@page import="br.edu.ifpr.irati.jsp.controle.ControleAluno"%>
 <%@page import="br.edu.ifpr.irati.jsp.modelo.RegraParcelas"%>
 <%@page import="br.edu.ifpr.irati.jsp.modelo.Usuario"%>
 <%@page import="br.edu.ifpr.irati.jsp.modelo.Servico"%>
@@ -48,7 +49,10 @@
             logado = true;
         }
 
+        ControleAluno ca = new ControleAluno();
+
         int idAluno = Integer.parseInt(request.getParameter("idPessoa"));
+        String nome = ca.buscarAlunosPorId(idAluno).getNomeCompleto();
     %>
     <body>
 
@@ -80,12 +84,13 @@
                                 <h6 align="center">Dados do Aluno</h6>
                             </div>
 
+                            <input placeholder="" value="<%=idAluno%>" id="id" name="id" type="hidden">
+
                             <div class="center row">
                                 <div class="input-field col s12">
                                     <i class="material-icons prefix">person</i>
-                                    <input placeholder="" value="<%=idAluno%>" id="id" name="id" type="text" class="validate" maxlength="8" required>
-                                    <label for="id">Matrícula</label>
-                                    <span class="helper-text" data-error="Campo obrigatório!" data-success="Ok!"></span>
+                                    <input placeholder="" value="<%=nome%>" id="nome" name="nome" type="text" disabled>
+                                    <label for="nome">Nome Completo</label>
                                 </div>              
                             </div>
 
@@ -122,7 +127,8 @@
                             </div>
 
                             <div class="center row">
-                                <div id="subs">
+                                <div id="infopg"></div>
+                                <div id="preenpg">
                                     <div class="input-field col s4">
                                         <i class="material-icons prefix">attach_money</i>
                                         <input class="validate" required placeholder="" id="valorinicial" name="valorinicial" type="text" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
@@ -141,15 +147,16 @@
                                                 return false;">
                                     <label for="valorentrada">Valor de Entrada</label>
                                 </div>
-<!--                                <div class="input-field col s4">
-                                    <i class="material-icons prefix">local_parking</i>
-                                    <input placeholder="" id="parcelas" name="parcelas" type="text" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
+                                <div id="preenpar">
+                                    <div class="input-field col s4">
+                                        <i class="material-icons prefix">local_parking</i>
+                                        <input placeholder="" id="parcelas" name="parcelas" type="text" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
                                                 return true;
                                             else
                                                 return false;">
-                                    <label for="parcelas">Parcelas</label>
-                                </div>-->
-                                <div id="infopg"></div>
+                                        <label for="parcelas">Parcelas</label>
+                                    </div>
+                                </div>
                             </div>
 
                             <div id="titulo">
@@ -187,12 +194,14 @@
                                         function inicializarSelects() {
                                             $('select').formSelect();
                                         }
-            
+
+                                        function inicializarDicas() {
+                                            $('.tooltipped').tooltip();
+                                        }
+
                                         $(document).ready(inicializarSelects());
 
-                                        $(document).ready(function () {
-                                            $('.tooltipped').tooltip();
-                                        });
+                                        $(document).ready(inicializarDicas());
 
                                         function mostrarOpcoesParcelas(id) {
                                             var xhttp;
@@ -201,6 +210,11 @@
                                                 if (this.readyState === 4 && this.status === 200) {
                                                     document.getElementById("infopg").innerHTML = this.responseText;
                                                     inicializarSelects();
+                                                    inicializarDicas();
+                                                    document.getElementById("preenpg").style.visibility = "hidden";
+                                                    document.getElementById("preenpg").style.display = "none";
+                                                    document.getElementById("preenpar").style.visibility = "hidden";
+                                                    document.getElementById("preenpar").style.display = "none";
                                                 }
                                             };
                                             xhttp.open("GET", "ajax/consultardadosservico.jsp?id=" + id, true);

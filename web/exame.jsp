@@ -36,13 +36,17 @@
 
             Date dataAtual = new Date();
             int mes = dataAtual.getMonth();
+            //diaF = último dia do mês
             int diaF = 0;
+            //mesC = mês atual em String
             String mesC = "";
+            //Testes para determinar a variável 'diaF'
             if (mes == 0) {
                 diaF = 31;
                 mesC = "Janeiro";
             }
             if (mes == 1) {
+                //Teste de ano bissexto
                 if ((dataAtual.getYear() + 1900) % 4 == 0 & ((dataAtual.getYear() + 1900) % 100 != 0 | (dataAtual.getYear() + 1900) % 400 == 0)) {
                     diaF = 29;
                 } else {
@@ -134,8 +138,8 @@
         }
 
         label.prchto {
-            color: black;
             font-size: 17px;
+            visibility: hidden;
         }
 
         label.dataEx {
@@ -209,12 +213,17 @@
                                     </tr>
                                 </thead>
                                 <%
+                                    //diaNAtual = dia atual do mês
                                     int diaNAtual = dataAtual.getDate();
+                                    //diaSAtual = dia atual da semana
                                     int diaSAtual = dataAtual.getDay();
+                                    //dia = contador de dias
                                     int dia = 1;
+                                    //diaSP = dia da semana do primeiro dia do mês
                                     int diaSP;
                                     int i;
                                     int flag = 0;
+                                    //Testes para definir a variável 'diaSP'
                                     if (diaNAtual != 1) {
                                         for (i = diaNAtual; i > 1; i -= 7) {
                                         }
@@ -230,56 +239,62 @@
                                         diaSP = diaSAtual;
                                     }
 
-                                    String[] diasS = new String[12];
-                                    diasS[0] = "Domingo";
-                                    diasS[1] = "Segunda";
-                                    diasS[2] = "Terça";
-                                    diasS[3] = "Quarta";
-                                    diasS[4] = "Quinta";
-                                    diasS[5] = "Sexta";
-                                    diasS[6] = "Sábado";
                                 %>
                                 <tbody>
                                     <%
+                                        //diaSControle = controla o valor do dia da semana
                                         int diaSControle = diaSP;
+                                        //Inicia o preenchimento do calendário com a condição de parada de 'j' ser != 0
                                         for (int j = 0; j == 0;) {
                                     %>
                                     <tr>
                                         <%
+                                            //Preenche a primeira linha do calendário
                                             if (dia == 1) {
+                                                //Preenche os espaços vazios correspondentes aos dias do mês anterior
                                                 for (int k = 0; k < diaSControle; k++) {
                                         %>
                                         <td></td> 
                                         <%
                                             }
-
+                                            //Preenche a primeira linha a partir do primeiro dia do mês até sábado
                                             for (int k = diaSControle; k <= 6; k++) {
+                                                //qtdE = quantidade de exames em um determinado dia
                                                 qtdE = 0;
+                                                //Verifica a quantidade de exames para o dia do mês em execução
                                                 for (Exame e : exames) {
                                                     if (e.getDataExame().getDate() == dia & e.getDataExame().getMonth() == mes & e.getDataExame().getYear() == new Date().getYear() & e.isVisivel()) {
                                                         qtdE++;
                                                     }
                                                 }
+                                                //div = texto à ser mostrado na tela com a quantidade de exames do dia do mês em execução
                                                 if (qtdE == 1) {
                                                     div = String.valueOf(qtdE) + " exame";
                                                 } else {
                                                     div = String.valueOf(qtdE) + " exames";
                                                 }
+                                                //Verifica se o dia do mês em execução possui exames cadastrados
                                                 if (qtdE > 0) {
+                                                //Caso sim: mostra um campo da tabela com a quantidade de exames naquele determinado dia
                                         %>
                                         <td class="menu" ><a href="examesCalendario.jsp?dia=<%=dia%>&p=0"><div class="dia" style="height:100%;width:100%;"><%=dia + "<br>"%><i style="font-size: 15px; color: green;" class="material-icons">event</i><label class="dataEx"><%=div%></label></div></a></td> 
                                                     <%
                                                         dia++;
                                                     } else {
+                                                    //Caso não: mostra um campo padrão da tabela
                                                     %>
                                         <td class="menu" ><div class="dia" style="height:100%;width:100%;"><%=dia%></div></td> 
                                             <%
                                                         dia++;
                                                     }
                                                 }
+                                            //Preenche as demais linhas do calendário
                                             } else {
+                                                //Inicia o preenchimento da linha de domingo à sábado
                                                 for (int k = diaSControle; k <= 6; k++) {
+                                                    //Verifica se o dia do mês em execução é o último do mês
                                                     if (dia == diaF) {
+                                                        //Caso sim: preenche o último dia no calendário pelo mesmo método da linha do primeiro dia
                                                         qtdE = 0;
                                                         for (Exame e : exames) {
                                                             if (e.getDataExame().getDate() == dia & e.getDataExame().getMonth() == mes & e.getDataExame().getYear() == new Date().getYear() & e.isVisivel()) {
@@ -298,7 +313,9 @@
                                         <td class="menu" ><div class="dia" style="height:100%;width:100%;"><%=dia%></div></td> 
                                             <%
                                                 }
+                                                //Testa se o último dia do mês é sábado
                                                 if (k < 6) {
+                                                    //Caso não: preenche os dias da semana com campos vazios até sábado
                                                     while (k < 6) {
                                             %><td></td><%
                                                         k++;
@@ -306,6 +323,7 @@
                                                 }
                                                 dia++;
                                             } else {
+                                                //Caso não: preenche todos os dias do calendário que estão entre a primeira e a última linha, pelo mesmo método da linha do primeiro dia 
                                                 qtdE = 0;
                                                 for (Exame e : exames) {
                                                     if (e.getDataExame().getDate() == dia & e.getDataExame().getMonth() == mes & e.getDataExame().getYear() == new Date().getYear() & e.isVisivel()) {
@@ -332,9 +350,13 @@
                                                         }
                                                     }
                                                 }
+                                                //Define diaScontrole como domingo
                                                 diaSControle = 0;
+                                                //Verifica se o dia do mês em execução é o último do mês
                                                 if (dia > diaF) {
+                                                    //Caso sim: finaliza o preenchimento do calendário
                                                     j = 1;
+                                                    //FIM DO PREENCHIMENTO DO CALENDÁRIO
                                                 }
                                             %>
                                     </tr>
