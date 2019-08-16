@@ -68,6 +68,7 @@
             <table class="centered striped">
                 <%
                     
+                    
                     List<Aluno> alunos = exame.getAlunos();
                     boolean teste = exame.isReteste();
                     String steste;
