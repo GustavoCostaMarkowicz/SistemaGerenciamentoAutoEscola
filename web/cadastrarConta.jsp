@@ -41,6 +41,11 @@
             color: green;
         }
 
+        div#infopgdiv {
+            visibility: hidden;
+            display: none;
+        }
+
     </style>
     <%    session = request.getSession();
         Usuario u = (Usuario) session.getAttribute("usuario");
@@ -64,7 +69,7 @@
 
 
 
-            <form  action="scripts/conta.jsp" method="POST">
+            <form  action="scripts/cadastrarconta.jsp" method="POST">
 
                 <%
                     if (u != null) {
@@ -97,7 +102,6 @@
                             <div id="titulo">
                                 <h6 align="center">Dados do Serviço</h6>
                             </div>
-
                             <div class="row">
                                 <div>
                                     <div class="input-field col s12">
@@ -106,7 +110,6 @@
                                             <option value="" disabled selected>Serviços</option>
                                             <%
                                                 ControleServico cs = new ControleServico();
-
                                                 for (Servico servicos : cs.buscarTodosServicos()) {
                                                     if (servicos.isVisivel()) {
                                             %>
@@ -127,10 +130,12 @@
                             </div>
 
                             <div class="center row">
-                                <div id="infopg"></div>
-                                <div id="preenpg">
+                                <div class="input-field col s1">
+                                    <a onclick="habilitarInput()" value="" class="amber tooltipped btn-floating waves-effect waves-light" data-position="right" data-tooltip="preencher com valores personalizados"><i class="material-icons">border_color</i></a>
+                                    <a onclick="mostrarOpcoesParcelas(document.getElementById('servico').value)" value="" class="amber tooltipped btn-floating waves-effect waves-light" data-position="right" data-tooltip="utilizar valores estabelecidos no cadastro"><i class="material-icons">dehaze</i></a>
+                                </div>
+                                <div id="infopg">
                                     <div class="input-field col s4">
-                                        <i class="material-icons prefix">attach_money</i>
                                         <input class="validate" required placeholder="" id="valorinicial" name="valorinicial" type="text" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
                                                     return true;
                                                 else
@@ -138,6 +143,16 @@
                                         <label for="valorinicial">Valor Total</label>
                                         <span class="helper-text" data-error="Campo obrigatório!" data-success="Ok!"></span>
                                     </div>
+                                    <div>
+                                    <div class="input-field col s3">
+                                        <i class="material-icons prefix">local_parking</i>
+                                        <input placeholder="" id="parcelas" name="parcelas" type="text" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
+                                                return true;
+                                            else
+                                                return false;">
+                                        <label for="parcelas">Parcelas</label>
+                                    </div>
+                                </div>
                                 </div>
                                 <div class="input-field col s4">
                                     <i class="material-icons prefix">attach_money</i>
@@ -146,16 +161,6 @@
                                             else
                                                 return false;">
                                     <label for="valorentrada">Valor de Entrada</label>
-                                </div>
-                                <div id="preenpar">
-                                    <div class="input-field col s4">
-                                        <i class="material-icons prefix">local_parking</i>
-                                        <input placeholder="" id="parcelas" name="parcelas" type="text" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
-                                                return true;
-                                            else
-                                                return false;">
-                                        <label for="parcelas">Parcelas</label>
-                                    </div>
                                 </div>
                             </div>
 
@@ -191,34 +196,35 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
     <script>
-                                        function inicializarSelects() {
-                                            $('select').formSelect();
-                                        }
+                                            function inicializarSelects() {
+                                                $('select').formSelect();
+                                            }
 
-                                        function inicializarDicas() {
-                                            $('.tooltipped').tooltip();
-                                        }
+                                            function inicializarDicas() {
+                                                $('.tooltipped').tooltip();
+                                            }
 
-                                        $(document).ready(inicializarSelects());
+                                            $(document).ready(inicializarSelects());
 
-                                        $(document).ready(inicializarDicas());
+                                            $(document).ready(inicializarDicas());
 
-                                        function mostrarOpcoesParcelas(id) {
-                                            var xhttp;
-                                            xhttp = new XMLHttpRequest();
-                                            xhttp.onreadystatechange = function () {
-                                                if (this.readyState === 4 && this.status === 200) {
-                                                    document.getElementById("infopg").innerHTML = this.responseText;
-                                                    inicializarSelects();
-                                                    inicializarDicas();
-                                                    document.getElementById("preenpg").style.visibility = "hidden";
-                                                    document.getElementById("preenpg").style.display = "none";
-                                                    document.getElementById("preenpar").style.visibility = "hidden";
-                                                    document.getElementById("preenpar").style.display = "none";
-                                                }
-                                            };
-                                            xhttp.open("GET", "ajax/consultardadosservico.jsp?id=" + id, true);
-                                            xhttp.send();
-                                        }
+                                            function habilitarInput() {
+                                                var x = "</div><div><div class='input-field col s4'><input class='validate' required placeholder='' id='valorinicial' name='valorinicial' type='text' onkeypress='if (!isNaN(String.fromCharCode(window.event.keyCode)))return true;elsereturn false;'><label for='valorinicial'>Valor Total</label><span class='helper-text' data-error='Campo obrigatório!' data-success='Ok!'></span></div></div><div><div class='input-field col s3'><i class='material-icons prefix'>local_parking</i><input placeholder='' id='parcelas' name='parcelas' type='text' onkeypress='if (!isNaN(String.fromCharCode(window.event.keyCode)))return true;elsereturn false;'><label for='parcelas'>Parcelas</label></div></div>"
+                                                document.getElementById("infopg").innerHTML = x;
+                                            }
+
+                                            function mostrarOpcoesParcelas(id) {
+                                                var xhttp;
+                                                xhttp = new XMLHttpRequest();
+                                                xhttp.onreadystatechange = function () {
+                                                    if (this.readyState === 4 && this.status === 200) {
+                                                        document.getElementById("infopg").innerHTML = this.responseText;
+                                                        inicializarSelects();
+                                                        inicializarDicas();
+                                                    }
+                                                };
+                                                xhttp.open("GET", "ajax/consultardadosservico.jsp?id=" + id, true);
+                                                xhttp.send();
+                                            }
     </script>
 </html>
