@@ -3,6 +3,7 @@ package br.edu.ifpr.irati.jsp.controle;
 
 import br.edu.ifpr.irati.jsp.dao.Dao;
 import br.edu.ifpr.irati.jsp.dao.GenericDAO;
+import br.edu.ifpr.irati.jsp.modelo.Aluno;
 import br.edu.ifpr.irati.jsp.modelo.ExameMedico;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +46,31 @@ public class ControleExameMedico {
         Dao<ExameMedico> examemedicoDAO = new GenericDAO<>(ExameMedico.class);
         ExameMedico em = examemedicoDAO.buscarPorId(idExameMedico);
         return em;
+        
+    }
+    
+    public List<ExameMedico> buscarExameMedPorIdAluno(int idAluno){
+        
+        Dao<ExameMedico> examemedicoDAO = new GenericDAO<>(ExameMedico.class);
+        List<ExameMedico> examemedicos = new ArrayList<>();
+        examemedicos = examemedicoDAO.buscarTodos(ExameMedico.class);
+        ControleAluno ca = new ControleAluno();
+        Aluno a = ca.buscarAlunosPorId(idAluno);
+        List<ExameMedico> ems = new ArrayList<>();
+        
+        
+        
+        
+        for(ExameMedico e : examemedicos){
+            
+            for(int i = 0; i < e.getMaximoAlunos(); i++){
+            if(e.getAlunos().get(i).getIdPessoa() == a.getIdPessoa()){  
+               ems.add(e); 
+            }
+            }
+        }
+        
+        return ems;
         
     }
     

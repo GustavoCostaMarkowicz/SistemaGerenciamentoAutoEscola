@@ -4,6 +4,7 @@ package br.edu.ifpr.irati.jsp.controle;
 import br.edu.ifpr.irati.jsp.dao.Dao;
 import br.edu.ifpr.irati.jsp.dao.GenericDAO;
 import br.edu.ifpr.irati.jsp.exception.dataIncorretaException;
+import br.edu.ifpr.irati.jsp.modelo.Aluno;
 import br.edu.ifpr.irati.jsp.modelo.ExamePratico;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -85,6 +86,31 @@ public class ControleExamePratico {
          }
          
        
+    }
+    
+     public List<ExamePratico> buscarExamePraticoPorIdAluno(int idAluno){
+        
+        Dao<ExamePratico> examepraticoDAO = new GenericDAO<>(ExamePratico.class);
+        List<ExamePratico> examepraticos = new ArrayList<>();
+        examepraticos = examepraticoDAO.buscarTodos(ExamePratico.class);
+        ControleAluno ca = new ControleAluno();
+        Aluno a = ca.buscarAlunosPorId(idAluno);
+        List<ExamePratico> eps = new ArrayList<>();
+        
+        
+        
+        
+        for(ExamePratico e : examepraticos){
+            
+            for(int i = 0; i < e.getMaximoAlunos(); i++){
+            if(e.getAlunos().get(i).getIdPessoa() == a.getIdPessoa()){  
+               eps.add(e); 
+            }
+            }
+        }
+        
+        return eps;
+        
     }
     
 }

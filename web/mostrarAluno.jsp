@@ -234,18 +234,22 @@
                     %>
 
                     <div class="center input-field col s12">
-                        <a href="scripts/finalizarprocesso.jsp?idPessoa=<%=a.getIdPessoa()%>&id=2" class="green waves-effect waves-light btn" type="submit">ABRIR UM NOVO PROCESSO</a>
+                        <a href="scripts/finalizarprocesso.jsp?idPessoa=<%=a.getIdPessoa()%>&id=2" class="yellow waves-effect waves-light btn" type="submit"></a>
                     </div>
                 </div>
 
                 <%
                     }
                 %>
-
+                <div class="center input-field col s12">
+                    <a href="examesAluno.jsp?idPessoa=<%=a.getIdPessoa()%>" class="amber waves-effect waves-light btn" type="submit" style="color: black;">EXAMES DO ALUNO</a>
+                </div>
             </div>
+
         </div>
-        <footer>
-            <jsp:include page="rodape.jsp" flush="true" />
-        </footer>
-    </body>
+    </div>
+    <footer>
+        <jsp:include page="rodape.jsp" flush="true" />
+    </footer>
+</body>
 </html>

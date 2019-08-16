@@ -106,10 +106,6 @@ public class Exame implements Serializable {
         this.horarioExame = horarioExame;
     }
 
-    public List<ResultadoExame> isResultadoExame() {
-        return resultadoExame;
-    }
-
     public void setResultadoExame(List<ResultadoExame> resultadoExame) {
         this.resultadoExame = resultadoExame;
     }
