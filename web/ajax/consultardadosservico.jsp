@@ -33,26 +33,22 @@
 
         <main>
             <div class="input-field col s7">
-                <i class="material-icons prefix">local_parking</i>
-                <select id="parcelas" name="parcelas">
+                <!--<i class="material-icons prefix">local_parking</i>-->
+                <select id="valorBD" name="valorBD">
                     <option value="" disabled selected>Opções de parcelamento</option>
-                    <option value="<%=s.getValorVista()%>">À vista R$<%=s.getValorVista()%></option>
+                    <option value="1">À vista R$<%=s.getValorVista()%></option>
                     <%
                         ControleRegraParcela crp = new ControleRegraParcela();
                         List<RegraParcelas> rps = crp.buscarRegraParcelasPorServico(s);
 
                         for (RegraParcelas rp : rps) {
                     %>
-                    <option value="<%=rp.getValorParcelado()%>"><%=rp.getParcela()%>x de R$<%=rp.getValorParcelado()%></option>
+                    <option value="<%=rp.getParcela()%>"><%=rp.getParcela()%>x de R$<%=rp.getValorParcelado()%></option>
                     <%
                         }
                     %>
                 </select>
                 <label>Selecione a opção de parcelamento</label>
-            </div>
-            <div class="input-field col s1">
-                <a onclick="habilitarSelect();" value="" class="amber tooltipped btn-floating waves-effect waves-light" data-position="left" data-tooltip="preencher valores de pagamento"><i class="material-icons">send</i></a>
-                <a onclick="habilitarInput();" value="" class="amber tooltipped btn-floating waves-effect waves-light" data-position="left" data-tooltip="preencher valores de pagamento"><i class="material-icons">send</i></a>
             </div>
         </main>
 

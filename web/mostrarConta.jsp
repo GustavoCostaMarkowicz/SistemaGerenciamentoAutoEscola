@@ -187,6 +187,13 @@
 
                     int diaParcela = registros.get(controlePosicaoRegistro).getDataRegistro().getDate();
                     int mesPrimeiraParcela = registros.get(controlePosicaoRegistro).getDataRegistro().getMonth() + 1;
+                    for(Registro r: registros){
+                        if(r.getTextoRegistro().contains("entrada")){
+                            if(r.isValido()){
+                                mesPrimeiraParcela -= 1;
+                            }
+                        }
+                    }
 
                     String[] meses = new String[12];
                     meses[0] = "Janeiro";
