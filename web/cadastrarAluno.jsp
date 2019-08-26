@@ -29,45 +29,6 @@
             color: green;
         }
 
-        table#calendario thead{
-            background-color: black;
-            color: white;
-            font-size: 12px;
-        }
-
-        table#calendario td {
-            border-right: solid 1px lightgrey; 
-            border-left: solid 1px lightgrey;
-            font-size: 16px;
-        }
-
-        div.dia {
-            color: black;
-        }
-
-        td.menu:hover {
-            background-color:rgb(179,255,179);
-        }
-
-        div#diaSelecionado {
-            padding-left: 10px;
-            padding-right: 10px;
-        }
-
-        p#diaSelecionadoP1 {
-            font-size: 20px;
-            color: lawngreen;
-        }
-
-        p#diaSelecionadoP2 {
-            font-size: 25px;
-            color: white;
-        }
-
-        div#calendario {
-            margin: -24px;
-        }
-
     </style>
 
     <body>
@@ -105,7 +66,7 @@
                         <div class="row">
                             <div class="input-field col s4">
                                 <i class="material-icons prefix">today</i>
-                                <input placeholder="" class="modal-trigger validate" href="#modal1" required type="text" id="datanascimento" name="datanascimento" maxlength="10" onkeydown="javascript: fMasc(this, mData);" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
+                                <input placeholder="" class="validate" required type="text" id="datanascimento" name="datanascimento" maxlength="10" onkeydown="javascript: fMasc(this, mData);" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
                                             return true;
                                         else
                                             return false;">
@@ -337,212 +298,6 @@
                             </button>
                         </div>
 
-                        <!--________MODAL________-->
-                        <%
-                            Date dataAtual = new Date();
-                            int mes = dataAtual.getMonth();
-                            //diaF = último dia do mês
-                            int diaF = 0;
-                            //mesC = mês atual em String
-                            String mesC = "";
-                            //Testes para determinar a variável 'diaF'
-                            if (mes == 0) {
-                                diaF = 31;
-                                mesC = "Janeiro";
-                            }
-                            if (mes == 1) {
-                                //Teste de ano bissexto
-                                if ((dataAtual.getYear() + 1900) % 4 == 0 & ((dataAtual.getYear() + 1900) % 100 != 0 | (dataAtual.getYear() + 1900) % 400 == 0)) {
-                                    diaF = 29;
-                                } else {
-                                    diaF = 28;
-                                }
-                                mesC = "Fevereiro";
-                            }
-                            if (mes == 2) {
-                                diaF = 31;
-                                mesC = "Março";
-                            }
-                            if (mes == 3) {
-                                diaF = 30;
-                                mesC = "Abril";
-                            }
-                            if (mes == 4) {
-                                diaF = 31;
-                                mesC = "Maio";
-                            }
-                            if (mes == 5) {
-                                diaF = 30;
-                                mesC = "Junho";
-                            }
-                            if (mes == 6) {
-                                diaF = 31;
-                                mesC = "Julho";
-                            }
-                            if (mes == 7) {
-                                diaF = 31;
-                                mesC = "Agosto";
-                            }
-                            if (mes == 8) {
-                                diaF = 30;
-                                mesC = "Setembro";
-                            }
-                            if (mes == 9) {
-                                diaF = 31;
-                                mesC = "Outubro";
-                            }
-                            if (mes == 10) {
-                                diaF = 30;
-                                mesC = "Novembro";
-                            }
-                            if (mes == 11) {
-                                diaF = 31;
-                                mesC = "Dezembro";
-                            }
-                            
-                            String diaAtual;
-                            String mesAtual;
-                            if(dataAtual.getDate() < 10){
-                                diaAtual = "0"+String.valueOf(dataAtual.getDate());
-                            } else{
-                                diaAtual = String.valueOf(dataAtual.getDate());
-                            }
-                            if(mes < 10){
-                                mesAtual = "0"+String.valueOf(mes+1);
-                            } else{
-                                mesAtual = String.valueOf(mes+1);
-                            }
-                        %>
-
-                        <div id="modal1" class="modal">
-                            <div class="modal-content">
-                                <div class="card horizontal">
-                                    <div id="diaSelecionado" class="card-image blue-grey darken-3">
-                                        <p align="center" style="color:transparent;">_</p>
-                                        <input type="hidden" id="diaSelecionadoInput" value="26/08/2019">
-                                        <p id="diaSelecionadoP1" align="left"><%=diaAtual%>/<%=mesAtual%>/<%=dataAtual.getYear() + 1900%></p>
-                                        <p id="diaSelecionadoP2" align="left"><%=diaAtual%> de <%=mesC%> de <%=dataAtual.getYear() + 1900%></p> 
-                                    </div>
-                                    <div class="card-stacked">
-                                        <div id="calendario" class="card-content">     
-                                            <div id="titulo" class="amber">
-                                                <h6 align="center"><%=mesC%> <%=new Date().getYear() + 1900%></h6>
-                                            </div>
-                                            <table id="calendario" name="calendario" class="highlight centered">
-                                                <thead>
-                                                    <tr>
-                                                        <th>D</th>
-                                                        <th>S</th>
-                                                        <th>T</th>
-                                                        <th>Q</th>
-                                                        <th>Q</th>
-                                                        <th>S</th>
-                                                        <th>S</th>
-                                                    </tr>
-                                                </thead>
-                                                <%
-                                                    //diaNAtual = dia atual do mês
-                                                    int diaNAtual = dataAtual.getDate();
-                                                    //diaSAtual = dia atual da semana
-                                                    int diaSAtual = dataAtual.getDay();
-                                                    //dia = contador de dias
-                                                    int dia = 1;
-                                                    //diaSP = dia da semana do primeiro dia do mês
-                                                    int diaSP;
-                                                    int i;
-                                                    int flag = 0;
-                                                    //Testes para definir a variável 'diaSP'
-                                                    if (diaNAtual != 1) {
-                                                        for (i = diaNAtual; i > 1; i -= 7) {
-                                                        }
-                                                        if (i != 1) {
-                                                            for (i = i; i < 1; i++) {
-                                                                flag++;
-                                                            }
-                                                            diaSP = (diaSAtual + flag) % 7;
-                                                        } else {
-                                                            diaSP = diaSAtual;
-                                                        }
-                                                    } else {
-                                                        diaSP = diaSAtual;
-                                                    }
-
-                                                %>
-                                                <tbody>
-                                                    <%                                        //diaSControle = controla o valor do dia da semana
-                                                        int diaSControle = diaSP;
-                                                        //Inicia o preenchimento do calendário com a condição de parada de 'j' ser != 0
-                                                        for (int j = 0; j == 0;) {
-                                                    %>
-                                                    <tr>
-                                                        <%
-                                                            //Preenche a primeira linha do calendário
-                                                            if (dia == 1) {
-                                                                //Preenche os espaços vazios correspondentes aos dias do mês anterior
-                                                                for (int k = 0; k < diaSControle; k++) {
-                                                        %>
-                                                        <td></td> 
-                                                        <%
-                                                            }
-                                                            //Preenche a primeira linha a partir do primeiro dia do mês até sábado
-                                                            for (int k = diaSControle; k <= 6; k++) {
-                                                        %>
-                                                        <td id="<%=dia%>" class="menu"><a href="#" onclick="diaFocado(<%=dia%>,<%=mes + 1%>, '<%=mesC%>',<%=new Date().getYear() + 1900%>)"><div class="dia" style="height:100%;width:100%;"><%=dia%></div></a></td> 
-                                                                <%
-                                                                        dia++;
-                                                                    }
-                                                                    //Preenche as demais linhas do calendário
-                                                                } else {
-                                                                    //Inicia o preenchimento da linha de domingo à sábado
-                                                                    for (int k = diaSControle; k <= 6; k++) {
-                                                                        //Verifica se o dia do mês em execução é o último do mês
-                                                                        if (dia == diaF) {
-                                                                %>
-                                                        <td id="<%=dia%>" class="menu" ><a href="#" onclick="diaFocado(<%=dia%>,<%=mes + 1%>, '<%=mesC%>',<%=new Date().getYear() + 1900%>)"><div class="dia" style="height:100%;width:100%;"><%=dia%></div></a></td> 
-                                                                <%
-                                                                    //Testa se o último dia do mês é sábado
-                                                                    if (k < 6) {
-                                                                        //Caso não: preenche os dias da semana com campos vazios até sábado
-                                                                        while (k < 6) {
-                                                                %><td></td><%
-                                                                            k++;
-                                                                        }
-                                                                    }
-                                                                    dia++;
-                                                                } else {
-                                                        %>
-                                                        <td id="<%=dia%>" class="menu" ><a href="#" onclick="diaFocado(<%=dia%>,<%=mes + 1%>, '<%=mesC%>',<%=new Date().getYear() + 1900%>)"><div class="dia" style="height:100%;width:100%;"><%=dia%></div></a></td> 
-                                                                <%
-                                                                                dia++;
-
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                    //Define diaScontrole como domingo
-                                                                    diaSControle = 0;
-                                                                    //Verifica se o dia do mês em execução é o último do mês
-                                                                    if (dia > diaF) {
-                                                                        //Caso sim: finaliza o preenchimento do calendário
-                                                                        j = 1;
-                                                                        //FIM DO PREENCHIMENTO DO CALENDÁRIO
-                                                                    }
-                                                                %>
-                                                    </tr>
-                                                    <%
-                                                        }
-                                                    %>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <a href="#!" class="modal-close waves-effect waves-green btn-flat" style="color: red;">Cancelar</a>
-                                <a href="#!" onclick="preencherDataCalendario()" class="modal-close waves-effect waves-green btn-flat" style="color: green;">Ok</a>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
             </div>
@@ -557,97 +312,66 @@
 
     <script>
 
-                                    $(document).ready(function () {
-                                        $('select').formSelect();
-                                    });
-
-                                    $(document).ready(function () {
-                                        $('.modal').modal();
-                                    });
-
-                                    $(document).ready(function () {
-                                        $('.tooltipped').tooltip();
-                                    });
-
-                                    function diaFocado(diaSelecionado, mes, mesC, ano) {
-                                        var data;
-                                        var dataTexto;
-                                        if (diaSelecionado < 10) {
-                                            data = "0" + diaSelecionado;
-                                            dataTexto = "0" + diaSelecionado;
-                                        } else {
-                                            data = diaSelecionado;
-                                            dataTexto = diaSelecionado;
+                                        function inicializarSelects() {
+                                            $('select').formSelect();
                                         }
-                                        if (mes < 10) {
-                                            mes = "0" + mes;
+
+                                        function inicializarDicas() {
+                                            $('.tooltipped').tooltip();
                                         }
-                                        data += "/" + mes + "/" + ano;
-                                        dataTexto += " de " + mesC + " de " + ano;
-                                        document.getElementById("diaSelecionadoP1").innerHTML = data;
-                                        document.getElementById("diaSelecionadoInput").value = data;
-                                        document.getElementById("diaSelecionadoP2").innerHTML = dataTexto;
-                                        document.getElementById(diaSelecionado).style.backgroundColor = "lawngreen";
-                                        var i;
-                                        for (i = 1; i <= 31; i++) {
-                                            if (i !== diaSelecionado) {
-                                                document.getElementById(i).style.backgroundColor = "transparent";
+
+                                        $(document).ready(inicializarSelects());
+
+                                        $(document).ready(inicializarDicas());
+
+                                        function fMasc(objeto, mascara) {
+                                            obj = objeto;
+                                            masc = mascara;
+                                            setTimeout("fMascEx()", 1);
+                                        }
+                                        function fMascEx() {
+                                            obj.value = masc(obj.value);
+                                        }
+
+                                        function mCEP(cep) {
+                                            cep = cep.replace(/\D/g, "");
+                                            cep = cep.replace(/(\d{5})(\d)/, "$1-$2");
+                                            return cep;
+                                        }
+
+                                        function mCPF(cpf) {
+                                            cpf = cpf.replace(/\D/g, "");
+                                            cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2");
+                                            cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2");
+                                            cpf = cpf.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+                                            return cpf;
+                                        }
+
+                                        function mData(data) {
+                                            data = data.replace(/\D/g, "");
+                                            data = data.replace(/(\d{2})(\d)/, "$1/$2");
+                                            data = data.replace(/(\d{2})(\d)/, "$1/$2");
+
+                                            return data;
+                                        }
+
+                                        function mTel(tel) {
+                                            tel = tel.replace(/\D/g, "");
+                                            tel = tel.replace(/^(\d)/, "($1");
+                                            tel = tel.replace(/(.{3})(\d)/, "$1)$2");
+                                            if (tel.length === 9) {
+                                                tel = tel.replace(/(.{1})$/, "-$1");
+                                            } else if (tel.length === 10) {
+                                                tel = tel.replace(/(.{2})$/, "-$1");
+                                            } else if (tel.length === 11) {
+                                                tel = tel.replace(/(.{3})$/, "-$1");
+                                            } else if (tel.length === 12) {
+                                                tel = tel.replace(/(.{4})$/, "-$1");
+                                            } else if (tel.length > 12) {
+                                                tel = tel.replace(/(.{4})$/, "-$1");
                                             }
+                                            return tel;
                                         }
-                                    }
-
-                                    function preencherDataCalendario() {
-                                        document.getElementById("datanascimento").value = document.getElementById("diaSelecionadoInput").value;
-                                    }
-
-                                    function fMasc(objeto, mascara) {
-                                        obj = objeto;
-                                        masc = mascara;
-                                        setTimeout("fMascEx()", 1);
-                                    }
-                                    function fMascEx() {
-                                        obj.value = masc(obj.value);
-                                    }
-
-                                    function mCEP(cep) {
-                                        cep = cep.replace(/\D/g, "");
-                                        cep = cep.replace(/(\d{5})(\d)/, "$1-$2");
-                                        return cep;
-                                    }
-
-                                    function mCPF(cpf) {
-                                        cpf = cpf.replace(/\D/g, "");
-                                        cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2");
-                                        cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2");
-                                        cpf = cpf.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
-                                        return cpf;
-                                    }
-
-                                    function mData(data) {
-                                        data = data.replace(/\D/g, "");
-                                        data = data.replace(/(\d{2})(\d)/, "$1/$2");
-                                        data = data.replace(/(\d{2})(\d)/, "$1/$2");
-
-                                        return data;
-                                    }
-
-                                    function mTel(tel) {
-                                        tel = tel.replace(/\D/g, "");
-                                        tel = tel.replace(/^(\d)/, "($1");
-                                        tel = tel.replace(/(.{3})(\d)/, "$1)$2");
-                                        if (tel.length === 9) {
-                                            tel = tel.replace(/(.{1})$/, "-$1");
-                                        } else if (tel.length === 10) {
-                                            tel = tel.replace(/(.{2})$/, "-$1");
-                                        } else if (tel.length === 11) {
-                                            tel = tel.replace(/(.{3})$/, "-$1");
-                                        } else if (tel.length === 12) {
-                                            tel = tel.replace(/(.{4})$/, "-$1");
-                                        } else if (tel.length > 12) {
-                                            tel = tel.replace(/(.{4})$/, "-$1");
-                                        }
-                                        return tel;
-                                    }
 
     </script>
 
