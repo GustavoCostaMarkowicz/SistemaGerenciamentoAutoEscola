@@ -1,3 +1,12 @@
+<%@page import="br.edu.ifpr.irati.jsp.modelo.ExamePratico"%>
+<%@page import="br.edu.ifpr.irati.jsp.modelo.ExameTeorico"%>
+<%@page import="br.edu.ifpr.irati.jsp.modelo.ExamePsicotecnico"%>
+<%@page import="br.edu.ifpr.irati.jsp.modelo.ExameMedico"%>
+<%@page import="br.edu.ifpr.irati.jsp.controle.ControleExamePratico"%>
+<%@page import="br.edu.ifpr.irati.jsp.controle.ControleExameTeorico"%>
+<%@page import="br.edu.ifpr.irati.jsp.controle.ControleExamePsicotecnico"%>
+<%@page import="br.edu.ifpr.irati.jsp.controle.ControleExameMedico"%>
+<%@page import="br.edu.ifpr.irati.jsp.controle.ControleAluno"%>
 <%@page import="br.edu.ifpr.irati.jsp.controle.ControleResultadoExame"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="br.edu.ifpr.irati.jsp.modelo.Exame"%>
@@ -14,14 +23,19 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="  crossorigin="anonymous"></script>
         <%
-            
-            int idExame = Integer.parseInt(request.getParameter("idexame"));
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            SimpleDateFormat sdf1 = new SimpleDateFormat("hh:mm");
+            SimpleDateFormat sdf1 = new SimpleDateFormat("HH:mm");
             
+            String ids = request.getParameter("idaluno");
+            String side = request.getParameter("idexame");
+            int ide = Integer.parseInt(side);
+            int id = Integer.parseInt(ids);
 
+            ControleAluno ca = new ControleAluno();
+            Aluno al = ca.buscarAlunosPorId(id);
             ControleExame ce = new ControleExame();
-            Exame exame = ce.buscarExamesPorId(idExame);
+            
+            Exame e = ce.buscarExamesPorId(ide);
 
         %>
     </head>
@@ -30,7 +44,7 @@
 
         div#titulo {
 
-            background-color: lightgray;
+            background-color: #EEC900;
             padding: 15px;
             font-weight: bold;
 
@@ -47,6 +61,10 @@
         main {
             flex: 1 0 auto;
         }
+        
+        table#tabelares {
+            margin-top: 140px;
+        }
 
 
     </style>
@@ -57,30 +75,28 @@
         </header>
         
     <main>
+        
+        <div class="col s14 m12">
+                <div class="card">
+                    <div class="card-content">
+        
         <form  action="scripts/cadastrarresultadoexame.jsp" method="POST" >
+            <input type="hidden" name="idExame" value="<%=e.getIdExame() %>"/>
+            <input type="hidden" name="idAluno" value="<%=ids %>"/>
             
-            <input type="hidden" name="idExame" value="<%=exame.getIdExame()%>"/>
-            
-            <div id="titulo">
-                <h6 align="center"> Exame </h6>
-            </div>
-
-            <table class="centered striped">
+            <table class="centered striped" id="tabelares">
                 <%
                     
+              
                     
-                    List<Aluno> alunos = exame.getAlunos();
-                    boolean teste = exame.isReteste();
-                    String steste;
                     
-                    if(teste == true){
-                        steste = "Sim";
+                    boolean sreteste = e.isReteste();
+                    String reteste = "";
+                    if(sreteste){
+                        reteste = "Sim";
                     } else {
-                        steste = "Não";
+                        reteste = "Não";
                     }
-                    
-                    int i = 0;
-                    for(Aluno a: alunos){
                 
                 %>
                 <tr>
@@ -94,16 +110,17 @@
                 </tr>
 
                 <tr>
-                    <td><%=sdf.format(exame.getDataExame())%></td>
-                    <td><%=sdf1.format(exame.getHorarioExame())%></td>
-                    <td><%=steste%></td>
-                    <td><%=a.getNomeCompleto()%></td>
+                    <td><%=sdf.format(e.getDataExame())%></td>
+                    <td><%=sdf1.format(e.getHorarioExame())%></td>
+                    <td><%=reteste%></td>
+                    <td><%=al.getNomeCompleto()%></td>
 
                     <td>
+                        
                         <div>
                      <div class="input-field col s6">
                          
-                                    <select id="aprovacao" name="<%=i%>" class="validate" required>
+                                    <select id="aprovacao" name="resultado" class="validate" required>
                                         <option value="" disabled selected>Resultado:</option>
                                         <option value="Aprovado">Aprovado</option>
                                         <option value="Reprovado">Reprovado</option>
@@ -115,20 +132,20 @@
                     </td>
                 </tr>
 
-                <%
-                    i++;
-                    }
-
-                %>
             </table>
             
+            
              <div class="center input-field col s12">
-                <button class="waves-effect waves-light btn" type="submit">SALVAR
+                <button class="amber waves-effect waves-light btn" type="submit">SALVAR
                 </button>
             </div>
 
         </form>
         
+                    </div>
+                </div>
+        </div>
+                    
     </main>
                     
         <footer>

@@ -1,3 +1,4 @@
+<%@page import="br.edu.ifpr.irati.jsp.controle.ControleAluno"%>
 <%@page import="br.edu.ifpr.irati.jsp.controle.ControleResultadoExame"%>
 <%@page import="br.edu.ifpr.irati.jsp.modelo.ResultadoExame"%>
 <%@page import="java.util.ArrayList"%>
@@ -11,20 +12,25 @@
     request.setCharacterEncoding("UTF-8");
 
     String sidExame = request.getParameter("idExame");
+    String resultado = request.getParameter("resultado");
+    String sidAluno = request.getParameter("idAluno");
+    int ida = Integer.parseInt(sidAluno);
+    
     
     ControleExame ce = new ControleExame();
+    ControleAluno ca = new ControleAluno();
+    Aluno aluno = ca.buscarAlunosPorId(ida);
+    
+   
     
     int idExame = Integer.parseInt(sidExame);
     Exame exame = ce.buscarExamesPorId(idExame);
     
     ControleResultadoExame cre = new ControleResultadoExame();
+   
+    ResultadoExame re = new ResultadoExame(0, aluno, exame, resultado);
     
-    for(int i = 0; i < exame.getMaximoAlunos(); i++){
-        String si = String.valueOf(i);
-        String resultado = request.getParameter(si);
-        ResultadoExame re = new ResultadoExame(0, exame.getAlunos().get(i), exame, resultado);
-        cre.inserirResultadoExame(re);
-    }
+    cre.inserirResultadoExame(re);
     
     response.sendRedirect("../exame.jsp");
 

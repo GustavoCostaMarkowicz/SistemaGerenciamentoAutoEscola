@@ -93,6 +93,8 @@
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                     SimpleDateFormat sdf1 = new SimpleDateFormat("HH:mm");
                     
+                   
+                    
                     
            if(!ems.isEmpty()){
 
@@ -112,7 +114,7 @@
                    
                     
                     
-                    
+                    int i = 0;
                     for(ExameMedico em: ems){
 
                 %>
@@ -124,18 +126,20 @@
                         <td id="horario" name="horario"><%=sdf1.format(em.getHorarioExame()) %></td>
                         
                         <%
-                       
-                        if(!cre.buscarResultadoExamesPorAlunoExame(id, em.getIdExame()).getResultado().equals("")){
+                        if(cre.buscarResultadoExamesPorAlunoExame(id, em.getIdExame()) != null){
                         %>
-                        <td id="resultado" name="resultado"><%=cre.buscarResultadoExamesPorAlunoExame(id, em.getIdExame()).getResultado()%></td>
+                        <td><%=cre.buscarResultadoExamesPorAlunoExame(id, em.getIdExame()).getResultado()%></td>
                         <%
                         } else {
+                           
                         %>
                         <td><a href="cadastrarResultadoExame.jsp?idexame=<%=em.getIdExame() %>&idaluno=<%=id%>" value="ResultadoExame" class="tooltipped btn-floating waves-effect waves-light black" data-position="left" data-tooltip="Cadastrar o resultado do exame"><i class="material-icons">description</i></a></td>
                    <% } %>
                       </tr>
                 </tbody>
                 <%
+                    
+                    i++;
                         }
 
                         } else {
@@ -190,7 +194,7 @@
                         
                         <%
                         
-                        if(!cre.buscarResultadoExamesPorAlunoExame(id, ep.getIdExame()).getResultado().equals("")){
+                        if(cre.buscarResultadoExamesPorAlunoExame(id, ep.getIdExame()) != null){
                         %>
                         <td id="resultado" name="resultado"><%=cre.buscarResultadoExamesPorAlunoExame(id, ep.getIdExame()).getResultado() %></td>
                         <%
