@@ -390,8 +390,8 @@
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <a href="#!" class="modal-close waves-effect waves-green btn-flat" style="color: red;">Cancelar</a>
-                                        <a href="#!" onclick="preencherDataCalendario()" class="modal-close waves-effect waves-green btn-flat" style="color: green;">Ok</a>
+                                        <a href="#!" class="modal-close waves-effect btn-flat" style="color: red;">Cancelar</a>
+                                        <a href="#!" onclick="preencherDataCalendario()" class="modal-close waves-effect btn-flat" style="color: green;">Confirmar</a>
                                     </div>
                                 </div>
                             </div>

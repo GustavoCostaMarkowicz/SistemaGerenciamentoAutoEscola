@@ -27,7 +27,13 @@
 
     String sidUsuario = request.getParameter("idusuario");
     String sid = request.getParameter("id");
-    String svalorEntrada = request.getParameter("valorentrada");
+    String svalorEntrada = "";
+    String valorEntradaVista = request.getParameter("valorentradavista");
+    if(valorEntradaVista.equals("")){
+        svalorEntrada = request.getParameter("valorentrada");
+    } else{
+        svalorEntrada = valorEntradaVista;
+    }
     String servico = request.getParameter("servico");
     String anotacoes = request.getParameter("anotacoes");
     String sparcelas = "";

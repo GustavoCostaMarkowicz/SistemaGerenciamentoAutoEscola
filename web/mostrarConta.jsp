@@ -43,7 +43,7 @@
         Conta c = ca.buscarContaAluno(idPessoa);
         DecimalFormat formato = new DecimalFormat("#.##");
         int parcelas = (int) ((c.getValorInicial() - c.getValorPago()) / (c.getValorInicial() / c.getParcelas()));
-        if(((c.getValorInicial() - c.getValorPago()) < (c.getValorInicial() / c.getParcelas())) & (c.getValorInicial() > c.getValorPago())){
+        if (((c.getValorInicial() - c.getValorPago()) < (c.getValorInicial() / c.getParcelas())) & (c.getValorInicial() > c.getValorPago())) {
             parcelas = 1;
         }
     %>
@@ -54,7 +54,7 @@
             background-color: lightgray;
             padding: 3px;
         }
-        
+
         div#t1{
             margin-bottom: -1px;
         }
@@ -122,318 +122,320 @@
         </header>
 
         <main>
-            
+
             <div class="col s14 m12">
-                    <div class="card">
-                        <div class="card-content">
+                <div class="card">
+                    <div class="card-content">
 
-            <div id="t1" class="titulo amber row">
-                <h5 align="center">Conta</h5>
-            </div>
-
-            <div id="t2" class="titulo row">
-                <div class="center input-field col s4">
-                    <h6><%=a.getNomeCompleto()%></h6>
-                </div>
-                <div class="center input-field col s4">
-                    <h6>Valor restante para pagamento: R$<%=formato.format(c.getValorInicial() - c.getValorPago())%></h6>
-                </div>
-                <div class="center input-field col s4">
-                    <h6>Parcelas restantes: <%=parcelas%></h6>
-                </div>
-            </div>
-
-            <table class="centered">
-
-                <tr>
-                    <th>Usuário</th>
-                    <th>Data</th>
-                    <th>Hora</th>
-                    <th class="ultimo">Registro</th>
-                        <%
-                            if (parcelas != 0) {
-                        %>
-                    <th>
-                        Valor: R$
-                        <div class="input-field inline">
-                            <input id="valorPago" type="text">
+                        <div id="t1" class="titulo amber row">
+                            <h5 align="center">Conta</h5>
                         </div>
-                        <a id="botaopagamento" class="waves-effect waves-light btn" onclick="validarValorPagamento();" href="scripts/realizarpagamento.jsp?idPessoa=<%=idPessoa%>&idUsuario=<%=u.getIdUsuario()%>&valorPago=" value="Pagamento">Realizar Pagamento</a>
-                    </th>
-                    <%
-                    } else if (cu.verificarTipoUsuario(u.getIdUsuario()) == "diretor") {
-                    %>
-                    <th><a id="botaopagamento" href="vincularServicoConta.jsp?idPessoa=<%=idPessoa%>" class="waves-effect waves-light btn">Vincular um novo serviço à conta</a></th>
-                        <%
-                        } else {
-                        %>
-                    <th><a id="botaopagamento" class="waves-effect waves-light btn">Essa conta não tem pagamentos pendentes</a></th>
-                        <%
-                            }
-                        %>
-                </tr>
 
-                <%
-                    List<Registro> registros = cc.buscarRegistrosConta(a.getIdPessoa());
-                    int ordem = registros.size() - 1;
+                        <div id="t2" class="titulo row">
+                            <div class="center input-field col s4">
+                                <h6><%=a.getNomeCompleto()%></h6>
+                            </div>
+                            <div class="center input-field col s4">
+                                <h6>Valor restante para pagamento: R$<%=formato.format(c.getValorInicial() - c.getValorPago())%></h6>
+                            </div>
+                            <div class="center input-field col s4">
+                                <h6>Parcelas restantes: <%=parcelas%></h6>
+                            </div>
+                        </div>
 
-                    int controlePosicaoRegistro = 0;
-                    for (int k = 0; k < (registros.size() - 1); k++) {
-                        if (registros.get(k).getTextoRegistro().contains(c.getServicos().get(c.getServicos().size() - 1).getTipoServico())) {
-                            controlePosicaoRegistro = k;
-                            k = registros.size();
-                        }
-                    }
+                        <table class="centered">
 
-                    int diaParcela = registros.get(controlePosicaoRegistro).getDataRegistro().getDate();
-                    int mesPrimeiraParcela = registros.get(controlePosicaoRegistro).getDataRegistro().getMonth() + 1;
-                    for(Registro r: registros){
-                        if(r.getTextoRegistro().contains("entrada")){
-                            if(r.isValido()){
-                                mesPrimeiraParcela -= 1;
-                            }
-                        }
-                    }
-
-                    String[] meses = new String[12];
-                    meses[0] = "Janeiro";
-                    meses[1] = "Fevereiro";
-                    meses[2] = "Março";
-                    meses[3] = "Abril";
-                    meses[4] = "Maio";
-                    meses[5] = "Junho";
-                    meses[6] = "Julho";
-                    meses[7] = "Agosto";
-                    meses[8] = "Setembro";
-                    meses[9] = "Outubro";
-                    meses[10] = "Novembro";
-                    meses[11] = "Dezembro";
-
-                    int i = ordem;
-
-                    int anoParcela = registros.get(controlePosicaoRegistro).getDataRegistro().getYear() + 1900;
-
-                    if (mesPrimeiraParcela > 11) {
-                        mesPrimeiraParcela = 0;
-                        anoParcela += 1;
-                    }
-
-                    int controleParcela = mesPrimeiraParcela;
-                    String[] validade = new String[c.getParcelas()];
-                    Date dataAtual = new Date();
-                    double valorParcela = c.getValorInicial() / c.getParcelas();
-                    double controleValorPago = c.getValorPago();
-                    for (int k = 0; k < c.getParcelas(); k++) {
-                        if ((controleValorPago - valorParcela) >= 0) {
-                            validade[k] = "pago";
-                        } else {
-                            if (anoParcela > (dataAtual.getYear() + 1900)) {
-                                validade[k] = "valido";
-                            } else if (anoParcela == (dataAtual.getYear() + 1900)) {
-                                if (controleParcela > dataAtual.getMonth()) {
-                                    validade[k] = "valido";
-                                } else if (controleParcela == dataAtual.getMonth()) {
-                                    if (diaParcela >= dataAtual.getDate()) {
-                                        validade[k] = "valido";
+                            <tr>
+                                <th>Usuário</th>
+                                <th>Data</th>
+                                <th>Hora</th>
+                                <th class="ultimo">Registro</th>
+                                    <%
+                                        if (parcelas != 0) {
+                                    %>
+                                <th>
+                                    Valor: R$
+                                    <div class="input-field inline">
+                                        <input id="valorPago" type="text">
+                                    </div>
+                                    <a id="botaopagamento" class="waves-effect waves-light btn" onclick="validarValorPagamento();" href="scripts/realizarpagamento.jsp?idPessoa=<%=idPessoa%>&idUsuario=<%=u.getIdUsuario()%>&valorPago=" value="Pagamento">Realizar Pagamento</a>
+                                </th>
+                                <%
+                                } else if (cu.verificarTipoUsuario(u.getIdUsuario()) == "diretor") {
+                                %>
+                                <th><a id="botaopagamento" href="vincularServicoConta.jsp?idPessoa=<%=idPessoa%>" class="waves-effect waves-light btn">Vincular um novo serviço à conta</a></th>
+                                    <%
                                     } else {
-                                        validade[k] = "invalido";
+                                    %>
+                                <th><a id="botaopagamento" class="waves-effect waves-light btn">Essa conta não tem pagamentos pendentes</a></th>
+                                    <%
+                                        }
+                                    %>
+                            </tr>
+
+                            <%
+                                List<Registro> registros = cc.buscarRegistrosConta(a.getIdPessoa());
+                                int ordem = registros.size() - 1;
+
+                                int controlePosicaoRegistro = 0;
+                                for (int k = 0; k < (registros.size() - 1); k++) {
+                                    if (registros.get(k).getTextoRegistro().contains(c.getServicos().get(c.getServicos().size() - 1).getTipoServico())) {
+                                        controlePosicaoRegistro = k;
+                                        k = registros.size();
+                                    }
+                                }
+
+                                int diaParcela = registros.get(controlePosicaoRegistro).getDataRegistro().getDate();
+                                int mesPrimeiraParcela = registros.get(controlePosicaoRegistro).getDataRegistro().getMonth() + 1;
+                                for (Registro r : registros) {
+                                    if (r.getTextoRegistro().contains("entrada")) {
+                                        if (r.isValido()) {
+                                            mesPrimeiraParcela -= 1;
+                                        }
+                                    }
+                                }
+
+                                String[] meses = new String[12];
+                                meses[0] = "Janeiro";
+                                meses[1] = "Fevereiro";
+                                meses[2] = "Março";
+                                meses[3] = "Abril";
+                                meses[4] = "Maio";
+                                meses[5] = "Junho";
+                                meses[6] = "Julho";
+                                meses[7] = "Agosto";
+                                meses[8] = "Setembro";
+                                meses[9] = "Outubro";
+                                meses[10] = "Novembro";
+                                meses[11] = "Dezembro";
+
+                                int i = ordem;
+
+                                int anoParcela = registros.get(controlePosicaoRegistro).getDataRegistro().getYear() + 1900;
+
+                                if (mesPrimeiraParcela > 11) {
+                                    mesPrimeiraParcela = 0;
+                                    anoParcela += 1;
+                                }
+
+                                int controleParcela = mesPrimeiraParcela;
+                                String[] validade = new String[c.getParcelas()];
+                                Date dataAtual = new Date();
+                                double valorParcela = c.getValorInicial() / c.getParcelas();
+                                double controleValorPago = c.getValorPago();
+                                for (int k = 0; k < c.getParcelas(); k++) {
+                                    if ((controleValorPago - valorParcela) >= 0) {
+                                        validade[k] = "pago";
+                                    } else {
+                                        if (anoParcela > (dataAtual.getYear() + 1900)) {
+                                            validade[k] = "valido";
+                                        } else if (anoParcela == (dataAtual.getYear() + 1900)) {
+                                            if (controleParcela > dataAtual.getMonth()) {
+                                                validade[k] = "valido";
+                                            } else if (controleParcela == dataAtual.getMonth()) {
+                                                if (diaParcela >= dataAtual.getDate()) {
+                                                    validade[k] = "valido";
+                                                } else {
+                                                    validade[k] = "invalido";
+                                                }
+                                            } else {
+                                                validade[k] = "invalido";
+                                            }
+                                        } else {
+                                            validade[k] = "invalido";
+                                        }
+                                    }
+
+                                    controleParcela++;
+                                    if (controleParcela > 11) {
+                                        controleParcela = 0;
+                                        anoParcela++;
+                                    }
+                                    controleValorPago -= valorParcela;
+                                }
+
+                                anoParcela = registros.get(controlePosicaoRegistro).getDataRegistro().getYear() + 1900;
+                                if (mesPrimeiraParcela == 0) {
+                                    anoParcela += 1;
+                                }
+
+                                controleParcela = mesPrimeiraParcela;
+                                controleValorPago = c.getValorPago();
+                                double moduloConta = c.getValorPago() % (c.getValorInicial() / c.getParcelas());
+                                int contadorModulo = 0;
+                                int controleInvalidacao = 0;
+
+                                if (c.getParcelas() > registros.size()) {
+
+                                    for (int j = 0; j < c.getParcelas(); j++) {
+
+                            %>
+
+
+                            <%                                    if (j < registros.size()) {
+                            %>
+                            <tr>
+                                <%
+                                    if (cu.verificarTipoUsuario(u.getIdUsuario()) == "diretor" & registros.get(i).isInvalidavel() & registros.get(i).isValido() & (registros.get(i).getTextoRegistro().contains("Pagamento de R$") | controleInvalidacao == 0) & registros.get(i).getTextoRegistro().contains(c.getServicos().get(c.getServicos().size() - 1).getTipoServico())) {
+                                %>
+                                <td class="<%=registros.get(i).isValido()%>"><a href="#" onclick="confirmarAcao(<%=registros.get(i).getIdRegistro()%>, <%=idPessoa%>)" value="Invalidar"><i class="tooltipped material-icons left red-text" data-position="right" data-tooltip="invalidar registro">remove_circle</i></a><%=registros.get(i).getUsuario().getLogin()%></td>
+                                <%
+                                    if (registros.get(i).getTextoRegistro().contains("ª parcela")) {
+                                        controleInvalidacao++;
                                     }
                                 } else {
-                                    validade[k] = "invalido";
+                                %>
+                                <td class="<%=registros.get(i).isValido()%>"><%=registros.get(i).getUsuario().getLogin()%></td>
+                                <%
+                                    }
+                                %>
+                                <td class="<%=registros.get(i).isValido()%>"><%=sdf.format(registros.get(i).getDataRegistro())%></td>
+                                <td class="<%=registros.get(i).isValido()%>"><%=sdf1.format(registros.get(i).getHorarioRegistro())%></td>
+                                <%
+                                    if (registros.get(i).isValido()) {
+                                %>
+                                <td class="<%=registros.get(i).isValido()%> ultimo"><%=registros.get(i).getTextoRegistro()%></td>
+                                <%
+                                } else {
+                                %>
+                                <td class="<%=registros.get(i).isValido()%> ultimo"><%=registros.get(i).getTextoRegistro()%><br>REGISTRO INVÁLIDO</td>
+                                    <%
+                                        }
+                                    %>
+                                    <%
+                                        if ((controleValorPago - valorParcela) >= 0) {
+                                    %>
+                                <td class="<%=validade[j]%>"><%=(j + 1) + "ª Parcela<br>PAGO"%></td>
+                                <%
+                                } else {
+                                    if (contadorModulo == 0) {
+                                        contadorModulo++;
+                                %>
+                                <td class="<%=validade[j]%>"><%=(j + 1) + "ª Parcela<br>Data de vencimento da parcela - " + diaParcela + " de " + meses[controleParcela] + " de " + anoParcela + "<br>Valor - R$" + formato.format((c.getValorInicial() / c.getParcelas()) - moduloConta)%></td>
+                                <%
+                                } else {
+                                %>
+                                <td class="<%=validade[j]%>"><%=(j + 1) + "ª Parcela<br>Data de vencimento da parcela - " + diaParcela + " de " + meses[controleParcela] + " de " + anoParcela + "<br>Valor - R$" + formato.format(c.getValorInicial() / c.getParcelas())%></td>
+                                <%
+                                        }
+                                    }
+                                %>
+                            </tr>
+                            <%  } else { %>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td class="ultimo"></td>
+                                <%
+                                    if ((controleValorPago - valorParcela) >= 0) {
+                                %>
+                                <td class="<%=validade[j]%>"><%=(j + 1) + "ª Parcela<br>PAGO"%></td>
+                                <%
+                                } else {
+                                    if (contadorModulo == 0) {
+                                        contadorModulo++;
+                                %>
+                                <td class="<%=validade[j]%>"><%=(j + 1) + "ª Parcela<br>Data de vencimento da parcela - " + diaParcela + " de " + meses[controleParcela] + " de " + anoParcela + "<br>Valor - R$" + formato.format((c.getValorInicial() / c.getParcelas()) - moduloConta)%></td>
+                                <%
+                                } else {
+                                %>
+                                <td class="<%=validade[j]%>"><%=(j + 1) + "ª Parcela<br>Data de vencimento da parcela - " + diaParcela + " de " + meses[controleParcela] + " de " + anoParcela + "<br>Valor - R$" + formato.format(c.getValorInicial() / c.getParcelas())%></td>
+                                <%
+                                        }
+                                    }
+                                %>
+                            </tr>
+                            <%}
+                                    controleParcela++;
+                                    if (controleParcela > 11) {
+                                        controleParcela = 0;
+                                        anoParcela++;
+                                    }
+                                    controleValorPago -= valorParcela;
+                                    i--;
                                 }
+                            %>
+
+
+                            <%
                             } else {
-                                validade[k] = "invalido";
-                            }
-                        }
 
-                        controleParcela++;
-                        if (controleParcela > 11) {
-                            controleParcela = 0;
-                            anoParcela++;
-                        }
-                        controleValorPago -= valorParcela;
-                    }
+                                int j = 0;
+                                for (i = ordem; i >= 0; i--) {
 
-                    anoParcela = registros.get(controlePosicaoRegistro).getDataRegistro().getYear() + 1900;
-                    if (mesPrimeiraParcela == 0) {
-                        anoParcela += 1;
-                    }
+                            %>
 
-                    controleParcela = mesPrimeiraParcela;
-                    controleValorPago = c.getValorPago();
-                    double moduloConta = c.getValorPago() % (c.getValorInicial() / c.getParcelas());
-                    int contadorModulo = 0;
-                    int controleInvalidacao = 0;
+                            <tr>
+                                <%                                if (cu.verificarTipoUsuario(u.getIdUsuario()) == "diretor" & registros.get(i).isInvalidavel() & registros.get(i).isValido() & (registros.get(i).getTextoRegistro().contains("Pagamento de R$") | controleInvalidacao == 0) & registros.get(i).getTextoRegistro().contains(c.getServicos().get(c.getServicos().size() - 1).getTipoServico())) {
+                                %>
+                                <td class="<%=registros.get(i).isValido()%>"><a href="#" onclick="confirmarAcao(<%=registros.get(i).getIdRegistro()%>, <%=idPessoa%>)" value="Invalidar"><i class="tooltipped material-icons left red-text" data-position="right" data-tooltip="invalidar registro">remove_circle</i></a><%=registros.get(i).getUsuario().getLogin()%></td>
+                                <%
+                                    if (registros.get(i).getTextoRegistro().contains("ª parcela")) {
+                                        controleInvalidacao++;
+                                    }
+                                } else {
+                                %>
+                                <td class="<%=registros.get(i).isValido()%>"><%=registros.get(i).getUsuario().getLogin()%></td>
+                                <%
+                                    }
+                                %>
+                                <td class="<%=registros.get(i).isValido()%>"><%=sdf.format(registros.get(i).getDataRegistro())%></td>
+                                <td class="<%=registros.get(i).isValido()%>"><%=sdf1.format(registros.get(i).getHorarioRegistro())%></td>
+                                <%
+                                    if (registros.get(i).isValido()) {
+                                %>
+                                <td class="<%=registros.get(i).isValido()%> ultimo"><%=registros.get(i).getTextoRegistro()%></td>
+                                <%
+                                } else {
+                                %>
+                                <td class="<%=registros.get(i).isValido()%> ultimo"><%=registros.get(i).getTextoRegistro()%><br>REGISTRO INVÁLIDO</td>
+                                    <%
+                                        }
+                                    %>
+                                    <% if (j < c.getParcelas()) { %>
+                                    <%
+                                        if ((controleValorPago - valorParcela) >= 0) {
+                                    %>
+                                <td class="<%=validade[j]%>"><%=(j + 1) + "ª Parcela<br>PAGO"%></td>
+                                <%
+                                } else {
+                                    if (contadorModulo == 0) {
+                                        contadorModulo++;
+                                %>
+                                <td class="<%=validade[j]%>"><%=(j + 1) + "ª Parcela<br>Data de vencimento da parcela - " + diaParcela + " de " + meses[controleParcela] + " de " + anoParcela + "<br>Valor - R$" + formato.format((c.getValorInicial() / c.getParcelas()) - moduloConta)%></td>
+                                <%
+                                } else {
+                                %>
+                                <td class="<%=validade[j]%>"><%=(j + 1) + "ª Parcela<br>Data de vencimento da parcela - " + diaParcela + " de " + meses[controleParcela] + " de " + anoParcela + "<br>Valor - R$" + formato.format(c.getValorInicial() / c.getParcelas())%></td>
+                                <%
+                                        }
+                                    }
+                                %>
+                                <% } else {%>
+                                <td></td>
+                                <% } %>
+                            </tr>
 
-                    if (c.getParcelas() > registros.size()) {
+                            <%
+                                        controleParcela++;
+                                        if (controleParcela > 11) {
+                                            controleParcela = 0;
+                                            anoParcela++;
+                                        }
+                                        controleValorPago -= valorParcela;
+                                        j++;
+                                    }
+                                }
 
-                        for (int j = 0; j < c.getParcelas(); j++) {
-
-                %>
-
-
-                <%                                    if (j < registros.size()) {
-                %>
-                <tr>
-                    <%
-                        if (cu.verificarTipoUsuario(u.getIdUsuario()) == "diretor" & registros.get(i).isInvalidavel() & registros.get(i).isValido() & (registros.get(i).getTextoRegistro().contains("Pagamento de R$") | controleInvalidacao == 0) & registros.get(i).getTextoRegistro().contains(c.getServicos().get(c.getServicos().size() - 1).getTipoServico())) {
-                    %>
-                    <td class="<%=registros.get(i).isValido()%>"><a href="scripts/invalidarregistro.jsp?idRegistro=<%=registros.get(i).getIdRegistro()%>&idPessoa=<%=idPessoa%>" value="Invalidar"><i class="tooltipped material-icons left red-text" data-position="right" data-tooltip="invalidar registro">remove_circle</i></a><%=registros.get(i).getUsuario().getLogin()%></td>
-                    <%
-                        if (registros.get(i).getTextoRegistro().contains("ª parcela")) {
-                            controleInvalidacao++;
-                        }
-                    } else {
-                    %>
-                    <td class="<%=registros.get(i).isValido()%>"><%=registros.get(i).getUsuario().getLogin()%></td>
-                    <%
-                        }
-                    %>
-                    <td class="<%=registros.get(i).isValido()%>"><%=sdf.format(registros.get(i).getDataRegistro())%></td>
-                    <td class="<%=registros.get(i).isValido()%>"><%=sdf1.format(registros.get(i).getHorarioRegistro())%></td>
-                    <%
-                        if (registros.get(i).isValido()) {
-                    %>
-                    <td class="<%=registros.get(i).isValido()%> ultimo"><%=registros.get(i).getTextoRegistro()%></td>
-                    <%
-                    } else {
-                    %>
-                    <td class="<%=registros.get(i).isValido()%> ultimo"><%=registros.get(i).getTextoRegistro()%><br>REGISTRO INVÁLIDO</td>
-                        <%
-                            }
-                        %>
-                        <%
-                            if ((controleValorPago - valorParcela) >= 0) {
-                        %>
-                    <td class="<%=validade[j]%>"><%=(j + 1) + "ª Parcela<br>PAGO"%></td>
-                    <%
-                    } else {
-                        if (contadorModulo == 0) {
-                            contadorModulo++;
-                    %>
-                    <td class="<%=validade[j]%>"><%=(j + 1) + "ª Parcela<br>Data de vencimento da parcela - " + diaParcela + " de " + meses[controleParcela] + " de " + anoParcela + "<br>Valor - R$" + formato.format((c.getValorInicial() / c.getParcelas()) - moduloConta)%></td>
-                    <%
-                    } else {
-                    %>
-                    <td class="<%=validade[j]%>"><%=(j + 1) + "ª Parcela<br>Data de vencimento da parcela - " + diaParcela + " de " + meses[controleParcela] + " de " + anoParcela + "<br>Valor - R$" + formato.format(c.getValorInicial() / c.getParcelas())%></td>
-                    <%
-                            }
-                        }
-                    %>
-                </tr>
-                <%  } else { %>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td class="ultimo"></td>
-                    <%
-                        if ((controleValorPago - valorParcela) >= 0) {
-                    %>
-                    <td class="<%=validade[j]%>"><%=(j + 1) + "ª Parcela<br>PAGO"%></td>
-                    <%
-                    } else {
-                        if (contadorModulo == 0) {
-                            contadorModulo++;
-                    %>
-                    <td class="<%=validade[j]%>"><%=(j + 1) + "ª Parcela<br>Data de vencimento da parcela - " + diaParcela + " de " + meses[controleParcela] + " de " + anoParcela + "<br>Valor - R$" + formato.format((c.getValorInicial() / c.getParcelas()) - moduloConta)%></td>
-                    <%
-                    } else {
-                    %>
-                    <td class="<%=validade[j]%>"><%=(j + 1) + "ª Parcela<br>Data de vencimento da parcela - " + diaParcela + " de " + meses[controleParcela] + " de " + anoParcela + "<br>Valor - R$" + formato.format(c.getValorInicial() / c.getParcelas())%></td>
-                    <%
-                            }
-                        }
-                    %>
-                </tr>
-                <%}
-                        controleParcela++;
-                        if (controleParcela > 11) {
-                            controleParcela = 0;
-                            anoParcela++;
-                        }
-                        controleValorPago -= valorParcela;
-                        i--;
-                    }
-                %>
-
-
-                <%
-                } else {
-
-                    int j = 0;
-                    for (i = ordem; i >= 0; i--) {
-
-                %>
-
-                <tr>
-                    <%                                if (cu.verificarTipoUsuario(u.getIdUsuario()) == "diretor" & registros.get(i).isInvalidavel() & registros.get(i).isValido() & (registros.get(i).getTextoRegistro().contains("Pagamento de R$") | controleInvalidacao == 0) & registros.get(i).getTextoRegistro().contains(c.getServicos().get(c.getServicos().size() - 1).getTipoServico())) {
-                    %>
-                    <td class="<%=registros.get(i).isValido()%>"><a href="scripts/invalidarregistro.jsp?idRegistro=<%=registros.get(i).getIdRegistro()%>&idPessoa=<%=idPessoa%>" value="Invalidar"><i class="tooltipped material-icons left red-text" data-position="right" data-tooltip="invalidar registro">remove_circle</i></a><%=registros.get(i).getUsuario().getLogin()%></td>
-                    <%
-                        if (registros.get(i).getTextoRegistro().contains("ª parcela")) {
-                            controleInvalidacao++;
-                        }
-                    } else {
-                    %>
-                    <td class="<%=registros.get(i).isValido()%>"><%=registros.get(i).getUsuario().getLogin()%></td>
-                    <%
-                        }
-                    %>
-                    <td class="<%=registros.get(i).isValido()%>"><%=sdf.format(registros.get(i).getDataRegistro())%></td>
-                    <td class="<%=registros.get(i).isValido()%>"><%=sdf1.format(registros.get(i).getHorarioRegistro())%></td>
-                    <%
-                        if (registros.get(i).isValido()) {
-                    %>
-                    <td class="<%=registros.get(i).isValido()%> ultimo"><%=registros.get(i).getTextoRegistro()%></td>
-                    <%
-                    } else {
-                    %>
-                    <td class="<%=registros.get(i).isValido()%> ultimo"><%=registros.get(i).getTextoRegistro()%><br>REGISTRO INVÁLIDO</td>
-                        <%
-                            }
-                        %>
-                        <% if (j < c.getParcelas()) { %>
-                        <%
-                            if ((controleValorPago - valorParcela) >= 0) {
-                        %>
-                    <td class="<%=validade[j]%>"><%=(j + 1) + "ª Parcela<br>PAGO"%></td>
-                    <%
-                    } else {
-                        if (contadorModulo == 0) {
-                            contadorModulo++;
-                    %>
-                    <td class="<%=validade[j]%>"><%=(j + 1) + "ª Parcela<br>Data de vencimento da parcela - " + diaParcela + " de " + meses[controleParcela] + " de " + anoParcela + "<br>Valor - R$" + formato.format((c.getValorInicial() / c.getParcelas()) - moduloConta)%></td>
-                    <%
-                    } else {
-                    %>
-                    <td class="<%=validade[j]%>"><%=(j + 1) + "ª Parcela<br>Data de vencimento da parcela - " + diaParcela + " de " + meses[controleParcela] + " de " + anoParcela + "<br>Valor - R$" + formato.format(c.getValorInicial() / c.getParcelas())%></td>
-                    <%
-                            }
-                        }
-                    %>
-                    <% } else {%>
-                    <td></td>
-                    <% } %>
-                </tr>
-
-                <%
-                            controleParcela++;
-                            if (controleParcela > 11) {
-                                controleParcela = 0;
-                                anoParcela++;
-                            }
-                            controleValorPago -= valorParcela;
-                            j++;
-                        }
-                    }
-
-                %>
-            </table>
-                        </div>
+                            %>
+                        </table>
                     </div>
+                </div>
             </div>
-            
+
+            <div id="modalInvalidar"></div>
+
         </main>
 
         <footer>
@@ -442,9 +444,22 @@
     </body>
 
     <script>
+        function inicializarModals() {
+            $('.modal').modal({});
+        }
+
+        $(document).ready(inicializarModals());
+
         function validarValorPagamento() {
             var valorPago = document.getElementById("valorPago").value;
             document.getElementById("botaopagamento").href += valorPago;
+        }
+
+        function confirmarAcao(idRegistro, idPessoa) {
+            var modal = "<div id='modal1' class='modal'><div class='modal-content'><h5>Invalidar registro</h5><h6>Deseja realmente invalidar o registro?</h6></div><div class='modal-footer'><a href='#!' class='modal-close waves-effect btn-flat' style='color: red;'>Cancelar</a><a href='scripts/invalidarregistro.jsp?idRegistro="+idRegistro+"&idPessoa="+idPessoa+"' class='modal-close waves-effect btn-flat' style='color: green;'>Invalidar</a></div></div>";
+            document.getElementById("modalInvalidar").innerHTML = modal;
+            $('.modal').modal({});
+            $('#modal1').modal('open');
         }
     </script>
 
