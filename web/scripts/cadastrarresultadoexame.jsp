@@ -8,30 +8,30 @@
 <%@page import="br.edu.ifpr.irati.jsp.modelo.Exame"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-
+    
     request.setCharacterEncoding("UTF-8");
-
+    
     String sidExame = request.getParameter("idExame");
     String resultado = request.getParameter("resultado");
     String sidAluno = request.getParameter("idAluno");
     int ida = Integer.parseInt(sidAluno);
     
-    
     ControleExame ce = new ControleExame();
     ControleAluno ca = new ControleAluno();
     Aluno aluno = ca.buscarAlunosPorId(ida);
-    
-   
     
     int idExame = Integer.parseInt(sidExame);
     Exame exame = ce.buscarExamesPorId(idExame);
     
     ControleResultadoExame cre = new ControleResultadoExame();
-   
-    ResultadoExame re = new ResultadoExame(0, aluno, exame, resultado);
     
+    ResultadoExame re = new ResultadoExame(0, aluno, exame, resultado);
+    if (resultado.equals("Aprovado")) {
+        aluno.getExamesAprovado().add(re);
+    }
+    ca.alterarAluno(aluno);
     cre.inserirResultadoExame(re);
     
     response.sendRedirect("../exame.jsp");
-
+    
 %>

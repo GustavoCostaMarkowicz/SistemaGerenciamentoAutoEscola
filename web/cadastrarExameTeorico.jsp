@@ -1,4 +1,6 @@
 
+<%@page import="br.edu.ifpr.irati.jsp.modelo.Aluno"%>
+<%@page import="br.edu.ifpr.irati.jsp.controle.ControleAluno"%>
 <%@page import="java.util.Date"%>
 <%@page import="br.edu.ifpr.irati.jsp.controle.ControleExameMedico"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -12,6 +14,13 @@
         <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="  crossorigin="anonymous"></script>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.min.js">
     </head>
+    
+   <%
+      int idAluno = Integer.parseInt(request.getParameter("idAluno"));
+        ControleAluno ca = new ControleAluno();
+        Aluno a = ca.buscarAlunosPorId(idAluno);
+                
+                %>
     <style>
 
         body {
@@ -97,28 +106,17 @@
 
         <main>
             <form  action="scripts/cadastrarexameteorico.jsp" method="post" >
-
+                <input type="hidden" name="id" value="<%=idAluno%>"/>
                 <div id="titulo">
                     <h6 align="center"> Exame Teórico </h6>
                 </div>
 
-                <div class="row">
-                    <div class="input-field col s6">
-                        <p> Matrícula do 1º Aluno: <input type="number" name="id1" value="" size="60"></p>
-                    </div>
-                    <div class="input-field col s6">
-                        <p> Matrícula do 2º Aluno: <input type="number" name="id2" value="" size="60"></p>
-                    </div>
-                    <div class="input-field col s6">
-                        <p> Matrícula do 3º Aluno: <input type="number" name="id3" value="" size="60"></p>
-                    </div>
-                    <div class="input-field col s6">
-                        <p> Matrícula do 4º Aluno: <input type="number" name="id4" value="" size="60"></p>
-                    </div>
-                    <div class="input-field col s6">
-                        <p> Matrícula do 5º Aluno: <input type="number" name="id5" value="" size="60"></p>
-                    </div>
-                </div>
+                                <div class="input-field col s6">
+                                    <i class="material-icons prefix">aspect_ratio</i>
+                                    <input disabled="true" value="<%=a.getNomeCompleto() %>" placeholder="" id="aluno" name="aluno" type="text" class="validate">
+                                    <label for="aluno">Aluno</label>
+                                    
+                                </div>
                 <div class="row">
                     <div class="input-field col s4">
                         <p> Data Exame: <input type="text" name="dataexame" value="" maxlength="10" onkeydown="javascript: fMasc(this, mData);" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))

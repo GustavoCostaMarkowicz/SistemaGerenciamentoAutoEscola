@@ -34,13 +34,9 @@
             String shorarioExame = request.getParameter("horarioexame");
             String clinica = request.getParameter("clinica");
             String medico = request.getParameter("medico");
-            String sreteste = request.getParameter("reteste");
+        
 
-            boolean reteste = false;
-
-            if (sreteste.equals("Sim")) {
-                reteste = true;
-            }
+            
 
             int id = Integer.parseInt(sid);
             Date dataExame = sdf.parse(sdataExame);
@@ -48,15 +44,31 @@
 
             ControleAluno ca = new ControleAluno();
             Aluno a = ca.buscarAlunosPorId(id);
+            
+            
+            
             List<Aluno> alunos = new ArrayList();
             alunos.add(a);
 
-            ExameMedico em = new ExameMedico(medico, clinica, 0, dataExame, horarioExame, 1, reteste, alunos);
+            
             
             ControleExameMedico cem = new ControleExameMedico();
+            
+            List<ExameMedico> emTeste = new ArrayList<>();
+            emTeste = cem.buscarTodosExameMedicos();
+            boolean reteste = true;
+            
+            if(emTeste.isEmpty()){
+                
+                reteste = false;
+                
+            }
+            
+            ExameMedico em = new ExameMedico(medico, clinica, 0, dataExame, horarioExame, 1, reteste, alunos);
+            
             cem.inserirExameMedico(em);
 
-            response.sendRedirect("../relacaoExameMedico.jsp");
+            response.sendRedirect("../exame.jsp");
 
 
         %>

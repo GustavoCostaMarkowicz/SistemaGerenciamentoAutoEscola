@@ -4,6 +4,8 @@
     Author     : Usuario
 --%>
 
+<%@page import="br.edu.ifpr.irati.jsp.modelo.Aluno"%>
+<%@page import="br.edu.ifpr.irati.jsp.controle.ControleAluno"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="br.edu.ifpr.irati.jsp.controle.ControleExameMedico"%>
@@ -18,8 +20,10 @@
         <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="  crossorigin="anonymous"></script>
     </head>
     <%
-        String data1 = request.getParameter("dataExame");
-
+       
+        int idAluno = Integer.parseInt(request.getParameter("idAluno"));
+        ControleAluno ca = new ControleAluno();
+        Aluno a = ca.buscarAlunosPorId(idAluno);
 
     %>
     <style>
@@ -107,7 +111,7 @@
 
         <main>
             <form  action="scripts/examemedico.jsp" method="post" >
-                <input type="hidden" name="dataexame" value="<%=data1%>"/>
+                <input type="hidden" name="id" value="<%=idAluno%>"/>
                 <div class="col s14 m12">
                     <div class="card">
                         <div class="card-content">
@@ -123,9 +127,9 @@
                             <div class="center row">
                                 <div class="input-field col s6">
                                     <i class="material-icons prefix">aspect_ratio</i>
-                                    <input placeholder="" id="id" name="id" type="number" class="validate" maxlength="8" required>
-                                    <label for="id">Matrícula</label>
-                                    <span class="helper-text" data-error="Campo obrigatório!" data-success="Ok!"></span>
+                                    <input disabled="true" value="<%=a.getNomeCompleto() %>" placeholder="" id="aluno" name="aluno" type="text" class="validate">
+                                    <label for="aluno">Aluno</label>
+                                    
                                 </div>
                                 <div class="input-field col s3">
                                     <i class="material-icons prefix">looks_3</i>
@@ -134,6 +138,13 @@
                                             else
                                                 return false;">
                                     <label for="horarioexame">Horário do Exame</label>
+                                    <span class="helper-text" data-error="Campo obrigatório!" data-success="Ok!"></span>
+                                </div>
+                                
+                                <div class="input-field col s3">
+                                    <i class="material-icons prefix">looks_3</i>
+                                    <input type="text" id="dataexame" name="dataexame" data-target="modal1" class="modal-trigger" placeholder=""/>
+                                    <label for="dataexame">Data do Exame</label>
                                     <span class="helper-text" data-error="Campo obrigatório!" data-success="Ok!"></span>
                                 </div>
                             </div>
@@ -413,7 +424,6 @@
 
                                             $(document).ready(inicializarSelects());
 
-                                            $(document).ready(inicializarDicas());
 
                                             $(document).ready(inicializarModals());
 
@@ -445,7 +455,7 @@
                                             }
 
                                             function preencherDataCalendario() {
-                                                document.getElementById("datanascimento").value = document.getElementById("diaSelecionadoInput").value;
+                                                document.getElementById("dataexame").value = document.getElementById("diaSelecionadoInput").value;
                                             }
 
                                             function alterarMes(tipoAlteracao, mes, ano) {
@@ -470,7 +480,6 @@
                                                     if (this.readyState === 4 && this.status === 200) {
                                                         document.getElementById("modalCalendario").innerHTML = this.responseText;
                                                         inicializarSelects();
-                                                        inicializarDicas();
                                                         inicializarModals();
                                                         $('#modal1').modal('open');
                                                     }

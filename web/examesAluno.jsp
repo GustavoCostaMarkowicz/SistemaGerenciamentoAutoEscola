@@ -275,7 +275,7 @@
                             
                             %>
                         <div align="center">
-                            <label>O Aluno não possui cadastrado nenhum Exame Teórico</label>
+                            <label id="noResultMessage" name="noResultMessage">O Aluno não possui cadastrado nenhum Exame Psicotécnico</label>
                         </div>
                 <%
                             
@@ -341,8 +341,8 @@
                         } else {
                             
                             %>
-                        <div align="center">
-                            <label>O Aluno não possui cadastrado nenhum Exame Prático</label>
+                       <div align="center">
+                            <label id="noResultMessage" name="noResultMessage">O Aluno não possui cadastrado nenhum Exame Psicotécnico</label>
                         </div>
                 <%
                             

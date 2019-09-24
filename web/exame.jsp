@@ -175,10 +175,10 @@
 
         <main>
             <div class="row">
-                <a href="relacaoExameMedico.jsp" class="amber waves-effect waves-light btn col s3" value="ExMed" style="color: black;">Exame Médico</a>
-                <a href="relacaoExamePsicotecnico.jsp" class="amber waves-effect waves-light btn col s3" value="ExPsi" style="color: black;">Exame Psicotécnico</a>
-                <a href="relacaoExameTeorico.jsp" class="amber waves-effect waves-light btn col s3" value="ExTeo" style="color: black;">Exame Teórico</a>
-                <a href="relacaoExamePratico.jsp" class="amber waves-effect waves-light btn col s3" value="ExPra" style="color: black;">Exame Prático</a>
+                <a href="pesquisaAlunoParaExame.jsp?tipoExame=1" class="amber waves-effect waves-light btn col s3" value="ExMed" style="color: black;">Exame Médico</a>
+                <a href="pesquisaAlunoParaExame.jsp?tipoExame=2" class="amber waves-effect waves-light btn col s3" value="ExPsi" style="color: black;">Exame Psicotécnico</a>
+                <a href="pesquisaAlunoParaExame.jsp?tipoExame=3" class="amber waves-effect waves-light btn col s3" value="ExTeo" style="color: black;">Exame Teórico</a>
+                <a href="pesquisaAlunoParaExame.jsp?tipoExame=4" class="amber waves-effect waves-light btn col s3" value="ExPra" style="color: black;">Exame Prático</a>
             </div>
             <%if(p == 1){%>
             <div class="row">
