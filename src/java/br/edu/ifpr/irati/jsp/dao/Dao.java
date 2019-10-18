@@ -1,6 +1,7 @@
 package br.edu.ifpr.irati.jsp.dao;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.criteria.Order;
 
@@ -22,6 +23,7 @@ public interface Dao<T> {
     public T buscarResultadoExamesPorAlunoExame(int idPessoa, int idExame);
 
     public List<T> buscarExamesPorAluno(int idPessoa);
+   
     
     
     

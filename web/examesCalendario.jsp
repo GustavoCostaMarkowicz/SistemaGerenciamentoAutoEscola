@@ -41,6 +41,12 @@
         div#titulo h6 {
             font-weight: bold;
         }
+        
+        a#btnMed{
+            
+            border-radius: 100px;
+            
+        }
 
     </style>
 
@@ -55,7 +61,7 @@
             
             ControleExameMedico cem = new ControleExameMedico();
             List<ExameMedico> tems = cem.buscarTodosExameMedicos();
-            List<ExameMedico> ems = new ArrayList<>();
+            List<ExameMedico> ems = new ArrayList();
             if(p == 0 | p == 1){
             for (ExameMedico e : tems) {
                 if (e.getDataExame().getDate() == Integer.parseInt(dia) & e.getDataExame().getMonth() == Imes & e.getDataExame().getYear() == new Date().getYear()) {
@@ -65,7 +71,7 @@
             }
             ControleExamePsicotecnico cept = new ControleExamePsicotecnico();
             List<ExamePsicotecnico> tepts = cept.buscarTodosExamePsicotecnicos();
-            List<ExamePsicotecnico> epts = new ArrayList<>();
+            List<ExamePsicotecnico> epts = new ArrayList();
             if(p == 0 | p == 3){
             for (ExamePsicotecnico e : tepts) {
                 if (e.getDataExame().getDate() == Integer.parseInt(dia) & e.getDataExame().getMonth() == Imes & e.getDataExame().getYear() == new Date().getYear()) {
@@ -75,7 +81,7 @@
             }
             ControleExamePratico cep = new ControleExamePratico();
             List<ExamePratico> teps = cep.buscarTodosExamePraticos();
-            List<ExamePratico> eps = new ArrayList<>();
+            List<ExamePratico> eps = new ArrayList();
             if(p == 0 | p == 2){
             for (ExamePratico e : teps) {
                 if (e.getDataExame().getDate() == Integer.parseInt(dia) & e.getDataExame().getMonth() == Imes & e.getDataExame().getYear() == new Date().getYear()) {
@@ -85,7 +91,7 @@
             }
             ControleExameTeorico cet = new ControleExameTeorico();
             List<ExameTeorico> tets = cet.buscarTodosExameTeoricos();
-            List<ExameTeorico> ets = new ArrayList<>();
+            List<ExameTeorico> ets = new ArrayList();
             if(p == 0 | p == 4){
             for (ExameTeorico e : tets) {
                 if (e.getDataExame().getDate() == Integer.parseInt(dia) & e.getDataExame().getMonth() == Imes & e.getDataExame().getYear() == new Date().getYear()) {
@@ -137,7 +143,7 @@
             <div class="card" align="center">
                 <div class="card-content">
                     <div id="titulo" class="amber">
-                        <h5 align="center">Exames marcados dia <%=dia%> de <%=mes%></h5>
+                        <h5 align="center">Relatórios de Exame do dia <%=dia%> de <%=mes%></h5>
                     </div>
                     <%
                         if (!ems.isEmpty()) {
@@ -145,39 +151,12 @@
                     <div id="titulo">
                         <h6 align="center">Exames Médicos</h6>
                     </div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Horário</th>
-                                <th>Alunos</th>
-                                <th>Reteste</th>
-                                <th>Clínica</th>
-                                <th>Médico</th>
-                                <th></th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <%
-                                for (ExameMedico em : ems) {
-                            %>
+                    <%
+                        int ano = ems.get(0).getDataExame().getYear() + 1900;
 
-                            <tr>
-                                <td><%=em.getHorarioExame()%></td>
-                                <td><%=em.getMaximoAlunos()%></td>
-                                <td><%=em.isReteste()%></td>
-                                <td><%=em.getClinica()%></td>
-                                <td><%=em.getMedico()%></td>
-                                <td><a href="" value="Alterar" class="tooltipped activator btn-floating waves-effect waves-light blue" data-position="left" data-tooltip="alterar dados do exame"><i class="material-icons">find_replace</i></button></td>
-                                <td><a href="" value="Excluir" class="tooltipped btn-floating waves-effect waves-light black" data-position="left" data-tooltip="excluir exame"><i class="material-icons">delete_sweep</i></button></td>
-                            </tr>                           
-
-
-                            <%
-                                }
-                            %>
-                        </tbody>
-                    </table>
+                    %>
+                    <a href="scripts/gerarRelatorioExameMedico.jsp?data=<%=dia%>/<%=(Imes+1)%>/<%=ano%>" class="waves-effect waves-light btn-large" id="btnMed"><i class="material-icons left">content_paste</i>Gerar Relatório de Exames Médicos</a>
+                    
                     <%
                         }
                     %>

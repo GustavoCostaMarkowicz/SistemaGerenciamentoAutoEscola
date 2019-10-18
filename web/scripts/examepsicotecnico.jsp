@@ -57,7 +57,7 @@
             cep.inserirExamePsicotecnico(ep);
             
 
-            response.sendRedirect("../relacaoExamePsicotecnico.jsp");
+            response.sendRedirect("../exame.jsp");
 
 
         %>

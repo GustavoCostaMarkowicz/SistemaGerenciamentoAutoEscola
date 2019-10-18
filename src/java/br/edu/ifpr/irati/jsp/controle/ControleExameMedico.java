@@ -5,7 +5,9 @@ import br.edu.ifpr.irati.jsp.dao.Dao;
 import br.edu.ifpr.irati.jsp.dao.GenericDAO;
 import br.edu.ifpr.irati.jsp.modelo.Aluno;
 import br.edu.ifpr.irati.jsp.modelo.ExameMedico;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ControleExameMedico {
@@ -71,6 +73,33 @@ public class ControleExameMedico {
         }
         
         return ems;
+        
+    }
+    
+    public List<ExameMedico> buscarExamePorData(Date dataExame){
+            
+            SimpleDateFormat sdf = new SimpleDateFormat();
+            
+            ControleExameMedico cem = new ControleExameMedico();
+            List<ExameMedico> tems = cem.buscarTodosExameMedicos();
+            List<ExameMedico> ems = new ArrayList();
+            System.out.println("AAAAAAAAAAAAAAAA" + dataExame);
+            System.out.println("DIA: " + dataExame.getDate());
+            System.out.println("MÊS: " + dataExame.getMonth());
+            int ano = dataExame.getYear();
+            System.out.println("ANO: " + ano);
+            
+            
+            for (ExameMedico e : tems) {
+                System.out.println("DIA EX: " + e.getDataExame().getDate());
+                System.out.println("MÊS EX: " + e.getDataExame().getMonth());
+                System.out.println("ANO EX: " + e.getDataExame().getYear());
+            
+                if (e.getDataExame().getDate() == dataExame.getDate() & e.getDataExame().getMonth() == dataExame.getMonth() & e.getDataExame().getYear() == ano) {
+                    ems.add(e);
+                }
+            }
+            return ems;
         
     }
     
