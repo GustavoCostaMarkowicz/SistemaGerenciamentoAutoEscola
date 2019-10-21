@@ -242,11 +242,16 @@
                         <div class="center input-field col s12">
                             <a href="examesAluno.jsp?idPessoa=<%=a.getIdPessoa()%>" class="amber waves-effect waves-light btn" type="submit" style="color: black;">EXAMES DO ALUNO</a>
                         </div>
+                        <div class="center input-field col s12">
+                         <a href="scripts/gerarRelatorioMatricula.jsp?idPessoa=<%=a.getIdPessoa()%>" class="amber waves-effect waves-light btn" type="submit" style="color: black;">GERAR RELATÓRIO DE MATRÍCULA</a>                   
+                        </div>
+                        <!-- -->
                     </div>
                 </div>
 
             </div>
         </div>
+        
         <footer>
             <jsp:include page="rodape.jsp" flush="true" />
         </footer>

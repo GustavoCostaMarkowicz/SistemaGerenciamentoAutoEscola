@@ -422,7 +422,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.quicksearch/2.3.1/jquery.quicksearch.js"></script>
         
         <script>
-            $('input#consulta').quicksearch('table#tabelaExames tbody tr', {noResults: "#noResultMessage"});
+            
         </script>
         
     </body>

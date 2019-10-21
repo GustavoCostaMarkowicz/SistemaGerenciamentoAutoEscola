@@ -60,14 +60,15 @@
                                             <div class="center col s1">
                                             </div>
                                             <div class="center input-field col s8">
-                                                <input id="consultaN" name="consultaN" maxlength="1" type="text" onkeyup="atualizarTabela(1, <%=tipoExame%>);"/>
+                                                <input type="hidden" id="TP" value="<%=tipoExame%>"/>
+                                                <input id="consultaN" name="consultaN" type="text"/>
                                                 <label for="consultaN"><i class="material-icons">search</i>Pesquisar aluno </label>
-                                                <input id="consultaM" name="consultaM" type="hidden" onkeyup="atualizarTabela(2, <%=tipoExame%>);" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
+                                                <input id="consultaM" name="consultaM" type="hidden" onkeyup="atualizarTabela(<%=tipoExame%>);" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
                                                             return true;
                                                         else
                                                             return false;"/>
                                                 <label for="consultaNp"><i class="material-icons">search</i>Pesquisar aluno </label>
-                                                <input id="consultaC" name="consultaC" onkeyup="atualizarTabela(3, <%=tipoExame%>);" type="hidden" maxlength="14" onkeydown="javascript: fMasc(this, mCPF);" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
+                                                <input id="consultaC" name="consultaC" onkeyup="atualizarTabela(<%=tipoExame%>);" type="hidden" maxlength="14" onkeydown="javascript: fMasc(this, mCPF);" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
                                                             return true;
                                                         else
                                                             return false;"/>
@@ -116,13 +117,12 @@
 
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.quicksearch/2.3.1/jquery.quicksearch.js"></script>
         <script>
-                
-                                                            
-                                                            
 
-                                                             document.addEventListener('DOMContentLoaded', function () {
+
+
+
+                                                            document.addEventListener('DOMContentLoaded', function () {
                                                                 var elems = document.querySelectorAll('.tooltipped');
                                                                 var instances = M.Tooltip.init(elems, options);
                                                             });
@@ -133,7 +133,7 @@
                                                                 $('.tooltipped').tooltip();
                                                             });
 
-                                                            
+
 
                                                             function controleCB(checkbox) {
 
@@ -192,49 +192,45 @@
                                                                 return cpf;
                                                             }
 
-                                                            var contadorTab = 0;
+                                                            function atualizarTabela(tipoExame) {
 
-                                                            function atualizarTabela(tipoCampo, tipoExame) {
 
-                                                                if (contadorTab !== 0) {
-                                                                    if (tipoCampo === 1) {
-                                                                        if (document.getElementById("consultaN").value === "") {
-                                                                            document.getElementById("tabelaAtualizar").innerHTML = "";
-                                                                            contadorTab = 0;
-                                                                        }
-                                                                    }
-                                                                    if (tipoCampo === 2) {
-                                                                        if (document.getElementById("consultaM").value === "") {
-                                                                            document.getElementById("tabelaAtualizar").innerHTML = "";
-                                                                            contadorTab = 0;
-                                                                        }
-                                                                    }
-                                                                    if (tipoCampo === 3) {
-                                                                        if (document.getElementById("consultaC").value === "") {
-                                                                            document.getElementById("tabelaAtualizar").innerHTML = "";
-                                                                            contadorTab = 0;
-                                                                        }
-                                                                    }
-                                                                } else {
-                                                         
-                                                                    contadorTab++;
+                                                            }
+
+                                                            var textInput = document.getElementById('consultaN');
+
+                                                            var timeout = null;
+
+                                                            textInput.onkeyup = function (e) {
+                                                                
+                                                                // Clear the timeout if it has already been set.
+                                                                // This will prevent the previous task from executing
+                                                                // if it has been less than <MILLISECONDS>
+                                                                clearTimeout(timeout);
+
+                                                                // Make a new timeout set to go off in 800ms
+                                                                timeout = setTimeout(function () {
+                                                                    
+                                                                    if(document.getElementById("consultaN") === null){
+                                                                        document.getElementById("tabelaAtualizar").innerHTML = "<div></div>";
+                                                                    } else {
+                                                                    
+                                                                    var tipoExame = document.getElementById("TP").value;
+                                                                   
                                                                     var letra = document.getElementById("consultaN").value;
                                                                     var xhttp;
                                                                     xhttp = new XMLHttpRequest();
                                                                     xhttp.onreadystatechange = function () {
                                                                         if (this.readyState === 4 && this.status === 200) {
                                                                             document.getElementById("tabelaAtualizar").innerHTML = this.responseText;
-                                                                            $('input#consultaM').quicksearch('table#tabelaAlunos tbody tr', {'selector': 'td#matricula', noResults: "#noResultMessage"});
-                                                                            $('input#consultaN').quicksearch('table#tabelaAlunos tbody tr', {'selector': 'td#nome', noResults: "#noResultMessage"});
-                                                                            $('input#consultaC').quicksearch('table#tabelaAlunos tbody tr', {'selector': 'td#cpf', noResults: "#noResultMessage"});
-                                                                            document.getElementById("consultaN").setAttribute('maxlength','10');
-
                                                                         }
                                                                     };
                                                                     xhttp.open("GET", "ajax/atualizartabelapesquisaalunoexame.jsp?tipoExame=" + tipoExame + "&letra=" + letra, true);
                                                                     xhttp.send();
                                                                 }
-                                                            }
+                                                                }, 900);
+                                                            };
+
 
 
 

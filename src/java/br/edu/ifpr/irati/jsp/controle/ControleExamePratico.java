@@ -6,6 +6,7 @@ import br.edu.ifpr.irati.jsp.dao.GenericDAO;
 import br.edu.ifpr.irati.jsp.exception.dataIncorretaException;
 import br.edu.ifpr.irati.jsp.modelo.Aluno;
 import br.edu.ifpr.irati.jsp.modelo.ExamePratico;
+import br.edu.ifpr.irati.jsp.modelo.Instrutor;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -112,6 +113,44 @@ public class ControleExamePratico {
         return eps;
         
     }
+     
+     public List<ExamePratico> buscarExamePraticoPorInstrutorEData(int idInstrutor, String dataEscolhida){
+         
+         ControleExamePratico cep = new ControleExamePratico();
+         List<ExamePratico> eps = cep.buscarTodosExamePraticos();
+         List<ExamePratico> listaExameData = new ArrayList<>();
+         List<ExamePratico> listaExameInstrutorData = new ArrayList<>();
+         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        
+         
+         for(ExamePratico ep : eps){
+            
+             String datas = sdf.format(ep.getDataExame()); 
+             if(datas.equals(dataEscolhida)){
+                 listaExameData.add(ep);
+             }
+             
+         }
+         
+         
+         if(listaExameData.size() != 0){
+         for(ExamePratico ep : listaExameData){
+             if (ep.getInstrutor().getIdPessoa() == idInstrutor) {
+                 listaExameInstrutorData.add(ep);
+             }
+         }
+         } else {
+             return null;
+         }
+         
+         if (listaExameInstrutorData.size() != 0) {
+  
+         return listaExameInstrutorData;
+         
+         } else {
+             return null;
+         }
+     }
     
 }
 

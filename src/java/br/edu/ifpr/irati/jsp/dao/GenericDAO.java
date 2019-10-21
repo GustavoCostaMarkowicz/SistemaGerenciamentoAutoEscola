@@ -3,6 +3,7 @@ package br.edu.ifpr.irati.jsp.dao;
 
 import gerais.HibernateUtil;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -110,6 +111,7 @@ public class GenericDAO<T> implements Dao<T> {
    
         return results;
     }
+
     
     
     

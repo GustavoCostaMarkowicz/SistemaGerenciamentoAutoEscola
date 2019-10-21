@@ -148,7 +148,7 @@
                                 </div>
                                 <div class="input-field col s3">
                                     <i class="material-icons prefix">looks_3</i>
-                                    <input id="dataexame" type="text" data-target="modal1" class="modal-trigger" placeholder=""/>
+                                    <input id="dataexame" type="text" name="dataexame" data-target="modal1" class="modal-trigger" placeholder=""/>
                                     <label for="dataexame">Data do Exame</label>
                                     <span class="helper-text" data-error="Campo obrigatório!" data-success="Ok!"></span>
                                 </div>
