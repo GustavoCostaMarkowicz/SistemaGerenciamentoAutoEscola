@@ -1,5 +1,6 @@
 package br.edu.ifpr.irati.jsp.modelo;
 
+import java.util.Date;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,9 @@ public class Conta implements Serializable {
 
     @Column(name = "parcelas", nullable = false)
     private int parcelas;
+    
+    @Column(name = "mesprimeiraparcela", nullable = false)
+    private int mesPrimeiraParcela;
 
     @Column(name = "anotacoes", nullable = true, length = 65000)
     private String anotacoes;
@@ -39,26 +43,29 @@ public class Conta implements Serializable {
         valorInicial = 0.0;
         valorPago = 0.0;
         parcelas = 0;
+        mesPrimeiraParcela = new Date().getMonth();
         aluno = new Aluno();
         registros = new ArrayList<>();
         servicos = new ArrayList<>();
         anotacoes = "";
     }
 
-    public Conta(double valorInicial, double valorPago, int parcelas, Aluno aluno, List<Servico> servicos, String anotacoes) {
+    public Conta(double valorInicial, double valorPago, int parcelas, int mesPrimeiraParcela, Aluno aluno, List<Servico> servicos, String anotacoes) {
         this.valorInicial = valorInicial;
         this.valorPago = valorPago;
         this.parcelas = parcelas;
+        this.mesPrimeiraParcela = mesPrimeiraParcela;
         this.aluno = aluno;
         registros = new ArrayList<>();
         this.servicos = servicos;
         this.anotacoes = anotacoes;
     }
 
-    public Conta(double valorInicial, double valorPago, int parcelas, Aluno aluno, List<Registro> registros, List<Servico> servicos, String anotacoes) {
+    public Conta(double valorInicial, double valorPago, int parcelas, int mesPrimeiraParcela, Aluno aluno, List<Registro> registros, List<Servico> servicos, String anotacoes) {
         this.valorInicial = valorInicial;
         this.valorPago = valorPago;
         this.parcelas = parcelas;
+        this.mesPrimeiraParcela = mesPrimeiraParcela;
         this.aluno = aluno;
         this.registros = registros;
         this.servicos = servicos;
@@ -129,6 +136,14 @@ public class Conta implements Serializable {
 
     public void setValorInicial(double valorinicial) {
         this.valorInicial = valorinicial;
+    }
+
+    public int getMesPrimeiraParcela() {
+        return mesPrimeiraParcela;
+    }
+
+    public void setMesPrimeiraParcela(int mesPrimeiraParcela) {
+        this.mesPrimeiraParcela = mesPrimeiraParcela;
     }
 
 }

@@ -34,17 +34,34 @@
             flex: 1 0 auto;
         }
 
+        div#titulo {
+            background-color: lightgray;
+            padding: 3px;
+        }
+
+        div#titulo h5 {
+            font-weight: bold;
+        }
+
+        div#titulo h6 {
+            font-weight: bold;
+        }
+
+        .input-field .prefix.active {
+            color: blue;
+        }
+
     </style>
-            <%
-            session = request.getSession();
-            Usuario u = (Usuario) session.getAttribute("usuario");
-            boolean logado = false;
-            if(u != null){
-                logado = true;
-            }
-            
-            String idPessoa = request.getParameter("idPessoa");
-            %>
+    <%
+        session = request.getSession();
+        Usuario u = (Usuario) session.getAttribute("usuario");
+        boolean logado = false;
+        if (u != null) {
+            logado = true;
+        }
+
+        String idPessoa = request.getParameter("idPessoa");
+    %>
     <body>
 
         <header>
@@ -52,58 +69,159 @@
         </header>
 
         <main>
-           
-            
-            
-            <form  action="scripts/vincularservicoconta.jsp" method="POST">
-                
-                <%
-                if(u != null){
-                    %> <input type="hidden" name="idusuario" value="<%=u.getIdUsuario()%>"/>
-               <%
-                }         
-            %>
-            
-                <input type="hidden" name="idpessoa" value="<%=idPessoa%>"/>
 
-                <label>Serviço: </label>
-                <select name="tipo" class="browser-default">
-                    <option disabled selected>Escolha o Serviço</option>
-                    <%
-                        ControleServico cs = new ControleServico();
+            <form  action="scripts/vincularservicoconta.jsp" method="POST" >
+                <div class="col s14 m12">
+                    <div class="card">
+                        <div class="card-content">
 
-                        for (Servico servicos : cs.buscarTodosServicos()) {
-                    %>
-                    <option value="<%=servicos.getTipoServico()%>"><%=servicos.getTipoServico()%></option>
-                    <%
-                        }
-                    %>
-                </select>
+                            <%
+                    if (u != null) {
+                            %> <input type="hidden" name="idusuario" value="<%=u.getIdUsuario()%>"/>
+                            <%
+                                }
+                            %>
 
-                <br>
+                            <input type="hidden" name="idpessoa" value="<%=idPessoa%>"/>
 
-                <div class="row">
-                    <div class="input-field col s4">
-                        <p> Valor Total: <input type="text" name="valorinicial" size="14"></p>
-                    </div>
-                    <div class="input-field col s4">
-                        <p> Parcelas: <input type="number" name="parcelas" size="15"> </p>
-                    </div>
-                    <div class="input-field col s4">
-                        <p> Valor de Entrada (opcional): <input type="text" name="valorentrada" size="15"> </p>
+                            <div id="titulo" class="amber">
+                                <h5 align="center">Vincular um novo serviço à conta</h5>
+                            </div>
+
+                            <div id="titulo">
+                                <h6 align="center">Dados do Serviço</h6>
+                            </div>
+
+                            <div class="row">
+                                <div>
+                                    <div class="input-field col s12">
+                                        <i class="material-icons prefix">attach_file</i>
+                                        <select id="servico" name="servico" class="validate" required onchange="mostrarOpcoesParcelas(this.value)">
+                                            <option value="" disabled selected>Serviços</option>
+                                            <%
+                                                ControleServico cs = new ControleServico();
+                                                for (Servico servicos : cs.buscarTodosServicos()) {
+                                                    if (servicos.isVisivel()) {
+                                            %>
+                                            <option value="<%=servicos.getTipoServico()%>"><%=servicos.getTipoServico()%></option>
+                                            <%
+                                                    }
+                                                }
+                                            %>
+                                        </select>
+                                        <label>Selecione o serviço a ser prestado pelo aluno</label>
+                                        <span class="helper-text" data-error="Campo obrigatório!" data-success="Ok!"></span>
+                                    </div>
+                                </div>
+                            </div>           
+                                        
+                            <div id="titulo">
+                                <h6 align="center">Dados do Pagamento</h6>
+                            </div>
+
+                            <div class="center row">
+                                <div class="input-field col s1">
+                                    <a onclick="habilitarInput()" value="" class="amber tooltipped btn-floating waves-effect waves-light" data-position="right" data-tooltip="preencher com valores personalizados"><i class="material-icons">border_color</i></a>
+                                    <a onclick="mostrarOpcoesParcelas(document.getElementById('servico').value)" value="" class="amber tooltipped btn-floating waves-effect waves-light" data-position="right" data-tooltip="utilizar valores estabelecidos no cadastro"><i class="material-icons">dehaze</i></a>
+                                </div>
+                                <div id="infopg">
+                                    <div class="input-field col s4">
+                                        <input class="validate" required placeholder="" id="valorinicial" name="valorinicial" type="text" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
+                                                    return true;
+                                                else
+                                                    return false;">
+                                        <label for="valorinicial">Valor Total</label>
+                                        <span class="helper-text" data-error="Campo obrigatório!" data-success="Ok!"></span>
+                                    </div>
+                                    <div>
+                                        <div class="input-field col s3">
+                                            <i class="material-icons prefix">local_parking</i>
+                                            <input placeholder="" id="parcelas" name="parcelas" type="text" onkeyup onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
+                                                        return true;
+                                                    else
+                                                        return false;">
+                                            <label for="parcelas">Parcelas</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="hidden" id="valorentradavista" name="valorentradavista" value="">
+                                <div class="input-field col s4">
+                                    <i class="material-icons prefix">attach_money</i>
+                                    <input placeholder="" id="valorentrada" name="valorentrada" type="text" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
+                                                return true;
+                                            else
+                                                return false;">
+                                    <label for="valorentrada">Valor de Entrada</label>
+                                </div>
+                            </div>
+
+                            <div class="center input-field col s12">
+                                <button class="blue waves-effect waves-light btn col s6" type="submit">Vincular
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="center input-field col s12">
-                    <button class="waves-effect waves-light btn" type="submit">VINCULAR
-                    </button>
-                </div>
             </form>
         </main>
 
         <footer>
             <jsp:include page="rodape.jsp" flush="true" />
         </footer>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
     </body>
+    
+    <script>
+                                        function inicializarSelects() {
+                                            $('select').formSelect();
+                                        }
+
+                                        function inicializarDicas() {
+                                            $('.tooltipped').tooltip();
+                                        }
+
+                                        $(document).ready(inicializarSelects());
+
+                                        $(document).ready(inicializarDicas());
+
+                                        function habilitarInput() {
+                                            var x = "</div><div><div class='input-field col s4'><input class='validate' required placeholder='' id='valorinicial' name='valorinicial' type='text' onkeypress='if (!isNaN(String.fromCharCode(window.event.keyCode)))return true;elsereturn false;'><label for='valorinicial'>Valor Total</label><span class='helper-text' data-error='Campo obrigatório!' data-success='Ok!'></span></div></div><div><div class='input-field col s3'><i class='material-icons prefix'>local_parking</i><input placeholder='' id='parcelas' name='parcelas' type='text' onkeypress='if (!isNaN(String.fromCharCode(window.event.keyCode)))return true;elsereturn false;'><label for='parcelas'>Parcelas</label></div></div>"
+                                            document.getElementById("infopg").innerHTML = x;
+                                            document.getElementById("valorentrada").disabled = false;
+                                            document.getElementById("valorentrada").value = "";
+                                            document.getElementById("valorentradavista").value = "";
+                                        }
+
+                                        function mostrarOpcoesParcelas(id) {
+                                            var xhttp;
+                                            xhttp = new XMLHttpRequest();
+                                            xhttp.onreadystatechange = function () {
+                                                if (this.readyState === 4 && this.status === 200) {
+                                                    document.getElementById("infopg").innerHTML = this.responseText;
+                                                    inicializarSelects();
+                                                    inicializarDicas();
+                                                    document.getElementById("valorentrada").disabled = false;
+                                                    document.getElementById("valorentrada").value = "";
+                                                    document.getElementById("valorentradavista").value = "";
+                                                }
+                                            };
+                                            xhttp.open("GET", "ajax/consultardadosservico.jsp?id=" + id, true);
+                                            xhttp.send();
+                                        }
+
+                                        function verificarTipoPagamento(tipo, valor) {
+                                            if (tipo === "1") {
+                                                document.getElementById("valorentrada").value = valor;
+                                                document.getElementById("valorentrada").disabled = true;
+                                                document.getElementById("valorentradavista").value = valor;
+                                            } else {
+                                                document.getElementById("valorentradavista").value = "";
+                                                document.getElementById("valorentrada").value = "";
+                                                document.getElementById("valorentrada").disabled = false;
+                                            }
+                                        }
+    </script>
 </html>

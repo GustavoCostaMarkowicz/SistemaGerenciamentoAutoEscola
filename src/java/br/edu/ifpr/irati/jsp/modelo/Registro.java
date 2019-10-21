@@ -29,6 +29,9 @@ public class Registro implements Serializable {
     @Column(name = "textoregistro", nullable = false, length = 150)
     private String textoRegistro;
     
+    @Column(name = "justificativa", nullable = true, length = 500)
+    private String justificativa;
+    
     @Type(type = "true_false")
     @Column(name = "valido", nullable = true)
     private boolean valido;
@@ -49,17 +52,19 @@ public class Registro implements Serializable {
         dataRegistro = new Date();
         horarioRegistro = new Date();
         textoRegistro = "";
+        justificativa = "";
         valido = true;
         invalidavel = true;
         conta = new Conta();
         usuario = new Usuario();
     }
 
-    public Registro(int idRegistro, Date dataRegistro, Date horarioRegistro, String textoRegistro, boolean valido, boolean invalidavel, Conta conta, Usuario usuario) {
+    public Registro(int idRegistro, Date dataRegistro, Date horarioRegistro, String textoRegistro, String justificativa, boolean valido, boolean invalidavel, Conta conta, Usuario usuario) {
         this.idRegistro = idRegistro;
         this.dataRegistro = dataRegistro;
         this.horarioRegistro = horarioRegistro;
         this.textoRegistro = textoRegistro;
+        this.justificativa = justificativa;
         this.valido = valido;
         this.invalidavel = invalidavel;
         this.conta = conta;
@@ -128,6 +133,14 @@ public class Registro implements Serializable {
 
     public void setInvalidavel(boolean invalidavel) {
         this.invalidavel = invalidavel;
+    }
+
+    public String getJustificativa() {
+        return justificativa;
+    }
+
+    public void setJustificativa(String justificativa) {
+        this.justificativa = justificativa;
     }
 
 }

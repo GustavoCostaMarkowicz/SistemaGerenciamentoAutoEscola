@@ -90,14 +90,14 @@
     ControleConta cc = new ControleConta();
     cc.inserirConta(c);
 
-    Registro r1 = new Registro(0, new Date(), new Date(), "Conta aberta. Serviço - " + servico + ". Valor total - R$" + valorInicial, true, false, c, u);
+    Registro r1 = new Registro(0, new Date(), new Date(), "Conta aberta. Serviço - " + servico + ". Valor total - R$" + valorInicial, "", true, false, c, u);
 
     ControleRegistro cr = new ControleRegistro();
     cr.inserirRegitro(r1);
 
     valorPago = Integer.parseInt(svalorEntrada);
     if (valorPago > 0) {
-        Registro r2 = new Registro(0, new Date(), new Date(), "Valor de entrada de R$" + valorPago + ". Serviço - " + c.getServicos().get((c.getServicos().size() - 1)).getTipoServico(), true, true, c, u);
+        Registro r2 = new Registro(0, new Date(), new Date(), "Valor de entrada de R$" + valorPago + ". Serviço - " + c.getServicos().get((c.getServicos().size() - 1)).getTipoServico(), "", true, true, c, u);
         cr.inserirRegitro(r2);
         
         double moduloConta = c.getValorPago() % (c.getValorInicial() / c.getParcelas());
@@ -110,17 +110,17 @@
         int qtdParcela = (int) ((valorPago - moduloValorPago) / (c.getValorInicial() / c.getParcelas()));
 
         for (; qtdParcela > 0; qtdParcela--) {
-            Registro r3 = new Registro(0, new Date(), new Date(), "Pagamento da " + numeroParcela + "ª parcela. Serviço - " + c.getServicos().get((c.getServicos().size() - 1)).getTipoServico(), true, false, c, u);
+            Registro r3 = new Registro(0, new Date(), new Date(), "Pagamento da " + numeroParcela + "ª parcela. Serviço - " + c.getServicos().get((c.getServicos().size() - 1)).getTipoServico(), "", true, false, c, u);
             cr.inserirRegitro(r3);
             numeroParcela++;
         }
 
         if (moduloValorPago > 0) {
-            Registro r3 = new Registro(0, new Date(), new Date(), "Pagamento de R$" + moduloValorPago + ". Serviço - " + c.getServicos().get((c.getServicos().size() - 1)).getTipoServico(), true, false, c, u);
+            Registro r3 = new Registro(0, new Date(), new Date(), "Pagamento de R$" + moduloValorPago + ". Serviço - " + c.getServicos().get((c.getServicos().size() - 1)).getTipoServico(), "", true, false, c, u);
             cr.inserirRegitro(r3);
             if (moduloConta > 0) {
                 if ((moduloConta + moduloValorPago) >= (c.getValorInicial() / c.getParcelas())) {
-                    Registro r4 = new Registro(0, new Date(), new Date(), "Pagamento da " + numeroParcela + "ª parcela. Serviço - " + c.getServicos().get((c.getServicos().size() - 1)).getTipoServico(), true, false, c, u);
+                    Registro r4 = new Registro(0, new Date(), new Date(), "Pagamento da " + numeroParcela + "ª parcela. Serviço - " + c.getServicos().get((c.getServicos().size() - 1)).getTipoServico(), "", true, false, c, u);
                     cr.inserirRegitro(r4);
                 }
             }
