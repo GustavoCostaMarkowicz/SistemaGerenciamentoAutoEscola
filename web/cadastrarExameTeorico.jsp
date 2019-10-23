@@ -4,6 +4,9 @@
     Author     : Usuario
 --%>
 
+<%@page import="br.edu.ifpr.irati.jsp.modelo.Instrutor"%>
+<%@page import="java.util.List"%>
+<%@page import="br.edu.ifpr.irati.jsp.controle.ControleInstrutor"%>
 <%@page import="br.edu.ifpr.irati.jsp.modelo.Aluno"%>
 <%@page import="br.edu.ifpr.irati.jsp.controle.ControleAluno"%>
 <%@page import="java.util.Date"%>
@@ -14,22 +17,25 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Cadastrar Aluno</title>
+        <title>Cadastrar Exame Teórico</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="  crossorigin="anonymous"></script>
     </head>
-  
-        
- <%
-       
+
+
+    <%
+
         int idAluno = Integer.parseInt(request.getParameter("idAluno"));
         ControleAluno ca = new ControleAluno();
         Aluno a = ca.buscarAlunosPorId(idAluno);
 
+        ControleInstrutor ci = new ControleInstrutor();
+        List<Instrutor> ins = ci.buscarTodosInstrutores();
+
     %>
-        
-   
+
+
     <style>
 
         body {
@@ -114,9 +120,9 @@
         </header>
 
         <main>
-            <form  action="scripts/examepsicotecnico.jsp" method="post" >
-             <input type="hidden" name="id" value="<%=idAluno%>"/>
-             
+            <form  action="scripts/cadastrarexameteorico.jsp" method="post" >
+                <input type="hidden" name="id" value="<%=idAluno%>"/>
+
                 <div class="col s14 m12">
                     <div class="card">
                         <div class="card-content">
@@ -132,9 +138,9 @@
                             <div class="center row">
                                 <div class="input-field col s6">
                                     <i class="material-icons prefix">aspect_ratio</i>
-                                    <input disabled="true" value="<%=a.getNomeCompleto() %>" placeholder="" id="aluno" name="aluno" type="text" class="validate">
+                                    <input disabled="true" value="<%=a.getNomeCompleto()%>" placeholder="" id="aluno" name="aluno" type="text" class="validate">
                                     <label for="aluno">Aluno</label>
-                                    
+
                                 </div>
 
                                 <div class="input-field col s3">
@@ -155,11 +161,27 @@
                             </div>
 
                             <div class="center row">
-                                <div class="input-field col s6">
-                                    <i class="material-icons prefix">aspect_ratio</i>
-                                    <input placeholder="" id="medico" name="psicologo" type="text" class="validate" required>
-                                    <label for="medico">Psicólogo Responsável</label>
+                                <div class="input-field col s3">
+                                    <i class="material-icons prefix">person</i>
+                                    <select id="instrutor" name="instrutor">
+                                        
+                                        <%
+                                        for(Instrutor i : ins){
+                                            
+                                            if(i.getTipoInstrucao().equals("Teórico")){
+                                        %>
+                                        
+                                        <option value="<%=i.getIdPessoa()%>"><%=i.getNomeCompleto() %></option>
+                                        
+                                        <%
+                                            }
+                                        }
+                                        %>
+
+                                    </select>
+                                    <label>Tipo do Exame Médico</label>
                                     <span class="helper-text" data-error="Campo obrigatório!" data-success="Ok!"></span>
+
                                 </div>
                                 <div class="input-field col s6">
                                     <i class="material-icons prefix">directions_car</i>

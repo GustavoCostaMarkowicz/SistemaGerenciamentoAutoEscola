@@ -16,24 +16,33 @@ public class ExameMedico extends Exame implements Serializable {
 
     @Column(name = "clinica", nullable = false, length = 50)
     private String clinica;
+    
+    @Column(name = "tipoExameMedico", nullable = false, length = 50)
+    private String tipoExameMedico;
 
     public ExameMedico() {
         medico = "";
         clinica = "";
+        tipoExameMedico = "";
     }
-    
-    public ExameMedico(String medico, String clinica, int idExame, Date dataExame, Date horarioExame, int maximoAlunos, boolean reteste, List<Aluno> alunos) {
+
+    public ExameMedico(String medico, String clinica, String tipoExameMedico) {
+        this.medico = medico;
+        this.clinica = clinica;
+        this.tipoExameMedico = tipoExameMedico;
+    }
+
+    public ExameMedico(String medico, String clinica, String tipoExameMedico, int idExame, Date dataExame, Date horarioExame, int maximoAlunos, boolean reteste, List<Aluno> alunos) {
         super(idExame, dataExame, horarioExame, maximoAlunos, reteste, alunos);
         this.medico = medico;
         this.clinica = clinica;
+        this.tipoExameMedico = tipoExameMedico;
     }
-
-    public ExameMedico(String medico, String clinica, int idExame, Date dataExame, Date horarioExame, List<ResultadoExame> resultadoExame, int maximoAlunos, boolean reteste, List<Aluno> alunos) {
-        super(idExame, dataExame, horarioExame, resultadoExame, maximoAlunos, reteste, alunos);
-        this.medico = medico;
-        this.clinica = clinica;
-    }
-
+    
+    
+    
+    
+    
     public String getMedico() {
         return medico;
     }
@@ -48,6 +57,14 @@ public class ExameMedico extends Exame implements Serializable {
 
     public void setClinica(String clinica) {
         this.clinica = clinica;
+    }
+
+    public String getTipoExameMedico() {
+        return tipoExameMedico;
+    }
+
+    public void setTipoExameMedico(String tipoExameMedico) {
+        this.tipoExameMedico = tipoExameMedico;
     }
 
 }

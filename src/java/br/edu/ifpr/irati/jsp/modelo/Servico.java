@@ -19,6 +19,9 @@ public class Servico implements Serializable {
 
     @Column(name = "valorvista", nullable = false)
     private double valorVista;
+    
+    @Column(name = "categoria", nullable = false, length = 50)
+    private String categoria;
 
     @OneToMany(mappedBy = "servico", fetch = FetchType.EAGER)
     private List<RegraParcelas> parcelas;
@@ -30,23 +33,27 @@ public class Servico implements Serializable {
     public Servico() {
         tipoServico = "";
         valorVista = 0.0;
+        categoria = "";
         parcelas = new ArrayList<>();
         visivel = true;
     }
 
-    public Servico(String tipoServico, double valorVista) {
+    public Servico(String tipoServico, double valorVista, String categoria) {
         this.tipoServico = tipoServico;
         this.valorVista = valorVista;
+        this.categoria = categoria;
         parcelas = new ArrayList<>();
         visivel = true;
     }
 
-    public Servico(String tipoServico, double valorVista, List<RegraParcelas> parcelas) {
+    public Servico(String tipoServico, double valorVista, String categoria, List<RegraParcelas> parcelas, boolean visivel) {
         this.tipoServico = tipoServico;
         this.valorVista = valorVista;
+        this.categoria = categoria;
         this.parcelas = parcelas;
-        this.visivel = true;
+        this.visivel = visivel;
     }
+
 
     public String getTipoServico() {
         return tipoServico;
@@ -78,6 +85,14 @@ public class Servico implements Serializable {
 
     public void setVisivel(boolean visivel) {
         this.visivel = visivel;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
     }
 
 }
