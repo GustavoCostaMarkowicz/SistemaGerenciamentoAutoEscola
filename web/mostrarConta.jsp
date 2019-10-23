@@ -197,8 +197,8 @@
                                     }
                                 }
 
-                                int diaParcela = registros.get(controlePosicaoRegistro).getDataRegistro().getDate();
-                                int mesPrimeiraParcela = registros.get(controlePosicaoRegistro).getDataRegistro().getMonth() + 1;
+                                int diaParcela = c.getMesPrimeiraParcela().getDate();
+                                int mesPrimeiraParcela = c.getMesPrimeiraParcela().getMonth();
                                 for (Registro r : registros) {
                                     if (r.getTextoRegistro().contains("entrada")) {
                                         if (r.isValido()) {
@@ -223,7 +223,7 @@
 
                                 int i = ordem;
 
-                                int anoParcela = registros.get(controlePosicaoRegistro).getDataRegistro().getYear() + 1900;
+                                int anoParcela = c.getMesPrimeiraParcela().getYear() + 1900;
 
                                 if (mesPrimeiraParcela > 11) {
                                     mesPrimeiraParcela = 0;

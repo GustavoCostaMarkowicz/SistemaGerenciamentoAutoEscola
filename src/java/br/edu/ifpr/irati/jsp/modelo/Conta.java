@@ -10,6 +10,8 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity(name = "conta")
 public class Conta implements Serializable {
@@ -27,8 +29,8 @@ public class Conta implements Serializable {
     @Column(name = "parcelas", nullable = false)
     private int parcelas;
     
-    @Column(name = "mesprimeiraparcela", nullable = false)
-    private int mesPrimeiraParcela;
+    @Temporal(TemporalType.DATE)
+    private Date mesPrimeiraParcela;
 
     @Column(name = "anotacoes", nullable = true, length = 65000)
     private String anotacoes;
@@ -43,14 +45,14 @@ public class Conta implements Serializable {
         valorInicial = 0.0;
         valorPago = 0.0;
         parcelas = 0;
-        mesPrimeiraParcela = new Date().getMonth();
+        mesPrimeiraParcela = new Date();
         aluno = new Aluno();
         registros = new ArrayList<>();
         servicos = new ArrayList<>();
         anotacoes = "";
     }
 
-    public Conta(double valorInicial, double valorPago, int parcelas, int mesPrimeiraParcela, Aluno aluno, List<Servico> servicos, String anotacoes) {
+    public Conta(double valorInicial, double valorPago, int parcelas, Date mesPrimeiraParcela, Aluno aluno, List<Servico> servicos, String anotacoes) {
         this.valorInicial = valorInicial;
         this.valorPago = valorPago;
         this.parcelas = parcelas;
@@ -61,7 +63,7 @@ public class Conta implements Serializable {
         this.anotacoes = anotacoes;
     }
 
-    public Conta(double valorInicial, double valorPago, int parcelas, int mesPrimeiraParcela, Aluno aluno, List<Registro> registros, List<Servico> servicos, String anotacoes) {
+    public Conta(double valorInicial, double valorPago, int parcelas, Date mesPrimeiraParcela, Aluno aluno, List<Registro> registros, List<Servico> servicos, String anotacoes) {
         this.valorInicial = valorInicial;
         this.valorPago = valorPago;
         this.parcelas = parcelas;
@@ -138,11 +140,11 @@ public class Conta implements Serializable {
         this.valorInicial = valorinicial;
     }
 
-    public int getMesPrimeiraParcela() {
+    public Date getMesPrimeiraParcela() {
         return mesPrimeiraParcela;
     }
 
-    public void setMesPrimeiraParcela(int mesPrimeiraParcela) {
+    public void setMesPrimeiraParcela(Date mesPrimeiraParcela) {
         this.mesPrimeiraParcela = mesPrimeiraParcela;
     }
 

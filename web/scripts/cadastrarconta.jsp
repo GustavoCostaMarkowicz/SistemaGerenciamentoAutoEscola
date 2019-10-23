@@ -38,6 +38,11 @@
     String anotacoes = request.getParameter("anotacoes");
     String sparcelas = "";
     String svalorInicial = "";
+    String sDataPP = request.getParameter("datapp");
+    
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    
+    Date dataPP = sdf.parse(sDataPP);
 
     ControleServico cs = new ControleServico();
     Servico s = cs.buscarServicoPorNome(servico);
@@ -85,7 +90,7 @@
 
     servicoA.add(s);
 
-    Conta c = new Conta(valorInicial, valorPago, parcelas, a, servicoA, anotacoes);
+    Conta c = new Conta(valorInicial, valorPago, parcelas, dataPP, a, servicoA, anotacoes);
 
     ControleConta cc = new ControleConta();
     cc.inserirConta(c);

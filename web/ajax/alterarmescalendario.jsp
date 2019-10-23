@@ -68,7 +68,7 @@
 
     String diaAtual = "01";
     String mesAtual;
-    if (mes < 10) {
+    if (mes < 9) {
         mesAtual = "0" + String.valueOf(mes + 1);
     } else {
         mesAtual = String.valueOf(mes + 1);
@@ -83,7 +83,7 @@
         <div class="card horizontal">
             <div id="diaSelecionado" class="card-image blue-grey darken-3">
                 <p align="center" style="color:transparent;">_</p>
-                <input type="hidden" id="diaSelecionadoInput" value="26/08/2019">
+                <input type="hidden" id="diaSelecionadoInput" value="<%=sDataAtual%>">
                 <p id="diaSelecionadoP1" align="left"><%=diaAtual%>/<%=mesAtual%>/<%=ano%></p>
                 <p id="diaSelecionadoP2" align="left"><%=diaAtual%> de <%=mesC%> de <%=ano%></p> 
             </div>
@@ -153,7 +153,7 @@
                                     //Preenche a primeira linha a partir do primeiro dia do mês até sábado
                                     for (int k = diaSControle; k <= 6; k++) {
                                 %>
-                                <td id="<%=dia%>" class="menu"><a href="#" onclick="diaFocado(<%=dia%>,<%=mes + 1%>, '<%=mesC%>',<%=new Date().getYear() + 1900%>)"><div class="dia" style="height:100%;width:100%;"><%=dia%></div></a></td> 
+                                <td id="<%=dia%>" class="menu"><a href="#" onclick="diaFocado(<%=dia%>,<%=mes + 1%>, '<%=mesC%>',<%=ano%>)"><div class="dia" style="height:100%;width:100%;"><%=dia%></div></a></td> 
                                         <%
                                                 dia++;
                                             }
@@ -164,7 +164,7 @@
                                                 //Verifica se o dia do mês em execução é o último do mês
                                                 if (dia == diaF) {
                                         %>
-                                <td id="<%=dia%>" class="menu" ><a href="#" onclick="diaFocado(<%=dia%>,<%=mes + 1%>, '<%=mesC%>',<%=new Date().getYear() + 1900%>)"><div class="dia" style="height:100%;width:100%;"><%=dia%></div></a></td> 
+                                <td id="<%=dia%>" class="menu" ><a href="#" onclick="diaFocado(<%=dia%>,<%=mes + 1%>, '<%=mesC%>',<%=ano%>)"><div class="dia" style="height:100%;width:100%;"><%=dia%></div></a></td> 
                                         <%
                                             //Testa se o último dia do mês é sábado
                                             if (k < 6) {
@@ -177,7 +177,7 @@
                                             dia++;
                                         } else {
                                 %>
-                                <td id="<%=dia%>" class="menu" ><a href="#" onclick="diaFocado(<%=dia%>,<%=mes + 1%>, '<%=mesC%>',<%=new Date().getYear() + 1900%>)"><div class="dia" style="height:100%;width:100%;"><%=dia%></div></a></td> 
+                                <td id="<%=dia%>" class="menu" ><a href="#" onclick="diaFocado(<%=dia%>,<%=mes + 1%>, '<%=mesC%>',<%=ano%>)"><div class="dia" style="height:100%;width:100%;"><%=dia%></div></a></td> 
                                         <%
                                                         dia++;
 
@@ -204,7 +204,7 @@
         </div>
     </div>
     <div class="modal-footer">
-        <a href="#!" class="modal-close waves-effect waves-green btn-flat" style="color: red;">Cancelar</a>
-        <a href="#!" onclick="preencherDataCalendario()" class="modal-close waves-effect waves-green btn-flat" style="color: green;">Confirmar</a>
+        <a href="#" class="modal-close waves-effect waves-green btn-flat" style="color: red;">Cancelar</a>
+        <a href="#" onclick="preencherDataCalendario()" class="modal-close waves-effect waves-green btn-flat" style="color: green;">Confirmar</a>
     </div>
 </div>
