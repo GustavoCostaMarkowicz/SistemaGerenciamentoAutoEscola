@@ -331,9 +331,9 @@
                             <div class="card-stacked">
                                 <div id="calendario" class="card-content">     
                                     <div id="titulo" class="amber">
-                                        <div class="cabecalhoCal" style="width: 32%;" align="left"><a onclick="alterarMes(1,<%=mes%>,<%=ano%>)" class="amber btn-floating btn-small waves-effect waves-light"><i class="material-icons" style="color: black;">chevron_left</i></a></div>
+                                        <div class="cabecalhoCal" style="width: 32%;" align="left"><a onclick="alterarMes(1,<%=mes%>,<%=ano%>,1)" class="amber btn-floating btn-small waves-effect waves-light"><i class="material-icons" style="color: black;">arrow_back</i></a></div>
                                         <h6 class="cabecalhoCal" align="center" style="width: 35%;"><%=mesC%> <%=new Date().getYear() + 1900%></h6>
-                                        <div class="cabecalhoCal" style="width: 30%;" align="right"><a onclick="alterarMes(2,<%=mes%>,<%=ano%>)" class="amber btn-floating btn-small waves-effect waves-light"><i class="material-icons" style="color: black;">chevron_right</i></a></div>
+                                        <div class="cabecalhoCal" style="width: 30%;" align="right"><a onclick="alterarMes(2,<%=mes%>,<%=ano%>,1)" class="amber btn-floating btn-small waves-effect waves-light"><i class="material-icons" style="color: black;">arrow_forward</i></a></div>
                                     </div>
                                     <table id="calendario" name="calendario" class="highlight centered">
                                         <thead>
@@ -551,7 +551,7 @@
                                 document.getElementById("datapp").value = document.getElementById("diaSelecionadoInput").value;
                             }
 
-                            function alterarMes(tipoAlteracao, mes, ano) {
+                            function alterarMes(tipoAlteracao, mes, ano, p) {
                                 if (tipoAlteracao === 1) {
                                     if (mes === 0) {
                                         mes = 11;
@@ -577,7 +577,7 @@
                                         $('#modal1').modal('open');
                                     }
                                 };
-                                xhttp.open("GET", "ajax/alterarmescalendario.jsp?mes=" + mes + "&ano=" + ano, true);
+                                xhttp.open("GET", "ajax/alterarmescalendario.jsp?mes=" + mes + "&ano=" + ano + "&p=" + p, true);
                                 xhttp.send();
                             }
     </script>

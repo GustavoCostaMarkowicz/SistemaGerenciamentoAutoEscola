@@ -164,6 +164,10 @@
         table#tabelaExames thead {
             background-color: lightgrey;
         }
+        
+        .cabecalhoCal {
+            display: inline-block;
+        }
 
     </style>
 
@@ -196,9 +200,12 @@
                     <div class="card">
                         <div class="card-content">
                             <%if (p == 1) {%>
+                            <div id="divCalendario">
                             <div id="titulo" class="amber">
                                 <h6 align="center">Consulta de Exames</h6>
-                                <h5 align="center"><%=mesC%> <%=new Date().getYear() + 1900%></h5>
+                                <div class="cabecalhoCal" style="width: 25%;" align="left"><a onclick="alterarMes(1,<%=mes%>,<%=new Date().getYear() + 1900%>,2)" class="amber btn-floating btn-medium waves-effect waves-light"><i class="material-icons" style="color: black;">arrow_back</i></a></div>
+                                <h5 class="cabecalhoCal" style="width: 50%;" align="center"><%=mesC%> <%=new Date().getYear() + 1900%></h5>
+                                <div class="cabecalhoCal" style="width: 24%;" align="right"><a onclick="alterarMes(2,<%=mes%>,<%=new Date().getYear() + 1900%>,2)" class="amber btn-floating btn-medium waves-effect waves-light"><i class="material-icons" style="color: black;">arrow_forward</i></a></div>
                             </div>
                             <table id="calendario" name="calendario" class="highlight centered">
                                 <thead>
@@ -277,7 +284,7 @@
                                                 if (qtdE > 0) {
                                                 //Caso sim: mostra um campo da tabela com a quantidade de exames naquele determinado dia
                                         %>
-                                        <td class="menu" ><a href="examesCalendario.jsp?dia=<%=dia%>&p=0"><div class="dia" style="height:100%;width:100%;"><%=dia + "<br>"%><i style="font-size: 15px; color: green;" class="material-icons">event</i><label class="dataEx"><%=div%></label></div></a></td> 
+                                        <td class="menu" ><a href="examesCalendario.jsp?dia=<%=dia%>&mes=<%=mes%>&ano=<%=new Date().getYear() + 1900%>&p=0"><div class="dia" style="height:100%;width:100%;"><%=dia + "<br>"%><i style="font-size: 15px; color: green;" class="material-icons">event</i><label class="dataEx"><%=div%></label></div></a></td> 
                                                     <%
                                                         dia++;
                                                     } else {
@@ -307,7 +314,7 @@
                                                             div = String.valueOf(qtdE) + " exames";
                                                         }
                                                         if (qtdE > 0) {
-                                            %><td class="menu" ><a href="examesCalendario.jsp?dia=<%=dia%>&p=0"><div class="dia" style="height:100%;width:100%;"><%=dia + "<br>"%><i style="font-size: 15px; color: green;" class="material-icons">event</i><label class="dataEx"><%=div%></label></div></a></td> <%
+                                            %><td class="menu" ><a href="examesCalendario.jsp?dia=<%=dia%>&mes=<%=mes%>&ano=<%=new Date().getYear() + 1900%>&p=0"><div class="dia" style="height:100%;width:100%;"><%=dia + "<br>"%><i style="font-size: 15px; color: green;" class="material-icons">event</i><label class="dataEx"><%=div%></label></div></a></td> <%
                                             } else {
                                                     %>
                                         <td class="menu" ><div class="dia" style="height:100%;width:100%;"><%=dia%></div></td> 
@@ -337,7 +344,7 @@
                                                 }
                                                 if (qtdE > 0) {
                                         %>
-                                        <td class="menu" ><a href="examesCalendario.jsp?dia=<%=dia%>&p=0"><div class="dia" style="height:100%;width:100%;"><%=dia + "<br>"%><i style="font-size: 15px; color: green;" class="material-icons">event</i><label class="dataEx"><%=div%></label></div></a></td> 
+                                        <td class="menu" ><a href="examesCalendario.jsp?dia=<%=dia%>&mes=<%=mes%>&ano=<%=new Date().getYear() + 1900%>&p=0"><div class="dia" style="height:100%;width:100%;"><%=dia + "<br>"%><i style="font-size: 15px; color: green;" class="material-icons">event</i><label class="dataEx"><%=div%></label></div></a></td> 
                                                     <%
                                                         dia++;
                                                     } else {
@@ -365,6 +372,7 @@
                                     %>
                                 </tbody>
                             </table>
+                            </div>
                             <%} else {%>
                             <div class="row">
                 <div class="col s14 m12">
@@ -422,6 +430,33 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.quicksearch/2.3.1/jquery.quicksearch.js"></script>
         
         <script>
+            
+            function alterarMes(tipoAlteracao, mes, ano, p) {
+                                if (tipoAlteracao === 1) {
+                                    if (mes === 0) {
+                                        mes = 11;
+                                        ano -= 1;
+                                    } else {
+                                        mes -= 1;
+                                    }
+                                } else {
+                                    if (mes === 11) {
+                                        mes = 0;
+                                        ano += 1;
+                                    } else {
+                                        mes += 1;
+                                    }
+                                }
+                                var xhttp;
+                                xhttp = new XMLHttpRequest();
+                                xhttp.onreadystatechange = function () {
+                                    if (this.readyState === 4 && this.status === 200) {
+                                        document.getElementById("divCalendario").innerHTML = this.responseText;
+                                    }
+                                };
+                                xhttp.open("GET", "ajax/alterarmescalendario.jsp?mes=" + mes + "&ano=" + ano + "&p=" + p, true);
+                                xhttp.send();
+                            }
             
         </script>
         
