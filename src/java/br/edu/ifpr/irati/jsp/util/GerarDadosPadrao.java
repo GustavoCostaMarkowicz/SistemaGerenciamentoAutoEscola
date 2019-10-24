@@ -71,7 +71,7 @@ public class GerarDadosPadrao {
             Atendente at = new Atendente("Atendente 1", "(42)99999-9999", null, 0, "atendente1", "atd1senha", "Irati",true);
             Diretor d = new Diretor("1111", 0, "diretor1", "dir1senha", "Irati", true);
             Veiculo ve = new Veiculo("ABC-1234", "Chevrolet", "Onix", "2015");
-            Servico se = new Servico("Primeira Carteira A", 1300.00);
+            Servico se = new Servico("Primeira Habilitação", 1100.00, "AB");
             
             controleAluno.inserirAluno(al);
             controleAluno.inserirAluno(al2);
@@ -103,7 +103,7 @@ public class GerarDadosPadrao {
             Veiculo veE = controleVeiculo.buscarVeiculosPorId("ABC-1234");
             Servico seRp = controleServico.buscarServicoPorNome("Primeira Carteira A");
             
-            ExameMedico em = new ExameMedico("Medico 1", "Clinica 1", 0, new SimpleDateFormat("dd/MM/yyyy").parse("10/10/2018"), new SimpleDateFormat("HH:mm").parse("16:00"), 1, false, alunosMe);
+            ExameMedico em = new ExameMedico("Medico 1", "Clinica 1", "Toxicológico", 0, new SimpleDateFormat("dd/MM/yyyy").parse("10/10/2018"), new SimpleDateFormat("HH:mm").parse("16:00"), 1, false, alunosMe);
             ExamePratico epr = new ExamePratico("AB", inE, veE, 0, new SimpleDateFormat("dd/MM/yyyy").parse("30/09/2018"), new SimpleDateFormat("HH:mm").parse("14:00"), 2, false, alunosPr);
             ExamePsicotecnico eps = new ExamePsicotecnico("Psicologo 2", "Clinica 2", 0, new SimpleDateFormat("dd/MM/yyyy").parse("10/14/2018"), new SimpleDateFormat("HH:mm").parse("07:00"), 1, false, alunosPs);
             ExameTeorico et = new ExameTeorico("A", "Local de aplicação 1", inE, 0, new SimpleDateFormat("dd/MM/yyyy").parse("08/10/2018"), new SimpleDateFormat("HH:mm").parse("13:00"), 2, true, alunosTe);

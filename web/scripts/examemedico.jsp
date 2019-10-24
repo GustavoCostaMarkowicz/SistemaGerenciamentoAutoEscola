@@ -34,6 +34,7 @@
             String shorarioExame = request.getParameter("horarioexame");
             String clinica = request.getParameter("clinica");
             String medico = request.getParameter("medico");
+            String tipoExameMedico = request.getParameter("tipoExameMedico");
         
 
             
@@ -64,7 +65,7 @@
                 
             }
             
-            ExameMedico em = new ExameMedico(medico, clinica, 0, dataExame, horarioExame, 1, reteste, alunos);
+            ExameMedico em = new ExameMedico(medico, clinica, tipoExameMedico, 0, dataExame, horarioExame, 1, reteste, alunos);
             
             cem.inserirExameMedico(em);
 

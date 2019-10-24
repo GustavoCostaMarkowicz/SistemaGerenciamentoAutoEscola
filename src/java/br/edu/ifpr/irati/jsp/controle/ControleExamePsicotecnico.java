@@ -6,6 +6,7 @@ import br.edu.ifpr.irati.jsp.dao.GenericDAO;
 import br.edu.ifpr.irati.jsp.modelo.Aluno;
 import br.edu.ifpr.irati.jsp.modelo.ExamePsicotecnico;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ControleExamePsicotecnico {
@@ -72,6 +73,29 @@ public class ControleExamePsicotecnico {
         }
         
         return ems;
+        
+    }
+     
+     public List<ExamePsicotecnico> buscarExamePorData(Date dataExame){
+            
+          
+            
+            ControleExamePsicotecnico cep = new ControleExamePsicotecnico();
+            List<ExamePsicotecnico> tems = cep.buscarTodosExamePsicotecnicos();
+            List<ExamePsicotecnico> ems = new ArrayList();
+           
+            int ano = dataExame.getYear();
+          
+            
+            
+            for(ExamePsicotecnico e : tems) {
+                
+            
+                if (e.getDataExame().getDate() == dataExame.getDate() & e.getDataExame().getMonth() == dataExame.getMonth() & e.getDataExame().getYear() == ano) {
+                    ems.add(e);
+                }
+            }
+            return ems;
         
     }
     

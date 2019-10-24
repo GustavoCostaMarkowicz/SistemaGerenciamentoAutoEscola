@@ -150,17 +150,29 @@
                             </div>
 
                             <div class="center row">
-                                <div class="input-field col s6">
+                                <div class="input-field col s3">
                                     <i class="material-icons prefix">aspect_ratio</i>
                                     <input placeholder="" id="medico" name="medico" type="text" class="validate" required>
                                     <label for="medico">Médico Responsável</label>
                                     <span class="helper-text" data-error="Campo obrigatório!" data-success="Ok!"></span>
                                 </div>
-                                <div class="input-field col s6">
+                                <div class="input-field col s3">
                                     <i class="material-icons prefix">directions_car</i>
                                     <input placeholder="" id="clinica" name="clinica" type="text" class="validate" maxlength="100" required>
                                     <label for="clinica">Clínica</label>
                                     <span class="helper-text" data-error="Campo obrigatório!" data-success="Ok!"></span>
+                                </div>
+                                <div class="input-field col s3">
+                                    <i class="material-icons prefix">invert_colors</i>
+                                    <select id="reteste" name="tipoExameMedico">
+
+                                        <option value="Exame De Vista">Exame de Vista</option>
+                                        <option value="Toxicológico">Exame Toxicológico</option>
+
+                                    </select>
+                                    <label>Tipo do Exame Médico</label>
+                                    <span class="helper-text" data-error="Campo obrigatório!" data-success="Ok!"></span>
+
                                 </div>
                             </div>
 

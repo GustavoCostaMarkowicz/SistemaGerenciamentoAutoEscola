@@ -18,7 +18,9 @@
     
     List<RegraParcelas> rps = new ArrayList();
     
+    ControleServico cs = new ControleServico();
     Servico s = new Servico(tipoServico, valorVista, rps);
+    cs.inserirServico(s);
     
     for(int i = 1; i <= qnt; i++){
         
@@ -34,11 +36,11 @@
     }
    
     s.setParcelas(rps);
+    cs.alterarServico(s);
     
-    ControleServico cs = new ControleServico();
     
     
-    cs.inserirServico(s);
+    
     
     response.sendRedirect("../servico.jsp");
     

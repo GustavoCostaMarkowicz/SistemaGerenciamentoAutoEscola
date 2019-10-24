@@ -78,11 +78,18 @@
 
                         <div class="row">
                             <div class="input-field col s3">
-                                <i class="material-icons prefix">business_center</i>
-                                <input placeholder="" id="tipoInstrucao" name="tipoInstrucao" type="text" class="validate" maxlength="60" required>
-                                <label for="tipoInstrucao">Tipo de instrução</label>
-                                <span class="helper-text" data-error="Campo obrigatório!" data-success="Ok!"></span>
+                                    <i class="material-icons prefix">business_center</i>
+                                    <select id="tipoInstrucao" name="tipoInstrucao">
+    
+                                        <option value="Exame De Vista">Instrutor Téorico</option>
+                                        <option value="Exame De Vista">Instrutor Prático</option>
+
+                                    </select>
+                                    <label>Tipo do Exame Médico</label>
+                                    <span class="helper-text" data-error="Campo obrigatório!" data-success="Ok!"></span>
+
                             </div>
+                            
                             <div class="input-field col s3">
                                 <i class="material-icons prefix">beenhere</i>
                                 <input placeholder="" id="situacao" name="situacao" type="text" class="validate" maxlength="60" required>
