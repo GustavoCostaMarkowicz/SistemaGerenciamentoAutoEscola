@@ -37,6 +37,11 @@
     String servico = request.getParameter("servico");
     String sparcelas = "";
     String svalorInicial = "";
+    String sDataPP = request.getParameter("datapp");
+    
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    
+    Date dataPP = sdf.parse(sDataPP);
     
     ControleServico cs = new ControleServico();
     Servico s = cs.buscarServicoPorNome(servico);
@@ -86,7 +91,8 @@
     c.setValorPago(valorPago);
     c.setParcelas(parcelas);
     c.getServicos().add(s);
-
+    c.setMesPrimeiraParcela(dataPP);
+    
     cc.alterarConta(c);
     
     ControleRegistro cr = new ControleRegistro();

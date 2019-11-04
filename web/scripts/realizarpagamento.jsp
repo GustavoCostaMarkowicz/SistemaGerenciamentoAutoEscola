@@ -75,5 +75,5 @@
         }
     }
 
-    response.sendRedirect("../mostrarConta.jsp?idPessoa=" + sIdPessoa);
+    response.sendRedirect("../mostrarConta.jsp?idPessoa=" + sIdPessoa + "&valorPago=" + valorPago);
 %>

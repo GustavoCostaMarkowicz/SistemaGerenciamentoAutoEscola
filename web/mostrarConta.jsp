@@ -36,6 +36,12 @@
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         SimpleDateFormat sdf1 = new SimpleDateFormat("HH:mm");
         int idPessoa = Integer.parseInt(request.getParameter("idPessoa"));
+        double valorPagoRecibo;
+        if (request.getParameter("valorPago") == null) {
+            valorPagoRecibo = 0.0;
+        } else {
+            valorPagoRecibo = Double.parseDouble(request.getParameter("valorPago"));
+        }
         ControleAluno ca = new ControleAluno();
         ControleConta cc = new ControleConta();
         ControleUsuario cu = new ControleUsuario();
@@ -72,6 +78,14 @@
             font-weight: bold;
         }
 
+        div#divAnotacoes h5 {
+            font-weight: normal;
+        }
+
+        div#divAnotacoes h6 {
+            font-weight: normal;
+        }
+
         body {
 
             display: flex;
@@ -87,10 +101,16 @@
 
         th {
             text-align: center;
+            border-top: solid 1px black;
+        }
+
+        td {
+            border-top: solid 1px black;
+            border-bottom: solid 1px black;
         }
 
         .ultimo {
-            border-right: solid 1px lightgray;
+            border-right: solid 1px black;
         }
 
         table {
@@ -122,6 +142,12 @@
         .no-select {
             -webkit-user-select: none;
         }
+        
+        a#btnRec{
+            
+            border-radius: 100px;
+            
+        }
 
     </style>
 
@@ -131,7 +157,7 @@
         </header>
 
         <main>
-
+            <input type="hidden" value="<%=valorPagoRecibo%>" id="valorPgRecibo">
             <div class="col s14 m12">
                 <div id="principal" class="card">
                     <div class="card-content">
@@ -141,14 +167,19 @@
                         </div>
 
                         <div id="t2" class="titulo row">
-                            <div class="center input-field col s4">
+                            <div class="center input-field col s3">
                                 <h6><%=nomeCompleto%></h6>
                             </div>
                             <div class="center input-field col s4">
                                 <h6>Valor restante para pagamento: R$<%=formato.format(c.getValorInicial() - c.getValorPago())%></h6>
                             </div>
-                            <div class="center input-field col s4">
+                            <div class="center input-field col s3">
                                 <h6>Parcelas restantes: <%=parcelas%></h6>
+                            </div>
+                            <div id="divAnotacoes">
+                                <div class="center input-field col s2">
+                                    <a class="amber black-text waves-effect waves-light btn" onclick="mostrarAnotacoes('<%=c.getAnotacoes()%>');"><i class="material-icons left">assignment</i>Anotações</a>
+                                </div>
                             </div>
                         </div>
 
@@ -445,10 +476,22 @@
                     </div>
                 </div>
             </div>
-                        
+
             <div id="modalInvalidar"></div>
             <div id="modalValidarPgto"></div>
             <div id="modalJustificativa"></div>
+            <div id="modalAnotacoes"></div>
+            <div id="modalRecibo" class="modal">
+                <div class="modal-content">
+                    <h5>Deseja Gerar o Recibo?</h5>
+                    <div align="center">
+                    <a href="scripts/gerarRelatorioExameMedico.jsp?valorPago=<%=valorPagoRecibo%>&idConta=<%=c.getAluno().getIdPessoa()%>" class="amber black-text waves-effect waves-light btn-large" id="btnRec"><i class="material-icons left">content_paste</i>Gerar Recibo</a>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="#!" class="modal-close waves-effect btn-flat" style="color: red;">FECHAR</a>
+                </div>
+            </div>
 
         </main>
 
@@ -463,6 +506,14 @@
         }
 
         $(document).ready(inicializarModals());
+
+        $(document).ready(function () {
+            if (document.getElementById("valorPgRecibo").value != 0) {
+                $('.modal').modal({});
+                $('#modalRecibo').modal('open');
+            }
+            ;
+        });
 
         function validarValorPagamento(idPessoa, idUsuario) {
             var valorPago = document.getElementById("valorPago").value;
@@ -485,13 +536,13 @@
             $('.modal').modal({});
             $('#modal1').modal('open');
         }
-        
+
         function adicionarJustificativa() {
             var justificativa = document.getElementById("justificativa").value;
             document.getElementById("botaoInvalidar").href += justificativa;
         }
-        
-        function mostrarJustificativa(idRegistro){
+
+        function mostrarJustificativa(idRegistro) {
             var xhttp;
             xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function () {
@@ -504,7 +555,7 @@
             xhttp.open("GET", "ajax/consultarjustificativa.jsp?idRegistro=" + idRegistro, true);
             xhttp.send();
         }
-        
+
         function verificarDigito(digito) {
             var textoVP = document.getElementById("valorPago").value;
             var virgula = 0;
@@ -584,6 +635,35 @@
                 xhttp.open("GET", "ajax/atualizarvalorpagamento.jsp?idPessoa=" + idPessoa + "&idUsuario=" + idUsuario + "&valorPago=" + valorPago + "&valorParcela=" + valorParcela + "&acao=2&primeiraParcela=" + document.getElementById("primeiraParcela").value + "&ultimaParcela=" + document.getElementById("ultimaParcela").value + "&parcelaSelecionada=" + checkbox, true);
                 xhttp.send();
             }
+        }
+
+        var anotacoesGlobal;
+        function mostrarAnotacoes(anotacoes) {
+            anotacoesGlobal = anotacoes;
+            var modal = "<div id='modal4' class='modal'><div class='modal-content'><h5>Anotações</h5><div id='textoAnotacoes'><h6>" + anotacoes + "</h6><div class='modal-footer'><a href='#!' class='modal-close waves-effect btn-flat' style='color: red;'>FECHAR</a><a href='#!' onclick='alterarAnotacoes();' class='modal-close waves-effect waves-green btn-flat' style='color: green;'>Alterar anotações</a></div></div></div></div>";
+            document.getElementById("modalAnotacoes").innerHTML = modal;
+            $('.modal').modal({});
+            $('#modal4').modal('open');
+        }
+
+        function alterarAnotacoes() {
+            var modal = "<div id='modal4' class='modal'><div class='modal-content'><h5>Anotações</h5><div id='textoAnotacoes'><textarea id='anotacoes' name='anotacoes' class='materialize-textarea'>" + anotacoesGlobal + "</textarea><div class='modal-footer'><a href='#!' class='modal-close waves-effect btn-flat' style='color: red;'>FECHAR</a><a href='#!' onclick='salvarAnotacoes();' class='modal-close waves-effect waves-green btn-flat' style='color: green;'>Confirmar</a></div></div></div></div>";
+            document.getElementById("modalAnotacoes").innerHTML = modal;
+            $('.modal').modal({});
+            $('#modal4').modal('open');
+        }
+
+        function salvarAnotacoes() {
+            var xhttp;
+            xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState === 4 && this.status === 200) {
+                    document.getElementById("modalRodape").innerHTML = this.responseText;
+                    document.getElementById("troco").innerHTML = "Troco: R$" + document.getElementById("trocoAjax").value;
+                }
+            };
+            xhttp.open("GET", "ajax/atualizarvalorpagamento.jsp?idPessoa=" + idPessoa + "&idUsuario=" + idUsuario + "&valorPago=" + valorPago + "&valorParcela=" + valorParcela + "&acao=1&primeiraParcela=" + document.getElementById("primeiraParcela").value + "&ultimaParcela=" + document.getElementById("ultimaParcela").value + "&parcelaSelecionada=" + checkbox, true);
+            xhttp.send();
         }
 
     </script>
