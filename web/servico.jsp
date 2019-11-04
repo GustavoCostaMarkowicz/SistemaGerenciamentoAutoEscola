@@ -87,8 +87,8 @@
                                                         <%for (RegraParcelas rp : s.getParcelas()) {%>
                                                         <td><%=rp.getParcela()%>X de R$<%=rp.getValorParcelado()%></td>
                                                         <%}%>
-                                                        <td><a href="alterar.jsp?placa=<%=s.getTipoServico()%>" value="Alterar" class="tooltipped activator btn-floating waves-effect waves-light blue" data-position="left" data-tooltip="alterar dados do serviço"><i class="material-icons">find_replace</i></button></td>
-                                                        <td><a href="scripts/excluirservico.jsp?placa=<%=s.getTipoServico()%>" value="Excluir" class="tooltipped btn-floating waves-effect waves-light black" data-position="left" data-tooltip="excluir serviço"><i class="material-icons">delete_sweep</i></button></td>
+                                                        <td><a href="alterarServico.jsp?serv=<%=s.getTipoServico()%>" value="Alterar" class="tooltipped activator btn-floating waves-effect waves-light blue" data-position="left" data-tooltip="Alterar dados do serviço"><i class="material-icons">find_replace</i></a></td>
+                                                        <td><a href="scripts/excluirservico.jsp?serv=<%=s.getTipoServico()%>" value="Excluir" class="tooltipped btn-floating waves-effect waves-light black" data-position="left" data-tooltip="Excluir serviço"><i class="material-icons">delete_sweep</i></a></td>
                                                         <td></td>
                                                     </tr>
                                                 </tbody>

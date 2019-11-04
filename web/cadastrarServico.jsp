@@ -58,7 +58,7 @@
                             </div>
 
                             <div class="center row">
-                                <div class="input-field col s12">
+                                <div class="input-field col s6">
                                     <i class="material-icons prefix">receipt</i>
                                     <input placeholder="" id="nome" name="nome" type="text" class="validate" maxlength="60" required>
                                     <label for="nome">Nome do serviço</label>

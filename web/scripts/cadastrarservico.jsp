@@ -15,11 +15,12 @@
     String tipoServico = request.getParameter("nome");
     double valorVista = Double.parseDouble(request.getParameter("valorVista"));
     int qnt = Integer.parseInt(request.getParameter("quantidade"));
+    String categoria = request.getParameter("categoria");
     
     List<RegraParcelas> rps = new ArrayList();
     
     ControleServico cs = new ControleServico();
-    Servico s = new Servico(tipoServico, valorVista, rps);
+    Servico s = new Servico(tipoServico, valorVista, categoria, rps, true);
     cs.inserirServico(s);
     
     for(int i = 1; i <= qnt; i++){
