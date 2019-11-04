@@ -640,14 +640,14 @@
         var anotacoesGlobal;
         function mostrarAnotacoes(anotacoes) {
             anotacoesGlobal = anotacoes;
-            var modal = "<div id='modal4' class='modal'><div class='modal-content'><h5>Anotações</h5><div id='textoAnotacoes'><h6>" + anotacoes + "</h6><div class='modal-footer'><a href='#!' class='modal-close waves-effect btn-flat' style='color: red;'>FECHAR</a><a href='#!' onclick='alterarAnotacoes();' class='modal-close waves-effect waves-green btn-flat' style='color: green;'>Alterar anotações</a></div></div></div></div>";
+            var modal = "<div id='modal4' class='modal'><div class='modal-content'><h5>Anotações</h5><div><h6>" + anotacoes + "</h6><div class='modal-footer'><a href='#!' class='modal-close waves-effect btn-flat' style='color: red;'>FECHAR</a><a href='#!' onclick='alterarAnotacoes();' class='modal-close waves-effect waves-green btn-flat' style='color: green;'>Alterar anotações</a></div></div></div></div>";
             document.getElementById("modalAnotacoes").innerHTML = modal;
             $('.modal').modal({});
             $('#modal4').modal('open');
         }
 
         function alterarAnotacoes() {
-            var modal = "<div id='modal4' class='modal'><div class='modal-content'><h5>Anotações</h5><div id='textoAnotacoes'><textarea id='anotacoes' name='anotacoes' class='materialize-textarea'>" + anotacoesGlobal + "</textarea><div class='modal-footer'><a href='#!' class='modal-close waves-effect btn-flat' style='color: red;'>FECHAR</a><a href='#!' onclick='salvarAnotacoes();' class='modal-close waves-effect waves-green btn-flat' style='color: green;'>Confirmar</a></div></div></div></div>";
+            var modal = "<div id='modal4' class='modal'><div class='modal-content'><h5>Anotações</h5><div><textarea id='textoAnotacoes' name='anotacoes' class='materialize-textarea'>" + anotacoesGlobal + "</textarea><div class='modal-footer'><a href='#!' class='modal-close waves-effect btn-flat' style='color: red;'>FECHAR</a><a href='#!' onclick='salvarAnotacoes();' class='modal-close waves-effect waves-green btn-flat' style='color: green;'>Confirmar</a></div></div></div></div>";
             document.getElementById("modalAnotacoes").innerHTML = modal;
             $('.modal').modal({});
             $('#modal4').modal('open');
@@ -658,11 +658,13 @@
             xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function () {
                 if (this.readyState === 4 && this.status === 200) {
-                    document.getElementById("modalRodape").innerHTML = this.responseText;
-                    document.getElementById("troco").innerHTML = "Troco: R$" + document.getElementById("trocoAjax").value;
+                    document.getElementById("modalAnotacoes").innerHTML = this.responseText;
+                    anotacoesGlobal = document.getElementById("anotacoesGlobal").value;
+                    $('.modal').modal({});
+                    $('#modal4').modal('open');
                 }
             };
-            xhttp.open("GET", "ajax/atualizarvalorpagamento.jsp?idPessoa=" + idPessoa + "&idUsuario=" + idUsuario + "&valorPago=" + valorPago + "&valorParcela=" + valorParcela + "&acao=1&primeiraParcela=" + document.getElementById("primeiraParcela").value + "&ultimaParcela=" + document.getElementById("ultimaParcela").value + "&parcelaSelecionada=" + checkbox, true);
+            xhttp.open("GET", "ajax/alteraranotacoes.jsp?anotacoes=" + document.getElementById("textoAnotacoes").value + "&idConta=" + <%=c.getAluno().getIdPessoa()%>, true);
             xhttp.send();
         }
 
