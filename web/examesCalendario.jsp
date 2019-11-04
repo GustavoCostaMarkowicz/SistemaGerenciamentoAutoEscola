@@ -146,17 +146,20 @@
                         <h5 align="center">Relatórios de Exame do dia <%=dia%> de <%=mes%></h5>
                     </div>
                     <%
+                        int ano = ems.get(0).getDataExame().getYear() + 1900;
                         if (!ems.isEmpty()) {
                     %>
+                    
                     <div id="titulo">
                         <h6 align="center">Exames Médicos</h6>
                     </div>
                     <%
-                        int ano = ems.get(0).getDataExame().getYear() + 1900;
+                        
 
                     %>
+                    <div style="margin-top: 10px;">
                     <a href="scripts/gerarRelatorioExameMedico.jsp?data=<%=dia%>/<%=(Imes+1)%>/<%=ano%>" class="waves-effect waves-light btn-large" id="btnMed"><i class="material-icons left">content_paste</i>Gerar Relatório de Exames Médicos</a>
-                    
+                    </div>
                     <%
                         }
                     %>
@@ -166,38 +169,11 @@
                     <div id="titulo">
                         <h6 align="center">Exames Psicotécnicos</h6>
                     </div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Horário</th>
-                                <th>Alunos</th>
-                                <th>Reteste</th>
-                                <th>Clínica</th>
-                                <th>Psicólogo</th>
-                                <th></th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                    <%
-                            for (ExamePsicotecnico em : epts) {
-                    %>
-                    
-                            <tr>
-                                <td><%=em.getHorarioExame()%></td>
-                                <td><%=em.getMaximoAlunos()%></td>
-                                <td><%=em.isReteste()%></td>
-                                <td><%=em.getClinica()%></td>
-                                <td><%=em.getPsicologo()%></td>
-                                <td><a href="" value="Alterar" class="tooltipped activator btn-floating waves-effect waves-light blue" data-position="left" data-tooltip="alterar dados do exame"><i class="material-icons">find_replace</i></button></td>
-                                <td><a href="" value="Excluir" class="tooltipped btn-floating waves-effect waves-light black" data-position="left" data-tooltip="excluir exame"><i class="material-icons">delete_sweep</i></button></td>
-                            </tr>                           
                         
-                    <%
-                            }
-%>
-             </tbody>
-                    </table>       
+                    <div style="margin-top: 10px;">
+                    <a href="scripts/gerarRelatorioExamePsicotecnico.jsp?data=<%=dia%>/<%=(Imes+1)%>/<%=ano%>" class="waves-effect waves-light btn-large" id="btnMed"><i class="material-icons left">content_paste</i>Gerar Relatório de Exames Médicos</a>
+                    </div>
+                    
                     <%
                         }
                     %>
@@ -207,83 +183,20 @@
                     <div id="titulo">
                         <h6 align="center">Exames Teóricos</h6>
                     </div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Horário</th>
-                                <th>Alunos</th>
-                                <th>Reteste</th>
-                                <th>Serviço</th>
-                                <th>Instrutor</th>
-                                <th>Local de Aplicação</th>
-                                <th></th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                    <%
-                            for (ExameTeorico em : ets) {
-                    %>
                     
-                            <tr>
-                                <td><%=em.getHorarioExame()%></td>
-                                <td><%=em.getMaximoAlunos()%></td>
-                                <td><%=em.isReteste()%></td>
-                                <td><%=em.getServico()%></td>
-                                <td><%=em.getInstrutor().getNomeCompleto()%></td>
-                                <td><%=em.getLocalAplicacao()%></td>
-                                <td><a href="" value="Alterar" class="tooltipped activator btn-floating waves-effect waves-light blue" data-position="left" data-tooltip="alterar dados do exame"><i class="material-icons">find_replace</i></button></td>
-                                <td><a href="" value="Excluir" class="tooltipped btn-floating waves-effect waves-light black" data-position="left" data-tooltip="excluir exame"><i class="material-icons">delete_sweep</i></button></td>
-                            </tr>                           
-                        
-                    <%
-                            }
-%>
-                   </tbody>
-                    </table> 
+                    <div style="margin-top: 10px;">
+                    <a href="scripts/gerarRelatorioExameTeorico.jsp?data=<%=dia%>/<%=(Imes+1)%>/<%=ano%>" class="waves-effect waves-light btn-large" id="btnMed"><i class="material-icons left">content_paste</i>Gerar Relatório de Exames Médicos</a>
+                    </div>
+                    
                     <%
                         }
                     %>
                     <%
                         if (!eps.isEmpty()) {
                             %>
-                    <div id="titulo">
-                        <h6 align="center">Exames Práticos</h6>
+                    <div style="margin-top: 10px;">
+                    <a href="scripts/gerarRelatorioExamePratico.jsp?data=<%=dia%>/<%=(Imes+1)%>/<%=ano%>" class="waves-effect waves-light btn-large" id="btnMed"><i class="material-icons left">content_paste</i>Gerar Relatório de Exames Médicos</a>
                     </div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Horário</th>
-                                <th>Alunos</th>
-                                <th>Reteste</th>
-                                <th>Categoria</th>
-                                <th>Instrutor</th>
-                                <th>Veículo</th>
-                                <th></th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                    <%
-                            for (ExamePratico em : eps) {
-                    %>
-                    
-                            <tr>
-                                <td><%=em.getHorarioExame()%></td>
-                                <td><%=em.getMaximoAlunos()%></td>
-                                <td><%=em.isReteste()%></td>
-                                <td><%=em.getCategoria()%></td>
-                                <td><%=em.getInstrutor().getNomeCompleto()%></td>
-                                <td><%=em.getVeiculo().getPlaca()%></td>
-                                <td><a href="" value="Alterar" class="tooltipped activator btn-floating waves-effect waves-light blue" data-position="left" data-tooltip="alterar dados do exame"><i class="material-icons">find_replace</i></button></td>
-                                <td><a href="" value="Excluir" class="tooltipped btn-floating waves-effect waves-light black" data-position="left" data-tooltip="excluir exame"><i class="material-icons">delete_sweep</i></button></td>
-                            </tr>                           
-                        
-                    <%
-                            }
-%>
-                  </tbody>
-                    </table>  
                     <%
                         }
                     %>

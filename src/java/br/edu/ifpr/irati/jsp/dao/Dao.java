@@ -23,6 +23,8 @@ public interface Dao<T> {
     public T buscarResultadoExamesPorAlunoExame(int idPessoa, int idExame);
 
     public List<T> buscarExamesPorAluno(int idPessoa);
+    
+ 
    
     
     

@@ -1,6 +1,5 @@
 package br.edu.ifpr.irati.jsp.dao;
 
-
 import gerais.HibernateUtil;
 import java.io.Serializable;
 import java.util.Date;
@@ -26,9 +25,9 @@ public class GenericDAO<T> implements Dao<T> {
         t.toString();
         session.clear();
         session.close();
-        
+
         return t;
-       
+
     }
 
     @Override
@@ -41,7 +40,7 @@ public class GenericDAO<T> implements Dao<T> {
         session.getTransaction().commit();
         session.clear();
         session.close();
-   
+
     }
 
     @Override
@@ -54,7 +53,7 @@ public class GenericDAO<T> implements Dao<T> {
         session.getTransaction().commit();
         session.clear();
         session.close();
-      
+
     }
 
     @Override
@@ -83,36 +82,36 @@ public class GenericDAO<T> implements Dao<T> {
 
         return results;
     }
-    
+
     @Override
-    public T buscarResultadoExamesPorAlunoExame(int idPessoa, int idExame){
+    public T buscarResultadoExamesPorAlunoExame(int idPessoa, int idExame) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        String hql = "from " + classePersistente.getCanonicalName()+" where aluno_idPessoa = "+idPessoa+" and exame_idExame = "+idExame;
+        String hql = "from " + classePersistente.getCanonicalName() + " where aluno_idPessoa = " + idPessoa + " and exame_idExame = " + idExame;
         Query query = session.createQuery(hql);
         T t = (T) query.uniqueResult();
         session.getTransaction().commit();
         session.clear();
         session.close();
- 
+
         return t;
     }
-    
+
     @Override
-    public List<T> buscarExamesPorAluno(int idPessoa){
+    public List<T> buscarExamesPorAluno(int idPessoa) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        String hql = "from exame_aluno where alunos_idPessoa = "+idPessoa;
+        String hql = "from exame_aluno where alunos_idPessoa = " + idPessoa;
         Query query = session.createQuery(hql);
         List results = query.list();
         session.getTransaction().commit();
         session.clear();
         session.close();
-   
+
         return results;
     }
 
     
     
-    
+
 }

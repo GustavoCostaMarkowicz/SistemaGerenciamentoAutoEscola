@@ -75,4 +75,24 @@ public class ControleAluno {
         return exames;
     }
     
+    public List<Aluno> buscarAlunoComExamePendente(){
+        
+        
+        Dao<Exame> exameDAO = new GenericDAO<>(Exame.class);
+        List<Exame> todose = exameDAO.buscarTodos(Exame.class);
+        List<Exame> visiveis = new ArrayList<>();
+        List<Aluno> alunos = new ArrayList<>();
+        
+        for(Exame e: todose){
+            
+            if(e.isVisivel()){
+                alunos.add((Aluno) e.getAlunos());
+            }
+            
+        }
+        
+        return alunos;
+        
+    }
+    
 }

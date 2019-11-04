@@ -22,6 +22,8 @@
     
     int idExame = Integer.parseInt(sidExame);
     Exame exame = ce.buscarExamesPorId(idExame);
+    exame.setVisivel(false);
+    ce.alterarExame(exame);
     
     ControleResultadoExame cre = new ControleResultadoExame();
     
