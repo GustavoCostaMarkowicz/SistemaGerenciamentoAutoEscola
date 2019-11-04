@@ -28,8 +28,8 @@
                 }           
             %>
             
-    <a href="relacaoExamePratico.jsp?data=16/06/2001" class="green waves-effect waves-light btn" type="submit">CADASTRAR CONTA</a>
-
+    <a href="scripts/gerarPdfRecibo.jsp" class="green waves-effect waves-light btn" type="submit">CADASTRAR CONTA</a>
+    
             
         </main>
 

@@ -19,20 +19,16 @@
     String stipoExame = request.getParameter("tipoExame");
     int tipoExame = Integer.parseInt(stipoExame);
     String link = "";
-    
-    if(tipoExame == 1){
+
+    if (tipoExame == 1) {
         link = "cadastrarExameMedico.jsp";
     } else if (tipoExame == 2) {
-        link = "cadastrarExamePsicotecnico.jsp";    
+        link = "cadastrarExamePsicotecnico.jsp";
     } else if (tipoExame == 3) {
         link = "cadastrarExameTeorico.jsp";
     } else {
         link = "cadastrarExamePratico.jsp";
     }
-  
-    
-
-    
 
 
 %>
@@ -53,19 +49,17 @@
 
             </tr>
         </thead>
-        <%            
-            
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        <%            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
             ControleAluno controleAluno = new ControleAluno();
             List<Aluno> alunos = controleAluno.buscarTodosAlunos();
-        
+           // List<Aluno> alunoPendente = controleAluno.buscarAlunoComExamePendente();
+
             for (Aluno aluno : alunos) {
-               
-               
-               
-  
-                if (aluno.getNomeCompleto().toLowerCase().contains(letra.toLowerCase())) {
+
+               // if (aluno.isVisivel()) {
+                   // if (alunoPendente.contains(aluno)) {
+                        if (aluno.getNomeCompleto().toLowerCase().contains(letra.toLowerCase())) {
 
         %>
         <tbody>
@@ -84,10 +78,12 @@
             </tr>
         </tbody>
         <%
-                   
+
+                        //}
+                    //}
+
                 }
-            
-        }
+            }
         %>
     </table>
 </div>

@@ -14,7 +14,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Cadastrar Aluno</title>
+        <title>Cadastrar Exame Médico</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="  crossorigin="anonymous"></script>
@@ -149,23 +149,23 @@
                                 </div>
                             </div>
 
-                            <div class="center row">
-                                <div class="input-field col s3">
+                            <div class=" row">
+                                <div class="input-field col s4">
                                     <i class="material-icons prefix">aspect_ratio</i>
                                     <input placeholder="" id="medico" name="medico" type="text" class="validate" required>
                                     <label for="medico">Médico Responsável</label>
                                     <span class="helper-text" data-error="Campo obrigatório!" data-success="Ok!"></span>
                                 </div>
-                                <div class="input-field col s3">
+                                <div class="input-field col s4">
                                     <i class="material-icons prefix">directions_car</i>
                                     <input placeholder="" id="clinica" name="clinica" type="text" class="validate" maxlength="100" required>
                                     <label for="clinica">Clínica</label>
                                     <span class="helper-text" data-error="Campo obrigatório!" data-success="Ok!"></span>
                                 </div>
-                                <div class="input-field col s3">
+                                <div class="input-field col s4">
                                     <i class="material-icons prefix">invert_colors</i>
                                     <select id="reteste" name="tipoExameMedico">
-
+                                        <option value="" disabled selected>Tipos</option>
                                         <option value="Exame De Vista">Exame de Vista</option>
                                         <option value="Toxicológico">Exame Toxicológico</option>
 

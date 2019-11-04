@@ -7,6 +7,8 @@ import br.edu.ifpr.irati.jsp.controle.ControleExamePsicotecnico;
 import br.edu.ifpr.irati.jsp.modelo.Aluno;
 import br.edu.ifpr.irati.jsp.modelo.ExameMedico;
 import br.edu.ifpr.irati.jsp.modelo.ExamePsicotecnico;
+import br.edu.ifpr.irati.jsp.modelo.Registro;
+import br.edu.ifpr.irati.jsp.util.GerarNumeroExtenso;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -27,6 +29,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -266,7 +269,7 @@ public class gerarPdf extends HttpServlet {
             PdfPTable tabela = new PdfPTable(new float[]{2.5f, 5f, 5f, 5f, 6f});
 
             PdfPCell cabecalho = new PdfPCell(new Paragraph("EXAMES MÉDICOS MARCADOS PARA O DIA: " + sdf.format(data)));
-            
+
             cabecalho.setHorizontalAlignment(Element.ALIGN_CENTER);
             cabecalho.setBorder(PdfPCell.BOX);
             cabecalho.setBackgroundColor(new BaseColor(255, 191, 0));
@@ -276,19 +279,19 @@ public class gerarPdf extends HttpServlet {
 
             PdfPCell celulaHorario = new PdfPCell(new Phrase("Horário"));
             celulaHorario.setHorizontalAlignment(Element.ALIGN_CENTER);
-            celulaHorario.setBackgroundColor(new BaseColor(245,222,179));
+            celulaHorario.setBackgroundColor(new BaseColor(245, 222, 179));
             PdfPCell celulaMed = new PdfPCell(new Phrase("Médico"));
             celulaMed.setHorizontalAlignment(Element.ALIGN_CENTER);
-            celulaMed.setBackgroundColor(new BaseColor(245,222,179));
+            celulaMed.setBackgroundColor(new BaseColor(245, 222, 179));
             PdfPCell celulaClin = new PdfPCell(new Phrase("Clínica"));
             celulaClin.setHorizontalAlignment(Element.ALIGN_CENTER);
-            celulaClin.setBackgroundColor(new BaseColor(245,222,179));
+            celulaClin.setBackgroundColor(new BaseColor(245, 222, 179));
             PdfPCell celulaTipoExMed = new PdfPCell(new Phrase("Tipo do Exame Médico"));
             celulaTipoExMed.setHorizontalAlignment(Element.ALIGN_CENTER);
-            celulaTipoExMed.setBackgroundColor(new BaseColor(245,222,179));
+            celulaTipoExMed.setBackgroundColor(new BaseColor(245, 222, 179));
             PdfPCell celulaAluno = new PdfPCell(new Phrase("Aluno"));
             celulaAluno.setHorizontalAlignment(Element.ALIGN_CENTER);
-            celulaAluno.setBackgroundColor(new BaseColor(245,222,179));
+            celulaAluno.setBackgroundColor(new BaseColor(245, 222, 179));
 
             tabela.addCell(celulaHorario);
             tabela.addCell(celulaMed);
@@ -381,7 +384,7 @@ public class gerarPdf extends HttpServlet {
             PdfPTable tabela = new PdfPTable(new float[]{2.5f, 5f, 5f, 6f, 5f});
 
             PdfPCell cabecalho = new PdfPCell(new Paragraph("EXAMES PSICOLÓGICOS MARCADOS PARA O DIA: " + sdf.format(data)));
-            
+
             cabecalho.setHorizontalAlignment(Element.ALIGN_CENTER);
             cabecalho.setBorder(PdfPCell.BOX);
             cabecalho.setBackgroundColor(new BaseColor(255, 191, 0));
@@ -391,17 +394,16 @@ public class gerarPdf extends HttpServlet {
 
             PdfPCell celulaHorario = new PdfPCell(new Phrase("Horário"));
             celulaHorario.setHorizontalAlignment(Element.ALIGN_CENTER);
-            celulaHorario.setBackgroundColor(new BaseColor(245,222,179));
+            celulaHorario.setBackgroundColor(new BaseColor(245, 222, 179));
             PdfPCell celulaMed = new PdfPCell(new Phrase("Psicólogo"));
             celulaMed.setHorizontalAlignment(Element.ALIGN_CENTER);
-            celulaMed.setBackgroundColor(new BaseColor(245,222,179));
+            celulaMed.setBackgroundColor(new BaseColor(245, 222, 179));
             PdfPCell celulaClin = new PdfPCell(new Phrase("Clínica"));
             celulaClin.setHorizontalAlignment(Element.ALIGN_CENTER);
-            celulaClin.setBackgroundColor(new BaseColor(245,222,179));
+            celulaClin.setBackgroundColor(new BaseColor(245, 222, 179));
             PdfPCell celulaAluno = new PdfPCell(new Phrase("Aluno"));
             celulaAluno.setHorizontalAlignment(Element.ALIGN_CENTER);
-            celulaAluno.setBackgroundColor(new BaseColor(245,222,179));
-            
+            celulaAluno.setBackgroundColor(new BaseColor(245, 222, 179));
 
             tabela.addCell(celulaHorario);
             tabela.addCell(celulaMed);
@@ -437,4 +439,213 @@ public class gerarPdf extends HttpServlet {
 
     }
 
+    public void gerarPdfRecibo(HttpServletRequest request, HttpServletResponse response, Registro r)
+            throws ServletException, IOException, ParseException {
+
+        response.setContentType("application/pdf");
+        try {
+            
+            
+            Document document = new Document();
+
+            OutputStream outs = response.getOutputStream();
+            PdfWriter.getInstance(document, outs);
+
+            document.open();
+            Font fonte = FontFactory.getFont(FontFactory.HELVETICA, Font.DEFAULTSIZE, Font.BOLD, new BaseColor(255, 165, 0));
+
+            PdfPTable tabela = new PdfPTable(new float[]{2.5f, 5f});
+            
+            
+            PdfPCell cabecalho = new PdfPCell(new Paragraph("AUTOESCOLA BELL'S", fonte));
+            PdfPCell cabecalho1 = new PdfPCell(new Paragraph("Rua 19 de Dezembro, 246 - Fone: 3423-1515"));
+            PdfPCell cabecalho2 = new PdfPCell(new Paragraph("Recebido de: " + r.getConta().getAluno().getNomeCompleto()));
+            
+
+            cabecalho.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cabecalho.setBorder(PdfPCell.BOX);
+            cabecalho.setColspan(7);
+            cabecalho1.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cabecalho1.setBorder(PdfPCell.BOX);
+            cabecalho1.setBackgroundColor(new BaseColor(255, 191, 0));
+            cabecalho1.setColspan(7);
+            tabela.setWidthPercentage(96);
+            cabecalho2.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cabecalho2.setBorder(PdfPCell.BOX);
+            cabecalho2.setColspan(7);
+            tabela.addCell(cabecalho);
+            tabela.addCell(cabecalho1);
+            tabela.addCell(cabecalho2);
+            
+            DecimalFormat formato = new DecimalFormat("#.##");
+            
+            double teste = r.getConta().getValorPago();
+            double dDecimal = Double.parseDouble(formato.format(teste%1).replace(",", "."));
+            int decimal = (int) (100*dDecimal);
+            int inteiro = (int) (teste - dDecimal);
+            
+            GerarNumeroExtenso gne = new GerarNumeroExtenso(inteiro);
+            GerarNumeroExtenso gne2 = new GerarNumeroExtenso(decimal);
+            
+            PdfPCell celulaDouble = new PdfPCell(new Phrase("Valor: "));
+            celulaDouble.setHorizontalAlignment(Element.ALIGN_CENTER);
+         
+            PdfPCell celulaVal = new PdfPCell(new Phrase("Quantia de: " + gne + " reais e " + gne2 + " centavos"));
+            celulaVal.setHorizontalAlignment(Element.ALIGN_CENTER);
+
+            
+            tabela.addCell(celulaDouble);
+            tabela.addCell(celulaVal);
+            
+
+            PdfPCell ca = new PdfPCell(new Phrase("Referente ao Pagamento: 1ª referente à Primeira Habilitação"));
+            ca.setHorizontalAlignment(Element.ALIGN_CENTER);
+       
+            ca.setHorizontalAlignment(Element.ALIGN_CENTER);
+            ca.setBorder(PdfPCell.BOX);
+            ca.setColspan(7);
+            tabela.addCell(ca);
+            
+            PdfPCell celulaData = new PdfPCell(new Phrase("Data: 01/11/2019"));
+            
+         
+            PdfPCell celulaAss = new PdfPCell(new Phrase("Assinatura:                       "));
+          
+
+            
+            tabela.addCell(celulaData);
+            tabela.addCell(celulaAss);
+            
+            
+
+            document.add(tabela);
+            document.close();
+                
+
+        } catch (DocumentException de) {
+            throw new IOException(de.getMessage());
+        }
+        
+        
+    }
+    
+   
+    
+    public void gerarPdfRegistroConta(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, ParseException {
+
+        response.setContentType("application/pdf");
+        try {
+
+            Document document = new Document();
+
+            OutputStream outs = response.getOutputStream();
+            PdfWriter.getInstance(document, outs);
+
+            document.open();
+            Font fonte = FontFactory.getFont(FontFactory.HELVETICA, Font.DEFAULTSIZE, Font.BOLD, new BaseColor(255, 165, 0));
+
+            PdfPTable tabela = new PdfPTable(new float[]{2.5f, 5f, 5f, 5f});
+
+            PdfPCell cabecalho = new PdfPCell(new Paragraph("AUTOESCOLA BELL'S", fonte));
+            PdfPCell cabecalho1 = new PdfPCell(new Paragraph("Relatório de Registros do Dia: 01/11/2019", fonte));
+         
+            
+
+            cabecalho.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cabecalho.setBorder(PdfPCell.BOX);
+            cabecalho.setColspan(7);
+            cabecalho1.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cabecalho1.setBorder(PdfPCell.BOX);
+            cabecalho1.setColspan(7);
+            tabela.setWidthPercentage(96);
+           
+            tabela.addCell(cabecalho);
+            tabela.addCell(cabecalho1);
+          
+            PdfPCell celulaDia = new PdfPCell(new Phrase("DATA"));
+            celulaDia.setHorizontalAlignment(Element.ALIGN_CENTER);
+         
+            PdfPCell celulaReg = new PdfPCell(new Phrase("REGISTRO"));
+            celulaReg.setHorizontalAlignment(Element.ALIGN_CENTER);
+            
+            PdfPCell celulaUsu0 = new PdfPCell(new Phrase("USUÁRIO"));
+            celulaUsu0.setHorizontalAlignment(Element.ALIGN_CENTER);
+            
+            PdfPCell celulaAluno0 = new PdfPCell(new Phrase("CLIENTE"));
+            celulaAluno0.setHorizontalAlignment(Element.ALIGN_CENTER);
+            
+            PdfPCell celulaData = new PdfPCell(new Phrase("01/11/2019"));
+           
+         
+            PdfPCell celulaValor = new PdfPCell(new Phrase("Valor: R$700,00"));
+         
+            
+            PdfPCell celulaUsu = new PdfPCell(new Phrase("diretor1"));
+        
+            
+            PdfPCell celulaAluno = new PdfPCell(new Phrase("Nome Aluno 2"));
+           
+            
+            PdfPCell celulaData1 = new PdfPCell(new Phrase("01/11/2019"));
+           
+         
+            PdfPCell celulaValor1 = new PdfPCell(new Phrase("Valor: R$700,00"));
+          
+            
+            PdfPCell celulaUsu1 = new PdfPCell(new Phrase("diretor1"));
+          
+            
+            PdfPCell celulaAluno1 = new PdfPCell(new Phrase("Nome Aluno 2"));
+           
+            
+             PdfPCell celulaData2 = new PdfPCell(new Phrase("01/11/2019"));
+          
+         
+            PdfPCell celulaValor2 = new PdfPCell(new Phrase("Valor: R$400,00"));
+          
+            
+            PdfPCell celulaUsu2 = new PdfPCell(new Phrase("diretor1"));
+            
+            
+            PdfPCell celulaAluno2 = new PdfPCell(new Phrase("Nome Aluno"));
+            
+
+
+            
+            tabela.addCell(celulaDia);
+            tabela.addCell(celulaReg);
+            tabela.addCell(celulaUsu0);
+            tabela.addCell(celulaAluno0);
+            tabela.addCell(celulaData);
+            tabela.addCell(celulaValor);
+            tabela.addCell(celulaUsu);
+            tabela.addCell(celulaAluno);
+            tabela.addCell(celulaData1);
+            tabela.addCell(celulaValor1);
+            tabela.addCell(celulaUsu1);
+            tabela.addCell(celulaAluno1);
+            tabela.addCell(celulaData2);
+            tabela.addCell(celulaValor2);
+            tabela.addCell(celulaUsu2);
+            tabela.addCell(celulaAluno2);
+            
+
+            PdfPCell ca = new PdfPCell(new Phrase("Total de Receita Recebido no Dia: R$1800,00"));
+            ca.setHorizontalAlignment(Element.ALIGN_CENTER);
+       
+            ca.setHorizontalAlignment(Element.ALIGN_CENTER);
+            ca.setBorder(PdfPCell.BOX);
+            ca.setColspan(7);
+            ca.setBackgroundColor(new BaseColor(50,205,50));
+            tabela.addCell(ca);   
+            
+
+            document.add(tabela);
+            document.close();
+
+        } catch (DocumentException de) {
+            throw new IOException(de.getMessage());
+        }
+    }
 }
