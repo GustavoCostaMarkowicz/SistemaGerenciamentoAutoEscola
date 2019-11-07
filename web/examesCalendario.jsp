@@ -1,3 +1,5 @@
+<%@page import="br.edu.ifpr.irati.jsp.modelo.Instrutor"%>
+<%@page import="br.edu.ifpr.irati.jsp.controle.ControleInstrutor"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="br.edu.ifpr.irati.jsp.modelo.ExameTeorico"%>
 <%@page import="br.edu.ifpr.irati.jsp.controle.ControleExameTeorico"%>
@@ -41,11 +43,11 @@
         div#titulo h6 {
             font-weight: bold;
         }
-        
+
         a#btnMed{
-            
+
             border-radius: 100px;
-            
+
         }
 
     </style>
@@ -58,46 +60,46 @@
             String dia = request.getParameter("dia");
             int p = Integer.parseInt(request.getParameter("p"));
             int Imes = new Date().getMonth();
-            
+
             ControleExameMedico cem = new ControleExameMedico();
             List<ExameMedico> tems = cem.buscarTodosExameMedicos();
             List<ExameMedico> ems = new ArrayList();
-            if(p == 0 | p == 1){
-            for (ExameMedico e : tems) {
-                if (e.getDataExame().getDate() == Integer.parseInt(dia) & e.getDataExame().getMonth() == Imes & e.getDataExame().getYear() == new Date().getYear()) {
-                    ems.add(e);
+            if (p == 0 | p == 1) {
+                for (ExameMedico e : tems) {
+                    if (e.getDataExame().getDate() == Integer.parseInt(dia) & e.getDataExame().getMonth() == Imes & e.getDataExame().getYear() == new Date().getYear()) {
+                        ems.add(e);
+                    }
                 }
-            }
             }
             ControleExamePsicotecnico cept = new ControleExamePsicotecnico();
             List<ExamePsicotecnico> tepts = cept.buscarTodosExamePsicotecnicos();
             List<ExamePsicotecnico> epts = new ArrayList();
-            if(p == 0 | p == 3){
-            for (ExamePsicotecnico e : tepts) {
-                if (e.getDataExame().getDate() == Integer.parseInt(dia) & e.getDataExame().getMonth() == Imes & e.getDataExame().getYear() == new Date().getYear()) {
-                    epts.add(e);
+            if (p == 0 | p == 3) {
+                for (ExamePsicotecnico e : tepts) {
+                    if (e.getDataExame().getDate() == Integer.parseInt(dia) & e.getDataExame().getMonth() == Imes & e.getDataExame().getYear() == new Date().getYear()) {
+                        epts.add(e);
+                    }
                 }
-            }
             }
             ControleExamePratico cep = new ControleExamePratico();
             List<ExamePratico> teps = cep.buscarTodosExamePraticos();
             List<ExamePratico> eps = new ArrayList();
-            if(p == 0 | p == 2){
-            for (ExamePratico e : teps) {
-                if (e.getDataExame().getDate() == Integer.parseInt(dia) & e.getDataExame().getMonth() == Imes & e.getDataExame().getYear() == new Date().getYear()) {
-                    eps.add(e);
+            if (p == 0 | p == 2) {
+                for (ExamePratico e : teps) {
+                    if (e.getDataExame().getDate() == Integer.parseInt(dia) & e.getDataExame().getMonth() == Imes & e.getDataExame().getYear() == new Date().getYear()) {
+                        eps.add(e);
+                    }
                 }
-            }
             }
             ControleExameTeorico cet = new ControleExameTeorico();
             List<ExameTeorico> tets = cet.buscarTodosExameTeoricos();
             List<ExameTeorico> ets = new ArrayList();
-            if(p == 0 | p == 4){
-            for (ExameTeorico e : tets) {
-                if (e.getDataExame().getDate() == Integer.parseInt(dia) & e.getDataExame().getMonth() == Imes & e.getDataExame().getYear() == new Date().getYear()) {
-                    ets.add(e);
+            if (p == 0 | p == 4) {
+                for (ExameTeorico e : tets) {
+                    if (e.getDataExame().getDate() == Integer.parseInt(dia) & e.getDataExame().getMonth() == Imes & e.getDataExame().getYear() == new Date().getYear()) {
+                        ets.add(e);
+                    }
                 }
-            }
             }
 
             String mes = "";
@@ -146,56 +148,99 @@
                         <h5 align="center">Relatórios de Exame do dia <%=dia%> de <%=mes%></h5>
                     </div>
                     <%
-                        int ano = ems.get(0).getDataExame().getYear() + 1900;
-                        if (!ems.isEmpty()) {
+
+                        if (ems.size() > 0) {
+                            int ano = ems.get(0).getDataExame().getYear() + 1900;
                     %>
-                    
+
                     <div id="titulo">
                         <h6 align="center">Exames Médicos</h6>
                     </div>
                     <%
-                        
 
                     %>
                     <div style="margin-top: 10px;">
-                    <a href="scripts/gerarRelatorioExameMedico.jsp?data=<%=dia%>/<%=(Imes+1)%>/<%=ano%>" class="waves-effect waves-light btn-large" id="btnMed"><i class="material-icons left">content_paste</i>Gerar Relatório de Exames Médicos</a>
+                        <a href="scripts/gerarRelatorioExameMedico.jsp?data=<%=dia%>/<%=(Imes + 1)%>/<%=ano%>" class="waves-effect waves-light btn-large" id="btnMed"><i class="material-icons left">content_paste</i>Gerar Relatório de Exames Médicos</a>
                     </div>
                     <%
                         }
                     %>
                     <%
                         if (!epts.isEmpty()) {
-                            %>
+                            int ano = epts.get(0).getDataExame().getYear() + 1900;
+                    %>
                     <div id="titulo">
                         <h6 align="center">Exames Psicotécnicos</h6>
                     </div>
-                        
+
                     <div style="margin-top: 10px;">
-                    <a href="scripts/gerarRelatorioExamePsicotecnico.jsp?data=<%=dia%>/<%=(Imes+1)%>/<%=ano%>" class="waves-effect waves-light btn-large" id="btnMed"><i class="material-icons left">content_paste</i>Gerar Relatório de Exames Médicos</a>
+                        <a href="scripts/gerarRelatorioExamePsicotecnico.jsp?data=<%=dia%>/<%=(Imes + 1)%>/<%=ano%>" class="waves-effect waves-light btn-large" id="btnMed"><i class="material-icons left">content_paste</i>Gerar Relatório de Exames Médicos</a>
                     </div>
-                    
+
                     <%
                         }
                     %>
                     <%
                         if (!ets.isEmpty()) {
-                            %>
+                            int ano = ets.get(0).getDataExame().getYear() + 1900;
+                    %>
                     <div id="titulo">
                         <h6 align="center">Exames Teóricos</h6>
                     </div>
-                    
+
                     <div style="margin-top: 10px;">
-                    <a href="scripts/gerarRelatorioExameTeorico.jsp?data=<%=dia%>/<%=(Imes+1)%>/<%=ano%>" class="waves-effect waves-light btn-large" id="btnMed"><i class="material-icons left">content_paste</i>Gerar Relatório de Exames Médicos</a>
+                        <a href="scripts/gerarRelatorioExameTeorico.jsp?data=<%=dia%>/<%=(Imes + 1)%>/<%=ano%>" class="waves-effect waves-light btn-large" id="btnMed"><i class="material-icons left">content_paste</i>Gerar Relatório de Exames Médicos</a>
                     </div>
-                    
+
                     <%
                         }
                     %>
                     <%
                         if (!eps.isEmpty()) {
-                            %>
+                            int ano = eps.get(0).getDataExame().getYear() + 1900;
+                    %>
+
+                    <%
+                        ControleInstrutor ci = new ControleInstrutor();
+                        int dias = Integer.parseInt(dia);
+                        List<Instrutor> is = ci.buscarInstrutorExameDia(dias, Imes + 1, ano);
+
+
+                    %>
+
+                    <h6>Gerar Relatório de Exames do Instrutor</h6>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <select name="instrutor">
+                                <option value="" disabled selected>Instrutor</option>
+                                <%                                    for (Instrutor i : is) {
+                                        if (i.isVisivel()) {
+                                %>
+
+                                <option value="a<%=i.getIdPessoa()%>"><%=i.getNomeCompleto()%></option>
+
+                                <%
+                                        }
+                                    }
+                                %>  
+                            </select>
+                            <label>Materialize Select</label>
+                        </div>
+                    </div>
+
+                    <div></div>
+
+
                     <div style="margin-top: 10px;">
-                    <a href="scripts/gerarRelatorioExamePratico.jsp?data=<%=dia%>/<%=(Imes+1)%>/<%=ano%>" class="waves-effect waves-light btn-large" id="btnMed"><i class="material-icons left">content_paste</i>Gerar Relatório de Exames Médicos</a>
+                        <a href="scripts/gerarRelatorioExamePraticoInstrutor.jsp?data=<%=dia%>/<%=(Imes + 1)%>/<%=ano%>" class="waves-effect waves-light btn-large" id="btnMed"><i class="material-icons left">content_paste</i>Gerar Relatório de Exames Práticos</a>
+                    </div>
+
+                    <h5>OU</h5>
+
+                    <h6>Gerar Relatório de Todos os Exames</h6>
+
+                    <div style="margin-top: 10px;">
+                        <a href="scripts/gerarRelatorioExamePraticoTodo.jsp?data=<%=dia%>/<%=(Imes + 1)%>/<%=ano%>" class="waves-effect waves-light btn-large" id="btnMed"><i class="material-icons left">content_paste</i>Gerar Relatório de Exames Práticos</a>
                     </div>
                     <%
                         }
@@ -207,13 +252,18 @@
             <jsp:include page="rodape.jsp" flush="true" />
         </footer>
     </body>
-    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
-    
+
     <script>
         $(document).ready(function () {
             $('.tooltipped').tooltip();
         });
+
+        $(document).ready(function () {
+            $('select').formSelect();
+        });
+
     </script>
-    
+
 </html>

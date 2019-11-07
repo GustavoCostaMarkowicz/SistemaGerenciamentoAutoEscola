@@ -114,8 +114,8 @@
         .cabecalhoCal {
             display: inline-block;
         }
-        
-       
+
+
 
     </style>
 
@@ -166,54 +166,68 @@
                             </div>
 
                             <div class="row">
-                                <div class="input-field col s6">
+                                <div class="input-field col s4">
                                     <i id="veiculo" class="material-icons prefix">directions_car</i>
                                     <select id="reteste" name="instrutor">
                                         <%
-                                     
-                                            
-                                            for(Instrutor ins: instrutores){
+
+                                            for (Instrutor ins : instrutores) {
                                         %>
-                                        <option value="<%=ins.getNomeCompleto() %>"><%=ins.getNomeCompleto() %></option>
-                                       
+                                        <option value="<%=ins.getIdPessoa()%>"><%=ins.getNomeCompleto()%></option>
+
 
                                     </select>
                                     <label>Instrutor</label>
                                     <span class="helper-text" data-error="Campo obrigatório!" data-success="Ok!"></span>
 
                                 </div>
-                                        
+
                                 <%
-                                }
+                                    }
                                 %>
-                                 <div class="row">
-                                
-                                 
-                                <div class="input-field col s6 ">
-                                   <i id="veiculo" class="material-icons prefix">directions_car</i>
-                                    <select id="reteste" name="veiculo">
-                                        
-                                        <%
-                                         
-                                            
-                                            for(Veiculo vei: veiculos){
-                                        %>
-                                        <option value="<%=vei.getPlaca() %>"><%=vei.getPlaca() %></option>
-                                       
+                               
 
-                                    </select>
-                                   
-                                    <label>Instrutor</label>
-                                    <span class="helper-text" data-error="Campo obrigatório!" data-success="Ok!"></span>
-                                       <%
-                                }
-                                %>
+
+                                    <div class="input-field col s4 ">
+                                        <i id="veiculo" class="material-icons prefix">directions_car</i>
+                                        <select id="reteste" name="veiculo">
+
+                                            <%
+                                                for (Veiculo vei : veiculos) {
+                                            %>
+                                            <option value="<%=vei.getPlaca()%>"><%=vei.getPlaca()%></option>
+
+
+                                        </select>
+
+                                        <label>Instrutor</label>
+                                        <span class="helper-text" data-error="Campo obrigatório!" data-success="Ok!"></span>
+                                        <%
+                                            }
+                                        %>
+                                    </div>
+
+                                
+                                <div class="row">
+                                    <div class="input-field col s3">
+                                        <i class="material-icons prefix">invert_colors</i>
+                                        <select id="categoria" name="categoria">
+
+                                            <option value="A">A</option>
+                                            <option value="B">B</option>
+                                            <option value="C">C</option>
+                                            <option value="D">D</option>
+                                            <option value="E">E</option>
+
+                                        </select>
+                                        <label>Categoria</label>
+                                        <span class="helper-text" data-error="Campo obrigatório!" data-success="Ok!"></span>
+
+                                    </div> 
                                 </div>
-                                        
-                               </div>
                             </div>
 
-                            <div>
+                            <div class="row">
                                 <div class="input-field col s4">
                                     <i class="material-icons prefix">invert_colors</i>
                                     <select id="reteste" name="reteste">

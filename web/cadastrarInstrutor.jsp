@@ -85,7 +85,7 @@
                                         <option value="Exame De Vista">Instrutor Prático</option>
 
                                     </select>
-                                    <label>Tipo do Exame Médico</label>
+                                    <label>Tipo de Instrução</label>
                                     <span class="helper-text" data-error="Campo obrigatório!" data-success="Ok!"></span>
 
                             </div>

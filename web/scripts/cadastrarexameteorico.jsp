@@ -45,8 +45,8 @@
     int codInstrutor = Integer.parseInt(scodInstrutor);
     Instrutor i = ci.buscarInstrutorPorId(codInstrutor);
 
-    int maximoAlunos = alunos.size();
-    ExameTeorico et = new ExameTeorico(servico, localAplicacao, i, 0, dataExame, horarioExame, maximoAlunos, reteste, alunos);
+  
+    ExameTeorico et = new ExameTeorico(servico, localAplicacao, i, 0, dataExame, horarioExame, 1, reteste, alunos);
 
     ControleExameTeorico cep = new ControleExameTeorico();
     cep.inserirExameTeorico(et);

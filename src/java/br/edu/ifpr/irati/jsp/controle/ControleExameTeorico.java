@@ -6,6 +6,7 @@ import br.edu.ifpr.irati.jsp.dao.GenericDAO;
 import br.edu.ifpr.irati.jsp.modelo.Aluno;
 import br.edu.ifpr.irati.jsp.modelo.ExameTeorico;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ControleExameTeorico {
@@ -72,6 +73,29 @@ public class ControleExameTeorico {
         }
         
         return ems;
+        
+    }
+     
+     public List<ExameTeorico> buscarExamePorData(Date dataExame){
+            
+          
+            
+            ControleExameTeorico cet = new ControleExameTeorico();
+            List<ExameTeorico> tems = cet.buscarTodosExameTeoricos();
+            List<ExameTeorico> ems = new ArrayList();
+           
+            int ano = dataExame.getYear();
+          
+            
+            
+            for (ExameTeorico e : tems) {
+                
+            
+                if (e.getDataExame().getDate() == dataExame.getDate() & e.getDataExame().getMonth() == dataExame.getMonth() & e.getDataExame().getYear() == ano) {
+                    ems.add(e);
+                }
+            }
+            return ems;
         
     }
     

@@ -24,6 +24,7 @@
     int idPessoa = Integer.parseInt(sIdPessoa);
     int idUsuario = Integer.parseInt(sIdUsuario);
     double valorPago = Double.parseDouble(sValorPago.replace(",", "."));
+    double valorPagoRecibo = valorPago;
 
     ControleUsuario cu = new ControleUsuario();
     Usuario u = cu.buscarUsuarioPorId(idUsuario);
@@ -75,5 +76,5 @@
         }
     }
 
-    response.sendRedirect("../mostrarConta.jsp?idPessoa=" + sIdPessoa + "&valorPago=" + valorPago);
+    response.sendRedirect("../mostrarConta.jsp?idPessoa=" + sIdPessoa + "&valorPago=" + valorPagoRecibo);
 %>

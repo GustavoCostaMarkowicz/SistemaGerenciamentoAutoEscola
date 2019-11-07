@@ -57,6 +57,31 @@ public class ControleExamePratico {
         
     }
     
+    public List<ExamePratico> buscarExamesPraticosPorData(Date data) throws dataIncorretaException{
+    
+             
+             Dao<ExamePratico> examepraticoDAO = new GenericDAO<>(ExamePratico.class);
+             List<ExamePratico> examepraticos = new ArrayList<>();
+             examepraticos = examepraticoDAO.buscarTodos(ExamePratico.class);
+             List<ExamePratico> epdata = new ArrayList<>();
+             
+             for (ExamePratico ep : examepraticos) {
+                
+                 
+                 if (data.getDay() == ep.getDataExame().getDay() & data.getMonth() == ep.getDataExame().getMonth() & data.getYear() == ep.getDataExame().getYear()) {
+                     epdata.add(ep);
+                 }
+                 
+             }
+             
+        
+         return epdata;
+             
+      
+         
+       
+    }
+    
      public List<ExamePratico> buscarExamePraticoPorIdAluno(int idAluno){
         
         Dao<ExamePratico> examepraticoDAO = new GenericDAO<>(ExamePratico.class);
