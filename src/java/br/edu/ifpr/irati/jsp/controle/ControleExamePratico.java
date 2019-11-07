@@ -57,38 +57,6 @@ public class ControleExamePratico {
         
     }
     
-    public List<ExamePratico> buscarExamesPraticosPorData(String sdata) throws dataIncorretaException{
-        
-         try {
-             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-             String date = sdata;
-             System.err.println(date);
-             Date data = sdf.parse(sdata);
-             
-             Dao<ExamePratico> examepraticoDAO = new GenericDAO<>(ExamePratico.class);
-             List<ExamePratico> examepraticos = new ArrayList<>();
-             examepraticos = examepraticoDAO.buscarTodos(ExamePratico.class);
-             List<ExamePratico> epdata = new ArrayList<>();
-             
-             for (ExamePratico ep : examepraticos) {
-                 Date dataex = ep.getDataExame();
-                 
-                 if (data == dataex) {
-                     epdata.add(ep);
-                 }
-                 
-             }
-             
-        
-         return epdata;
-             
-         } catch (ParseException ex) {
-             throw new dataIncorretaException("Data Inválida!");
-         }
-         
-       
-    }
-    
      public List<ExamePratico> buscarExamePraticoPorIdAluno(int idAluno){
         
         Dao<ExamePratico> examepraticoDAO = new GenericDAO<>(ExamePratico.class);

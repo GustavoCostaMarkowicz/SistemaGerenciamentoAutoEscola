@@ -111,7 +111,32 @@ public class GenericDAO<T> implements Dao<T> {
         return results;
     }
 
-    
-    
+    @Override
+    public List<T> buscarExamesPorData(String data1, String data2) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        String hql = "from exame where dataExame between '" + data1 + "' and '" + data2 + "'";
+        Query query = session.createQuery(hql);
+        List results = query.list();
+        session.getTransaction().commit();
+        session.clear();
+        session.close();
 
+        return results;
+    }
+    
+    @Override
+    public List<T> buscarResultadoExamesPorExame(int idExame) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        String hql = "from " + classePersistente.getCanonicalName() + " where exame_idExame = " + idExame;
+        Query query = session.createQuery(hql);
+        List results = query.list();
+        session.getTransaction().commit();
+        session.clear();
+        session.close();
+
+        return results;
+    }
+    
 }

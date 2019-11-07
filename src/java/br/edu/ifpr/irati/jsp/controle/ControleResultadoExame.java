@@ -57,6 +57,14 @@ public class ControleResultadoExame {
         
     }
     
+    public List<ResultadoExame> buscarResultadoExamesPorExame(int idExame){
+        
+        Dao<ResultadoExame> resultadoexameDAO = new GenericDAO<>(ResultadoExame.class);
+        List<ResultadoExame> re = resultadoexameDAO.buscarResultadoExamesPorExame(idExame);
+        return re;
+        
+    }
+    
 }
 
 

@@ -21,12 +21,11 @@ public interface Dao<T> {
     public List<T> buscarTodos(Class<T> clazz);
     
     public T buscarResultadoExamesPorAlunoExame(int idPessoa, int idExame);
+    
+    public List<T> buscarResultadoExamesPorExame(int idExame);
 
     public List<T> buscarExamesPorAluno(int idPessoa);
     
- 
-   
-    
-    
+    public List<T> buscarExamesPorData(String data1, String data2); 
     
 }

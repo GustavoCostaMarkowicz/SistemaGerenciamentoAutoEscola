@@ -19,119 +19,195 @@
         <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="  crossorigin="anonymous"></script>
     </head>
     
+    <%
+        String tipoServico = request.getParameter("serv");
+        
+        ControleServico cs = new ControleServico();
+        
+        Servico s = cs.buscarServicoPorNome(tipoServico);
+        
+        List<RegraParcelas> rps = s.getParcelas();
+    %>
+
     <style>
 
         div#titulo {
-
             background-color: lightgray;
-            padding: 15px;
+            padding: 3px;
+        }
+
+        div#titulo h5 {
             font-weight: bold;
-
-        }
-        
-    
-        
-        body {
-
-            display: flex;
-            min-height: 100vh;
-            flex-direction: column;
-
         }
 
-        main {
-            flex: 1 0 auto;
+        div#titulo h6 {
+            font-weight: bold;
         }
 
-
+        .input-field .prefix.active {
+            color: lightskyblue;
+        }
 
     </style>
-    
+
     <body>
         <header>
             <jsp:include page="cabecalho.jsp" flush="true" />
         </header>
-        
+
         <main>
-        <form  action="scripts/alterarservico.jsp" method="POST" >
-           <%
-           
-           String id = request.getParameter("idServico");
-           
-           ControleServico cs = new ControleServico();
-           
-           Servico servico = cs.buscarServicoPorNome(id);
-           
-           List<RegraParcelas> rps = servico.getParcelas();
-           
-           
-           %>
-            
-            <input type="hidden" id="valores" name="quantidade" value=""/>
-            <input type="hidden" name="idServico" value="<%=servico.getTipoServico() %>"/>
+            <form  action="scripts/alterarservico.jsp" method="POST" >
+                <div class="col s14 m12">
+                    <div class="card">
+                        <div class="card-content">
+                            
+                            <input type="hidden" id="categoriaBD" name="categoriaBD" value="<%=s.getCategoria()%>"/>
+                            <input type="hidden" id="valores" name="quantidade" value="<%=rps.size()%>"/>
+                            <input type="hidden" id="nomeS" name="nomeS" value="<%=s.getTipoServico()%>"/>
 
-            <div id="titulo">
-                <h6 align="center"> Alteração de Serviço </h6>
-            </div>
+                            <div id="titulo" class="amber">
+                                <h5 align="center">Alterar Serviço</h5>
+                            </div>
 
-            <div class="row">
-                <div class="input-field col s4">
-                    <p> Número de Opções de Parcelamento: <input type="text" id="parcelamento" value="<%=rps.size() %>"></p>
-                </div>
-                <button style="margin-top: 50px;" class="waves-effect waves-light btn" type="button" onclick="enviar();">MOSTRAR
-                </button>
-            </div>
+                            <div id="titulo">
+                                <h6 align="center">Dados do Serviço</h6>
+                            </div>
 
-            <div class="row">
+                            <div class="row">
+                                <div class="input-field col s6">
+                                    <i class="material-icons prefix">receipt</i>
+                                    <input placeholder="" disabled value="<%=s.getTipoServico()%>" id="nome" name="nome" type="text" class="validate" maxlength="60" required>
+                                    <label for="nome">Nome do serviço</label>
+                                    <span class="helper-text" data-error="Campo obrigatório!" data-success="Ok!"></span>
+                                </div>
+                                <div class="input-field col s6">
+                                    <i class="material-icons prefix">people_outline</i>
+                                    <select id="categoria" name="categoria" class="validate" required>
+                                        <option value="A">A</option>
+                                        <option value="B">B</option>
+                                        <option value="AB">AB</option>
+                                        <option value="C">C</option>
+                                        <option value="D">D</option>
+                                        <option value="E">E</option>
+                                        <option value="T">Todas</option>
+                                        <option value="TA">Todas, exceto A</option>
+                                    </select>
+                                    <label>Selecione a categoria do serviço</label>
+                                    <span class="helper-text" data-error="Campo obrigatório!" data-success="Ok!"></span>
+                                </div>
+                            </div>
+
+                            <div id="titulo">
+                                <h6 align="center">Dados do Pagamento</h6>
+                            </div>
+
+                            <div class="center row">
+                                <div class="input-field col s6">
+                                    <i class="material-icons prefix">attach_money</i>
+                                    <input placeholder="" value="<%=s.getValorVista()%>" id="valorVista" name="valorVista" type="text" class="validate" maxlength="100" required>
+                                    <label for="marca">Valor à vista</label>
+                                    <span class="helper-text" data-error="Campo obrigatório!" data-success="Ok!"></span>
+                                </div>
+                                <div class="input-field col s5">
+                                    <i class="material-icons prefix">local_parking</i>
+                                    <input required placeholder="" value="<%=rps.size()%>" id="parcelamento" name="parcelamento" type="number" maxlength="100">
+                                    <label for="parcelamento">Número de opções de parcelamento</label>
+                                </div>
+                                <div class="input-field col s1">
+                                    <a onclick="enviar();" value="" class="amber modal-trigger tooltipped btn-floating waves-effect waves-light" data-target="modal1" data-position="left" data-tooltip="preencher valores de pagamento"><i class="material-icons">send</i></a>
+                                </div>
+                            </div>
+
+                            <div id="subs">
+                                <%
+                                    for (int j = 1; j <= rps.size(); j++) {
+                                        if(j <= 9){
+                                %>
+                                <div class="center row">
+                                    <div class="input-field col s6">
+                                        <i class="material-icons prefix">filter_<%=j%></i>
+                                        <input required placeholder="" value="<%=rps.get(j-1).getParcela()%>" id="parcela<%=j%>" name="parcela<%=j%>" type="number" maxlength='100'>
+                                        <label for='parcela" + j + "'>Parcelas</label>
+                                    </div>
+                                    <div class="input-field col s6">
+                                        <i class="material-icons prefix">attach_money</i>
+                                        <input required placeholder="" value="<%=rps.get(j-1).getValorParcelado()%>" id="valor<%=j%>" name="valor<%=j%>" type="text" maxlength="100">
+                                        <label for="valor<%=j%>">Valor da parcela</label>
+                                    </div>
+                                </div>
+                                <%
+                                        } else{
+                                %>
+                                <div class="center row">
+                                    <div class="input-field col s6">
+                                        <i class="material-icons prefix">filter_9_plus</i>
+                                        <input required placeholder="" value="<%=rps.get(j-1).getParcela()%>" id="parcela<%=j%>" name="parcela<%=j%>" type="number" maxlength='100'>
+                                        <label for='parcela" + j + "'>Parcelas</label>
+                                    </div>
+                                    <div class="input-field col s6">
+                                        <i class="material-icons prefix">attach_money</i>
+                                        <input required placeholder="" value="<%=rps.get(j-1).getValorParcelado()%>" id="valor<%=j%>" name="valor<%=j%>" type="text" maxlength="100">
+                                        <label for="valor<%=j%>">Valor da parcela</label>
+                                    </div>
+                                </div>
+                                <%
+                                        }
+                                    }
+                                %>
+                            </div>
+
+                            <div class="center input-field col s12">
+                                <button class="blue waves-effect waves-light btn col s6" type="submit">Salvar Alterações
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>       
                 
-                <div class="input-field col s6">
-                    <p> Nome do Serviço: <input type="text" name="nome" value="<%=servico.getTipoServico() %>"></p>
-                </div>
-                
-                <div class="input-field col s6">
-                    <p> Valor à Vista: <input type="text" name="valorVista" value="<%=servico.getValorVista() %>"></p>
-                </div>
-                
-            </div>
-            
-        
-                
-                <div id="subs">
-                </div>
-           
-
-            <div class="center input-field col s12">
-                <button class="waves-effect waves-light btn" type="submit">SALVAR
-                </button>
-            </div>
-
-        </form>
+            </form>
         </main>
         <footer>
             <jsp:include page="rodape.jsp" flush="true" />
         </footer>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
         
         <script>
-            
-            function enviar(){
-                
-                
+
+            function enviar() {
+
+
                 var i = document.getElementById("parcelamento").value;
                 var texto = "";
-                
-                for(var j = 0; j < i; j++){
-                    
-                    texto += "<div class='row'><div class='input-field col s3'><p> Parcela "+j+": <input type='number' name='parcela"+j+"'></p></div><div class='input-field col s6'><p> Valor "+j+": <input type='text' name='valor"+j+"'></p></div></div>";
-                    
+
+                for (var j = 1; j <= i; j++) {
+
+                    if (j <= 9) {
+                        texto += "<div class='center row'><div class='input-field col s6'><i class='material-icons prefix'>filter_" + j + "</i><input required placeholder='' id='parcela" + j + "' name='parcela" + j + "' type='number' maxlength='100'><label for='parcela" + j + "'>Parcelas</label></div><div class='input-field col s6'><i class='material-icons prefix'>attach_money</i><input required placeholder='' id='valor" + j + "' name='valor" + j + "' type='text' maxlength='100'><label for='valor" + j + "'>Valor da parcela</label></div></div>";
+                    } else {
+                        texto += "<div class='center row'><div class='input-field col s6'><i class='material-icons prefix'>filter_9_plus</i><input required placeholder='' id='parcela" + j + "' name='parcela" + j + "' type='number' maxlength='100'><label for='parcela" + j + "'>Parcelas</label></div><div class='input-field col s6'><i class='material-icons prefix'>attach_money</i><input required placeholder='' id='valor" + j + "' name='valor" + j + "' type='text' maxlength='100'><label for='valor" + j + "'>Valor da parcela</label></div></div>";
+                    }
+
                 }
-                
+
                 document.getElementById("subs").innerHTML = texto;
                 document.getElementById("valores").value = i;
-                
+
             }
+
+
+            $(document).ready(function () {
+                $('.tooltipped').tooltip();
+                $('select').formSelect();
+            });
             
+            $(document).ready(selecionarCategoria());
             
+            function selecionarCategoria() {
+                document.getElementById("categoria").value = document.getElementById("categoriaBD").value;
+            }
+
         </script>
-        
+
     </body>
 </html>

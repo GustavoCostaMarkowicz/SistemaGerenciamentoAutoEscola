@@ -9,16 +9,21 @@
     
     ControleRegraParcela crp = new ControleRegraParcela();
     
-    String tipoServico = request.getParameter("nome");
+    String tipoServico = request.getParameter("nomeS");
     double valorVista = Double.parseDouble(request.getParameter("valorVista"));
     int qnt = Integer.parseInt(request.getParameter("quantidade"));
     String categoria = request.getParameter("categoria");
     
+    ControleServico cs = new ControleServico();
+    Servico se = cs.buscarServicoPorNome(tipoServico);
+    for (RegraParcelas rp : se.getParcelas()){
+        crp.excluirRegraParcelas(rp);
+    }
+    
     List<RegraParcelas> rps = new ArrayList();
     
-    ControleServico cs = new ControleServico();
     Servico s = new Servico(tipoServico, valorVista, categoria, rps, true);
-    cs.inserirServico(s);
+    cs.alterarServico(s);
     
     for(int i = 1; i <= qnt; i++){
         

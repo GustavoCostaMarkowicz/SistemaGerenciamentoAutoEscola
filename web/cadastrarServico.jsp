@@ -57,31 +57,28 @@
                                 <h6 align="center">Dados do Serviço</h6>
                             </div>
 
-                            <div class="center row">
+                            <div class="row">
                                 <div class="input-field col s6">
                                     <i class="material-icons prefix">receipt</i>
                                     <input placeholder="" id="nome" name="nome" type="text" class="validate" maxlength="60" required>
                                     <label for="nome">Nome do serviço</label>
                                     <span class="helper-text" data-error="Campo obrigatório!" data-success="Ok!"></span>
                                 </div>
-
-                                <div class="input-field col s3">
-                                    <i class="material-icons prefix">invert_colors</i>
-                                    <select id="categoria" name="categoria">
-
+                                <div class="input-field col s6">
+                                    <i class="material-icons prefix">people_outline</i>
+                                    <select id="categoria" name="categoria" class="validate" required>
+                                        <option value="" disabled selected>Categorias</option>
                                         <option value="A">A</option>
                                         <option value="B">B</option>
                                         <option value="AB">AB</option>
                                         <option value="C">C</option>
                                         <option value="D">D</option>
                                         <option value="E">E</option>
-                                        <option value="TodosA">Para Todas as Categorias, exceto A</option>
-                                        <option value="Todos">Para Todas as Categorias</option>
-
+                                        <option value="T">Todas</option>
+                                        <option value="TA">Todas, exceto A</option>
                                     </select>
-                                    <label>Categoria</label>
+                                    <label>Selecione a categoria do serviço</label>
                                     <span class="helper-text" data-error="Campo obrigatório!" data-success="Ok!"></span>
-
                                 </div>
                             </div>
 
@@ -151,6 +148,7 @@
 
                                         $(document).ready(function () {
                                             $('.tooltipped').tooltip();
+                                            $('select').formSelect();
                                         });
 
         </script>

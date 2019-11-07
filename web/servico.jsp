@@ -45,10 +45,17 @@
                 <div class="col s14 m12">
                     <div class="card">
                         <div class="card-image">
-                            <a href="cadastrarServico.jsp" class="tooltipped btn-floating btn-large halfway-fab waves-effect waves-light green" data-position="left" data-tooltip="cadastrar um novo serviço"><i class="material-icons">add</i></a>
+                            <a href="scripts/gerarrelatorioresultadoexame.jsp" class="tooltipped btn-floating btn-large halfway-fab waves-effect waves-light green" data-position="left" data-tooltip="cadastrar um novo serviço"><i class="material-icons">add</i></a>
                         </div>
                         <div class="card-content">
                             <%                        for (Servico s : servicos) {
+                                if(s.isVisivel()){
+                                                        String categoria = s.getCategoria();
+                                                        if(categoria.equals("T")){
+                                                            categoria = "Todas";
+                                                        } else if(categoria.equals("TA")){
+                                                            categoria = "Todas, exceto A";
+                                                        }
                             %>
                             <div class="row">
                                 <div class="col s14 m12">
@@ -57,12 +64,12 @@
                                             <table >
                                                 <thead>
                                                     <tr>
-                                                        <th class="activator card-title"><%=s.getTipoServico()%><i class="tooltipped material-icons right" data-position="left" data-tooltip="abrir informações de parcelas">more_vert</i></th>
+                                                        <th class="activator card-title"><%=s.getTipoServico()%> | Categoria(s) - <%=categoria%><i class="tooltipped material-icons right" data-position="left" data-tooltip="abrir informações de parcelas">more_vert</i></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr>
-                                                        <td><%="| Valor à vista R$" + s.getValorVista()%></td>
+                                                        <td>| Valor à vista R$<%=s.getValorVista()%></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -71,12 +78,21 @@
                                             <table >
                                                 <thead>
                                                     <tr>
-                                                        <%int i = 1;
+                                                        <%
+                                                            int i = 1;
                                                             for (RegraParcelas rp : s.getParcelas()) {
                                                         %>
                                                         <th>Opção <%=i%></th>
-                                                        <%i++;
-                                                            }%>
+                                                            <%
+                                                                i++;
+                                                                }
+                                                                while (i < 8) {
+                                                            %>
+                                                        <th>-----------</th>
+                                                            <%
+                                                                i++;
+                                                                }
+                                                            %>
                                                         <th></th>
                                                         <th></th>
                                                         <th class="card-title grey-text text-darken-4"><i class="material-icons right">close</i></th>
@@ -84,9 +100,19 @@
                                                 </thead>
                                                 <tbody>
                                                     <tr>
-                                                        <%for (RegraParcelas rp : s.getParcelas()) {%>
+                                                        <%i = 1;
+                                                            for (RegraParcelas rp : s.getParcelas()) {%>
                                                         <td><%=rp.getParcela()%>X de R$<%=rp.getValorParcelado()%></td>
-                                                        <%}%>
+                                                        <%
+                                                            i++;
+                                                            }
+                                                        while (i < 8) {
+                                                        %>
+                                                        <td>-----------</td>
+                                                            <%
+                                                                i++;
+                                                                }
+                                                            %>
                                                         <td><a href="alterarServico.jsp?serv=<%=s.getTipoServico()%>" value="Alterar" class="tooltipped activator btn-floating waves-effect waves-light blue" data-position="left" data-tooltip="Alterar dados do serviço"><i class="material-icons">find_replace</i></a></td>
                                                         <td><a href="scripts/excluirservico.jsp?serv=<%=s.getTipoServico()%>" value="Excluir" class="tooltipped btn-floating waves-effect waves-light black" data-position="left" data-tooltip="Excluir serviço"><i class="material-icons">delete_sweep</i></a></td>
                                                         <td></td>
@@ -98,6 +124,7 @@
                                 </div>
                             </div>
                             <%
+                                }
                                 }
                             %>
                         </div>
