@@ -132,6 +132,6 @@
         }
     }
 
-    response.sendRedirect("../mostrarConta.jsp?idPessoa=" + sid);
+    response.sendRedirect("../mostrarConta.jsp?idPessoa=" + sid + "&valorPago=" + valorPago);
 
 %>

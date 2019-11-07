@@ -4,10 +4,17 @@ import br.edu.ifpr.irati.jsp.controle.ControleAluno;
 import br.edu.ifpr.irati.jsp.controle.ControleExameMedico;
 import br.edu.ifpr.irati.jsp.controle.ControleExamePratico;
 import br.edu.ifpr.irati.jsp.controle.ControleExamePsicotecnico;
+import br.edu.ifpr.irati.jsp.controle.ControleExameTeorico;
+import br.edu.ifpr.irati.jsp.controle.ControleRegistro;
+import br.edu.ifpr.irati.jsp.exception.dataIncorretaException;
 import br.edu.ifpr.irati.jsp.modelo.Aluno;
+import br.edu.ifpr.irati.jsp.modelo.Conta;
 import br.edu.ifpr.irati.jsp.modelo.ExameMedico;
+import br.edu.ifpr.irati.jsp.modelo.ExamePratico;
 import br.edu.ifpr.irati.jsp.modelo.ExamePsicotecnico;
+import br.edu.ifpr.irati.jsp.modelo.ExameTeorico;
 import br.edu.ifpr.irati.jsp.modelo.Registro;
+import br.edu.ifpr.irati.jsp.modelo.Servico;
 import br.edu.ifpr.irati.jsp.util.GerarNumeroExtenso;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
@@ -439,13 +446,237 @@ public class gerarPdf extends HttpServlet {
 
     }
 
-    public void gerarPdfRecibo(HttpServletRequest request, HttpServletResponse response, Registro r)
+    public void gerarPdfExameTeorico(HttpServletRequest request, HttpServletResponse response, String sData)
             throws ServletException, IOException, ParseException {
 
         response.setContentType("application/pdf");
         try {
+
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm");
+            Date data = sdf.parse(sData);
+
+            ControleExameTeorico cet = new ControleExameTeorico();
+            List<ExameTeorico> ets = cet.buscarExamePorData(data);
+
+            int flag = 0;
+            int i = 0;
+            int j = 0;
+            int idExa[] = new int[ets.size()];
+            while (i <= ets.size() - 1) {
+                Date dataMenor = sdf2.parse("23:59");
+                for (ExameTeorico ep : ets) {
+
+                    if (dataMenor.after(ep.getHorarioExame())) {
+                        while (j <= idExa.length - 1) {
+                            if (idExa[j] == ep.getIdExame()) {
+                                flag++;
+                            }
+                            j++;
+                        }
+
+                        if (flag == 0) {
+                            dataMenor = ep.getHorarioExame();
+                            idExa[i] = ep.getIdExame();
+                        }
+
+                    }
+                    j = 0;
+                    flag = 0;
+
+                }
+                i++;
+
+            }
+
+            Document document = new Document();
+
+            OutputStream outs = response.getOutputStream();
+            PdfWriter.getInstance(document, outs);
+
+            document.open();
+
+            PdfPTable tabela = new PdfPTable(new float[]{2.5f, 5f, 5f, 6f, 5f});
+
+            PdfPCell cabecalho = new PdfPCell(new Paragraph("EXAMES PSICOLÓGICOS MARCADOS PARA O DIA: " + sdf.format(data)));
+
+            cabecalho.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cabecalho.setBorder(PdfPCell.BOX);
+            cabecalho.setBackgroundColor(new BaseColor(255, 191, 0));
+            cabecalho.setColspan(7);
+            tabela.setWidthPercentage(96);
+            tabela.addCell(cabecalho);
+
+            PdfPCell celulaHorario = new PdfPCell(new Phrase("Horário"));
+            celulaHorario.setHorizontalAlignment(Element.ALIGN_CENTER);
+            celulaHorario.setBackgroundColor(new BaseColor(245, 222, 179));
+            PdfPCell celulaMed = new PdfPCell(new Phrase("Local de Aplicação"));
+            celulaMed.setHorizontalAlignment(Element.ALIGN_CENTER);
+            celulaMed.setBackgroundColor(new BaseColor(245, 222, 179));
+            PdfPCell celulaClin = new PdfPCell(new Phrase("Instrutor/Aplicador"));
+            celulaClin.setHorizontalAlignment(Element.ALIGN_CENTER);
+            celulaClin.setBackgroundColor(new BaseColor(245, 222, 179));
+            PdfPCell celulaAluno = new PdfPCell(new Phrase("Aluno"));
+            celulaAluno.setHorizontalAlignment(Element.ALIGN_CENTER);
+            celulaAluno.setBackgroundColor(new BaseColor(245, 222, 179));
+
+            tabela.addCell(celulaHorario);
+            tabela.addCell(celulaMed);
+            tabela.addCell(celulaClin);
+            tabela.addCell(celulaAluno);
+
+            for (int a = 0; a < idExa.length; a++) {
+
+                ExameTeorico et = cet.buscarExameTeoricosPorId(idExa[a]);
+
+                PdfPCell ca = new PdfPCell(new Phrase(sdf2.format(et.getHorarioExame())));
+                ca.setHorizontalAlignment(Element.ALIGN_CENTER);
+                PdfPCell cb = new PdfPCell(new Phrase(et.getLocalAplicacao()));
+                cb.setHorizontalAlignment(Element.ALIGN_CENTER);
+                PdfPCell cc = new PdfPCell(new Phrase(et.getInstrutor().getNomeCompleto()));
+                cc.setHorizontalAlignment(Element.ALIGN_CENTER);
+                PdfPCell cd = new PdfPCell(new Phrase(et.getAlunos().get(0).getNomeCompleto()));
+                cd.setHorizontalAlignment(Element.ALIGN_CENTER);
+
+                tabela.addCell(ca);
+                tabela.addCell(cb);
+                tabela.addCell(cc);
+                tabela.addCell(cd);
+
+            }
+
+            document.add(tabela);
+            document.close();
+
+        } catch (DocumentException de) {
+            throw new IOException(de.getMessage());
+        }
+
+    }
+    //FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+    public void gerarPdfExamePratico(HttpServletRequest request, HttpServletResponse response, String sData)
+            throws ServletException, IOException, ParseException, dataIncorretaException {
+
+        response.setContentType("application/pdf");
+        try {
             
+             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm");
+            Date data = sdf.parse(sData);
+
+            ControleExamePratico cep = new ControleExamePratico();
+            List<ExamePratico> ets = cep.buscarExamesPraticosPorData(data);
+            System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"+ets.size());
+
+            int flag = 0;
+            int i = 0;
+            int j = 0;
+            int idExa[] = new int[ets.size()];
+            while (i <= ets.size() - 1) {
+                Date dataMenor = sdf2.parse("23:59");
+                for (ExamePratico ep : ets) {
+
+                    if (dataMenor.after(ep.getHorarioExame())) {
+                        while (j <= idExa.length - 1) {
+                            if (idExa[j] == ep.getIdExame()) {
+                                flag++;
+                            }
+                            j++;
+                        }
+
+                        if (flag == 0) {
+                            dataMenor = ep.getHorarioExame();
+                            idExa[i] = ep.getIdExame();
+                        }
+
+                    }
+                    j = 0;
+                    flag = 0;
+
+                }
+                i++;
+
+            }
             
+            Document document = new Document();
+
+            OutputStream outs = response.getOutputStream();
+            PdfWriter.getInstance(document, outs);
+
+            document.open();
+
+            PdfPTable tabela = new PdfPTable(new float[]{2.5f, 5f, 5f, 5f, 5f});
+
+            PdfPCell cabecalho = new PdfPCell(new Paragraph("EXAMES PRÁTICOS MARCADOS PARA O DIA: "));
+
+            cabecalho.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cabecalho.setBorder(PdfPCell.BOX);
+            cabecalho.setBackgroundColor(new BaseColor(255, 191, 0));
+            cabecalho.setColspan(7);
+            tabela.setWidthPercentage(96);
+            tabela.addCell(cabecalho);
+
+            PdfPCell celulaHorario = new PdfPCell(new Phrase("Horário"));
+            celulaHorario.setHorizontalAlignment(Element.ALIGN_CENTER);
+            celulaHorario.setBackgroundColor(new BaseColor(245, 222, 179));
+            PdfPCell celulaMed = new PdfPCell(new Phrase("Local de Aplicação"));
+            celulaMed.setHorizontalAlignment(Element.ALIGN_CENTER);
+            celulaMed.setBackgroundColor(new BaseColor(245, 222, 179));
+            PdfPCell celulaClin = new PdfPCell(new Phrase("Instrutor/Aplicador"));
+            celulaClin.setHorizontalAlignment(Element.ALIGN_CENTER);
+            celulaClin.setBackgroundColor(new BaseColor(245, 222, 179));
+            PdfPCell celulaAluno = new PdfPCell(new Phrase("Aluno"));
+            celulaAluno.setHorizontalAlignment(Element.ALIGN_CENTER);
+            celulaAluno.setBackgroundColor(new BaseColor(245, 222, 179));
+            PdfPCell celulaV = new PdfPCell(new Phrase("Veículo"));
+            celulaV.setHorizontalAlignment(Element.ALIGN_CENTER);
+            celulaV.setBackgroundColor(new BaseColor(245, 222, 179));
+
+            tabela.addCell(celulaHorario);
+            tabela.addCell(celulaMed);
+            tabela.addCell(celulaClin);
+            tabela.addCell(celulaAluno);
+            tabela.addCell(celulaV);
+            
+            for(int a = 0; a < idExa.length; a++){
+                
+                ExamePratico ep = cep.buscarExamePraticosPorId(idExa[a]);
+                
+                PdfPCell ca = new PdfPCell(new Phrase(sdf2.format(ep.getHorarioExame())));
+                ca.setHorizontalAlignment(Element.ALIGN_CENTER);
+                PdfPCell cb = new PdfPCell(new Phrase(ep.getCategoria()));
+                cb.setHorizontalAlignment(Element.ALIGN_CENTER);
+                PdfPCell cc = new PdfPCell(new Phrase(ep.getInstrutor().getNomeCompleto()));
+                cc.setHorizontalAlignment(Element.ALIGN_CENTER);
+                PdfPCell cd = new PdfPCell(new Phrase(ep.getAlunos().get(0).getNomeCompleto()));
+                cd.setHorizontalAlignment(Element.ALIGN_CENTER);
+                PdfPCell ce = new PdfPCell(new Phrase(ep.getVeiculo().getPlaca()));
+                cd.setHorizontalAlignment(Element.ALIGN_CENTER);
+                
+                tabela.addCell(ca);
+                tabela.addCell(cb);
+                tabela.addCell(cc);
+                tabela.addCell(cd);
+                tabela.addCell(ce);
+                
+            }
+             
+            document.add(tabela);
+            
+            document.close();
+
+        } catch (DocumentException de) {
+            throw new IOException(de.getMessage());
+        }
+
+    }
+
+    public void gerarPdfRecibo(HttpServletRequest request, HttpServletResponse response, Conta c, double valorPago)
+            throws ServletException, IOException, ParseException {
+
+        response.setContentType("application/pdf");
+        try {
+
             Document document = new Document();
 
             OutputStream outs = response.getOutputStream();
@@ -455,12 +686,11 @@ public class gerarPdf extends HttpServlet {
             Font fonte = FontFactory.getFont(FontFactory.HELVETICA, Font.DEFAULTSIZE, Font.BOLD, new BaseColor(255, 165, 0));
 
             PdfPTable tabela = new PdfPTable(new float[]{2.5f, 5f});
-            
-            
+
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             PdfPCell cabecalho = new PdfPCell(new Paragraph("AUTOESCOLA BELL'S", fonte));
             PdfPCell cabecalho1 = new PdfPCell(new Paragraph("Rua 19 de Dezembro, 246 - Fone: 3423-1515"));
-            PdfPCell cabecalho2 = new PdfPCell(new Paragraph("Recebido de: " + r.getConta().getAluno().getNomeCompleto()));
-            
+            PdfPCell cabecalho2 = new PdfPCell(new Paragraph("Recebido de: " + c.getAluno().getNomeCompleto()));
 
             cabecalho.setHorizontalAlignment(Element.ALIGN_CENTER);
             cabecalho.setBorder(PdfPCell.BOX);
@@ -476,61 +706,57 @@ public class gerarPdf extends HttpServlet {
             tabela.addCell(cabecalho);
             tabela.addCell(cabecalho1);
             tabela.addCell(cabecalho2);
-            
+
             DecimalFormat formato = new DecimalFormat("#.##");
-            
-            double teste = r.getConta().getValorPago();
-            double dDecimal = Double.parseDouble(formato.format(teste%1).replace(",", "."));
-            int decimal = (int) (100*dDecimal);
-            int inteiro = (int) (teste - dDecimal);
-            
+
+            double dDecimal = Double.parseDouble(formato.format(valorPago % 1).replace(",", "."));
+            int decimal = (int) (100 * dDecimal);
+            int inteiro = (int) (valorPago - dDecimal);
+
             GerarNumeroExtenso gne = new GerarNumeroExtenso(inteiro);
             GerarNumeroExtenso gne2 = new GerarNumeroExtenso(decimal);
-            
-            PdfPCell celulaDouble = new PdfPCell(new Phrase("Valor: "));
+
+            PdfPCell celulaDouble = new PdfPCell(new Phrase("Valor: R$" + valorPago));
             celulaDouble.setHorizontalAlignment(Element.ALIGN_CENTER);
-         
-            PdfPCell celulaVal = new PdfPCell(new Phrase("Quantia de: " + gne + " reais e " + gne2 + " centavos"));
+
+            PdfPCell celulaVal = new PdfPCell();
             celulaVal.setHorizontalAlignment(Element.ALIGN_CENTER);
 
-            
+            if (decimal == 0) {
+                celulaVal = new PdfPCell(new Phrase("Quantia de: " + gne + " reais"));
+            } else {
+                celulaVal = new PdfPCell(new Phrase("Quantia de: " + gne + " reais e " + gne2 + " centavos"));
+                celulaVal.setHorizontalAlignment(Element.ALIGN_CENTER);
+            }
+
             tabela.addCell(celulaDouble);
             tabela.addCell(celulaVal);
-            
 
-            PdfPCell ca = new PdfPCell(new Phrase("Referente ao Pagamento: 1ª referente à Primeira Habilitação"));
+            List<Servico> ss = c.getServicos();
+            PdfPCell ca = new PdfPCell(new Phrase("Referente ao Pagamento: " + ss.get(ss.size() - 1).getTipoServico()));
             ca.setHorizontalAlignment(Element.ALIGN_CENTER);
-       
+
             ca.setHorizontalAlignment(Element.ALIGN_CENTER);
             ca.setBorder(PdfPCell.BOX);
             ca.setColspan(7);
             tabela.addCell(ca);
-            
-            PdfPCell celulaData = new PdfPCell(new Phrase("Data: 01/11/2019"));
-            
-         
-            PdfPCell celulaAss = new PdfPCell(new Phrase("Assinatura:                       "));
-          
 
-            
+            PdfPCell celulaData = new PdfPCell(new Phrase("Data:" + sdf.format(new Date())));
+
+            PdfPCell celulaAss = new PdfPCell(new Phrase("Assinatura:                       "));
+
             tabela.addCell(celulaData);
             tabela.addCell(celulaAss);
-            
-            
 
             document.add(tabela);
             document.close();
-                
 
         } catch (DocumentException de) {
             throw new IOException(de.getMessage());
         }
-        
-        
+
     }
-    
-   
-    
+
     public void gerarPdfRegistroConta(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ParseException {
 
@@ -543,14 +769,17 @@ public class gerarPdf extends HttpServlet {
             PdfWriter.getInstance(document, outs);
 
             document.open();
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat sdf1 = new SimpleDateFormat("HH:mm");
             Font fonte = FontFactory.getFont(FontFactory.HELVETICA, Font.DEFAULTSIZE, Font.BOLD, new BaseColor(255, 165, 0));
 
             PdfPTable tabela = new PdfPTable(new float[]{2.5f, 5f, 5f, 5f});
 
             PdfPCell cabecalho = new PdfPCell(new Paragraph("AUTOESCOLA BELL'S", fonte));
-            PdfPCell cabecalho1 = new PdfPCell(new Paragraph("Relatório de Registros do Dia: 01/11/2019", fonte));
-         
-            
+            PdfPCell cabecalho1 = new PdfPCell(new Paragraph("Relatório de Registros do Dia: " + sdf.format(new Date()), fonte));
+
+            ControleRegistro cr = new ControleRegistro();
+            List<Registro> rs = cr.buscarRegistroPorData(new Date());
 
             cabecalho.setHorizontalAlignment(Element.ALIGN_CENTER);
             cabecalho.setBorder(PdfPCell.BOX);
@@ -559,87 +788,51 @@ public class gerarPdf extends HttpServlet {
             cabecalho1.setBorder(PdfPCell.BOX);
             cabecalho1.setColspan(7);
             tabela.setWidthPercentage(96);
-           
+
             tabela.addCell(cabecalho);
             tabela.addCell(cabecalho1);
-          
-            PdfPCell celulaDia = new PdfPCell(new Phrase("DATA"));
+
+            PdfPCell celulaDia = new PdfPCell(new Phrase("HORÁRIO"));
             celulaDia.setHorizontalAlignment(Element.ALIGN_CENTER);
-         
+
             PdfPCell celulaReg = new PdfPCell(new Phrase("REGISTRO"));
             celulaReg.setHorizontalAlignment(Element.ALIGN_CENTER);
-            
+
             PdfPCell celulaUsu0 = new PdfPCell(new Phrase("USUÁRIO"));
             celulaUsu0.setHorizontalAlignment(Element.ALIGN_CENTER);
-            
+
             PdfPCell celulaAluno0 = new PdfPCell(new Phrase("CLIENTE"));
             celulaAluno0.setHorizontalAlignment(Element.ALIGN_CENTER);
-            
-            PdfPCell celulaData = new PdfPCell(new Phrase("01/11/2019"));
-           
-         
-            PdfPCell celulaValor = new PdfPCell(new Phrase("Valor: R$700,00"));
-         
-            
-            PdfPCell celulaUsu = new PdfPCell(new Phrase("diretor1"));
-        
-            
-            PdfPCell celulaAluno = new PdfPCell(new Phrase("Nome Aluno 2"));
-           
-            
-            PdfPCell celulaData1 = new PdfPCell(new Phrase("01/11/2019"));
-           
-         
-            PdfPCell celulaValor1 = new PdfPCell(new Phrase("Valor: R$700,00"));
-          
-            
-            PdfPCell celulaUsu1 = new PdfPCell(new Phrase("diretor1"));
-          
-            
-            PdfPCell celulaAluno1 = new PdfPCell(new Phrase("Nome Aluno 2"));
-           
-            
-             PdfPCell celulaData2 = new PdfPCell(new Phrase("01/11/2019"));
-          
-         
-            PdfPCell celulaValor2 = new PdfPCell(new Phrase("Valor: R$400,00"));
-          
-            
-            PdfPCell celulaUsu2 = new PdfPCell(new Phrase("diretor1"));
-            
-            
-            PdfPCell celulaAluno2 = new PdfPCell(new Phrase("Nome Aluno"));
-            
 
+            for (Registro r : rs) {
 
-            
+                PdfPCell celulaData = new PdfPCell(new Phrase(sdf1.format(r.getHorarioRegistro())));
+
+                PdfPCell celulaValor = new PdfPCell(new Phrase(r.getTextoRegistro()));
+
+                PdfPCell celulaUsu = new PdfPCell(new Phrase(r.getUsuario().getLogin()));
+
+                PdfPCell celulaAluno = new PdfPCell(new Phrase(r.getConta().getAluno().getNomeCompleto()));
+
+                tabela.addCell(celulaData);
+                tabela.addCell(celulaValor);
+                tabela.addCell(celulaUsu);
+                tabela.addCell(celulaAluno);
+            }
+
             tabela.addCell(celulaDia);
             tabela.addCell(celulaReg);
             tabela.addCell(celulaUsu0);
             tabela.addCell(celulaAluno0);
-            tabela.addCell(celulaData);
-            tabela.addCell(celulaValor);
-            tabela.addCell(celulaUsu);
-            tabela.addCell(celulaAluno);
-            tabela.addCell(celulaData1);
-            tabela.addCell(celulaValor1);
-            tabela.addCell(celulaUsu1);
-            tabela.addCell(celulaAluno1);
-            tabela.addCell(celulaData2);
-            tabela.addCell(celulaValor2);
-            tabela.addCell(celulaUsu2);
-            tabela.addCell(celulaAluno2);
-            
 
             PdfPCell ca = new PdfPCell(new Phrase("Total de Receita Recebido no Dia: R$1800,00"));
             ca.setHorizontalAlignment(Element.ALIGN_CENTER);
-       
+
             ca.setHorizontalAlignment(Element.ALIGN_CENTER);
             ca.setBorder(PdfPCell.BOX);
             ca.setColspan(7);
-            ca.setBackgroundColor(new BaseColor(50,205,50));
-            tabela.addCell(ca);   
-            
+            ca.setBackgroundColor(new BaseColor(50, 205, 50));
+            tabela.addCell(ca);
 
             document.add(tabela);
             document.close();

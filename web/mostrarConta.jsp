@@ -227,16 +227,10 @@
                                         k = registros.size();
                                     }
                                 }
-
+                                
+                                Date dataPP = c.getMesPrimeiraParcela();
                                 int diaParcela = c.getMesPrimeiraParcela().getDate();
                                 int mesPrimeiraParcela = c.getMesPrimeiraParcela().getMonth();
-                                for (Registro r : registros) {
-                                    if (r.getTextoRegistro().contains("entrada")) {
-                                        if (r.isValido()) {
-                                            mesPrimeiraParcela -= 1;
-                                        }
-                                    }
-                                }
 
                                 String[] meses = new String[12];
                                 meses[0] = "Janeiro";
@@ -254,7 +248,7 @@
 
                                 int i = ordem;
 
-                                int anoParcela = c.getMesPrimeiraParcela().getYear() + 1900;
+                                int anoParcela = (c.getMesPrimeiraParcela().getYear() + 1900);
 
                                 if (mesPrimeiraParcela > 11) {
                                     mesPrimeiraParcela = 0;
@@ -263,20 +257,19 @@
 
                                 int controleParcela = mesPrimeiraParcela;
                                 String[] validade = new String[c.getParcelas()];
-                                Date dataAtual = new Date();
                                 double valorParcela = c.getValorInicial() / c.getParcelas();
                                 double controleValorPago = c.getValorPago();
                                 for (int k = 0; k < c.getParcelas(); k++) {
                                     if ((controleValorPago - valorParcela) >= 0) {
                                         validade[k] = "pago";
                                     } else {
-                                        if (anoParcela > (dataAtual.getYear() + 1900)) {
+                                        if (anoParcela > (dataPP.getYear() + 1900)) {
                                             validade[k] = "valido";
-                                        } else if (anoParcela == (dataAtual.getYear() + 1900)) {
-                                            if (controleParcela > dataAtual.getMonth()) {
+                                        } else if (anoParcela == (dataPP.getYear() + 1900)) {
+                                            if (controleParcela > dataPP.getMonth()) {
                                                 validade[k] = "valido";
-                                            } else if (controleParcela == dataAtual.getMonth()) {
-                                                if (diaParcela >= dataAtual.getDate()) {
+                                            } else if (controleParcela == dataPP.getMonth()) {
+                                                if (diaParcela >= dataPP.getDate()) {
                                                     validade[k] = "valido";
                                                 } else {
                                                     validade[k] = "invalido";
@@ -485,7 +478,7 @@
                 <div class="modal-content">
                     <h5>Deseja Gerar o Recibo?</h5>
                     <div align="center">
-                    <a href="scripts/gerarRelatorioExameMedico.jsp?valorPago=<%=valorPagoRecibo%>&idConta=<%=c.getAluno().getIdPessoa()%>" class="amber black-text waves-effect waves-light btn-large" id="btnRec"><i class="material-icons left">content_paste</i>Gerar Recibo</a>
+                    <a href="scripts/gerarPdfRecibo.jsp?valorPago=<%=valorPagoRecibo%>&idConta=<%=c.getAluno().getIdPessoa()%>" class="amber modal-close black-text waves-effect waves-light btn-large" id="btnRec"><i class="material-icons left">content_paste</i>Gerar Recibo</a>
                     </div>
                 </div>
                 <div class="modal-footer">
