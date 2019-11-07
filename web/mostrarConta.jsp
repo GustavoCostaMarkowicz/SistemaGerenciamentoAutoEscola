@@ -202,11 +202,13 @@
                                                     return false;">
                                     </div>
                                     <a id="botaopagamento" class="green waves-effect waves-light btn" onclick="validarValorPagamento(<%=idPessoa%>, <%=u.getIdUsuario()%>);" href="#" value="Pagamento">Realizar Pagamento</a>
+                                    <a class="amber tooltipped btn-floating waves-effect waves-light btn"><i class="black-text material-icons left">receipt</i></a>
                                 </th>
                                 <%
                                 } else if (cu.verificarTipoUsuario(u.getIdUsuario()) == "diretor") {
                                 %>
-                                <th><a id="botaopagamento" href="vincularServicoConta.jsp?idPessoa=<%=idPessoa%>" class="blue waves-effect waves-light btn">Vincular um novo serviço à conta</a></th>
+                                <th><a id="botaopagamento" href="vincularServicoConta.jsp?idPessoa=<%=idPessoa%>" class="blue waves-effect waves-light btn">Vincular um novo serviço à conta</a><a class="amber tooltipped btn-floating waves-effect waves-light btn"><i class="black-text material-icons left">receipt</i></a></th>
+                                
                                     <%
                                     } else {
                                     %>
@@ -478,7 +480,7 @@
                 <div class="modal-content">
                     <h5>Deseja Gerar o Recibo?</h5>
                     <div align="center">
-                    <a href="scripts/gerarPdfRecibo.jsp?valorPago=<%=valorPagoRecibo%>&idConta=<%=c.getAluno().getIdPessoa()%>" class="amber modal-close black-text waves-effect waves-light btn-large" id="btnRec"><i class="material-icons left">content_paste</i>Gerar Recibo</a>
+                    <a href="scripts/gerarPdfRecibo.jsp?valorPago=<%=valorPagoRecibo%>&idConta=<%=c.getAluno().getIdPessoa()%>" class="amber modal-close black-text waves-effect waves-light btn-large" id="btnRec"><i class="material-icons left">receipt</i>Gerar Recibo</a>
                     </div>
                 </div>
                 <div class="modal-footer">

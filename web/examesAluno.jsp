@@ -227,7 +227,7 @@
            </div>
            <%
            
-           if(ets != null){
+           if(!ets.isEmpty()){
 
            %>
            <table id="tabelaTeorico" name="tabelaTeorico" class="centered striped">

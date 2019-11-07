@@ -1,19 +1,25 @@
 package br.edu.ifpr.irati.jsp.itext;
 
 import br.edu.ifpr.irati.jsp.controle.ControleAluno;
+import br.edu.ifpr.irati.jsp.controle.ControleExame;
 import br.edu.ifpr.irati.jsp.controle.ControleExameMedico;
 import br.edu.ifpr.irati.jsp.controle.ControleExamePratico;
 import br.edu.ifpr.irati.jsp.controle.ControleExamePsicotecnico;
 import br.edu.ifpr.irati.jsp.controle.ControleExameTeorico;
+import br.edu.ifpr.irati.jsp.controle.ControleInstrutor;
 import br.edu.ifpr.irati.jsp.controle.ControleRegistro;
+import br.edu.ifpr.irati.jsp.controle.ControleResultadoExame;
 import br.edu.ifpr.irati.jsp.exception.dataIncorretaException;
 import br.edu.ifpr.irati.jsp.modelo.Aluno;
 import br.edu.ifpr.irati.jsp.modelo.Conta;
+import br.edu.ifpr.irati.jsp.modelo.Exame;
 import br.edu.ifpr.irati.jsp.modelo.ExameMedico;
 import br.edu.ifpr.irati.jsp.modelo.ExamePratico;
 import br.edu.ifpr.irati.jsp.modelo.ExamePsicotecnico;
 import br.edu.ifpr.irati.jsp.modelo.ExameTeorico;
+import br.edu.ifpr.irati.jsp.modelo.Instrutor;
 import br.edu.ifpr.irati.jsp.modelo.Registro;
+import br.edu.ifpr.irati.jsp.modelo.ResultadoExame;
 import br.edu.ifpr.irati.jsp.modelo.Servico;
 import br.edu.ifpr.irati.jsp.util.GerarNumeroExtenso;
 import com.itextpdf.text.BaseColor;
@@ -553,20 +559,21 @@ public class gerarPdf extends HttpServlet {
         }
 
     }
+
     //FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
     public void gerarPdfExamePratico(HttpServletRequest request, HttpServletResponse response, String sData)
             throws ServletException, IOException, ParseException, dataIncorretaException {
 
         response.setContentType("application/pdf");
         try {
-            
-             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm");
             Date data = sdf.parse(sData);
 
             ControleExamePratico cep = new ControleExamePratico();
             List<ExamePratico> ets = cep.buscarExamesPraticosPorData(data);
-            System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"+ets.size());
+            System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" + ets.size());
 
             int flag = 0;
             int i = 0;
@@ -597,7 +604,7 @@ public class gerarPdf extends HttpServlet {
                 i++;
 
             }
-            
+
             Document document = new Document();
 
             OutputStream outs = response.getOutputStream();
@@ -637,11 +644,11 @@ public class gerarPdf extends HttpServlet {
             tabela.addCell(celulaClin);
             tabela.addCell(celulaAluno);
             tabela.addCell(celulaV);
-            
-            for(int a = 0; a < idExa.length; a++){
-                
+
+            for (int a = 0; a < idExa.length; a++) {
+
                 ExamePratico ep = cep.buscarExamePraticosPorId(idExa[a]);
-                
+
                 PdfPCell ca = new PdfPCell(new Phrase(sdf2.format(ep.getHorarioExame())));
                 ca.setHorizontalAlignment(Element.ALIGN_CENTER);
                 PdfPCell cb = new PdfPCell(new Phrase(ep.getCategoria()));
@@ -652,17 +659,207 @@ public class gerarPdf extends HttpServlet {
                 cd.setHorizontalAlignment(Element.ALIGN_CENTER);
                 PdfPCell ce = new PdfPCell(new Phrase(ep.getVeiculo().getPlaca()));
                 cd.setHorizontalAlignment(Element.ALIGN_CENTER);
-                
+
                 tabela.addCell(ca);
                 tabela.addCell(cb);
                 tabela.addCell(cc);
                 tabela.addCell(cd);
                 tabela.addCell(ce);
-                
+
             }
-             
+
             document.add(tabela);
+
+            document.close();
+
+        } catch (DocumentException de) {
+            throw new IOException(de.getMessage());
+        }
+
+    }
+
+    public void gerarPdfResultadoExame(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, ParseException {
+
+        response.setContentType("application/pdf");
+        try {
+
+            Date d = new Date();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String dataFRelatorio = sdf.format(d);
+            int mes = d.getMonth();
+            int ano = d.getYear() + 1900;
+            int dia = d.getDate();
+            mes--;
+            if (mes == -1) {
+                mes = 11;
+                ano--;
+            }
+            if (mes == 0) {
+                dia = 31;
+            }
+            if (mes == 1) {
+                //Teste de ano bissexto
+                if (ano % 4 == 0 & (ano % 100 != 0 | ano % 400 == 0)) {
+                    dia = 29;
+                } else {
+                    dia = 28;
+                }
+            }
+            if (mes == 2) {
+                dia = 31;
+            }
+            if (mes == 3) {
+                dia = 30;
+            }
+            if (mes == 4) {
+                dia = 31;
+            }
+            if (mes == 5) {
+                dia = 30;
+            }
+            if (mes == 6) {
+                dia = 31;
+            }
+            if (mes == 7) {
+                dia = 31;
+            }
+            if (mes == 8) {
+                dia = 30;
+            }
+            if (mes == 9) {
+                dia = 31;
+            }
+            if (mes == 10) {
+                dia = 30;
+            }
+            if (mes == 11) {
+                dia = 31;
+            }
+            String dataIRelatorio = ano + "-" + mes + "-" + dia;
+            ControleExame ce = new ControleExame();
+            ControleExamePratico cep = new ControleExamePratico();
+            ControleResultadoExame cre = new ControleResultadoExame();
+            List<Exame> es = ce.buscarExamesPorData(dataIRelatorio, dataFRelatorio);
+            List<ResultadoExame> res = new ArrayList();
+            List<ResultadoExame> resA = new ArrayList();
+
+            for (Exame e : es) {
+                if (ce.verificarTipoExame(e.getIdExame()).equals("pratico")) {
+                    resA = cre.buscarResultadoExamesPorExame(e.getIdExame());
+                    for (ResultadoExame re : resA) {
+                        res.add(re);
+                    }
+                }
+            }
+            ControleInstrutor ci = new ControleInstrutor();
+            List<Instrutor> is = ci.buscarTodosInstrutores();
+            List<Integer> porcentagensAp = new ArrayList();
+            List<Integer> totalExames = new ArrayList();
+            List<Integer> aprovados = new ArrayList();
+            List<Integer> reprovados = new ArrayList();
+            int total = 0;
+            int aprovado = 0;
+            double dporcentagem = 0;
+            int porcentagem = 0;
+            for (Instrutor i : is) {
+                total = 0;
+                aprovado = 0;
+                porcentagem = 0;
+                for (ResultadoExame re : res) {
+                    if (i.getIdPessoa() == cep.buscarExamePraticosPorId(re.getExame().getIdExame()).getInstrutor().getIdPessoa()) {
+                        total++;
+                        if (re.getResultado().equals("Aprovado")) {
+                            aprovado++;
+                        }
+                    }
+                }
+                if (total > 0) {
+                    dporcentagem = (aprovado * 100) / total;
+                    porcentagem = (int) dporcentagem;
+                    porcentagensAp.add(porcentagem);
+                    totalExames.add(total);
+                    aprovados.add(aprovado);
+                    reprovados.add(total - aprovado);
+                } else {
+                    porcentagensAp.add(0);
+                    totalExames.add(0);
+                    aprovados.add(0);
+                    reprovados.add(0);
+                }
+            }
+
+            Document document = new Document();
+
+            OutputStream outs = response.getOutputStream();
+            PdfWriter.getInstance(document, outs);
+
+            document.open();
+
+            PdfPTable tabela = new PdfPTable(new float[]{6f, 2.5f, 2.5f, 2.5f, 3f});
+
+            PdfPCell cabecalho = new PdfPCell(new Paragraph("RESULTADO DE APROVAÇÕES E REPROVAÇÕES DO ÚLTIMO MÊS"));
+
+            cabecalho.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cabecalho.setBorder(PdfPCell.BOX);
+            cabecalho.setBackgroundColor(new BaseColor(255, 191, 0));
+            cabecalho.setColspan(7);
+            tabela.setWidthPercentage(96);
+            tabela.addCell(cabecalho);
+
+            PdfPCell celulaHorario = new PdfPCell(new Phrase("Instrutor"));
+            celulaHorario.setHorizontalAlignment(Element.ALIGN_CENTER);
+            celulaHorario.setBackgroundColor(new BaseColor(245, 222, 179));
+            PdfPCell celulaMed = new PdfPCell(new Phrase("N° de Exames Realizados"));
+            celulaMed.setHorizontalAlignment(Element.ALIGN_CENTER);
+            celulaMed.setBackgroundColor(new BaseColor(245, 222, 179));
+            PdfPCell celulaClin = new PdfPCell(new Phrase("Nº de Aprovações"));
+            celulaClin.setHorizontalAlignment(Element.ALIGN_CENTER);
+            celulaClin.setBackgroundColor(new BaseColor(245, 222, 179));
+            PdfPCell celulaTipoExMed = new PdfPCell(new Phrase("N° de Reprovações"));
+            celulaTipoExMed.setHorizontalAlignment(Element.ALIGN_CENTER);
+            celulaTipoExMed.setBackgroundColor(new BaseColor(245, 222, 179));
+            PdfPCell celulaAluno = new PdfPCell(new Phrase("Porcentagem de Aprovação"));
+            celulaAluno.setHorizontalAlignment(Element.ALIGN_CENTER);
+            celulaAluno.setBackgroundColor(new BaseColor(245, 222, 179));
+
+            tabela.addCell(celulaHorario);
+            tabela.addCell(celulaMed);
+            tabela.addCell(celulaClin);
+            tabela.addCell(celulaTipoExMed);
+            tabela.addCell(celulaAluno);
             
+            int j = 0;
+            for(Instrutor i:is){
+                
+            PdfPCell celula = new PdfPCell(new Phrase(i.getNomeCompleto()));
+            celula.setHorizontalAlignment(Element.ALIGN_CENTER);
+            PdfPCell celula1 = new PdfPCell(new Phrase(""+totalExames.get(j)));
+            celula1.setHorizontalAlignment(Element.ALIGN_CENTER);
+            PdfPCell celula2 = new PdfPCell(new Phrase(""+aprovados.get(j)));
+            celula2.setHorizontalAlignment(Element.ALIGN_CENTER);
+            PdfPCell celula3 = new PdfPCell(new Phrase(""+reprovados.get(j)));
+            celula3.setHorizontalAlignment(Element.ALIGN_CENTER);
+           
+            PdfPCell celula4 = new PdfPCell(new Phrase(porcentagensAp.get(j) + "%"));
+            celula4.setHorizontalAlignment(Element.ALIGN_CENTER);
+            if(porcentagensAp.get(j) > 70){
+                celula4.setBackgroundColor(new BaseColor(0,255,0));
+            } else {
+                celula4.setBackgroundColor(new BaseColor(255,0,0));
+            }
+            
+            tabela.addCell(celula);
+            tabela.addCell(celula1);
+            tabela.addCell(celula2);
+            tabela.addCell(celula3);
+            tabela.addCell(celula4);
+                
+            j++;
+            
+            }
+
+            document.add(tabela);
             document.close();
 
         } catch (DocumentException de) {

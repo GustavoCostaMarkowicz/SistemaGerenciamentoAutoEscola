@@ -142,13 +142,13 @@
 
                             <div class="center row">
                                 <div class="input-field col s6">
-                                    <i class="material-icons prefix">aspect_ratio</i>
+                                    <i class="material-icons prefix">person</i>
                                     <input disabled="true" value="<%=a.getNomeCompleto()%>" placeholder="" id="aluno" name="aluno" type="text" class="validate">
                                     <label for="aluno">Aluno</label>
 
                                 </div>
                                 <div class="input-field col s3">
-                                    <i class="material-icons prefix">looks_3</i>
+                                    <i class="material-icons prefix">alarm</i>
                                     <input placeholder="" id="horarioexame" class="validate" required type="text" name="horarioexame" maxlength="5" onkeydown="javascript: fMasc(this, mHorario);" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
                                                 return true;
                                             else
@@ -158,7 +158,7 @@
                                 </div>
 
                                 <div class="input-field col s3">
-                                    <i class="material-icons prefix">looks_3</i>
+                                    <i class="material-icons prefix">today</i>
                                     <input type="text" id="dataexame" name="dataexame" data-target="modal1" class="modal-trigger" placeholder=""/>
                                     <label for="dataexame">Data do Exame</label>
                                     <span class="helper-text" data-error="Campo obrigatório!" data-success="Ok!"></span>
@@ -167,14 +167,16 @@
 
                             <div class="row">
                                 <div class="input-field col s4">
-                                    <i id="veiculo" class="material-icons prefix">directions_car</i>
+                                    <i id="veiculo" class="material-icons prefix">assignment_ind</i>
                                     <select id="reteste" name="instrutor">
                                         <%
 
                                             for (Instrutor ins : instrutores) {
                                         %>
                                         <option value="<%=ins.getIdPessoa()%>"><%=ins.getNomeCompleto()%></option>
-
+<%
+                                    }
+                                %>
 
                                     </select>
                                     <label>Instrutor</label>
@@ -182,9 +184,7 @@
 
                                 </div>
 
-                                <%
-                                    }
-                                %>
+                                
                                
 
 
@@ -200,7 +200,7 @@
 
                                         </select>
 
-                                        <label>Instrutor</label>
+                                        <label>Veículo</label>
                                         <span class="helper-text" data-error="Campo obrigatório!" data-success="Ok!"></span>
                                         <%
                                             }
@@ -209,8 +209,8 @@
 
                                 
                                 <div class="row">
-                                    <div class="input-field col s3">
-                                        <i class="material-icons prefix">invert_colors</i>
+                                    <div class="input-field col s4">
+                                        <i class="material-icons prefix">assignment</i>
                                         <select id="categoria" name="categoria">
 
                                             <option value="A">A</option>
@@ -228,8 +228,8 @@
                             </div>
 
                             <div class="row">
-                                <div class="input-field col s4">
-                                    <i class="material-icons prefix">invert_colors</i>
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix">compare_arrows</i>
                                     <select id="reteste" name="reteste">
 
                                         <option value="Nao">Não</option>
